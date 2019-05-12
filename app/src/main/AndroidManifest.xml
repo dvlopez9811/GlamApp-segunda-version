@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+
 
     <application
         android:allowBackup="true"
@@ -17,17 +19,22 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ResultadoBusquedaSalonActivity"></activity>
         <activity android:name=".RegistroActivity" />
-        <activity android:name=".RegistroSalonDeBelleza" />
-        <activity
-            android:name=".LoginActivity"
-            android:theme="@style/SplashTheme">
+        <activity android:name=".RegistroSalonDeBelleza">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegistroCliente" />
+
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/SplashTheme">
+        </activity>
+        <activity android:name=".RegistroCliente">
+
+        </activity>
+
         <activity android:name=".RegistroEstilista" />
         <activity android:name=".MainActivity" />
 

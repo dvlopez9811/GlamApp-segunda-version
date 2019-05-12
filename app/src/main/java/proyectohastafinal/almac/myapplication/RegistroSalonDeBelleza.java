@@ -19,6 +19,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +46,8 @@ import proyectohastafinal.almac.myapplication.util.UtilDomi;
 public class RegistroSalonDeBelleza extends AppCompatActivity {
 
     private static final int GALLERY_CALLBACK_ID = 101;
+
+    PlaceAutocompleteFragment placeAutocompleteFragment;
 
     private File photoFile;
 
@@ -100,6 +108,20 @@ public class RegistroSalonDeBelleza extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         rtdb = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
+
+        placeAutocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+        placeAutocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                //registroSalonDeBellezaEtDireccion.setText(place.getName());
+            }
+
+            @Override
+            public void onError(Status status) {
+                Log.d("MAPS", "un error " + status);
+            }
+        });
 
         servicios = new ArrayList<>();
 
@@ -177,7 +199,6 @@ public class RegistroSalonDeBelleza extends AppCompatActivity {
         if (registroSalonDeBellezaCheckBoxPeluqueria.isChecked()) {
             servicios.add(registroSalonDeBellezaCheckBoxPeluqueria.getText().toString());
         }
-
 
     }
 

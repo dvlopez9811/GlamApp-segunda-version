@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
@@ -35,6 +36,12 @@ public class RegistroEstilista extends AppCompatActivity {
     private static final String CERO = "0";
     private static final String DOS_PUNTOS = ":";
 
+    private CheckBox registroEstilistaCheckBoxUñas;
+    private CheckBox registroEstilistaCheckBoxMasaje;
+    private CheckBox registroEstilistaCheckBoxMaquillaje;
+    private CheckBox registroEstilistaCheckBoxDepilacion;
+    private CheckBox registroEstilistaCheckBoxPeluqueria;
+
     private Spinner spinnerSalonesDeBelleza;
     private Spinner spinnerFechaIncio;
     private Spinner spinnerFechaFinal;
@@ -46,6 +53,8 @@ public class RegistroEstilista extends AppCompatActivity {
 
     public EditText etObtenerHoraInicio;
     public EditText etObtenerHoraFinal;
+
+    private ArrayList<String> servicios;
 
     FirebaseAuth auth;
     FirebaseDatabase rtdb;
@@ -90,6 +99,13 @@ public class RegistroEstilista extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         rtdb = FirebaseDatabase.getInstance();
+
+        registroEstilistaCheckBoxUñas = findViewById(R.id.registro_estilista_check_servicio_uñas);
+        registroEstilistaCheckBoxMasaje = findViewById(R.id.registro_estilista_check_servicio_masaje);
+        registroEstilistaCheckBoxMaquillaje = findViewById(R.id.registro_estilista_check_servicio_maquillaje);
+        registroEstilistaCheckBoxDepilacion = findViewById(R.id.registro_estilista_check_servicio_depilacion);
+        registroEstilistaCheckBoxPeluqueria = findViewById(R.id.registro_estilista_check_servicio_peluqueria);
+
 
         final String correoEstilista = getIntent().getExtras().getString("correo");
         final String nombreCompletoEstilista = getIntent().getExtras().getString("nombreCompleto");
@@ -185,16 +201,46 @@ public class RegistroEstilista extends AppCompatActivity {
                     }
                 });
 
+
+
                 auth.createUserWithEmailAndPassword(correoEstilista, passEstilista).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).setValue(estilista);
-                        rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child("servicio").push().setValue(auth.getCurrentUser().getUid());
+
+                        for (int i = 0; i<servicios.size(); i++ ){
+                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(servicios.get(i)).push().setValue(auth.getCurrentUser().getUid());
+                        }
+
                     }
                 });
 
             }
         });
+
+    }
+
+    public void comprobarServiciosEscogidos () {
+
+        if (registroEstilistaCheckBoxUñas.isChecked()) {
+            servicios.add(registroEstilistaCheckBoxUñas.getText().toString());
+        }
+
+        if (registroEstilistaCheckBoxMaquillaje.isChecked()) {
+            servicios.add(registroEstilistaCheckBoxMaquillaje.getText().toString());
+        }
+
+        if (registroEstilistaCheckBoxMasaje.isChecked()) {
+            servicios.add(registroEstilistaCheckBoxMasaje.getText().toString());
+        }
+
+        if (registroEstilistaCheckBoxDepilacion.isChecked()) {
+            servicios.add(registroEstilistaCheckBoxDepilacion.getText().toString());
+        }
+
+        if (registroEstilistaCheckBoxPeluqueria.isChecked()) {
+            servicios.add(registroEstilistaCheckBoxPeluqueria.getText().toString());
+        }
 
     }
 
