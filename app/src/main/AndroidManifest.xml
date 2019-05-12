@@ -15,7 +15,8 @@
         android:roundIcon="@drawable/ic_glam_150x150_borde"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResultadoBusquedaSalonActivity"></activity>
+        <activity android:name=".CatalogoActivity"></activity>
+        <activity android:name=".ResultadoBusquedaSalonActivity" />
         <activity android:name=".RegistroActivity" />
         <activity android:name=".RegistroSalonDeBelleza" />
         <activity
