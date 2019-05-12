@@ -89,10 +89,17 @@
                 android:layout_marginLeft="15dp"
                 />
 
+            <fragment
+                android:id="@+id/place_autocomplete_fragment"
+                android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <EditText
                 android:id="@+id/registro_salon_belleza_et_direccion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:hint="Dirección"
                 android:layout_marginTop="20dp"
                 android:textColorHint="#000"

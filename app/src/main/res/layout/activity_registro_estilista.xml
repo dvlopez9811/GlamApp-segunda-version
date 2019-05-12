@@ -42,7 +42,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_marginTop="30dp">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:foregroundGravity="center">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -52,14 +54,82 @@
             android:background="@drawable/borde">
 
             <TextView
-                android:id="@+id/ajusta_tu_horario"
+                android:id="@+id/help"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginStart="98dp"
+                android:layout_marginTop="20dp"
+                android:text="Que servicios ofreces"
+                android:textSize="20dp" />
+
+            <LinearLayout
+                android:id="@+id/help_layout_linear"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@id/help"
+                android:layout_marginTop="13dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
+
+                <CheckBox
+                    android:id="@+id/registro_estilista_check_servicio_uñas"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:text="Uñas" />
+
+                <CheckBox
+                    android:id="@+id/registro_estilista_check_servicio_masaje"
+                    android:layout_width="93dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/help_layout_linear"
+                    android:text="Masaje" />
+
+                <CheckBox
+                    android:id="@+id/registro_estilista_check_servicio_maquillaje"
+                    android:layout_width="133dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/help_layout_linear"
+                    android:text="Maquillaje" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/help_layout_linear2"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@id/help_layout_linear"
+                android:layout_marginTop="13dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
+
+                <CheckBox
+                    android:id="@+id/registro_estilista_check_servicio_depilacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Depilación" />
+
+                <CheckBox
+                    android:id="@+id/registro_estilista_check_servicio_peluqueria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/help_layout_linear"
+                    android:text="Peluquería" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/ajusta_tu_horario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/help_layout_linear2"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="115dp"
-                android:layout_marginTop="31dp"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="115dp"
                 android:text="Ajusta tu horarios"
                 android:textSize="20dp" />
