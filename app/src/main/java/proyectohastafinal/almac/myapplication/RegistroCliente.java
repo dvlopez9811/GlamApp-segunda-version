@@ -77,7 +77,7 @@ public class RegistroCliente extends AppCompatActivity {
                             auth.createUserWithEmailAndPassword(correo, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-                                    rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).push().setValue(cl);
+                                    rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).setValue(cl);
                                     Intent i = new Intent(RegistroCliente.this, MainActivity.class);
                                     startActivity(i);
                                     finish();
