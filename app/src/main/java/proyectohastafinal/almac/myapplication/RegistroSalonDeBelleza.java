@@ -2,12 +2,14 @@ package proyectohastafinal.almac.myapplication;
 
 import android.Manifest;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,14 +19,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
-import com.google.android.gms.maps.GoogleMap;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,9 +35,9 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.UUID;
+import java.util.List;
 
 import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 import proyectohastafinal.almac.myapplication.util.UtilDomi;
@@ -46,8 +45,6 @@ import proyectohastafinal.almac.myapplication.util.UtilDomi;
 public class RegistroSalonDeBelleza extends AppCompatActivity {
 
     private static final int GALLERY_CALLBACK_ID = 101;
-
-    PlaceAutocompleteFragment placeAutocompleteFragment;
 
     private File photoFile;
 
@@ -109,20 +106,6 @@ public class RegistroSalonDeBelleza extends AppCompatActivity {
         rtdb = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
 
-        placeAutocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-
-        placeAutocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-                //registroSalonDeBellezaEtDireccion.setText(place.getName());
-            }
-
-            @Override
-            public void onError(Status status) {
-                Log.d("MAPS", "un error " + status);
-            }
-        });
-
         servicios = new ArrayList<>();
 
         registroSsalonBellezaEtCamara.setOnClickListener(new View.OnClickListener() {
@@ -145,8 +128,27 @@ public class RegistroSalonDeBelleza extends AppCompatActivity {
                 String direccion = registroSalonDeBellezaEtDireccion.getText().toString();
                 String correo = registroSalonDeBellezaEtCorreo.getText().toString();
 
+                Geocoder gc = new Geocoder(RegistroSalonDeBelleza.this);
+
+                double latitud = 0, longitud = 0;
+
+                try {
+                    List<Address> list = gc.getFromLocationName(direccion + "Cali CO", 1);
+
+                    Address add = list.get(0);
+
+                    String locality = add.getLocality();
+
+                    latitud = add.getLatitude();
+                    longitud = add.getLongitude();
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 if (pass.equals(passConfirm)) {
-                    final SalonDeBelleza salonDeBelleza = new SalonDeBelleza(nombreDuenho, nombreSalonBelleza, correo ,pass, direccion, 0, 0);
+                    final SalonDeBelleza salonDeBelleza = new SalonDeBelleza(nombreDuenho, nombreSalonBelleza, correo ,pass, direccion, latitud, longitud);
                     comprobarServiciosEscogidos();
                     modificarServicios(salonDeBelleza);
                     auth.createUserWithEmailAndPassword(correo, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
