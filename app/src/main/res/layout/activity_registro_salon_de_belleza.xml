@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistroSalonDeBelleza"
+    android:orientation="vertical"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/registro_salon_belleza_et_nombre_salon_belleza"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre del salón de belleza"
+                android:layout_marginTop="20dp"
+                android:textColorHint="#000"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                />
+
+            <ImageView
+                android:id="@+id/registro_salon_belleza_iv_foto"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                />
+
+            <TextView
+                android:id="@+id/registro_salon_belleza_et_camara"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cambiar foto"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                />
+
+            <EditText
+                android:id="@+id/registro_salon_belleza_et_nombre_correo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Correo"
+                android:layout_marginTop="20dp"
+                android:textColorHint="#000"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                />
+
+            <EditText
+                android:id="@+id/registro_salon_belleza_et_nombre_duenho"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre del dueño"
+                android:layout_marginTop="20dp"
+                android:textColorHint="#000"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                />
+
+            <EditText
+                android:id="@+id/registro_salon_belleza_et_contrasenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contraseña"
+                android:layout_marginTop="20dp"
+                android:textColorHint="#000"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                />
+
+            <EditText
+                android:id="@+id/registro_salon_belleza_et_contrasenha_confimar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirmar contraseña"
+                android:layout_marginTop="20dp"
+                android:textColorHint="#000"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                />
+
+            <EditText
+                android:id="@+id/registro_salon_belleza_et_direccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dirección"
+                android:layout_marginTop="20dp"
+                android:textColorHint="#000"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                />
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/borde"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="¿Qué servicios ofreces?"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    />
+
+                <CheckBox
+                    android:id="@+id/registro_salon_belleza_servicio_peluqueria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Peluquería"
+                    />
+
+                <CheckBox
+                    android:id="@+id/registro_salon_belleza_servicio_depilacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Depilación"
+                    />
+
+                <CheckBox
+                    android:id="@+id/registro_salon_belleza_servicio_uñas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Uñas"
+                    />
+
+                <CheckBox
+                    android:id="@+id/registro_salon_belleza_servicio_maquillaje"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Maquillaje"
+                    />
+
+                <CheckBox
+                    android:id="@+id/registro_salon_belleza_servicio_masaje"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Masaje"
+                    />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/registro_salon_belleza_btn_listo"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:text="Listo"
+                android:textColor="@color/colorBlanco"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

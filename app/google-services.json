@@ -1,0 +1,64 @@
+{
+  "project_info": {
+    "project_number": "263971589625",
+    "firebase_url": "https://proyecto-glam.firebaseio.com",
+    "project_id": "proyecto-glam",
+    "storage_bucket": "proyecto-glam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263971589625:android:655ce063ccc968ce",
+        "android_client_info": {
+          "package_name": "proyectohastafinal.almac.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263971589625-h0akhdh1trr9gbsgalpfc1f14n7ehu94.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "proyectohastafinal.almac.myapplication",
+            "certificate_hash": "3b2fa23019e3d6ce2106e714d71e68d91abc5af1"
+          }
+        },
+        {
+          "client_id": "263971589625-9aqfoutd790jr27ifj7f1o51hs1usc0s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "proyectohastafinal.almac.myapplication",
+            "certificate_hash": "e6b2e3171aea95ec5c18560299dba83ff588b3fd"
+          }
+        },
+        {
+          "client_id": "263971589625-amni36iauquh24e9ofreu6f4a0pnudep.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "proyectohastafinal.almac.myapplication",
+            "certificate_hash": "35495a7106031cfb0683cedebc5cada9b360bb46"
+          }
+        },
+        {
+          "client_id": "263971589625-kilos9kiv2u3hdomtbf1p91nhhk43b94.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgmEACtJoigXSr9IKNvhTU7HYXfstKmns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263971589625-kilos9kiv2u3hdomtbf1p91nhhk43b94.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

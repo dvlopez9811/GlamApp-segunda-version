@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistroEstilista"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    >
+
+    <Spinner
+        android:layout_marginTop="30dp"
+        android:id="@+id/registro_estilista_spinner_salones_belleza"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:tooltipText="Salones de Belleza"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        >
+    </Spinner>
+
+    <ImageView
+        android:id="@+id/registro_estilista_iv_foto"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cambiar foto"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="30dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/borde">
+
+            <TextView
+                android:id="@+id/ajusta_tu_horario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="115dp"
+                android:layout_marginTop="31dp"
+                android:layout_marginEnd="115dp"
+                android:text="Ajusta tu horarios"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/ajuste_DE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ajusta_tu_horario"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="108dp"
+                android:layout_marginTop="12dp"
+                android:text="De: "
+                android:textSize="20dp" />
+
+            <Spinner
+                android:id="@+id/registro_estilista_spinner_fecha_inicio"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ajusta_tu_horario"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="15dp"
+                android:layout_toEndOf="@+id/ajuste_DE"
+                android:tooltipText="Lunes"></Spinner>
+
+            <TextView
+                android:id="@+id/ajuste_A"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/registro_estilista_spinner_fecha_inicio"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="108dp"
+                android:layout_marginTop="16dp"
+                android:text="A:  "
+                android:textSize="20dp" />
+
+            <Spinner
+                android:id="@+id/registro_estilista_spinner_fecha_final"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/registro_estilista_spinner_fecha_inicio"
+                android:layout_marginStart="41dp"
+                android:layout_marginTop="16dp"
+                android:layout_toEndOf="@+id/ajuste_A"
+                android:tooltipText="Lunes"></Spinner>
+
+            <EditText
+                android:id="@+id/et_obtener_hora_inicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ajuste_A"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="123dp"
+                android:layout_marginTop="20dp"
+                android:text="hh:mm" />
+
+            <EditText
+                android:id="@+id/et_obtener_hora_final"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ajuste_A"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="225dp"
+                android:layout_marginTop="20dp"
+                android:text="hh:mm" />
+
+            <Button
+                android:id="@+id/ib_obtener_hora_inicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/registro_estilista_spinner_fecha_final"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="111dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="8dp"
+                android:text="Inicio"
+                app:layout_constraintHorizontal_bias="0.504"
+                tools:ignore="ContentDescription" />
+
+            <Button
+                android:id="@+id/ib_obtener_hora_final"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/registro_estilista_spinner_fecha_final"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="215dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="8dp"
+                android:text="Final"
+                app:layout_constraintHorizontal_bias="0.504"
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/registro_estilista_btn_listo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorBlanco"
+        android:text="Listo"
+        android:background="@color/colorPrimaryDark"
+        />
+
+</LinearLayout>

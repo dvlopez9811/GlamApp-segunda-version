@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistroCliente">
+
+    <TextView
+        android:id="@+id/texto_registro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="Registro"
+        android:textColor="@color/colorBlanco"
+        android:textSize="40dp" />
+
+    <LinearLayout
+        android:id="@+id/registro_estilista_cliente_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/texto_registro"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/registro_estilista_cliente_et_correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textSize="20dp"
+            android:hint="Correo"
+            android:textColorHint="#000"
+            android:inputType="textEmailAddress"
+            />
+
+        <EditText
+            android:id="@+id/registro_estilista_cliente_et_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textSize="20dp"
+            android:textColorHint="#000"
+            android:hint="Nombre"
+            />
+
+        <EditText
+            android:id="@+id/registro_estilista_cliente_et_apellido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textSize="20dp"
+            android:textColorHint="#000"
+            android:hint="Apellido" />
+
+        <EditText
+            android:id="@+id/registro_estilista_cliente_et_contrasenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textSize="20dp"
+            android:hint="Contraseña"
+            android:textColorHint="#000"
+            android:inputType="textPassword"
+
+            />
+
+        <EditText
+            android:id="@+id/registro_estilista_cliente_et_confimar_contrasenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textSize="20dp"
+            android:hint="Confirar contraseña"
+            android:textColorHint="#000"
+            android:inputType="textPassword"
+            />
+
+        <CheckBox
+            android:id="@+id/registro_estilista_cliente_check_box_estilista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColorHint="#000"
+            android:text="Soy estilista" />
+
+        <Button
+            android:id="@+id/registro_estilista_cliente_btn_registrarme"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_circular_secundario"
+            android:text="Registrarme"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Ó" />
+
+        <Button
+            android:id="@+id/registro_estilista_cliente_btn_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Facebook"
+            android:background="@drawable/btn_facebook"
+            />
+
+        <Button
+
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:textAllCaps="false"
+            android:background="@drawable/logo_google_plus"
+            android:textColor="@color/colorBlanco"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/btn_login_facebook"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/registro_estilista_cliente_btn_gmail"
+            android:layout_gravity="center"
+
+            />
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
