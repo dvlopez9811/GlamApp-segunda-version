@@ -12,6 +12,8 @@ public class SalonDeBelleza {
     private String direccion;
     private double latitud;
     private double longitud;
+    private int personascalificadoras;
+    private int calificacion;
 
 
 
@@ -26,6 +28,7 @@ public class SalonDeBelleza {
         this.direccion = direccion;
         this.latitud = latitud;
         this.longitud = longitud;
+        personascalificadoras = calificacion = 0;
         servicios = new HashMap<>();
     }
 

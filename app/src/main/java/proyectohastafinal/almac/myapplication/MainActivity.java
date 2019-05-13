@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private Fragment citas_fragment;
     private Fragment favortios_fragment;
     private Fragment configuracion_fragment;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         cargarFragmento(BuscarFragment.getInstance());
         navigationView.setSelectedItemId(R.id.navigation_buscar);
+
+
 
     }
 
@@ -74,9 +80,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
 
             case R.id.navigation_configurarion:
-                if ( configuracion_fragment == null)
+              /*  if ( configuracion_fragment == null)
                     configuracion_fragment = RegistroSalonDeBelleza.ConfiguracionFragment.getInstance();
-                fragment = configuracion_fragment;
+                fragment = configuracion_fragment;*/
                 break;
 
         }
