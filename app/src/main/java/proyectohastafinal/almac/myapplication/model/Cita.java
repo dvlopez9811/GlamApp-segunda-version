@@ -4,21 +4,37 @@ import java.util.Date;
 
 public class Cita {
 
+    //ESTADO
     public static final String FINALIZADA = "Finalizada";
     public static final String RESERVADA = "Reservada";
     public static final String APLAZADA = "Aplazada";
     public static final String RECHAZADA = "Rechazada";
 
+    //SERVICIO
+    public static final String PELUQUERIA = "Peluquería";
+    public static final String UNAS = "Uñas";
+    public static final String MAQUILLAJE = "Maquillaje";
+    public static final String DEPILACION = "Depilación";
+    public static final String MASAJE = "Masaje";
+
+
     private Date fecha;
-    private Cliente cliente;
     private String informacion;
     private String estado;
+    private String horainicio;
+    private String horafin;
+    private String servicio;
+    private String nombreSalon;
 
-    public Cita(Date fecha, Cliente cliente, String informacion, String estado) {
+
+    public Cita(Date fecha, String informacion, String estado, String horainicio, String horafin,String servicio,String nombreSalon) {
         this.fecha = fecha;
-        this.cliente = cliente;
         this.informacion = informacion;
         this.estado = estado;
+        this.horainicio = horainicio;
+        this.horafin = horafin;
+        this.servicio = servicio;
+        this.nombreSalon = nombreSalon;
     }
 
     public Cita() {
@@ -31,14 +47,6 @@ public class Cita {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     public String getInformacion() {
@@ -55,5 +63,37 @@ public class Cita {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getHorainicio() {
+        return horainicio;
+    }
+
+    public void setHorainicio(String horainicio) {
+        this.horainicio = horainicio;
+    }
+
+    public String getHorafin() {
+        return horafin;
+    }
+
+    public void setHorafin(String horafin) {
+        this.horafin = horafin;
+    }
+
+    public String getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(String servicio) {
+        this.servicio = servicio;
+    }
+
+    public String getNombreSalon() {
+        return nombreSalon;
+    }
+
+    public void setNombreSalon(String nombreSalon) {
+        this.nombreSalon = nombreSalon;
     }
 }

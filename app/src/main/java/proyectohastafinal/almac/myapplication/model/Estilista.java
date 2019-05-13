@@ -10,13 +10,14 @@ public class Estilista {
     private String nombreSalonDeBelleza;
 
     private ArrayList<Horario> horarios;
-
     private ArrayList<Agenda> agenda;
+    private ArrayList<String> citas;
 
     public Estilista(String correo, String nombreCompleto, String contrasenha, SalonDeBelleza salonDeBelleza) {
         this.correo = correo;
         this.nombreCompleto = nombreCompleto;
         this.contrasenha = contrasenha;
+        citas = new ArrayList<>();
     }
 
     public Estilista(){}
@@ -67,5 +68,13 @@ public class Estilista {
 
     public void setHorarios(ArrayList<Horario> horarios) {
         this.horarios = horarios;
+    }
+
+    public ArrayList<String> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(ArrayList<String> citas) {
+        this.citas = citas;
     }
 }

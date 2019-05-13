@@ -5,10 +5,152 @@
     android:layout_height="match_parent"
     tools:context=".InicioFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="HELLO INICIO" />
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="4dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingresar"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/btn_ingresar_inicio"
+            android:background="@drawable/btn_circular_principal"
+            android:textColor="#FFFF"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Bienvenida a Glam"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@id/btn_ingresar_inicio"
+            android:textSize="25sp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_glam_200x200"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/btn_ingresar_inicio"
+            android:id="@+id/tv_logo_inicio"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¡Selecciona los servicios que quieras!"
+        android:textSize="20sp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/tv_logo_inicio"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tv_servicios_inicio"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_servicios_inicio">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_peluqueria_128x128"
+                android:id="@+id/iv_peluqueria_inicio"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Peluquería"
+                android:layout_below="@id/iv_peluqueria_inicio"
+                android:id="@+id/tv_peluqueria_inicio"
+                android:paddingLeft="30dp"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_unas_128x128"
+                android:layout_toRightOf="@id/iv_peluqueria_inicio"
+                android:id="@+id/iv_unas_inicio"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uñas"
+                android:layout_below="@id/iv_unas_inicio"
+                android:layout_toRightOf="@id/iv_peluqueria_inicio"
+                android:id="@+id/tv_unas_inicio"
+                android:paddingLeft="50dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_maquillaje_128x128"
+                android:layout_toRightOf="@id/iv_unas_inicio"
+                android:id="@+id/iv_maquillaje_inicio"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Maquillaje"
+                android:layout_below="@id/iv_maquillaje_inicio"
+                android:layout_toRightOf="@id/iv_unas_inicio"
+                android:id="@+id/tv_maquillaje_inicio"
+                android:paddingLeft="30dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_depilacion_128x128"
+                android:layout_below="@id/tv_peluqueria_inicio"
+                android:id="@+id/iv_depilacion_inicio"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Depilación"
+                android:layout_below="@id/iv_depilacion_inicio"
+                android:id="@+id/tv_depilacion_inicio"
+                android:paddingLeft="30dp"/>
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_masaje_128x128"
+                android:layout_toRightOf="@id/iv_depilacion_inicio"
+                android:layout_below="@id/tv_unas_inicio"
+                android:id="@+id/iv_masaje_inicio"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Masaje"
+                android:layout_below="@id/iv_masaje_inicio"
+                android:layout_toRightOf="@id/iv_depilacion_inicio"
+                android:paddingLeft="40dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buscar"
+                android:textColor="#ffff"
+                android:background="@drawable/btn_circular_principal"
+                android:layout_marginTop="64dp"
+                android:layout_marginLeft="32dp"
+                android:layout_below="@id/tv_maquillaje_inicio"
+                android:layout_toRightOf="@id/iv_masaje_inicio"
+                android:id="@+id/btn_buscar_inicio"
+                />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </FrameLayout>
