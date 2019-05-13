@@ -10,17 +10,15 @@ public class SalonDeBelleza {
     private String correo;
     private String contrasenha;
     private String direccion;
-    private float latitud;
-    private float longitud;
-    private int calificacion;
-    private int personascalificadoras;
+    private double latitud;
+    private double longitud;
 
 
 
     private HashMap<String, Boolean> servicios;
 
 
-    public SalonDeBelleza(String nombreCompletoDuenho, String nombreSalonDeBelleza, String correo, String contrasenha, String direccion, float latitud, float longitud) {
+    public SalonDeBelleza(String nombreCompletoDuenho, String nombreSalonDeBelleza, String correo, String contrasenha, String direccion, double latitud, double longitud) {
         this.nombreCompletoDuenho = nombreCompletoDuenho;
         this.nombreSalonDeBelleza = nombreSalonDeBelleza;
         this.correo = correo;
@@ -28,8 +26,6 @@ public class SalonDeBelleza {
         this.direccion = direccion;
         this.latitud = latitud;
         this.longitud = longitud;
-        this.calificacion = 0;
-        personascalificadoras = 0;
         servicios = new HashMap<>();
     }
 
@@ -67,19 +63,19 @@ public class SalonDeBelleza {
         this.direccion = direccion;
     }
 
-    public float getLatitud() {
+    public double getLatitud() {
         return latitud;
     }
 
-    public void setLatitud(float latitud) {
+    public void setLatitud(double latitud) {
         this.latitud = latitud;
     }
 
-    public float getLongitud() {
+    public double getLongitud() {
         return longitud;
     }
 
-    public void setLongitud(float longitud) {
+    public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
 
@@ -97,21 +93,5 @@ public class SalonDeBelleza {
 
     public void setCorreo(String correo) {
         this.correo = correo;
-    }
-
-    public int getCalificacion() {
-        return calificacion;
-    }
-
-    public void setCalificacion(int calificacion) {
-        this.calificacion = calificacion;
-    }
-
-    public int getPersonascalificadoras() {
-        return personascalificadoras;
-    }
-
-    public void setPersonascalificadoras(int personascalificadoras) {
-        this.personascalificadoras = personascalificadoras;
     }
 }
