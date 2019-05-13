@@ -2,6 +2,7 @@ package proyectohastafinal.almac.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -42,6 +43,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -117,8 +119,6 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-
-
         //E-MAIL Y PASSWORD
 
         btn_iniciar_sesion.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +171,75 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
+    private void crearUsuarioNuevo(String nombre,String email){
+        //*******************Crear usuario e ingresar a base de datos aqui
+
+
+
+    }
+
+    private void anadirNuevoUsuarioFacebook(AccessToken token){
+        GraphRequest request = GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback() {
+            //OnCompleted is invoked once the GraphRequest is successful
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+                try {
+                    String name = object.getString("name");
+                    String email = object.getString("email");
+                    String image = object.getJSONObject("picture").getJSONObject("data").getString("url");
+                    crearUsuarioNuevo(name,email);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        // We set parameters to the GraphRequest using a Bundle.
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,email,picture.width(200)");
+        request.setParameters(parameters);
+        // Initiate the GraphRequest
+        request.executeAsync();
+    }
+
+    private void anadirNuevoUsuarioGoogle(){
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            String personName = acct.getDisplayName();
+            String personGivenName = acct.getGivenName();
+            String personFamilyName = acct.getFamilyName();
+            String personEmail = acct.getEmail();
+            String personId = acct.getId();
+            Uri personPhoto = acct.getPhotoUrl();
+            crearUsuarioNuevo(personName,personEmail);
+        }
+    }
+
+
+
+    private void verificarExistenciaUsuarioFacebook(@NonNull Task<AuthResult> task,AccessToken token){
+        boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
+        if(isNew){
+            Toast.makeText(LoginActivity.this, "Este usuario es nuevo",Toast.LENGTH_SHORT).show();
+            anadirNuevoUsuarioFacebook(token);
+        }
+        else{
+            Toast.makeText(LoginActivity.this, "Este usuario ya existe",Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void verificarExistenciaUsuarioGoogle(@NonNull Task<AuthResult> task){
+        boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
+        if(isNew){
+            Toast.makeText(LoginActivity.this, "Este usuario es nuevo",Toast.LENGTH_SHORT).show();
+            anadirNuevoUsuarioGoogle();
+        }
+        else{
+            Toast.makeText(LoginActivity.this, "Este usuario ya existe",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
     private void signInGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN_GOOGLE);
@@ -186,9 +255,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    //Deberia ir en la clase que tenga el sign out
-    private static final int MY_REQUEST_CODE=7117; //Cualquier numero
 
+    private static final int MY_REQUEST_CODE=7117; //Cualquier numero
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -207,19 +275,6 @@ public class LoginActivity extends AppCompatActivity {
                 // ...
             }
         }
-
-//        if(requestCode==MY_REQUEST_CODE){
-//              IdpResponse response = IdpResponse.fromResultIntent(data);
-        //          if(resultCode==RESULT_OK) {
-        //        FirebaseUser user = auth.getCurrentUser();
-        //      Toast.makeText(LoginActivity.this,"Ingresaste con correo "+user.getEmail(),Toast.LENGTH_SHORT).show();
-        //      Intent i = new Intent(LoginActivity.this, MainActivity.class);
-        //      startActivity(i);
-        //      finish();
-//
-        //          }else
-        //  { Toast.makeText(LoginActivity.this,"Algo ha salido mal",Toast.LENGTH_SHORT).show();}
-        //  }
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
@@ -235,6 +290,8 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = auth.getCurrentUser();
                             updateUI(user);
+                            AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                            verificarExistenciaUsuarioFacebook(task,accessToken);
                             Toast.makeText(LoginActivity.this,"Ingresaste con correo "+user.getEmail(),Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(i);
@@ -266,6 +323,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = auth.getCurrentUser();
                             updateUI(user);
+                            verificarExistenciaUsuarioGoogle(task);
                             Intent i = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(i);
                             finish();

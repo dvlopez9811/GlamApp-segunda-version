@@ -2,18 +2,23 @@
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="2">
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:id="@+id/btn_registro_cliente_estilista"
-        android:text="REGISTRARSE COMO USUARIO/ESTILISTA"/>
+        android:layout_weight="1"
+        android:background="@drawable/imagen_boton_nuevo_cliente"
+        />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:id="@+id/btn_registro_salon_belleza"
-        android:text="REGISTRAR COMO SALÓN DE BELLEZA"/>
+        android:layout_weight="1"
+        android:background="@drawable/imagen_boton_nuevo_salon"
+        />
 
 </LinearLayout>
