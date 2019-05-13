@@ -78,11 +78,6 @@ public class RegistroSalonDeBelleza extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_salon_de_belleza);
 
-        ActivityCompat.requestPermissions(this, new String[]{
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-        }, 0);
-
         registroSalonDeBellezaEtNombre = findViewById(R.id.registro_salon_belleza_et_nombre_salon_belleza);
         registroSalonDeBellezaEtCorreo = findViewById(R.id.registro_salon_belleza_et_nombre_correo);
         registroSalonDeBellezaEtNombreDueño = findViewById(R.id.registro_salon_belleza_et_nombre_duenho);

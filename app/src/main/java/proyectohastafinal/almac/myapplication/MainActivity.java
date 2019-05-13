@@ -15,7 +15,6 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    // Codigo de los permisos
     private static final int REQUEST_CODE = 11;
 
     private Fragment inicio_fragment;
@@ -24,28 +23,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private Fragment favortios_fragment;
     private Fragment configuracion_fragment;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Permisos
+        // Lo primero que se realiza es soliticar los permisos,
         ActivityCompat.requestPermissions(this, new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
         }, REQUEST_CODE);
 
         BottomNavigationView navigationView = findViewById(R.id.navigation);
 
         navigationView.setOnNavigationItemSelectedListener(this);
 
-        cargarFragmento(BuscarFragment.getInstance());
-        navigationView.setSelectedItemId(R.id.navigation_buscar);
-
-
+        cargarFragmento(InicioFragment.getInstance());
+        navigationView.setSelectedItemId(R.id.navigation_home);
 
     }
 
