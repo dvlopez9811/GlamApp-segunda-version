@@ -21,7 +21,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre del salón" />
+            android:text="Nombre del salón"
+            android:id="@+id/nombre_item_salones"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -31,27 +32,32 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_calificacion_llena_25x25"/>
+                android:src="@drawable/ic_calificacion_llena_25x25"
+                android:id="@+id/calificacion1_item_salones"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_calificacion_llena_25x25"/>
+                android:src="@drawable/ic_calificacion_llena_25x25"
+                android:id="@+id/calificacion2_item_salones"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_calificacion_llena_25x25"/>
+                android:src="@drawable/ic_calificacion_llena_25x25"
+                android:id="@+id/calificacion3_item_salones"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_calificacion_llena_25x25"/>
+                android:src="@drawable/ic_calificacion_llena_25x25"
+                android:id="@+id/calificacion4_item_salones"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_calificacion_llena_25x25"/>
+                android:src="@drawable/ic_calificacion_llena_25x25"
+                android:id="@+id/calificacion5_item_salones"/>
 
         </LinearLayout>
 
@@ -71,7 +77,8 @@
             android:padding="5dp"
             android:textAllCaps="false"
             android:textColor="@color/colorBlanco"
-            android:background="@drawable/btn_circular_secundario"/>
+            android:background="@drawable/btn_circular_secundario"
+            android:id="@+id/btn_comollegar_item_salones"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -81,7 +88,8 @@
             android:textAllCaps="false"
             android:textColor="@color/colorBlanco"
             android:background="@drawable/btn_circular_principal"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"
+            android:id="@+id/btn_agendarcita_item_salones"/>
     </LinearLayout>
 
 </LinearLayout>

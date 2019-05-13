@@ -12,6 +12,8 @@ public class SalonDeBelleza {
     private String direccion;
     private float latitud;
     private float longitud;
+    private int calificacion;
+    private int personascalificadoras;
 
 
 
@@ -26,6 +28,8 @@ public class SalonDeBelleza {
         this.direccion = direccion;
         this.latitud = latitud;
         this.longitud = longitud;
+        this.calificacion = 0;
+        personascalificadoras = 0;
         servicios = new HashMap<>();
     }
 
@@ -93,5 +97,21 @@ public class SalonDeBelleza {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public int getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(int calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    public int getPersonascalificadoras() {
+        return personascalificadoras;
+    }
+
+    public void setPersonascalificadoras(int personascalificadoras) {
+        this.personascalificadoras = personascalificadoras;
     }
 }

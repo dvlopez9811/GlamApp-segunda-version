@@ -13,6 +13,8 @@ public class Cita {
     private Cliente cliente;
     private String informacion;
     private String estado;
+    private String horainicio;
+
 
     public Cita(Date fecha, Cliente cliente, String informacion, String estado) {
         this.fecha = fecha;

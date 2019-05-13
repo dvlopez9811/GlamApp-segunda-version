@@ -75,56 +75,6 @@ public class InicioFragment extends Fragment implements View.OnClickListener {
 
                 break;
 
-            case R.id.iv_peluqueria_inicio:
-
-                i = new Intent(getActivity(),CatalogoActivity.class);
-                id = R.drawable.ic_peluqueria_128x128;
-                i.putExtra("servicio", id);
-                startActivity(i);
-                getActivity().finish();
-
-                break;
-
-            case R.id.iv_unas_inicio:
-
-                i = new Intent(getActivity(),CatalogoActivity.class);
-                id = R.drawable.ic_unas_128x128;
-                i.putExtra("servicio", id);
-                startActivity(i);
-                getActivity().finish();
-
-                break;
-
-            case R.id.iv_maquillaje_inicio:
-
-                i = new Intent(getActivity(),CatalogoActivity.class);
-                id = R.drawable.ic_maquillaje_128x128;
-                i.putExtra("servicio", id);
-                startActivity(i);
-                getActivity().finish();
-
-                break;
-
-            case R.id.iv_depilacion_inicio:
-
-                i = new Intent(getActivity(),CatalogoActivity.class);
-                id = R.drawable.ic_depilacion_128x128;
-                i.putExtra("servicio", id);
-                startActivity(i);
-                getActivity().finish();
-
-                break;
-
-            case R.id.iv_masaje_inicio:
-
-                i = new Intent(getActivity(),CatalogoActivity.class);
-                id = R.drawable.ic_masaje_128x128;
-                i.putExtra("servicio", id);
-                startActivity(i);
-                getActivity().finish();
-
-                break;
-
             case R.id.btn_buscar_inicio:
 
                 i = new Intent(getActivity(),ResultadoBusquedaSalonActivity.class);

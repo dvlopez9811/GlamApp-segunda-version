@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             case R.id.navigation_configurarion:
                 if ( configuracion_fragment == null)
-                    configuracion_fragment = ConfiguracionFragment.getInstance();
+                    configuracion_fragment = RegistroSalonDeBelleza.ConfiguracionFragment.getInstance();
                 fragment = configuracion_fragment;
                 break;
 

@@ -3,15 +3,15 @@ package proyectohastafinal.almac.myapplication;
 import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -19,7 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,8 +34,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.UUID;
 
 import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 import proyectohastafinal.almac.myapplication.util.UtilDomi;
@@ -234,4 +235,53 @@ public class RegistroSalonDeBelleza extends AppCompatActivity {
     }
 
 
+    public static class ConfiguracionFragment extends Fragment {
+
+        private static ConfiguracionFragment instance;
+
+        public static ConfiguracionFragment getInstance(){
+            instance = instance == null ? new ConfiguracionFragment() : instance;
+            return instance;
+        }
+
+        // TODO: Rename and change types of parameters
+        private String mParam1;
+        private String mParam2;
+        private Button btn_cerrar_sesión;
+
+        private static final int MY_REQUEST_CODE=7117; //Cualquier numero
+
+        public ConfiguracionFragment() {
+            // Required empty public constructor
+        }
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
+        public View onCreateView(final LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            // Inflate the layout for this fragment
+           final View mView= inflater.inflate(R.layout.fragment_configuracion, container, false);
+
+           btn_cerrar_sesión = mView.findViewById(R.id.btn_cerrar_sesion);
+            btn_cerrar_sesión.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AuthUI.getInstance()
+                            .signOut(inflater.getContext())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Intent i = new Intent(ConfiguracionFragment.this.getContext(), LoginActivity.class);
+                                    startActivity(i);
+                                }
+                            });
+                }
+            });
+        return mView;
+        }
+
+    }
 }

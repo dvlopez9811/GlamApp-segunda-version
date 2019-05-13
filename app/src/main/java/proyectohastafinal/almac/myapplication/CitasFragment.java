@@ -5,10 +5,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterViewAnimator;
+import android.widget.ImageView;
 
-public class CitasFragment extends Fragment {
+import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
+
+public class CitasFragment extends Fragment{
 
     private static CitasFragment instance;
+
 
     public static CitasFragment getInstance(){
         instance = instance == null ? new CitasFragment() : instance;
@@ -29,7 +34,9 @@ public class CitasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_citas, container, false);
+        View v = inflater.inflate(R.layout.fragment_citas, container, false);
+
+        return v;
     }
 
 }
