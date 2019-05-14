@@ -8,15 +8,17 @@ public class Estilista {
     private String nombreCompleto;
     private String contrasenha;
     private String nombreSalonDeBelleza;
+    private String telefono;
 
     private ArrayList<Horario> horarios;
     private ArrayList<Agenda> agenda;
     private ArrayList<String> citas;
 
-    public Estilista(String correo, String nombreCompleto, String contrasenha, SalonDeBelleza salonDeBelleza) {
+    public Estilista(String correo, String nombreCompleto, String contrasenha, SalonDeBelleza salonDeBelleza,String telefono) {
         this.correo = correo;
         this.nombreCompleto = nombreCompleto;
         this.contrasenha = contrasenha;
+        this.telefono = telefono;
         citas = new ArrayList<>();
     }
 
@@ -76,5 +78,13 @@ public class Estilista {
 
     public void setCitas(ArrayList<String> citas) {
         this.citas = citas;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 }

@@ -110,6 +110,7 @@ public class RegistroEstilista extends AppCompatActivity {
         final String correoEstilista = getIntent().getExtras().getString("correo");
         final String nombreCompletoEstilista = getIntent().getExtras().getString("nombreCompleto");
         final String passEstilista = getIntent().getExtras().getString("pass");
+        final String telefono = getIntent().getExtras().getString("tel");
 
         final ArrayList<CharSequence> salonesDeBelleza = new ArrayList<>();
         final ArrayList<String> servicios = new ArrayList<>();
@@ -154,7 +155,7 @@ public class RegistroEstilista extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final Estilista estilista = new Estilista(correoEstilista, nombreCompletoEstilista, passEstilista, null);
+                final Estilista estilista = new Estilista(correoEstilista, nombreCompletoEstilista, passEstilista, null, telefono);
 
                 ArrayList<Horario> horarios = new ArrayList<>();
 

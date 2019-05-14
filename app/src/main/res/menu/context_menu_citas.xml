@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/ic_calificacion_llena_25x25"
+        android:title="Enviar mensaje a estilista"
+        android:id="@+id/envio_mensaje_estilista_cita"/>
+
+    <item
+        android:title="Solicitar cambio de hora"
+        android:id="@+id/cambio_hora_cita"/>
+
+    <item
+        android:title="Ver información de tu cita"
+        android:id="@+id/verinformacion_cita"/>
+
+    <item
+        android:title="Cancelar cita"
+        android:id="@+id/cancelar_cita"/>
+
+</menu>

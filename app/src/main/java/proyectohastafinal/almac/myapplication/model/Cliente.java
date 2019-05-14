@@ -4,17 +4,22 @@ import java.util.ArrayList;
 
 public class Cliente {
 
+    private ArrayList<String> citas;
+    private String contrasenha;
     private String correo;
     private String nombreCompleto;
-    private String contrasenha;
+    private String telefono;
 
-    private ArrayList<String> citas;
 
-    public Cliente(String correo, String nombreCompleto, String contrasenha) {
+
+    public Cliente(String contrasenha,String correo, String nombreCompleto,String telefono) {
+
+        citas = new ArrayList<>();
         this.correo = correo;
         this.nombreCompleto = nombreCompleto;
         this.contrasenha = contrasenha;
-        citas = new ArrayList<>();
+        this.telefono = telefono;
+
     }
 
     public Cliente() {}
@@ -57,5 +62,13 @@ public class Cliente {
 
     public void setCitas(ArrayList<String> citas) {
         this.citas = citas;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 }
