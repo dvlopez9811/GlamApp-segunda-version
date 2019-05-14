@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "263971589625-d608v644ejhr2jrtruvunkhr5fbs0u3k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "proyectohastafinal.almac.myapplication",
+            "certificate_hash": "7bc75d972b512f2cb539f7c5c9d390aeda5b93c6"
+          }
+        },
+        {
           "client_id": "263971589625-h0akhdh1trr9gbsgalpfc1f14n7ehu94.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
