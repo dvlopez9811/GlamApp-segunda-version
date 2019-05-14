@@ -18,16 +18,19 @@ public class Cita {
     public static final String MASAJE = "Masaje";
 
 
-    private Date fecha;
+    private String fecha;
     private String informacion;
     private String estado;
     private String horainicio;
     private String horafin;
     private String servicio;
     private String nombreSalon;
+    private String telefonoCliente;
+    private String telefonoEstilista;
 
 
-    public Cita(Date fecha, String informacion, String estado, String horainicio, String horafin,String servicio,String nombreSalon) {
+    public Cita(String estado,String fecha,String horafin,String horainicio, String informacion, String nombreSalon,String servicio,
+                String telefonoCliente,String telefonoEstilista) {
         this.fecha = fecha;
         this.informacion = informacion;
         this.estado = estado;
@@ -35,17 +38,19 @@ public class Cita {
         this.horafin = horafin;
         this.servicio = servicio;
         this.nombreSalon = nombreSalon;
+        this.telefonoCliente = telefonoCliente;
+        this.telefonoEstilista = telefonoEstilista;
     }
 
     public Cita() {
 
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -95,5 +100,21 @@ public class Cita {
 
     public void setNombreSalon(String nombreSalon) {
         this.nombreSalon = nombreSalon;
+    }
+
+    public String getTelefonoCliente() {
+        return telefonoCliente;
+    }
+
+    public void setTelefonoCliente(String telefonoCliente) {
+        this.telefonoCliente = telefonoCliente;
+    }
+
+    public String getTelefonoEstilista() {
+        return telefonoEstilista;
+    }
+
+    public void setTelefonoEstilista(String telefonoEstilista) {
+        this.telefonoEstilista = telefonoEstilista;
     }
 }

@@ -11,7 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+
+import proyectohastafinal.almac.myapplication.model.Cita;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -68,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.navigation_citas:
                 if ( citas_fragment == null)
                     citas_fragment = CitasFragment.getInstance();
-                fragment = citas_fragment;
+                   fragment = citas_fragment;
                 break;
 
             case R.id.navigation_favoritos:
@@ -111,5 +117,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         ft.commit();
         fm.executePendingTransactions();
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.context_menu_citas,menu);
+    }
+
+
 
 }

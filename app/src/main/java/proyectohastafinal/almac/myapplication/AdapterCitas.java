@@ -1,7 +1,9 @@
 package proyectohastafinal.almac.myapplication;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -11,22 +13,27 @@ import java.util.ArrayList;
 
 import proyectohastafinal.almac.myapplication.model.Cita;
 
-public class AdapterCitas extends RecyclerView.Adapter<AdapterCitas.CustomViewHolder> {
+public class AdapterCitas extends RecyclerView.Adapter<AdapterCitas.CustomViewHolder>{
 
     ArrayList<Cita> citas;
 
-    public void mostrarcitas(ArrayList<Cita> allcitas){
-        for (int i=0;i<allcitas.size();i++) {
-            if (!citas.contains(allcitas.get(i))) citas.add(allcitas.get(i));
-        }
+    public void agregarcita(Cita cita){
+        citas.add(cita);
         notifyDataSetChanged();
     }
 
-    public static class CustomViewHolder extends RecyclerView.ViewHolder {
+    public static class CustomViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         public LinearLayout root;
         public CustomViewHolder(LinearLayout v) {
             super(v);
             root = v;
+            v.setOnCreateContextMenuListener(this);
+
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
         }
     }
 
@@ -46,11 +53,29 @@ public class AdapterCitas extends RecyclerView.Adapter<AdapterCitas.CustomViewHo
        ((TextView) holder.root.findViewById(R.id.salon_renglon_cita)).setText(citas.get(position).getNombreSalon());
         ((TextView) holder.root.findViewById(R.id.servicio_renglon_cita)).setText(citas.get(position).getServicio());
         ((TextView) holder.root.findViewById(R.id.horainicio_renglon_cita)).setText(citas.get(position).getHorainicio());
+        holder.root.findViewById(R.id.renglon_cita).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(citas.get(position));
+
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return citas.size();
+    }
+
+    //OBSERVER
+    public interface OnItemClickListener{
+        void onItemClick(Cita cita);
+    }
+
+    private OnItemClickListener listener;
+
+    public void setListener(OnItemClickListener listener){
+        this.listener = listener;
     }
 
 }

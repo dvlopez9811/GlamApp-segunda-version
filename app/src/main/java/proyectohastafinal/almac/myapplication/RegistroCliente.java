@@ -22,6 +22,7 @@ public class RegistroCliente extends AppCompatActivity {
     private EditText registroEstilistaClienteEtCorreo;
     private EditText registroEstilistaClienteEtNombre;
     private EditText registroEstilistaClienteEtApellido;
+    private EditText registroEstilistaClienteEtTelefono;
     private EditText registroEstilistaClienteEtContrasenha;
     private EditText registroEstilistaClienteEtContrasenhaConfirmar;
     private CheckBox registroEstilistaClienteCheckBoxEstilista;
@@ -45,6 +46,7 @@ public class RegistroCliente extends AppCompatActivity {
         registroEstilistaClienteEtCorreo = findViewById(R.id.registro_estilista_cliente_et_correo);
         registroEstilistaClienteEtNombre = findViewById(R.id.registro_estilista_cliente_et_nombre);
         registroEstilistaClienteEtApellido = findViewById(R.id.registro_estilista_cliente_et_apellido);
+        registroEstilistaClienteEtTelefono = findViewById(R.id.registro_estilista_cliente_et_telefono);
         registroEstilistaClienteEtContrasenha = findViewById(R.id.registro_estilista_cliente_et_contrasenha);
         registroEstilistaClienteEtContrasenhaConfirmar = findViewById(R.id.registro_estilista_cliente_et_confimar_contrasenha);
         registroEstilistaClienteCheckBoxEstilista = findViewById(R.id.registro_estilista_cliente_check_box_estilista);
@@ -64,12 +66,13 @@ public class RegistroCliente extends AppCompatActivity {
 
                         final String correo = registroEstilistaClienteEtCorreo.getText().toString();
                         final String nombreCompleto = registroEstilistaClienteEtNombre.getText().toString() + " " + registroEstilistaClienteEtApellido.getText().toString();
+                        final String telefono = registroEstilistaClienteEtTelefono.getText().toString();
 
-                        final Cliente cl = new Cliente(correo, nombreCompleto, pass);
+                        final Cliente cl = new Cliente(correo, nombreCompleto, pass, telefono);
 
                         if (registroEstilistaClienteCheckBoxEstilista.isChecked()) {
                             Intent i = new Intent(RegistroCliente.this, RegistroEstilista.class);
-                            i.putExtra("correo", correo).putExtra("nombreCompleto", nombreCompleto).putExtra("pass", pass);
+                            i.putExtra("correo", correo).putExtra("nombreCompleto", nombreCompleto).putExtra("pass", pass).putExtra("tel",telefono);
                             startActivity(i);
                         } else {
                             auth.createUserWithEmailAndPassword(correo, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
