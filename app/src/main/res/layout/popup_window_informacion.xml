@@ -23,7 +23,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_calificacion_25x25"
+            android:src="@drawable/ic_calificacion_llena_25x25"
             android:layout_marginLeft="5dp"/>
 
         <TextView
@@ -45,13 +45,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_gravity="center"
             android:padding="5dp">
 
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:background="@color/colorRosado"/>
+                android:id="@+id/popup_imagen_salon" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -84,27 +85,32 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/popup_servicio_peluqueria"
                 android:text="Peluquería"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Peluquería"/>
+                android:id="@+id/popup_servicio_depilacion"
+                android:text="Depilación"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Peluquería"/>
+                android:id="@+id/popup_servicio_unas"
+                android:text="Uñas"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Peluquería"/>
+                android:id="@+id/popup_servicio_maquillaje"
+                android:text="Maquillaje"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Peluquería"/>
+                android:id="@+id/popup_servicio_masaje"
+                android:text="Masaje"/>
 
         </LinearLayout>
 

@@ -49,8 +49,6 @@ public class RegistroCliente extends AppCompatActivity {
         registroEstilistaClienteEtContrasenhaConfirmar = findViewById(R.id.registro_estilista_cliente_et_confimar_contrasenha);
         registroEstilistaClienteCheckBoxEstilista = findViewById(R.id.registro_estilista_cliente_check_box_estilista);
         registroEstilistaClienteBtnRegistrarme = findViewById(R.id.registro_estilista_cliente_btn_registrarme);
-        registroEstilistaClienteBtnFacebook = findViewById(R.id.registro_estilista_cliente_btn_facebook);
-        registroEstilistaClienteBtnGoogle = findViewById(R.id.registro_estilista_cliente_btn_gmail);
 
         registroEstilistaClienteBtnRegistrarme.setOnClickListener(new View.OnClickListener() {
             @Override
