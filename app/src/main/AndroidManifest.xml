@@ -7,8 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
     <application
         android:allowBackup="true"
@@ -17,24 +16,20 @@
         android:roundIcon="@drawable/ic_glam_150x150_borde"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ChatActivity"></activity>
         <activity android:name=".ResultadoBusquedaSalonActivity" />
         <activity android:name=".RegistroActivity" />
-        <activity android:name=".RegistroSalonDeBelleza">
-
-        </activity>
-
+        <activity android:name=".RegistroSalonDeBelleza"></activity>
         <activity
             android:name=".LoginActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegistroCliente">
-
-        </activity>
-
+        <activity android:name=".RegistroCliente"></activity>
         <activity android:name=".RegistroEstilista" />
         <activity android:name=".MainActivity" />
 
@@ -51,6 +46,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
