@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import proyectohastafinal.almac.myapplication.model.Marcador;
 import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 import proyectohastafinal.almac.myapplication.util.UtilDomi;
 
@@ -77,11 +78,6 @@ public class RegistroSalonDeBelleza extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_salon_de_belleza);
-
-        ActivityCompat.requestPermissions(this, new String[]{
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-        }, 0);
 
         registroSalonDeBellezaEtNombre = findViewById(R.id.registro_salon_belleza_et_nombre_salon_belleza);
         registroSalonDeBellezaEtCorreo = findViewById(R.id.registro_salon_belleza_et_nombre_correo);
@@ -156,9 +152,9 @@ public class RegistroSalonDeBelleza extends AppCompatActivity {
                         public void onSuccess(AuthResult authResult) {
                             String serviciosCambinados [] = combinaciones(servicios);
                             rtdb.getReference().child("Salon de belleza").child(nombreSalonBelleza).setValue(salonDeBelleza);
-                            rtdb.getReference().child("Marcador").child(auth.getCurrentUser().getUid()).push().setValue(salonDeBelleza.getLatitud()+"");
-                            rtdb.getReference().child("Marcador").child(auth.getCurrentUser().getUid()).push().setValue(salonDeBelleza.getLongitud()+"");
-                            rtdb.getReference().child("Marcador").child(auth.getCurrentUser().getUid()).push().setValue(salonDeBelleza.getNombreSalonDeBelleza()+"");
+
+                            Marcador marcador = new Marcador(salonDeBelleza.getLatitud(),salonDeBelleza.getLongitud(),salonDeBelleza.getNombreSalonDeBelleza());
+                            rtdb.getReference().child("Marcador").child(salonDeBelleza.getNombreSalonDeBelleza()).setValue(marcador);
 
 
                             for (int i = 0; i < serviciosCambinados.length; i++) {

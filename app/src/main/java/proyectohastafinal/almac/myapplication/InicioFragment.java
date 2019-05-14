@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class InicioFragment extends Fragment implements View.OnClickListener {
 
     private Button btn_ingresar_inicio;
@@ -18,6 +20,9 @@ public class InicioFragment extends Fragment implements View.OnClickListener {
     private ImageView iv_depilacion_inicio;
     private ImageView iv_masaje_inicio;
     private Button btn_buscar_inicio;
+
+    FirebaseAuth auth;
+
 
     private static InicioFragment instance;
 
@@ -57,30 +62,30 @@ public class InicioFragment extends Fragment implements View.OnClickListener {
         iv_masaje_inicio.setOnClickListener(this);
         btn_buscar_inicio.setOnClickListener(this);
 
+        if(auth != null)
+            btn_ingresar_inicio.setVisibility(Button.INVISIBLE);
+
         return v;
     }
 
     @Override
     public void onClick(View v) {
 
-        Intent i; int id;
+        Intent i;
+        int id;
 
         switch(v.getId()){
 
             case R.id.btn_ingresar_inicio:
-
                 i = new Intent(getActivity(),LoginActivity.class);
                 startActivity(i);
                 getActivity().finish();
-
                 break;
 
             case R.id.btn_buscar_inicio:
-
                 i = new Intent(getActivity(),ResultadoBusquedaSalonActivity.class);
                 startActivity(i);
                 getActivity().finish();
-
                 break;
 
         }

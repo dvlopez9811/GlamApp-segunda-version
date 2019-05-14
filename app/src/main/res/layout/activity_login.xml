@@ -117,8 +117,17 @@
             android:layout_marginLeft="10dp"
             android:layout_centerHorizontal="true" />
 
-
     </LinearLayout>
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/btn_login_volver"
+        android:src="@drawable/ic_volver_50x50"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/fui_transparent"
+        android:text="VOLVER" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/btn_login_facebook"
@@ -130,5 +139,5 @@
         android:layout_marginBottom="10dp"
         android:textAllCaps="false"
         android:textSize="20dp"
-        android:visibility="gone"/>
+        android:visibility="invisible"/>
 </RelativeLayout>
