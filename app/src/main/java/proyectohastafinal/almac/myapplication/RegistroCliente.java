@@ -28,9 +28,6 @@ public class RegistroCliente extends AppCompatActivity {
     private CheckBox registroEstilistaClienteCheckBoxEstilista;
     private Button registroEstilistaClienteBtnRegistrarme;
 
-    private Button registroEstilistaClienteBtnFacebook;
-    private Button registroEstilistaClienteBtnGoogle;
-
     FirebaseAuth auth;
     FirebaseDatabase rtdb;
 
@@ -46,7 +43,7 @@ public class RegistroCliente extends AppCompatActivity {
         registroEstilistaClienteEtCorreo = findViewById(R.id.registro_estilista_cliente_et_correo);
         registroEstilistaClienteEtNombre = findViewById(R.id.registro_estilista_cliente_et_nombre);
         registroEstilistaClienteEtApellido = findViewById(R.id.registro_estilista_cliente_et_apellido);
-        registroEstilistaClienteEtTelefono = findViewById(R.id.registro_estilista_cliente_et_telefono);
+        registroEstilistaClienteEtTelefono = findViewById(R.id.id_registro_estilista_cliente_et_telefono);
         registroEstilistaClienteEtContrasenha = findViewById(R.id.registro_estilista_cliente_et_contrasenha);
         registroEstilistaClienteEtContrasenhaConfirmar = findViewById(R.id.registro_estilista_cliente_et_confimar_contrasenha);
         registroEstilistaClienteCheckBoxEstilista = findViewById(R.id.registro_estilista_cliente_check_box_estilista);
@@ -90,20 +87,6 @@ public class RegistroCliente extends AppCompatActivity {
                         Toast.makeText(RegistroCliente.this, "Las contraseñas no son iguales", Toast.LENGTH_LONG).show();
                     }
                 }
-
-            }
-        });
-
-        registroEstilistaClienteBtnFacebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        registroEstilistaClienteBtnGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
             }
         });
