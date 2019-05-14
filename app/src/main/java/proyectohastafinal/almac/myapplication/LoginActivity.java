@@ -1,17 +1,20 @@
 package proyectohastafinal.almac.myapplication;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -22,6 +25,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.Login;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.firebase.ui.auth.AuthUI;
@@ -52,11 +56,15 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
+    // Codigo de los permisos
+    private static final int MY_REQUEST_CODE= 7117;
+
     private static final String TAG = "FacebookLogin";
     private static final int RC_SIGN_IN_GOOGLE = 9001;
 
 
     private Button btn_iniciar_sesion,btn_inicio_sesion_facebook,btn_inicio_sesion_google,btn_registrarse;
+    private ImageButton  btn_login_volver;
     private LoginButton loginButton;
     private EditText et_login_correo, et_login_password;
     private GoogleSignInClient mGoogleSignInClient;
@@ -74,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+        Log.e("INFORMACION", (auth == null ? "en realidad":"galso"));
 
         btn_iniciar_sesion= findViewById(R.id.btn_iniciarsesion);
         btn_inicio_sesion_google=findViewById(R.id.btn_login_google);
@@ -81,10 +90,11 @@ public class LoginActivity extends AppCompatActivity {
         et_login_password=findViewById(R.id.et_password);
         btn_inicio_sesion_facebook=findViewById(R.id.boton_facebook_personalizado);
         btn_registrarse = findViewById(R.id.btn_registrarse);
+        btn_login_volver = findViewById(R.id.btn_login_volver);
 
         mCallbackManager = CallbackManager.Factory.create();
         loginButton = findViewById(R.id.btn_login_facebook);
-        loginButton.setReadPermissions("email", "public_profile","user_friends");
+        loginButton.setReadPermissions("email", "public_profile", "user_friends");
 
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -92,21 +102,19 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
+
             @Override
             public void onCancel() {
                 Log.d(TAG, "facebook:onCancel");
-                // ...
             }
+
             @Override
             public void onError(FacebookException error) {
                 Log.d(TAG, "facebook:onError", error);
-                // ...
             }
-        });// ...
+        });
 
-
-        ////GOOGLE
-
+        //GOOGLE
         btn_inicio_sesion_google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,29 +128,28 @@ public class LoginActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         //E-MAIL Y PASSWORD
-
         btn_iniciar_sesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String correo = et_login_correo.getText().toString();
                 String pass = et_login_password.getText().toString();
-                if(!correo.equals("")&& !pass.equals("")){
-                    auth.signInWithEmailAndPassword(correo,pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                if (!correo.equals("") && !pass.equals("")) {
+                    auth.signInWithEmailAndPassword(correo, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            Intent i = new Intent(LoginActivity.this,MainActivity.class);
+                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(i);
                             finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(LoginActivity.this,"Usuario o contraseña incorrecta",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Usuario o contraseña incorrecta", Toast.LENGTH_SHORT).show();
                         }
                     });
-                }else{
-                    Toast.makeText(LoginActivity.this,"Por favor llena todos los campos",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Por favor llena todos los campos", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -156,19 +163,25 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
         btn_registrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this,RegistroActivity.class);
+                Intent i = new Intent(LoginActivity.this, RegistroActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        btn_login_volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(i);
                 finish();
             }
         });
 
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-
     }
 
 
@@ -194,10 +207,12 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
         // We set parameters to the GraphRequest using a Bundle.
         Bundle parameters = new Bundle();
         parameters.putString("fields", "id,name,email,picture.width(200)");
         request.setParameters(parameters);
+
         // Initiate the GraphRequest
         request.executeAsync();
     }
@@ -215,8 +230,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void verificarExistenciaUsuarioFacebook(@NonNull Task<AuthResult> task,AccessToken token){
         boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
         if(isNew){
@@ -227,6 +240,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Este usuario ya existe",Toast.LENGTH_SHORT).show();
         }
     }
+
     private void verificarExistenciaUsuarioGoogle(@NonNull Task<AuthResult> task){
         boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
         if(isNew){
@@ -238,25 +252,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void signInGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN_GOOGLE);
     }
-
-    private void showSignInOptions(){
-
-        startActivityForResult(
-                AuthUI.getInstance().createSignInIntentBuilder()
-                        .setAvailableProviders(providers)
-                        .build(),MY_REQUEST_CODE
-        );
-
-    }
-
-
-    private static final int MY_REQUEST_CODE=7117; //Cualquier numero
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -289,7 +288,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = auth.getCurrentUser();
-                            updateUI(user);
+                            //updateUI(user);
                             AccessToken accessToken = AccessToken.getCurrentAccessToken();
                             verificarExistenciaUsuarioFacebook(task,accessToken);
                             Toast.makeText(LoginActivity.this,"Ingresaste con correo "+user.getEmail(),Toast.LENGTH_SHORT).show();
@@ -308,7 +307,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
@@ -337,6 +335,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             findViewById(R.id.btn_login_facebook).setVisibility(View.GONE);
@@ -351,5 +350,4 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = auth.getCurrentUser();
         updateUI(currentUser);
     }
-
 }

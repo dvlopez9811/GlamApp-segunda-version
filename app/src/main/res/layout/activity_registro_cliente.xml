@@ -42,7 +42,7 @@
             android:layout_marginBottom="10dp"
             android:textSize="20dp"
             android:textColorHint="#000"
-            android:hint="Nombre"
+            android:hint="Nombre de usuario"
             />
 
         <EditText
@@ -52,7 +52,16 @@
             android:layout_marginBottom="10dp"
             android:textSize="20dp"
             android:textColorHint="#000"
-            android:hint="Apellido" />
+            android:hint="Nombre" />
+
+        <EditText
+            android:id="@+id/registro_estilista_cliente_et_telefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textSize="20dp"
+            android:textColorHint="#000"
+            android:hint="Teléfono" />
 
         <EditText
             android:id="@+id/registro_estilista_cliente_et_telefono"
@@ -96,7 +105,7 @@
 
         <Button
             android:id="@+id/registro_estilista_cliente_btn_registrarme"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/btn_circular_secundario"
@@ -109,32 +118,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Ó" />
-
-        <Button
-            android:id="@+id/registro_estilista_cliente_btn_facebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Facebook"
-            android:background="@drawable/btn_facebook"
-            />
-
-        <Button
-
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:textAllCaps="false"
-            android:background="@drawable/logo_google_plus"
-            android:textColor="@color/colorBlanco"
-            android:textSize="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/btn_login_facebook"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/registro_estilista_cliente_btn_gmail"
-            android:layout_gravity="center"
-
-            />
-
 
     </LinearLayout>
 
