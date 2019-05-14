@@ -5,7 +5,8 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorBlanco">#FFF</color>
     <color name="colorRosado">#E93089</color>
-    <color name="colorPrimarioTransparente">#66b142b2</color>
+    <color name="colorPrimarioTransparente">#33b142b2</color>
+    <color name="colorAccentTransparente">#33d81b60</color>
     <color name="colorPrimaryClaro">#F7DFED</color>
+    <color name="colorPrimaryMuyDark">#606</color>
 </resources>
-
