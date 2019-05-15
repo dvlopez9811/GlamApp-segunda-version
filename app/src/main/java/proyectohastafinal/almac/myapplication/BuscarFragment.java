@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -41,6 +43,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -49,8 +52,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.FileInputStream;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
+import proyectohastafinal.almac.myapplication.model.BusquedaSalonDeBelleza;
 import proyectohastafinal.almac.myapplication.model.Marcador;
 import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 
@@ -63,6 +68,10 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
         instance = instance == null ? new BuscarFragment() : instance;
         return instance;
     }
+
+    private RecyclerView recyclerView;
+    private AdapterSalones mAdapater;
+    private RecyclerView.LayoutManager layoutManager;
 
     private Button btn_fragment_buscar_filtros;
     private ImageButton btn_cancelar_busqueda;
@@ -89,6 +98,11 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
     private TextView popup_servicio_masaje;
 
 
+    // Location Manager
+    private LocationManager locationManager;
+
+    // Location
+    private Location location;
 
     private PopupWindow popup_informacion;
 
@@ -97,11 +111,6 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
     FirebaseDatabase rtdb;
     FirebaseStorage storage;
 
-    // Location Manager
-    private LocationManager locationManager;
-
-    // Location
-    private Location location;
 
     // Marcador de la ubicación actual
     private Marker marcador_actual;
@@ -118,30 +127,87 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         marcadores = new HashMap<>();
+        rtdb = FirebaseDatabase.getInstance();
+
 
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_buscar, container, false);
-    }
 
-    // Obtiene la latitud y longitud de la ubicacion actual y agrega el marcador
-    private void miUbicacion(Location location) {
+        mView = inflater.inflate(R.layout.fragment_buscar, container, false);
 
-        this.location = location;
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
 
-        if (location != null) {
-            double lat = location.getLatitude();
-            double lng = location.getLongitude();
-            // Latitud y longitud de la posicion actual
-            LatLng posicion_actual = new LatLng(lat, lng);
+        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-            // Método para añadir el marcador
-            agregarMarcadorUbicacion(posicion_actual);
-        }
+        recyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view_salones);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        mAdapater = new AdapterSalones();
+        recyclerView.setAdapter(mAdapater);
+        rtdb.getReference().child("Salon de belleza").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                    SalonDeBelleza salonDeBelleza = dsp.getValue(SalonDeBelleza.class);
+                    Location locationDestino = new Location("Location destino");
+                    locationDestino.setLatitude(salonDeBelleza.getLatitud());
+                    locationDestino.setLongitude(salonDeBelleza.getLongitud());
+                    double distancia = location.distanceTo(locationDestino)/1000.0;
+                    DecimalFormat twoDForm = new DecimalFormat("#.#");
+                    BusquedaSalonDeBelleza busquedaSalonDeBelleza = new BusquedaSalonDeBelleza(salonDeBelleza.getNombreSalonDeBelleza(),salonDeBelleza.getDireccion(), twoDForm.format(distancia)+" km");
+                    mAdapater.agregarSalon(busquedaSalonDeBelleza);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        rtdb.getReference().child("Salon de belleza").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                SalonDeBelleza salonDeBelleza = dataSnapshot.getValue(SalonDeBelleza.class);
+                Location locationDestino = new Location("Location destino");
+                locationDestino.setLatitude(salonDeBelleza.getLatitud());
+                locationDestino.setLongitude(salonDeBelleza.getLongitud());
+                double distancia = location.distanceTo(locationDestino)/1000.0;
+                DecimalFormat twoDForm = new DecimalFormat("#.#");
+                BusquedaSalonDeBelleza busquedaSalonDeBelleza = new BusquedaSalonDeBelleza(salonDeBelleza.getNombreSalonDeBelleza(),salonDeBelleza.getDireccion(), twoDForm.format(distancia)+" km");
+                mAdapater.agregarSalon(busquedaSalonDeBelleza);
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        return mView;
     }
 
     // Location Listener
@@ -150,8 +216,8 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
         // Metodo para manejar cuando se cambie de ubicacion
         @Override
         public void onLocationChanged(Location location) {
-            if(!estaBuscando)
-            miUbicacion(location);
+            Log.e("HOLA","cambia");
+            actualizarUbicacion(location);
         }
 
         @Override
@@ -170,6 +236,53 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
         }
     };
 
+    // Obtiene la latitud y longitud de la ubicacion actual y agrega el marcador
+    private void miUbicacion(Location location) {
+
+        this.location = location;
+
+        if (location != null) {
+            double lat = location.getLatitude();
+            double lng = location.getLongitude();
+            // Latitud y longitud de la posicion actual
+            LatLng posicion_actual = new LatLng(lat, lng);
+
+            // Método para añadir el marcador
+            agregarMarcadorUbicacion(posicion_actual);
+        }
+    }
+
+    private void actualizarUbicacion (Location location){
+        this.location = location;
+
+        rtdb.getReference().child("Salon de belleza").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                    SalonDeBelleza salonDeBelleza = dsp.getValue(SalonDeBelleza.class);
+                    Location locationDestino = new Location("Location destino");
+                    locationDestino.setLatitude(salonDeBelleza.getLatitud());
+                    locationDestino.setLongitude(salonDeBelleza.getLongitud());
+                    double distancia = distanciaA(locationDestino);
+                    DecimalFormat twoDForm = new DecimalFormat("#.#");
+                    BusquedaSalonDeBelleza busquedaSalonDeBelleza = new BusquedaSalonDeBelleza(salonDeBelleza.getNombreSalonDeBelleza(),salonDeBelleza.getDireccion(), twoDForm.format(distancia)+" km");
+                    mAdapater.actualizarDistancia(busquedaSalonDeBelleza);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public double distanciaA(Location dest){
+        Log.e("goa","calcula");
+        return location.distanceTo(dest)/1000.0;
+    }
     // Agrega el marcador de la ubicación actual
     private void agregarMarcadorUbicacion(LatLng posicion_actual) {
 
@@ -265,13 +378,6 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
                     imageView.setSelected(true);
                 }
                 break;
-
-            case R.id.btn_fragment_buscar_filtros:
-                popup_filtros.dismiss();
-                Intent i = new Intent(getContext(), ResultadoBusquedaSalonActivity.class);
-                startActivity(i);
-                break;
-
 
             case R.id.btn_cancelar_busqueda:
                 et_fragment_buscar_buscar_salon.setText(null);
