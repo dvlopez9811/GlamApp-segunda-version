@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         navigationView.setOnNavigationItemSelectedListener(this);
 
         cargarFragmento(InicioFragment.getInstance());
-        navigationView.setSelectedItemId(R.id.navigation_home);
+        navigationView.setSelectedItemId(R.id.navigation_buscar);
 
     }
 
@@ -60,12 +60,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Fragment fragment = null;
 
         switch (menuItem.getItemId()) {
-            case R.id.navigation_home:
-                if ( inicio_fragment == null )
-                    inicio_fragment = InicioFragment.getInstance();
-                fragment = inicio_fragment;
-                break;
-
             case R.id.navigation_buscar: ;
                 buscar_fragment = BuscarFragment.getInstance();
                 fragment = buscar_fragment;

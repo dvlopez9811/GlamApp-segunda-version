@@ -16,19 +16,22 @@
         android:roundIcon="@drawable/ic_glam_150x150_borde"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".InicioActivity">
+
+        </activity>
+        <activity android:name=".ChatActivity" />
         <activity android:name=".ResultadoBusquedaSalonActivity" />
         <activity android:name=".RegistroActivity" />
-        <activity android:name=".RegistroSalonDeBelleza"></activity>
+        <activity android:name=".RegistroSalonDeBelleza" />
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/SplashTheme">
-        </activity>
-        <activity android:name=".RegistroCliente"></activity>
+            android:theme="@style/SplashTheme"></activity>
+        <activity android:name=".RegistroCliente" />
         <activity android:name=".RegistroEstilista" />
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

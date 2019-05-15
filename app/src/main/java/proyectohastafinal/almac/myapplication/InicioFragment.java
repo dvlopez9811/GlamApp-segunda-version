@@ -1,6 +1,7 @@
 package proyectohastafinal.almac.myapplication;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -72,11 +74,27 @@ public class InicioFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
         Intent i;
-        int id;
 
         switch(v.getId()){
 
+
+            case R.id.iv_peluqueria_inicio | R.id.iv_unas_inicio | R.id.iv_maquillaje_inicio | R.id.iv_depilacion_inicio | R.id.iv_masaje_inicio:
+
+                Toast.makeText(getContext(),"ENTRA",Toast.LENGTH_SHORT).show();
+                ImageView imageView = (ImageView) v;
+
+                if (imageView.isSelected()) {
+                    imageView.setColorFilter(Color.rgb(255, 255, 255), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    imageView.setSelected(false);
+                } else {
+                    imageView.setColorFilter(Color.rgb(155, 155, 155), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    imageView.setSelected(true);
+                }
+                break;
+
             case R.id.btn_ingresar_inicio:
+
+                Toast.makeText(getContext(),getView().getId()+"+" +R.id.btn_ingresar_inicio,Toast.LENGTH_SHORT).show();
                 i = new Intent(getActivity(),LoginActivity.class);
                 startActivity(i);
                 getActivity().finish();

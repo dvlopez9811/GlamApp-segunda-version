@@ -3,93 +3,48 @@
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:gravity="center"
-    android:padding="10dp">
-
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@color/colorPrimary"/>
+    android:gravity="center_horizontal">
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="5dp"
-        android:gravity="center">
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_marcador_salon"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre del salón"
-            android:id="@+id/nombre_item_salones"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_calificacion_llena_25x25"
-                android:id="@+id/calificacion1_item_salones"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_calificacion_llena_25x25"
-                android:id="@+id/calificacion2_item_salones"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_calificacion_llena_25x25"
-                android:id="@+id/calificacion3_item_salones"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_calificacion_llena_25x25"
-                android:id="@+id/calificacion4_item_salones"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_calificacion_llena_25x25"
-                android:id="@+id/calificacion5_item_salones"/>
-
-        </LinearLayout>
-
+            android:text="0,9 km"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:orientation="vertical"
-        android:layout_marginLeft="10dp">
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp">
 
-        <Button
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="¿Cómo llegar?"
-            android:padding="5dp"
-            android:textAllCaps="false"
-            android:textColor="@color/colorBlanco"
-            android:background="@drawable/btn_circular_secundario"
-            android:id="@+id/btn_comollegar_item_salones"/>
+            android:layout_height="wrap_content"
+            android:text="Salon de belleza"/>
 
-        <Button
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:padding="5dp"
-            android:text="Agendar cita"
-            android:textAllCaps="false"
-            android:textColor="@color/colorBlanco"
-            android:background="@drawable/btn_circular_principal"
-            android:layout_marginTop="5dp"
-            android:id="@+id/btn_agendarcita_item_salones"/>
+            android:layout_height="wrap_content"
+            android:text="Cl. 119 #123-124 Cali, Valle del Cauca"/>
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_go_24x24"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"/>
 
 </LinearLayout>

@@ -55,7 +55,7 @@ import proyectohastafinal.almac.myapplication.model.Marcador;
 import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 
 
-public class BuscarFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener {
+public class BuscarFragment extends Fragment implements View.OnClickListener {
 
     private static BuscarFragment instance;
 
@@ -121,104 +121,11 @@ public class BuscarFragment extends Fragment implements OnMapReadyCallback, View
 
     }
 
-    @SuppressLint("MissingPermission")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.fragment_buscar, container, false);
-
-        mMapView = mView.findViewById(R.id.map);
-
-        if (mMapView != null) {
-            mMapView.onCreate(null);
-            mMapView.onResume();
-            mMapView.getMapAsync(this);
-
-            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, locationListener);
-        }
-
-        btn_fragment_buscar_filtros = mView.findViewById(R.id.btn_fragment_buscar_filtros);
-
-        btn_fragment_buscar_filtros.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mostrarPopUpWindowFiltros();
-            }
-        });
-
-        et_fragment_buscar_buscar_salon = mView.findViewById(R.id.et_fragment_buscar_buscar_salon);
-        txt_fragment_buscar_resultados_salon = mView.findViewById(R.id.txt_fragment_buscar_resultados_salon);
-        btn_actualizar_ubicacion = mView.findViewById(R.id.btn_actualizar_ubicacion);
-
-        rtdb = FirebaseDatabase.getInstance();
-
-        et_fragment_buscar_buscar_salon.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                txt_fragment_buscar_resultados_salon.setVisibility(TextView.VISIBLE);
-
-                if (s.length() == 0) {
-                    txt_fragment_buscar_resultados_salon.setVisibility(TextView.INVISIBLE);
-
-                } else {
-                    rtdb.getReference().child("Salon de belleza").child(s + "").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            estaBuscando = true;
-                            SalonDeBelleza salon = dataSnapshot.getValue(SalonDeBelleza.class);
-                            if (salon == null) {
-                                txt_fragment_buscar_resultados_salon.setText("No encontrado");
-                            } else
-                                txt_fragment_buscar_resultados_salon.setText(salon.getNombreSalonDeBelleza());
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        txt_fragment_buscar_resultados_salon.setOnClickListener(this);
-
-        et_fragment_buscar_buscar_salon.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-
-                if (event.getAction() == KeyEvent.KEYCODE_SOFT_LEFT) {
-
-                    et_fragment_buscar_buscar_salon.setText(null);
-                    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-
-                    et_fragment_buscar_buscar_salon.requestFocus(EditText.FOCUS_DOWN);
-                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        btn_actualizar_ubicacion.setOnClickListener(this);
-
-        btn_cancelar_busqueda = mView.findViewById(R.id.btn_cancelar_busqueda);
-        btn_cancelar_busqueda.setOnClickListener(this);
-        return mView;
+        return inflater.inflate(R.layout.fragment_buscar, container, false);
     }
 
     // Obtiene la latitud y longitud de la ubicacion actual y agrega el marcador
@@ -282,75 +189,6 @@ public class BuscarFragment extends Fragment implements OnMapReadyCallback, View
 
     }
 
-    @SuppressLint("MissingPermission")
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-        mGoogleMap = googleMap;
-        rtdb = FirebaseDatabase.getInstance();
-
-        miUbicacion(locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER));
-
-        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                if(marcadores.get(marker.getTitle()) != null) {
-                    rtdb.getReference().child("Salon de belleza").child(marker.getTitle()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            SalonDeBelleza salonDeBelleza = dataSnapshot.getValue(SalonDeBelleza.class);
-                            popup_nombre_salon.setText(salonDeBelleza.getNombreSalonDeBelleza()+"");
-                            if (salonDeBelleza.getServicios().get("Peluquería") == null)
-                                popup_servicio_peluqueria.setVisibility(View.INVISIBLE);
-                            if (salonDeBelleza.getServicios().get("Depilación") != null)
-                                popup_servicio_depilacion.setVisibility(View.INVISIBLE);
-                            if (salonDeBelleza.getServicios().get("Uñas") == null)
-                                popup_servicio_unas.setVisibility(View.INVISIBLE);
-                            if (salonDeBelleza.getServicios().get("Maquillaje") == null)
-                                popup_servicio_maquillaje.setVisibility(View.INVISIBLE);
-                            if (salonDeBelleza.getServicios().get("Masaje") == null)
-                                popup_servicio_masaje.setVisibility(View.INVISIBLE);
-
-                            storage = FirebaseStorage.getInstance();
-                            StorageReference ref = storage.getReference().child("salones de belleza").child(salonDeBelleza.getNombreSalonDeBelleza());
-                            Log.e("HOLA", (ref == null) + "");
-                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    Glide.with(BuscarFragment.this).load(uri).into(popup_imagen_salon);
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                    mostrarPopUpWindowInformacion();
-
-                }
-                return true;
-            }
-        });
-
-
-        rtdb.getReference().child("Marcador").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    Marcador marcador = dsp.getValue(Marcador.class);
-                    agregarMarcador(marcador);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
 
     public void agregarMarcador(GoogleMap googleMap, LatLng latLng) {
 
@@ -434,22 +272,6 @@ public class BuscarFragment extends Fragment implements OnMapReadyCallback, View
                 startActivity(i);
                 break;
 
-            case R.id.txt_fragment_buscar_resultados_salon:
-                String IDSalonDeBelleza = txt_fragment_buscar_resultados_salon.getText().toString();
-                mostrarMarcadorSalon(IDSalonDeBelleza);
-
-                et_fragment_buscar_buscar_salon.setText(null);
-
-                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-
-                et_fragment_buscar_buscar_salon.requestFocus(EditText.FOCUS_DOWN);
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-                break;
-
-            case R.id.btn_actualizar_ubicacion:
-                estaBuscando = false;
-                miUbicacion(locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER));
-                break;
 
             case R.id.btn_cancelar_busqueda:
                 et_fragment_buscar_buscar_salon.setText(null);
