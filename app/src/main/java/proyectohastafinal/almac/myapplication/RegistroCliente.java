@@ -65,7 +65,7 @@ public class RegistroCliente extends AppCompatActivity {
                         final String nombreCompleto = registroEstilistaClienteEtNombre.getText().toString() + " " + registroEstilistaClienteEtApellido.getText().toString();
                         final String telefono = registroEstilistaClienteEtTelefono.getText().toString();
 
-                        final Cliente cl = new Cliente(correo, nombreCompleto, pass, telefono);
+                        final Cliente cl = new Cliente(pass, correo, nombreCompleto, telefono);
 
                         if (registroEstilistaClienteCheckBoxEstilista.isChecked()) {
                             Intent i = new Intent(RegistroCliente.this, RegistroEstilista.class);
@@ -75,10 +75,12 @@ public class RegistroCliente extends AppCompatActivity {
                             auth.createUserWithEmailAndPassword(correo, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-                                    rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).setValue(cl);
+                                    rtdb.getReference().child("usuario").child(nombreCompleto).setValue(cl);
                                     Intent i = new Intent(RegistroCliente.this, MainActivity.class);
                                     startActivity(i);
                                     finish();
+
+                                    rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("cliente");
                                 }
                             });
                         }

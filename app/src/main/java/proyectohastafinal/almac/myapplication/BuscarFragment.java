@@ -27,6 +27,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
@@ -38,7 +39,7 @@ import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 
 public class BuscarFragment extends Fragment implements View.OnClickListener {
 
-    public final static String[] SERVICIOS_SALON = {"Uñas", "Maquillaje", "Masaje", "Deplación", "Peluquería"};
+    public final static String[] SERVICIOS_SALON = {"Uñas", "Maquillaje", "Masaje", "Depilación", "Peluquería"};
 
     private static BuscarFragment instance;
 
@@ -94,7 +95,7 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
         mView = inflater.inflate(R.layout.fragment_buscar, container, false);
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, locationListener);
 
         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if(location==null)
@@ -209,10 +210,8 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
 
                 if(v.isActivated()) {
                     servicios[0] = false;
-                    Log.e("entra","inactivo");
                 }else {
                     servicios[0] = true;
-                    Log.e("entra","aactivo");
                 }
 
                 v.setActivated(!v.isActivated());
@@ -289,22 +288,26 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
     }
 
     private void buscarSalon(){
-        String busqueda = null;
+        String busqueda = "";
         for (int i = 0;i<servicios.length;i++){
             if(servicios[i] == true){
-                if(busqueda==null)
+                if(busqueda.equals(""))
                     busqueda = SERVICIOS_SALON[i];
                 else
                     busqueda += "-" + SERVICIOS_SALON[i];
             }
         }
 
-        rtdb.getReference().child("Buscar servicios salón de belleza").child(busqueda).addListenerForSingleValueEvent(new ValueEventListener() {
+        Toast.makeText(getContext(),busqueda,Toast.LENGTH_SHORT).show();
+        rtdb.getReference().child("Buscar servicios salon de belleza").child(busqueda).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    HashMap<String,String> salonDeBelleza = dataSnapshot.getValue(HashMap.class);
+                    GenericTypeIndicator< HashMap<String,String> > tipo = new GenericTypeIndicator<HashMap<String, String>>() {
+                    };
 
+                    HashMap<String,String> salonDeBelleza = dataSnapshot.getValue(tipo);
+                    Toast.makeText(getContext(),(salonDeBelleza == null)+"",Toast.LENGTH_SHORT).show();
                     //mostrarSalonDeBellezaAdapter(dsp,mAdapater,true);
                 }
             }
