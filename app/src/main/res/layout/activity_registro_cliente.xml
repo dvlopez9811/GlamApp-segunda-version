@@ -4,86 +4,110 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegistroCliente">
+    tools:context=".RegistroCliente"
+    android:background="@color/colorPrimarioTransparente">
 
-    <TextView
-        android:id="@+id/texto_registro"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:text="Registro"
-        android:textColor="@color/colorBlanco"
-        android:textSize="40dp" />
 
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/btn_registro_cliente_volver"
+        android:background="@drawable/ic_volver_primary"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
     <LinearLayout
         android:id="@+id/registro_estilista_cliente_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/texto_registro"
+        android:layout_below="@+id/btn_registro_cliente_volver"
         android:layout_marginTop="10dp"
+
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Únete a Glam"
+            android:id="@+id/txt_titulo_registro"
+            android:textColor="@color/colorPrimaryMuyDark"
+            android:textSize="30dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            />
         <EditText
             android:id="@+id/registro_estilista_cliente_et_correo"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:textSize="20dp"
             android:hint="Correo"
-            android:textColorHint="#000"
+            android:textColorHint="@color/colorPrimaryDark"
             android:inputType="textEmailAddress"
+            android:layout_marginLeft="20dp"
+            android:singleLine="true"
+
             />
 
         <EditText
             android:id="@+id/registro_estilista_cliente_et_nombre"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:textSize="20dp"
-            android:textColorHint="#000"
-            android:hint="Nombre de usuario"
+            android:hint="Nombre"
+            android:layout_marginLeft="20dp"
+            android:textColorHint="@color/colorPrimaryDark"
+            android:singleLine="true"
             />
 
         <EditText
             android:id="@+id/registro_estilista_cliente_et_apellido"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:textSize="20dp"
-            android:textColorHint="#000"
-            android:hint="Nombre" />
+            android:hint="Apellido"
+            android:layout_marginLeft="20dp"
+            android:singleLine="true"
+            android:textColorHint="@color/colorPrimaryDark"/>
 
         <EditText
-            android:id="@+id/registro_estilista_cliente_et_telefono"
-            android:layout_width="match_parent"
+            android:id="@+id/id_registro_estilista_cliente_et_telefono"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:textSize="20dp"
-            android:textColorHint="#000"
-            android:hint="Teléfono" />
+            android:hint="Telefono"
+            android:layout_marginLeft="20dp"
+            android:singleLine="true"
+            android:textColorHint="@color/colorPrimaryDark"/>
 
         <EditText
             android:id="@+id/registro_estilista_cliente_et_contrasenha"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:textSize="20dp"
             android:hint="Contraseña"
-            android:textColorHint="#000"
             android:inputType="textPassword"
-
+            android:layout_marginLeft="20dp"
+            android:singleLine="true"
+            android:textColorHint="@color/colorPrimaryDark"
             />
 
         <EditText
             android:id="@+id/registro_estilista_cliente_et_confimar_contrasenha"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:textSize="20dp"
-            android:hint="Confirar contraseña"
-            android:textColorHint="#000"
-            android:inputType="textPassword"
+            android:hint="Confirmar contraseña"
+            android:layout_marginLeft="20dp"
+            android:singleLine="true"
+
+            android:textColorHint="@color/colorPrimaryDark"            android:inputType="textPassword"
             />
 
         <CheckBox
@@ -92,23 +116,23 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColorHint="#000"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/colorPrimaryMuyDark"
+            android:textSize="20dp"
             android:text="Soy estilista" />
 
         <Button
             android:id="@+id/registro_estilista_cliente_btn_registrarme"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/btn_circular_secundario"
+            android:background="@drawable/btn_circular_principal"
             android:text="Registrarme"
-
+            android:textSize="20dp"
+            android:textColor="@color/colorBlanco"
+            android:layout_marginTop="20dp"
+            android:textAllCaps="false"
             />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Ó" />
 
     </LinearLayout>
 
