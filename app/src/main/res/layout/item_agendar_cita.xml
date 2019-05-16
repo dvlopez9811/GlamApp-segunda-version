@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imagen_tipo_servicio_item_agendar_cita"
+        android:src="@drawable/ic_new_maquillaje_morado"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tipo Servicio"
+        android:fontFamily="@font/josefin_sans_thin"
+        android:textSize="20dp"
+
+        />
+
+
+
+
+</RelativeLayout>
