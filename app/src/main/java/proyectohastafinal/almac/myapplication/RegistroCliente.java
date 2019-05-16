@@ -27,9 +27,6 @@ public class RegistroCliente extends AppCompatActivity {
     private CheckBox registroEstilistaClienteCheckBoxEstilista;
     private Button registroEstilistaClienteBtnRegistrarme;
 
-    private Button registroEstilistaClienteBtnFacebook;
-    private Button registroEstilistaClienteBtnGoogle;
-
     FirebaseAuth auth;
     FirebaseDatabase rtdb;
 
@@ -87,20 +84,6 @@ public class RegistroCliente extends AppCompatActivity {
                         Toast.makeText(RegistroCliente.this, "Las contraseñas no son iguales", Toast.LENGTH_LONG).show();
                     }
                 }
-
-            }
-        });
-
-        registroEstilistaClienteBtnFacebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        registroEstilistaClienteBtnGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
             }
         });
