@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN_GOOGLE = 9001;
 
 
-    private Button btn_iniciar_sesion,btn_inicio_sesion_facebook,btn_inicio_sesion_google,btn_registrarse;
+    private Button btn_iniciar_sesion,btn_inicio_sesion_facebook,btn_inicio_sesion_google;
     private Button  btn_login_volver;
     private LoginButton loginButton;
     private EditText et_login_correo, et_login_password;
@@ -89,7 +89,6 @@ public class LoginActivity extends AppCompatActivity {
         et_login_correo = findViewById(R.id.et_usuario);
         et_login_password=findViewById(R.id.et_password);
         btn_inicio_sesion_facebook=findViewById(R.id.boton_facebook_personalizado);
-        btn_registrarse = findViewById(R.id.btn_registrarse);
         btn_login_volver = findViewById(R.id.btn_login_volver);
 
         mCallbackManager = CallbackManager.Factory.create();
@@ -163,19 +162,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btn_registrarse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, RegistroActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
+
 
         btn_login_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this,MainActivity.class);
+                Intent i = new Intent(LoginActivity.this,InicioActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -193,20 +185,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void anadirNuevoUsuarioFacebook(AccessToken token){
-        GraphRequest request = GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback() {
-            //OnCompleted is invoked once the GraphRequest is successful
-            @Override
-            public void onCompleted(JSONObject object, GraphResponse response) {
-                try {
-                    String name = object.getString("name");
-                    String email = object.getString("email");
-                    String image = object.getJSONObject("picture").getJSONObject("data").getString("url");
-                    crearUsuarioNuevo(name,email);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            GraphRequest request = GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback() {
+                //OnCompleted is invoked once the GraphRequest is successful
+                @Override
+                public void onCompleted(JSONObject object, GraphResponse response) {
+                    try {
+                        String name = object.getString("name");
+                        String email = object.getString("email");
+                        String image = object.getJSONObject("picture").getJSONObject("data").getString("url");
+                        crearUsuarioNuevo(name,email);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        });
+            });
 
         // We set parameters to the GraphRequest using a Bundle.
         Bundle parameters = new Bundle();
@@ -349,5 +341,13 @@ public class LoginActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = auth.getCurrentUser();
         updateUI(currentUser);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(LoginActivity.this, InicioActivity.class);
+        startActivity(i);
+        finish();
     }
 }

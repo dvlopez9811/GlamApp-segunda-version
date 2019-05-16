@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:id="@+id/linear_layout_botones_inicio_activity"
         android:orientation="vertical"
         android:padding="5dp">
 
@@ -132,4 +133,19 @@
             android:layout_marginTop="30dp"/>
     </LinearLayout>
 
+
+    <com.facebook.login.widget.LoginButton
+        android:visibility="gone"
+        android:id="@+id/btn_login_facebook_inicio_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        android:textAllCaps="false"
+        android:layout_below="@id/linear_layout_botones_inicio_activity"
+        android:textSize="20dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_redondeado_facebook"
+        />
 </RelativeLayout>
