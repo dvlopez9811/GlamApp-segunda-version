@@ -16,8 +16,7 @@
         android:roundIcon="@drawable/ic_glam_150x150_borde"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CambiarContrasenhaActivity"></activity>
-        <activity android:name=".AgendarCitaActivity" />
+        <activity android:name=".MainEstilistaActivity"></activity>
         <activity
             android:name=".InicioActivity"
             android:theme="@style/SplashTheme">
