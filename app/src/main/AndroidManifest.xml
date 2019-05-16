@@ -34,6 +34,7 @@
         <activity android:name=".RegistroCliente" />
         <activity android:name=".RegistroEstilista" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".CambiarContrasenhaActivity"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

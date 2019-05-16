@@ -10,8 +10,6 @@ public class Cliente {
     private String nombreCompleto;
     private String telefono;
 
-
-
     public Cliente(String contrasenha,String correo, String nombreCompleto,String telefono) {
 
         citas = new ArrayList<>();
