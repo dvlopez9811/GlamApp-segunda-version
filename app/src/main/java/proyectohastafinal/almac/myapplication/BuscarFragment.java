@@ -136,7 +136,7 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    //mostrarSalonDeBellezaAdapter(dsp,mAdapater,true);
+                    mostrarSalonDeBellezaAdapter(dsp,mAdapater,true);
                 }
             }
 
@@ -149,7 +149,7 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
         rtdb.getReference().child("Salon de belleza").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                //mostrarSalonDeBellezaAdapter(dataSnapshot,mAdapater,false);
+                mostrarSalonDeBellezaAdapter(dataSnapshot,mAdapater,false);
             }
 
             @Override
@@ -308,7 +308,7 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
 
                     HashMap<String,String> salonDeBelleza = dataSnapshot.getValue(tipo);
                     Toast.makeText(getContext(),(salonDeBelleza == null)+"",Toast.LENGTH_SHORT).show();
-                    //mostrarSalonDeBellezaAdapter(dsp,mAdapater,true);
+                    mostrarSalonDeBellezaAdapter(dsp,mAdapater,true);
                 }
             }
 
