@@ -57,8 +57,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Cliente me = dataSnapshot.getValue(Cliente.class);
                 telefonopropio = me.getTelefono();
-                nombre = me.getNombreCompleto();
-
+                nombre = me.getNombreYApellido();
 
                 //Después de saber los teléfonos de ambos, podemos cargar o crear los chats
                 initChat();
