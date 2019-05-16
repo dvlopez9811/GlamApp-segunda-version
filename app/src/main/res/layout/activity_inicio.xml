@@ -54,18 +54,18 @@
                 android:layout_marginLeft="20dp"/>
 
             <Button
+                android:id="@+id/btn_facebook_inicio_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/btn_facebook_inicio_activity"
-                android:background="@drawable/btn_redondeado_facebook"
-                android:text="Ingresa con Facebook"
-                android:textColor="@color/colorBlanco"
-                android:textSize="20dp"
                 android:layout_centerVertical="true"
-                android:textAllCaps="false"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_redondeado_facebook"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="60dp"
-                android:layout_marginBottom="10dp"/>
+                android:text="Ingresa con Facebook"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBlanco"
+                android:textSize="20dp" />
         </RelativeLayout>
 
 
