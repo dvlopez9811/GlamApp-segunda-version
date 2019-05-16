@@ -57,6 +57,7 @@ public class PerfilFragment extends Fragment {
                             public void onComplete(@NonNull Task<Void> task) {
                                 Intent i = new Intent(PerfilFragment.this.getContext(), InicioActivity.class);
                                 startActivity(i);
+                                getActivity().finish();
                             }
                         });
             }
