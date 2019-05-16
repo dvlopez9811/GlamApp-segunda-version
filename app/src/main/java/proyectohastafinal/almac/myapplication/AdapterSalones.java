@@ -2,59 +2,89 @@ package proyectohastafinal.almac.myapplication;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import proyectohastafinal.almac.myapplication.model.BusquedaSalonDeBelleza;
 import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 
-public class AdapterSalones extends BaseAdapter {
+public class AdapterSalones extends RecyclerView.Adapter<AdapterSalones.CustomViewHolder> {
 
+    protected ArrayList<BusquedaSalonDeBelleza> salones;
     protected Activity activity;
-    protected ArrayList<SalonDeBelleza> salones;
 
-    public AdapterSalones (Activity activity, ArrayList<SalonDeBelleza> salones) {
+    // Renglon de la lista
+    public static class CustomViewHolder extends RecyclerView.ViewHolder {
+        // Es un objeto tipo LinearLayout porque el padre es Layout
+        public LinearLayout root;
+        public CustomViewHolder(LinearLayout v) {
+            super(v);
+            root = v;
+        }
+    }
+
+    public AdapterSalones (Activity activity, ArrayList<BusquedaSalonDeBelleza> salones) {
         this.activity = activity;
         this.salones = salones;
     }
 
-    public void agregarSalones(ArrayList<SalonDeBelleza> salones) {
-        for (int i = 0; i < salones.size(); i++) {
-            this.salones.add(salones.get(i));
-        }
+    public AdapterSalones(){
+        salones = new ArrayList<>();
+
+    }
+    // Crear el renglón. Generación.
+    @Override
+    public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        // Un inflater transforma cualquier xml en un view.
+        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_salones, parent, false);
+        CustomViewHolder vh = new CustomViewHolder(v);
+        return vh;
     }
 
+    // Se pone información al renglón. Utilización.
     @Override
-    public int getCount() {
+    public void onBindViewHolder(CustomViewHolder holder, int position) {
+        ((TextView) holder.root.findViewById(R.id.txt_item_nombre_salon)).setText(salones.get(position).getNombreSalonDeBelleza());
+        ((TextView) holder.root.findViewById(R.id.txt_item_direccion_salon)).setText(salones.get(position).getDireccionSalonDeBelleza());
+        ((TextView) holder.root.findViewById(R.id.txt_item_distancia_a_salon)).setText(salones.get(position).getDistanciaASalonDeBelleza());
+    }
+
+    public void agregarSalon(BusquedaSalonDeBelleza salonDeBelleza){
+        if(!salones.contains(salonDeBelleza))
+            salones.add(salonDeBelleza);
+        notifyDataSetChanged();
+    }
+
+    // Número de items que se tienen.
+    @Override
+    public int getItemCount() {
         return salones.size();
     }
 
-    @Override
-    public SalonDeBelleza getItem(int position) {
-        return salones.get(position);
-    }
+    public void actualizarDistancia (BusquedaSalonDeBelleza busquedaSalonDeBelleza){
+        for (int i = 0; i < salones.size(); i++){
+            if( salones.get(i).equals(busquedaSalonDeBelleza) ) {
+                salones.get(i).setDistanciaASalonDeBelleza(busquedaSalonDeBelleza.getDistanciaASalonDeBelleza());
 
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        View v = convertView;
-
-        if(convertView == null){
-            LayoutInflater inf = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inf.inflate(R.layout.item_salones,null);
+            }
         }
-
-        SalonDeBelleza salonDeBelleza = salones.get(position);
-
-        return v;
+        notifyDataSetChanged();
     }
+
+    public BusquedaSalonDeBelleza darItem(int posicion){
+        return salones.get(posicion);
+    }
+
+
 }
