@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_citas_estilista"
+        android:title="Citas Agendadas"
+        android:icon="@drawable/ic_citas_48x48"
+        />
+
+    <item
+        android:id="@+id/navigation_solicitudes_estilista"
+        android:title="Solicitudes de Citas"
+        android:icon="@drawable/ic_inicio_48x48"
+        />
+
+    <item
+        android:id="@+id/navigation_mensajes_estilista"
+        android:title="Mensajes"
+        android:icon="@drawable/ic_configuracion_48x48"
+        />
+
+    <item
+        android:id="@+id/navigation_perfil_estilista"
+        android:title="Perfil"
+        android:icon="@drawable/ic_perfil_48x48"
+        />
+
+</menu>
