@@ -58,6 +58,8 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
+import proyectohastafinal.almac.myapplication.model.Cliente;
+
 public class LoginActivity extends AppCompatActivity {
 
     // Codigo de los permisos
@@ -206,7 +208,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void crearUsuarioNuevo(String nombre,String email){
         //*******************Crear usuario e ingresar a base de datos aqui
-
+        Cliente cl = new Cliente("", email, nombre, "");
+        rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).setValue(cl);
 
     }
 
