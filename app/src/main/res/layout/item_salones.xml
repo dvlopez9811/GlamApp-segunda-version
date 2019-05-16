@@ -2,94 +2,70 @@
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:gravity="center"
-    android:padding="10dp">
+    android:orientation="horizontal">
 
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@color/colorPrimary"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:orientation="vertical"
-        android:layout_marginLeft="5dp"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre del salón"
-            android:id="@+id/nombre_item_salones"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:id="@+id/layout_imagen"
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_calificacion_llena_25x25"
-                android:id="@+id/calificacion1_item_salones"/>
+                android:src="@drawable/ic_marcador_salon"/>
 
-            <ImageView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_calificacion_llena_25x25"
-                android:id="@+id/calificacion2_item_salones"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_calificacion_llena_25x25"
-                android:id="@+id/calificacion3_item_salones"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_calificacion_llena_25x25"
-                android:id="@+id/calificacion4_item_salones"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_calificacion_llena_25x25"
-                android:id="@+id/calificacion5_item_salones"/>
-
+                android:id="@+id/txt_item_distancia_a_salon" />
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_marginLeft="10dp">
-
-        <Button
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="¿Cómo llegar?"
-            android:padding="5dp"
-            android:textAllCaps="false"
-            android:textColor="@color/colorBlanco"
-            android:background="@drawable/btn_circular_secundario"
-            android:id="@+id/btn_comollegar_item_salones"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/layout_imagen"
+            android:layout_centerVertical="true">
 
-        <Button
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_item_nombre_salon"
+                android:text="Salon de belleza"
+                android:textSize="25dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_item_direccion_salon"
+                android:layout_marginTop="5dp"
+                android:text="Cl. 119 #123-124 Cali" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#9C9C9C" />
+        </LinearLayout>
+
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:padding="5dp"
-            android:text="Agendar cita"
-            android:textAllCaps="false"
-            android:textColor="@color/colorBlanco"
-            android:background="@drawable/btn_circular_principal"
-            android:layout_marginTop="5dp"
-            android:id="@+id/btn_agendarcita_item_salones"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:src="@drawable/ic_go_16x16"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
 
 </LinearLayout>

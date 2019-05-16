@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private Button btn_iniciar_sesion,btn_inicio_sesion_facebook,btn_inicio_sesion_google,btn_registrarse;
-    private ImageButton  btn_login_volver;
+    private Button  btn_login_volver;
     private LoginButton loginButton;
     private EditText et_login_correo, et_login_password;
     private GoogleSignInClient mGoogleSignInClient;

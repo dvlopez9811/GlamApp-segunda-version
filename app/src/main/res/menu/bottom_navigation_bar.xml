@@ -2,12 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
-        android:title="Inicio"
-        android:icon="@drawable/ic_inicio_48x48"
-        />
-
-    <item
         android:id="@+id/navigation_buscar"
         android:title="Buscar"
         android:icon="@drawable/ic_buscar_48x48"
@@ -26,9 +20,9 @@
         />
 
     <item
-        android:id="@+id/navigation_configurarion"
-        android:title="Ajustes"
-        android:icon="@drawable/ic_configuracion_48x48"
+        android:id="@+id/navigation_perfil"
+        android:title="Perfil"
+        android:icon="@drawable/ic_perfil_48x48"
         />
 
 </menu>

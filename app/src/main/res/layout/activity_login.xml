@@ -119,15 +119,16 @@
 
     </LinearLayout>
 
-    <ImageButton
+    <Button
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:id="@+id/btn_login_volver"
-        android:src="@drawable/ic_volver_50x50"
+        android:background="@drawable/ic_volver_primary"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/fui_transparent"
-        android:text="VOLVER" />
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/btn_login_facebook"
