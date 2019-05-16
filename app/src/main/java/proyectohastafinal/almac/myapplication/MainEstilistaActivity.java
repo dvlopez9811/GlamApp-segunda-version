@@ -21,7 +21,7 @@ public class EstilistaActivity extends AppCompatActivity implements BottomNaviga
         navigationView.setOnNavigationItemSelectedListener(this);
 
         cargarFragmento(BuscarFragment.getInstance());
-        navigationView.setSelectedItemId(R.id.navigation_buscar);
+        navigationView.setSelectedItemId(R.id.navigation_citas_estilista);
     }
 
     @Override
