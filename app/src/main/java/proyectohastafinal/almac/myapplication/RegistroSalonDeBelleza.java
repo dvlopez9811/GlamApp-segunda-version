@@ -160,7 +160,7 @@ public class RegistroSalonDeBelleza extends AppCompatActivity {
 
 
                             for (int i = 0; i < serviciosCambinados.length; i++) {
-                                rtdb.getReference().child("Buscar servicios salon de belleza").child(serviciosCambinados[i]).child(salonDeBelleza.getNombreSalonDeBelleza()).setValue(salonDeBelleza.getNombreSalonDeBelleza());
+                                rtdb.getReference().child("Buscar servicios salon de belleza").child(serviciosCambinados[i]).child(salonDeBelleza.getNombreSalonDeBelleza()).push().setValue(salonDeBelleza.getNombreSalonDeBelleza());
                             }
                         }
                     });

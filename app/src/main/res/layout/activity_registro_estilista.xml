@@ -7,7 +7,7 @@
     tools:context=".RegistroEstilista"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:background="@color/colorPrimarioTransparente"
+    android:background="@color/colorBlanco"
     >
 
     <ScrollView
@@ -25,7 +25,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
-
 
 
                 <Button

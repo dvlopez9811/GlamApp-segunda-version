@@ -4,49 +4,32 @@ import java.util.ArrayList;
 
 public class Cliente {
 
-    private ArrayList<String> citas;
-    private String contrasenha;
     private String correo;
-    private String nombreCompleto;
+    private String nombreYApellido;
+    private String usuario;
     private String telefono;
+    private String contrasenha;
+    private ArrayList<String> citas;
 
-
-
-    public Cliente(String contrasenha,String correo, String nombreCompleto,String telefono) {
-
-        citas = new ArrayList<>();
+    public Cliente(String correo, String usuario, String nombreYApellido, String telefono, String contrasenha, ArrayList<String> citas) {
         this.correo = correo;
-        this.nombreCompleto = nombreCompleto;
-        this.contrasenha = contrasenha;
+        this.nombreYApellido = nombreYApellido;
+        this.usuario = usuario;
         this.telefono = telefono;
+        this.contrasenha = contrasenha;
+        this.citas = citas;
+    }
 
+    public Cliente(String correo, String usuario, String nombreYApellido, String telefono,String contrasenha) {
+        this.correo = correo;
+        this.nombreYApellido = nombreYApellido;
+        this.usuario = usuario;
+        this.telefono = telefono;
+        this.contrasenha = contrasenha;
+        this.citas = new ArrayList<>();
     }
 
     public Cliente() {}
-
-    public String getNombreUsuario() {
-        return correo;
-    }
-
-    public String getNombreCompleto() {
-        return nombreCompleto;
-    }
-
-    public String getContrasenha() {
-        return contrasenha;
-    }
-
-    public void setNombreUsuario(String correo) {
-        this.correo = correo;
-    }
-
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
-    }
-
-    public void setContrasenha(String contrasenha) {
-        this.contrasenha = contrasenha;
-    }
 
     public String getCorreo() {
         return correo;
@@ -56,12 +39,20 @@ public class Cliente {
         this.correo = correo;
     }
 
-    public ArrayList<String> getCitas() {
-        return citas;
+    public String getNombreYApellido() {
+        return nombreYApellido;
     }
 
-    public void setCitas(ArrayList<String> citas) {
-        this.citas = citas;
+    public void setNombreYApellido(String nombreYApellido) {
+        this.nombreYApellido = nombreYApellido;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getTelefono() {
@@ -70,5 +61,21 @@ public class Cliente {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public String getContrasenha() {
+        return contrasenha;
+    }
+
+    public void setContrasenha(String contrasenha) {
+        this.contrasenha = contrasenha;
+    }
+
+    public ArrayList<String> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(ArrayList<String> citas) {
+        this.citas = citas;
     }
 }
