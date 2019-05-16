@@ -3,13 +3,13 @@
 
     <item
         android:id="@+id/navigation_citas_estilista"
-        android:title="Citas Agendadas"
+        android:title="Citas"
         android:icon="@drawable/ic_citas_48x48"
         />
 
     <item
         android:id="@+id/navigation_solicitudes_estilista"
-        android:title="Solicitudes de Citas"
+        android:title="Solicitudes"
         android:icon="@drawable/ic_inicio_48x48"
         />
 

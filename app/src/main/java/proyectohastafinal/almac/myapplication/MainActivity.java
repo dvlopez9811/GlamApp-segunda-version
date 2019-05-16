@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             else
                 parentFragment = fragment;
 
-            parentFragment.setArguments(null);
+             //parentFragment.setArguments(null);
 
             ft.addToBackStack(parentFragment.getClass().getName() + "");
 
