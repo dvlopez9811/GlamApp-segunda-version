@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -53,13 +54,12 @@ public class AdapterCitas extends RecyclerView.Adapter<AdapterCitas.CustomViewHo
        ((TextView) holder.root.findViewById(R.id.salon_renglon_cita)).setText(citas.get(position).getNombreSalon());
         ((TextView) holder.root.findViewById(R.id.servicio_renglon_cita)).setText(citas.get(position).getServicio());
         ((TextView) holder.root.findViewById(R.id.horainicio_renglon_cita)).setText(citas.get(position).getHorainicio());
-        holder.root.findViewById(R.id.renglon_cita).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onItemClick(citas.get(position));
-
-            }
-        });
+         holder.root.findViewById(R.id.iv_menu_cita_renglon_cita).setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 listener.onItemClick(citas.get(position));
+             }
+         });
     }
 
     @Override

@@ -15,39 +15,34 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import java.security.Permission;
 
-public class PerfilFragment extends Fragment {
+public class PerfilEstilistaFragment extends Fragment {
 
-    private static PerfilFragment instance;
-
+    private static PerfilEstilistaFragment instance;
 
     private Button btn_cerrar_sesion;
 
-
-    public static PerfilFragment getInstance(){
-        instance = instance == null ? new PerfilFragment() : instance;
+    public static PerfilEstilistaFragment getInstance(){
+        instance = instance == null ? new PerfilEstilistaFragment() : instance;
         return instance;
     }
 
-    public PerfilFragment() {
+    public PerfilEstilistaFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        final View mView = inflater.inflate(R.layout.fragment_perfil, container, false);
         // Inflate the layout for this fragment
-        btn_cerrar_sesion = mView.findViewById(R.id.btn_cerrar_sesion);
+        View v = inflater.inflate(R.layout.fragment_perfil, container, false);
+
+        btn_cerrar_sesion = v.findViewById(R.id.btn_cerrar_sesion);
         btn_cerrar_sesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,16 +50,15 @@ public class PerfilFragment extends Fragment {
                         .signOut(inflater.getContext())
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             public void onComplete(@NonNull Task<Void> task) {
-                                Intent i = new Intent(PerfilFragment.this.getContext(), InicioActivity.class);
+                                Intent i = new Intent(PerfilEstilistaFragment.this.getContext(), InicioActivity.class);
                                 startActivity(i);
-                                getActivity().finish();
                             }
                         });
             }
         });
-        return mView;
-    }
 
+        return v;
+    }
 
 
 }
