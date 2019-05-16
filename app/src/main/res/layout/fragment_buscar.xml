@@ -12,7 +12,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:id="@+id/et_fragment_buscar_buscar_salon"
+            android:id="@+id/et_buscar_salon_fragment_buscar"
             android:hint="@string/buscar_salon_de_belleza_hint"
             android:inputType="text"
             android:padding="11dp"
@@ -32,7 +32,7 @@
             <ImageButton
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:id="@+id/btn_cancelar_busqueda"
+                android:id="@+id/btn_cancelar_busqueda_fragment_buscar"
                 android:background="@drawable/ic_eliminar_50x50"
                 android:layout_marginRight="5dp"
                 android:layout_gravity="center_vertical"/>
@@ -41,14 +41,22 @@
         
 
     </RelativeLayout>
-    
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_filtrar"
+        android:text="o filtra los salones de acuerdo a tus preferencia"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/layout_buscar"/>
+
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/layout_filtros"
         android:columnCount="5"
         android:orientation="horizontal"
-        android:layout_below="@id/layout_buscar"
+        android:layout_below="@id/txt_filtrar"
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp">
@@ -56,31 +64,36 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_new_peluqueria_morado"
+            android:id="@+id/image_filtro_peluqueria_fragment_buscar"
+            android:src="@drawable/image_filtro_peluqueria"
             android:layout_gravity="center_horizontal"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_new_depilacion_morado"
+            android:id="@+id/image_filtro_depilacion_fragment_buscar"
+            android:src="@drawable/image_filtro_depilacion"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_horizontal"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/uc_new_unas_morado" />
+            android:id="@+id/image_filtro_unas_fragment_buscar"
+            android:src="@drawable/image_filtro_unas" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_new_maquillaje_morado"
+            android:id="@+id/image_filtro_maquillaje_fragment_buscar"
+            android:src="@drawable/image_filtro_maquillaje"
             android:layout_gravity="center_horizontal"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_new_masaje_morado"
+            android:id="@+id/image_filtro_masaje_fragment_buscar"
+            android:src="@drawable/image_filtro_masaje"
             android:layout_gravity="center_horizontal"/>
 
         <TextView

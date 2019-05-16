@@ -2,23 +2,25 @@
 <RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/colorPrimaryClaro"
+    android:background="@color/colorBlanco"
     android:padding="20dp">
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:id="@+id/btn_salir_inicio_activity"
         android:src="@drawable/ic_salir_16x16"
         android:background="@color/fui_transparent" />
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/image_logo_inicio_activity"
-        android:src="@drawable/ic_glam_150x150_borde"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_logo_inicio_activity"
+        android:text="Glam"
+        android:textColor="@color/colorPrimary"
+        android:textSize="40sp"
         android:layout_below="@id/btn_salir_inicio_activity"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="50dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,8 +29,8 @@
         android:text="Descubre los mejores salones de belleza."
         android:textSize="35dp"
         android:textColor="#000"
-        android:layout_below="@id/image_logo_inicio_activity"
-        android:layout_marginTop="20dp"
+        android:layout_below="@id/txt_logo_inicio_activity"
+        android:layout_marginTop="30dp"
         android:textStyle="bold"/>
 
     <LinearLayout
@@ -114,7 +116,7 @@
                 android:textAllCaps="false"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="60dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"/>
         </RelativeLayout>
 

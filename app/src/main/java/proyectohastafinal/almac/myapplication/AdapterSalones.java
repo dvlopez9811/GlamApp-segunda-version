@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import proyectohastafinal.almac.myapplication.model.BusquedaSalonDeBelleza;
+import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 
 public class AdapterSalones extends RecyclerView.Adapter<AdapterSalones.CustomViewHolder> {
 
@@ -72,7 +73,6 @@ public class AdapterSalones extends RecyclerView.Adapter<AdapterSalones.CustomVi
     }
 
     public void actualizarDistancia (BusquedaSalonDeBelleza busquedaSalonDeBelleza){
-        Log.e("add","actualiza");
         for (int i = 0; i < salones.size(); i++){
             if( salones.get(i).equals(busquedaSalonDeBelleza) ) {
                 salones.get(i).setDistanciaASalonDeBelleza(busquedaSalonDeBelleza.getDistanciaASalonDeBelleza());
@@ -80,6 +80,10 @@ public class AdapterSalones extends RecyclerView.Adapter<AdapterSalones.CustomVi
             }
         }
         notifyDataSetChanged();
+    }
+
+    public BusquedaSalonDeBelleza darItem(int posicion){
+        return salones.get(posicion);
     }
 
 

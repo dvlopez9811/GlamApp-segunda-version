@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,4 +12,27 @@
 
     </android.support.v7.widget.RecyclerView>
 
-</FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_iniciar_sesion_fragment_citas"
+        android:text="Inicia sesión para poder ver tus citas"
+        android:textSize="25sp"
+        android:gravity="center_horizontal"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_iniciar_sesion_fragment_citas"
+        android:padding="10dp"
+        android:background="@drawable/btn_circular_principal"
+        android:textColor="@color/colorBlanco"
+        android:text="Inicia sesión"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:layout_below="@id/txt_iniciar_sesion_fragment_citas"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+</RelativeLayout>
