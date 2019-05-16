@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import proyectohastafinal.almac.myapplication.model.BusquedaSalonDeBelleza;
+import proyectohastafinal.almac.myapplication.model.Cita;
 import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 
 public class AdapterSalones extends RecyclerView.Adapter<AdapterSalones.CustomViewHolder> {
@@ -34,10 +35,6 @@ public class AdapterSalones extends RecyclerView.Adapter<AdapterSalones.CustomVi
         }
     }
 
-    public AdapterSalones (Activity activity, ArrayList<BusquedaSalonDeBelleza> salones) {
-        this.activity = activity;
-        this.salones = salones;
-    }
 
     public AdapterSalones(){
         salones = new ArrayList<>();
@@ -54,10 +51,28 @@ public class AdapterSalones extends RecyclerView.Adapter<AdapterSalones.CustomVi
 
     // Se pone información al renglón. Utilización.
     @Override
-    public void onBindViewHolder(CustomViewHolder holder, int position) {
+    public void onBindViewHolder(CustomViewHolder holder, final int position) {
         ((TextView) holder.root.findViewById(R.id.txt_item_nombre_salon)).setText(salones.get(position).getNombreSalonDeBelleza());
         ((TextView) holder.root.findViewById(R.id.txt_item_direccion_salon)).setText(salones.get(position).getDireccionSalonDeBelleza());
         ((TextView) holder.root.findViewById(R.id.txt_item_distancia_a_salon)).setText(salones.get(position).getDistanciaASalonDeBelleza());
+        holder.root.findViewById(R.id.item_salon).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(salones.get(position));
+            }
+        });
+    }
+
+
+    //OBSERVER
+    public interface OnItemClickListener{
+        void onItemClick(BusquedaSalonDeBelleza salonDeBelleza);
+    }
+
+    private AdapterSalones.OnItemClickListener listener;
+
+    public void setListener(AdapterSalones.OnItemClickListener listener){
+        this.listener = listener;
     }
 
     public void agregarSalon(BusquedaSalonDeBelleza salonDeBelleza){
@@ -86,5 +101,9 @@ public class AdapterSalones extends RecyclerView.Adapter<AdapterSalones.CustomVi
         return salones.get(posicion);
     }
 
+    public void limpiarSalones(){
+        salones = new ArrayList<>();
+        notifyDataSetChanged();
+    }
 
 }

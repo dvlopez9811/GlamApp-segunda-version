@@ -108,9 +108,10 @@ public class RegistroEstilista extends AppCompatActivity {
 
 
         final String correoEstilista = getIntent().getExtras().getString("correo");
-        final String nombreCompletoEstilista = getIntent().getExtras().getString("nombreCompleto");
+        final String usuarioEstilista = getIntent().getExtras().getString("usuario");
+        final String nombreEstilista = getIntent().getExtras().getString("nombre");
+        final String telefonoEstilista = getIntent().getExtras().getString("telefono");
         final String passEstilista = getIntent().getExtras().getString("pass");
-        final String telefono = getIntent().getExtras().getString("tel");
 
         final ArrayList<CharSequence> salonesDeBelleza = new ArrayList<>();
         servicios = new ArrayList<>();
@@ -155,7 +156,7 @@ public class RegistroEstilista extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final Estilista estilista = new Estilista(correoEstilista, nombreCompletoEstilista, passEstilista, null, telefono);
+                final Estilista estilista = new Estilista(correoEstilista,usuarioEstilista,nombreEstilista,passEstilista,passEstilista);
 
                 ArrayList<Horario> horarios = new ArrayList<>();
 
@@ -207,12 +208,12 @@ public class RegistroEstilista extends AppCompatActivity {
                 auth.createUserWithEmailAndPassword(correoEstilista, passEstilista).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        rtdb.getReference().child("Estilista").child(estilista.getNombreCompleto()).setValue(estilista);
+                        rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).setValue(estilista);
 
                         rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("estilista");
 
                         for (int i = 0; i<servicios.size(); i++ ){
-                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(servicios.get(i)).child(estilista.getNombreCompleto()).setValue(auth.getCurrentUser().getUid());
+                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(servicios.get(i)).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
                         }
 
                     }
