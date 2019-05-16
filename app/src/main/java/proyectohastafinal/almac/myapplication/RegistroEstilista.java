@@ -113,7 +113,7 @@ public class RegistroEstilista extends AppCompatActivity {
         final String telefono = getIntent().getExtras().getString("tel");
 
         final ArrayList<CharSequence> salonesDeBelleza = new ArrayList<>();
-        final ArrayList<String> servicios = new ArrayList<>();
+        servicios = new ArrayList<>();
 
         rtdb.getReference().child("Salon de belleza").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -123,7 +123,7 @@ public class RegistroEstilista extends AppCompatActivity {
                     ArrayAdapter<CharSequence> salonesDeBellezaAdapter = new ArrayAdapter<>(RegistroEstilista.this, R.layout.support_simple_spinner_dropdown_item, salonesDeBelleza);
                     spinnerSalonesDeBelleza.setAdapter(salonesDeBellezaAdapter);
 
-                    rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("servicios").addListenerForSingleValueEvent(new ValueEventListener() {
+                   /* rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("servicios").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             HashMap<String, Boolean> nombreSalonDeBelleza =  (HashMap<String, Boolean>) dataSnapshot.getValue();
@@ -136,7 +136,7 @@ public class RegistroEstilista extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError databaseError) {
 
                         }
-                    });
+                    });*/
 
                 }
             }
@@ -202,15 +202,17 @@ public class RegistroEstilista extends AppCompatActivity {
                     }
                 });
 
-
+                comprobarServiciosEscogidos();
 
                 auth.createUserWithEmailAndPassword(correoEstilista, passEstilista).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).setValue(estilista);
+                        rtdb.getReference().child("Estilista").child(estilista.getNombreCompleto()).setValue(estilista);
+
+                        rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("estilista");
 
                         for (int i = 0; i<servicios.size(); i++ ){
-                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(servicios.get(i)).push().setValue(auth.getCurrentUser().getUid());
+                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(servicios.get(i)).child(estilista.getNombreCompleto()).setValue(auth.getCurrentUser().getUid());
                         }
 
                     }
@@ -224,23 +226,23 @@ public class RegistroEstilista extends AppCompatActivity {
     public void comprobarServiciosEscogidos () {
 
         if (registroEstilistaCheckBoxUñas.isChecked()) {
-            servicios.add(registroEstilistaCheckBoxUñas.getText().toString());
+            servicios.add("uñas");
         }
 
         if (registroEstilistaCheckBoxMaquillaje.isChecked()) {
-            servicios.add(registroEstilistaCheckBoxMaquillaje.getText().toString());
+            servicios.add("maquillaje");
         }
 
         if (registroEstilistaCheckBoxMasaje.isChecked()) {
-            servicios.add(registroEstilistaCheckBoxMasaje.getText().toString());
+            servicios.add("masaje");
         }
 
         if (registroEstilistaCheckBoxDepilacion.isChecked()) {
-            servicios.add(registroEstilistaCheckBoxDepilacion.getText().toString());
+            servicios.add("depilación");
         }
 
         if (registroEstilistaCheckBoxPeluqueria.isChecked()) {
-            servicios.add(registroEstilistaCheckBoxPeluqueria.getText().toString());
+            servicios.add("peluqueria");
         }
 
     }
