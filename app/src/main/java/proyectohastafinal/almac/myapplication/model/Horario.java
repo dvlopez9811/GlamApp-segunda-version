@@ -5,6 +5,8 @@ public class Horario {
     private String dia;
     private String horaInicio;
     private String horaFinal;
+    private boolean seleccionado;
+
 
     public Horario(String dia, String horaInicio, String horaFinal) {
         this.dia = dia;
@@ -36,5 +38,13 @@ public class Horario {
 
     public void setHoraFinal(String horaFinal) {
         this.horaFinal = horaFinal;
+    }
+
+    public boolean isSeleccionado() {
+        return seleccionado;
+    }
+
+    public void setSeleccionado(boolean seleccionado) {
+        this.seleccionado = seleccionado;
     }
 }

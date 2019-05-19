@@ -2,6 +2,7 @@ package proyectohastafinal.almac.myapplication;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -51,7 +53,7 @@ public class AdapterSalones extends RecyclerView.Adapter<AdapterSalones.CustomVi
 
     // Se pone información al renglón. Utilización.
     @Override
-    public void onBindViewHolder(CustomViewHolder holder, final int position) {
+    public void onBindViewHolder(final CustomViewHolder holder, final int position) {
         ((TextView) holder.root.findViewById(R.id.txt_item_nombre_salon)).setText(salones.get(position).getNombreSalonDeBelleza());
         ((TextView) holder.root.findViewById(R.id.txt_item_direccion_salon)).setText(salones.get(position).getDireccionSalonDeBelleza());
         ((TextView) holder.root.findViewById(R.id.txt_item_distancia_a_salon)).setText(salones.get(position).getDistanciaASalonDeBelleza());
@@ -59,6 +61,10 @@ public class AdapterSalones extends RecyclerView.Adapter<AdapterSalones.CustomVi
             @Override
             public void onClick(View v) {
                 listener.onItemClick(salones.get(position));
+
+                //Modificado por varela para poder hacer probar layout cita
+                Intent i = new Intent(holder.root.getContext(),InformacionSalonActivity.class);
+                holder.root.getContext().startActivity(i);
             }
         });
     }
