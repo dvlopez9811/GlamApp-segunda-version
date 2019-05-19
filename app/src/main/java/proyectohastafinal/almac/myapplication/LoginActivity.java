@@ -46,6 +46,10 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,6 +57,8 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+
+import proyectohastafinal.almac.myapplication.model.Cliente;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -72,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
 
     List<AuthUI.IdpConfig> providers;
     FirebaseAuth auth;
+    FirebaseDatabase rtdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         auth = FirebaseAuth.getInstance();
+        rtdb = FirebaseDatabase.getInstance();
 
         Log.e("INFORMACION", (auth == null ? "en realidad":"galso"));
 
@@ -137,9 +145,30 @@ public class LoginActivity extends AppCompatActivity {
                     auth.signInWithEmailAndPassword(correo, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(i);
-                            finish();
+
+                            rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    String tipo = dataSnapshot.getValue(String.class);
+                                    if(tipo.equals("cliente")){
+                                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                    }else{
+                                        Intent i = new Intent(LoginActivity.this, MainEstilistaActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -179,8 +208,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void crearUsuarioNuevo(String nombre,String email){
         //*******************Crear usuario e ingresar a base de datos aqui
-
-
+        Cliente cl = new Cliente(email, "", nombre, "","");
+        rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).setValue(cl);
 
     }
 

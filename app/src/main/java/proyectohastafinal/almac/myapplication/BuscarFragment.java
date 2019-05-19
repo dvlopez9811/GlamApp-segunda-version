@@ -27,18 +27,20 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.Map;
 
 import proyectohastafinal.almac.myapplication.model.BusquedaSalonDeBelleza;
 import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 
 
-public class BuscarFragment extends Fragment implements View.OnClickListener {
+public class BuscarFragment extends Fragment implements View.OnClickListener, AdapterSalones.OnItemClickListener{
 
-    public final static String[] SERVICIOS_SALON = {"Uñas", "Maquillaje", "Masaje", "Deplación", "Peluquería"};
+    public final static String[] SERVICIOS_SALON = {"Uñas", "Maquillaje", "Masaje", "Depilación", "Peluquería"};
 
     private static BuscarFragment instance;
 
@@ -94,7 +96,7 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
         mView = inflater.inflate(R.layout.fragment_buscar, container, false);
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, locationListener);
 
         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if(location==null)
@@ -108,7 +110,6 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
         image_filtro_maquillaje_fragment_buscar = mView.findViewById(R.id.image_filtro_maquillaje_fragment_buscar);
         image_filtro_masaje_fragment_buscar = mView.findViewById(R.id.image_filtro_masaje_fragment_buscar);
         servicios = new boolean[5];
-        servicios[0] = servicios[1] = servicios[2] = servicios[3] = servicios[4] = false;
         image_filtro_peluqueria_fragment_buscar.setOnClickListener(this);
         image_filtro_depilacion_fragment_buscar.setOnClickListener(this);
         image_filtro_unas_fragment_buscar.setOnClickListener(this);
@@ -128,6 +129,7 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         mAdapater = new AdapterSalones();
+        mAdapater.setListener(this);
         recyclerView.setAdapter(mAdapater);
 
         rtdb.getReference().child("Salon de belleza").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -206,15 +208,11 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.image_filtro_unas_fragment_buscar:
-
                 if(v.isActivated()) {
                     servicios[0] = false;
-                    Log.e("entra","inactivo");
                 }else {
                     servicios[0] = true;
-                    Log.e("entra","aactivo");
                 }
-
                 v.setActivated(!v.isActivated());
                 break;
             case R.id.image_filtro_maquillaje_fragment_buscar:
@@ -289,30 +287,67 @@ public class BuscarFragment extends Fragment implements View.OnClickListener {
     }
 
     private void buscarSalon(){
-        String busqueda = null;
+        String busqueda = "";
         for (int i = 0;i<servicios.length;i++){
-            if(servicios[i] == true){
-                if(busqueda==null)
+            if(servicios[i]){
+                if(busqueda.equals(""))
                     busqueda = SERVICIOS_SALON[i];
                 else
                     busqueda += "-" + SERVICIOS_SALON[i];
             }
         }
+        Log.e("estado", busqueda);
+        if( !busqueda.equals("") ) {
+            Log.e("hola", busqueda);
+            mAdapater.limpiarSalones();
+            rtdb.getReference().child("Buscar servicios salon de belleza").child(busqueda).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                        String salonDeBelleza = childDataSnapshot.getKey();
 
-        rtdb.getReference().child("Buscar servicios salón de belleza").child(busqueda).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    HashMap<String,String> salonDeBelleza = dataSnapshot.getValue(HashMap.class);
+                        Log.e("hola", salonDeBelleza);
+                        rtdb.getReference().child("Salon de belleza").child(salonDeBelleza).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                mostrarSalonDeBellezaAdapter(dataSnapshot, mAdapater, true);
 
-                    //mostrarSalonDeBellezaAdapter(dsp,mAdapater,true);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        } else {
+            rtdb.getReference().child("Salon de belleza").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                        mostrarSalonDeBellezaAdapter(dsp,mAdapater,true);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onItemClick(BusquedaSalonDeBelleza salonDeBelleza) {
+        Toast.makeText(getContext(), salonDeBelleza.getNombreSalonDeBelleza(), Toast.LENGTH_SHORT).show();
     }
 }

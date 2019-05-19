@@ -11,10 +11,10 @@ public class Cita {
     public static final String RECHAZADA = "Rechazada";
 
     //SERVICIO
-    public static final String PELUQUERIA = "Peluquería";
+    public static final String PELUQUERIA = "Peluqueria";
     public static final String UNAS = "Uñas";
     public static final String MAQUILLAJE = "Maquillaje";
-    public static final String DEPILACION = "Depilación";
+    public static final String DEPILACION = "Depilacion";
     public static final String MASAJE = "Masaje";
 
 

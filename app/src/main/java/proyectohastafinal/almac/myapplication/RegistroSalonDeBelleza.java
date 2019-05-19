@@ -122,7 +122,7 @@ public class RegistroSalonDeBelleza extends AppCompatActivity {
                 String pass = registroSalonDeBellezaEtContrasenha.getText().toString();
                 String passConfirm = registroSalonDeBellezaEtContrasenhaConfirmar.getText().toString();
                 String direccion = registroSalonDeBellezaEtDireccion.getText().toString();
-                String correo = registroSalonDeBellezaEtCorreo.getText().toString();
+                final String correo = registroSalonDeBellezaEtCorreo.getText().toString();
 
                 Geocoder gc = new Geocoder(RegistroSalonDeBelleza.this);
 
@@ -153,12 +153,14 @@ public class RegistroSalonDeBelleza extends AppCompatActivity {
                             String serviciosCambinados [] = combinaciones(servicios);
                             rtdb.getReference().child("Salon de belleza").child(nombreSalonBelleza).setValue(salonDeBelleza);
 
+                            rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("salón de belleza");
+
                             Marcador marcador = new Marcador(salonDeBelleza.getLatitud(),salonDeBelleza.getLongitud(),salonDeBelleza.getNombreSalonDeBelleza());
                             rtdb.getReference().child("Marcador").child(salonDeBelleza.getNombreSalonDeBelleza()).setValue(marcador);
 
 
                             for (int i = 0; i < serviciosCambinados.length; i++) {
-                                rtdb.getReference().child("Buscar servicios salon de belleza").child(serviciosCambinados[i]).push().setValue(salonDeBelleza.getNombreSalonDeBelleza());
+                                rtdb.getReference().child("Buscar servicios salon de belleza").child(serviciosCambinados[i]).child(salonDeBelleza.getNombreSalonDeBelleza()).push().setValue(salonDeBelleza.getNombreSalonDeBelleza());
                             }
                         }
                     });

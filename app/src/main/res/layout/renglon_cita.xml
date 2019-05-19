@@ -42,8 +42,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:textSize="32sp"
-        android:layout_marginLeft="64dp"
+        android:layout_marginLeft="56dp"
         android:text="8:00 am"
         android:id="@+id/horainicio_renglon_cita"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/menu_cita"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/iv_menu_cita_renglon_cita"/>
 
 </LinearLayout>

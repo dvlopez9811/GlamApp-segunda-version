@@ -18,10 +18,9 @@ import proyectohastafinal.almac.myapplication.model.Cliente;
 
 public class RegistroCliente extends AppCompatActivity {
 
-
     private EditText registroEstilistaClienteEtCorreo;
-    private EditText registroEstilistaClienteEtNombre;
-    private EditText registroEstilistaClienteEtApellido;
+    private EditText registroEstilistaClienteEtUsuario;
+    private EditText registroEstilistaClienteEtNombreYApellido;
     private EditText registroEstilistaClienteEtTelefono;
     private EditText registroEstilistaClienteEtContrasenha;
     private EditText registroEstilistaClienteEtContrasenhaConfirmar;
@@ -30,7 +29,6 @@ public class RegistroCliente extends AppCompatActivity {
 
     FirebaseAuth auth;
     FirebaseDatabase rtdb;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +39,8 @@ public class RegistroCliente extends AppCompatActivity {
         rtdb = FirebaseDatabase.getInstance();
 
         registroEstilistaClienteEtCorreo = findViewById(R.id.registro_estilista_cliente_et_correo);
-        registroEstilistaClienteEtNombre = findViewById(R.id.registro_estilista_cliente_et_nombre);
-        registroEstilistaClienteEtApellido = findViewById(R.id.registro_estilista_cliente_et_apellido);
+        registroEstilistaClienteEtUsuario = findViewById(R.id.registro_estilista_cliente_et_nombre);
+        registroEstilistaClienteEtNombreYApellido = findViewById(R.id.registro_estilista_cliente_et_apellido);
         registroEstilistaClienteEtTelefono = findViewById(R.id.id_registro_estilista_cliente_et_telefono);
         registroEstilistaClienteEtContrasenha = findViewById(R.id.registro_estilista_cliente_et_contrasenha);
         registroEstilistaClienteEtContrasenhaConfirmar = findViewById(R.id.registro_estilista_cliente_et_confimar_contrasenha);
@@ -62,14 +60,15 @@ public class RegistroCliente extends AppCompatActivity {
                     if (pass.equals(passConfirm)) {
 
                         final String correo = registroEstilistaClienteEtCorreo.getText().toString();
-                        final String nombreCompleto = registroEstilistaClienteEtNombre.getText().toString() + " " + registroEstilistaClienteEtApellido.getText().toString();
+                        final String usuario = registroEstilistaClienteEtUsuario.getText().toString();
+                        final String nombre = registroEstilistaClienteEtNombreYApellido.getText().toString();
                         final String telefono = registroEstilistaClienteEtTelefono.getText().toString();
 
-                        final Cliente cl = new Cliente(correo, nombreCompleto, pass, telefono);
+                        final Cliente cl = new Cliente(correo, usuario,nombre,telefono,pass);
 
                         if (registroEstilistaClienteCheckBoxEstilista.isChecked()) {
                             Intent i = new Intent(RegistroCliente.this, RegistroEstilista.class);
-                            i.putExtra("correo", correo).putExtra("nombreCompleto", nombreCompleto).putExtra("pass", pass).putExtra("tel",telefono);
+                            i.putExtra("correo",correo).putExtra("usuario", usuario).putExtra("nombre",nombre).putExtra("telefono",telefono).putExtra("pass",pass);
                             startActivity(i);
                         } else {
                             auth.createUserWithEmailAndPassword(correo, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -79,10 +78,11 @@ public class RegistroCliente extends AppCompatActivity {
                                     Intent i = new Intent(RegistroCliente.this, MainActivity.class);
                                     startActivity(i);
                                     finish();
+
+                                    rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("cliente");
                                 }
                             });
                         }
-
                     } else {
                         Toast.makeText(RegistroCliente.this, "Las contraseñas no son iguales", Toast.LENGTH_LONG).show();
                     }

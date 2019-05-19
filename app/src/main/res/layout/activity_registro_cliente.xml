@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistroCliente"
-    android:background="@color/colorPrimarioTransparente">
+    android:background="@color/colorBlanco">
 
 
     <Button
@@ -15,8 +15,8 @@
         android:background="@drawable/ic_volver_primary"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        />
+        android:layout_marginBottom="10dp" />
+
     <LinearLayout
         android:id="@+id/registro_estilista_cliente_linear_layout"
         android:layout_width="match_parent"
@@ -34,15 +34,15 @@
             android:textColor="@color/colorPrimaryMuyDark"
             android:textSize="30dp"
             android:layout_marginBottom="20dp"
-            android:layout_marginLeft="20dp"
-            />
+            android:layout_marginLeft="20dp" />
+
         <EditText
             android:id="@+id/registro_estilista_cliente_et_correo"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:textSize="20dp"
-            android:hint="Correo"
+            android:hint="Correo electrónico*"
             android:textColorHint="@color/colorPrimaryDark"
             android:inputType="textEmailAddress"
             android:layout_marginLeft="20dp"
@@ -56,11 +56,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:textSize="20dp"
-            android:hint="Nombre"
+            android:hint="Usuario*"
             android:layout_marginLeft="20dp"
             android:textColorHint="@color/colorPrimaryDark"
-            android:singleLine="true"
-            />
+            android:singleLine="true" />
 
         <EditText
             android:id="@+id/registro_estilista_cliente_et_apellido"
@@ -68,18 +67,18 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:textSize="20dp"
-            android:hint="Apellido"
+            android:hint="Nombre y apellido*"
             android:layout_marginLeft="20dp"
             android:singleLine="true"
             android:textColorHint="@color/colorPrimaryDark"/>
 
         <EditText
-            android:id="@+id/id.registro_estilista_cliente_et_telefono"
+            android:id="@+id/id_registro_estilista_cliente_et_telefono"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:textSize="20dp"
-            android:hint="Telefono"
+            android:hint="Teléfono*"
             android:layout_marginLeft="20dp"
             android:singleLine="true"
             android:textColorHint="@color/colorPrimaryDark"/>
@@ -107,8 +106,8 @@
             android:layout_marginLeft="20dp"
             android:singleLine="true"
 
-            android:textColorHint="@color/colorPrimaryDark"            android:inputType="textPassword"
-            />
+            android:textColorHint="@color/colorPrimaryDark"
+            android:inputType="textPassword" />
 
         <CheckBox
             android:id="@+id/registro_estilista_cliente_check_box_estilista"

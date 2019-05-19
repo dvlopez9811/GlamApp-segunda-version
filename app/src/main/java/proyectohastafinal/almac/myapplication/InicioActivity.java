@@ -36,9 +36,12 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import proyectohastafinal.almac.myapplication.model.Cliente;
 
 public class InicioActivity extends AppCompatActivity {
 
@@ -54,11 +57,13 @@ public class InicioActivity extends AppCompatActivity {
     private CallbackManager mCallbackManager;
 
     FirebaseAuth auth;
+    FirebaseDatabase rtdb;
 
     private void crearUsuarioNuevo(String nombre,String email){
         //*******************Crear usuario e ingresar a base de datos aqui
 
-
+        Cliente cl = new Cliente(email, "", nombre, "","");
+        rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).setValue(cl);
 
     }
 
@@ -76,6 +81,8 @@ public class InicioActivity extends AppCompatActivity {
         }, REQUEST_CODE);
 
         auth = FirebaseAuth.getInstance();
+        rtdb = FirebaseDatabase.getInstance();
+
         if (auth.getCurrentUser() != null) {
             Intent i = new Intent(InicioActivity.this, MainActivity.class);
             startActivity(i);
