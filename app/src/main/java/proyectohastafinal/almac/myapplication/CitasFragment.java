@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -66,6 +68,8 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
         txt_iniciar_sesion_fragment_citas = v.findViewById(R.id.txt_iniciar_sesion_fragment_citas);
         btn_iniciar_sesion_fragment_citas = v.findViewById(R.id.btn_iniciar_sesion_fragment_citas);
 
+
+
         btn_iniciar_sesion_fragment_citas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,8 +94,6 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
         lista_citas.setLayoutManager(new LinearLayoutManager(v.getContext()));
         lista_citas.setAdapter(adapterCitas);
         lista_citas.setHasFixedSize(true);
-
-        registerForContextMenu(lista_citas);
 
         rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("citas").addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -134,22 +136,19 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
     }
 
     @Override
-    public void onItemClick(Cita cita) {
-            citaseleccionada = cita;
+    public void onItemClick(ImageView iv_cita,Cita cita) {
+        getActivity().registerForContextMenu(iv_cita);
+        citaseleccionada = cita;
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-
-        if(citaseleccionada!=null) {
-            MenuInflater inflater = getActivity().getMenuInflater();
-            inflater.inflate(R.menu.context_menu_citas, menu);
-        }
+        getActivity().getMenuInflater().inflate(R.menu.context_menu_citas,menu);
     }
+
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo contextMenuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
 
             case R.id.envio_mensaje_estilista_cita:
@@ -158,8 +157,6 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
                 Intent i = new Intent(getActivity(),ChatActivity.class);
                     i.putExtra("tel", citaseleccionada.getTelefonoEstilista());
                     startActivity(i);
-
-
 
                 break;
 

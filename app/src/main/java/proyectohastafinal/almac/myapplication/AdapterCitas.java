@@ -18,24 +18,21 @@ public class AdapterCitas extends RecyclerView.Adapter<AdapterCitas.CustomViewHo
 
     ArrayList<Cita> citas;
 
+
     public void agregarcita(Cita cita){
         citas.add(cita);
         notifyDataSetChanged();
     }
 
-    public static class CustomViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+    public static class CustomViewHolder extends RecyclerView.ViewHolder {
         public LinearLayout root;
         public CustomViewHolder(LinearLayout v) {
             super(v);
             root = v;
-            v.setOnCreateContextMenuListener(this);
+
 
         }
 
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-
-        }
     }
 
     public AdapterCitas(){
@@ -54,10 +51,11 @@ public class AdapterCitas extends RecyclerView.Adapter<AdapterCitas.CustomViewHo
        ((TextView) holder.root.findViewById(R.id.salon_renglon_cita)).setText(citas.get(position).getNombreSalon());
         ((TextView) holder.root.findViewById(R.id.servicio_renglon_cita)).setText(citas.get(position).getServicio());
         ((TextView) holder.root.findViewById(R.id.horainicio_renglon_cita)).setText(citas.get(position).getHorainicio());
-         holder.root.findViewById(R.id.iv_menu_cita_renglon_cita).setOnClickListener(new View.OnClickListener() {
+        final ImageView iv_menu_cita_renglon_cita = holder.root.findViewById(R.id.iv_menu_cita_renglon_cita);
+        iv_menu_cita_renglon_cita.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 listener.onItemClick(citas.get(position));
+                 listener.onItemClick(iv_menu_cita_renglon_cita,citas.get(position));
              }
          });
     }
@@ -69,7 +67,7 @@ public class AdapterCitas extends RecyclerView.Adapter<AdapterCitas.CustomViewHo
 
     //OBSERVER
     public interface OnItemClickListener{
-        void onItemClick(Cita cita);
+        void onItemClick(ImageView iv_cita,Cita cita);
     }
 
     private OnItemClickListener listener;
