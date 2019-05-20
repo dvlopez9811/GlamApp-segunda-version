@@ -32,6 +32,8 @@
         <activity android:name=".RegistroSalonDeBelleza" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegistroCliente" />
+        <activity android:name=".InformacionSalonActivity" />
+        <activity android:name=".AgendarCitaActivity" />
         <activity android:name=".RegistroEstilista" />
         <activity android:name=".MainActivity" />
         <activity android:name=".CambiarContrasenhaActivity"></activity>

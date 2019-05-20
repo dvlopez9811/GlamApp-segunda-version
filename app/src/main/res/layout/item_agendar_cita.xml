@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
 <RelativeLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:padding="10dp"
@@ -20,34 +25,21 @@
         android:textStyle="bold"
         android:layout_toRightOf="@id/imagen_tipo_servicio_item_agendar_cita"
         android:fontFamily="@font/josefin_sans_thin"
-        android:textSize="20dp"
+        android:textSize="25dp"
         />
 
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="10dp"
         android:id="@+id/linea_salon_item_agendar_cita"
         android:orientation="horizontal"
         android:layout_below="@id/txt_tipo_servicio_item_agendar_cita"
         android:layout_toRightOf="@id/imagen_tipo_servicio_item_agendar_cita">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Salón: "
-            android:fontFamily="@font/josefin_sans_thin"
 
-            android:textSize="20dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:fontFamily="@font/josefin_sans_thin"
 
-            android:id="@+id/txt_nombre_salon_item_agendar_cita"
-            android:textSize="20dp"/>
     </LinearLayout>
 
 
@@ -73,7 +65,6 @@
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:tooltipText="Ninguno"
-            android:background="#0ee"
             ></Spinner>
     </LinearLayout>
 
@@ -111,10 +102,13 @@
             android:id="@+id/mes_seleccionado_item_agendar_cita"
             android:layout_marginRight="30dp"/>
 
-    <DatePicker
+    <Button
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_centerHorizontal="true" ></DatePicker>
+        android:id="@+id/date_picker_agendar_item"
+        android:background="@drawable/ic_calendario_negro"
+        android:layout_centerHorizontal="true" />
+
     </LinearLayout>
 
 
@@ -135,9 +129,11 @@
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/lista_horarios_disponibles_item_agendar_cita"
         android:layout_below="@id/titulo_horarios_disponibles_item_agendar_cita">
     </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>
+</LinearLayout>
+

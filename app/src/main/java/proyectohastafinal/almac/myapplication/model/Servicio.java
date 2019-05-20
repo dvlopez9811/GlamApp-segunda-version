@@ -2,6 +2,8 @@ package proyectohastafinal.almac.myapplication.model;
 
 import android.app.Service;
 
+import java.util.ArrayList;
+
 public class Servicio{
 
     private String tipo;
@@ -9,6 +11,17 @@ public class Servicio{
     private Estilista estilista;
 
 
+
+    private ArrayList<Estilista> estilistasQueLoPrestan;
+
+
+    public ArrayList<Estilista> getEstilistasQueLoPrestan() {
+        return estilistasQueLoPrestan;
+    }
+
+    public void setEstilistasQueLoPrestan(ArrayList<Estilista> estilistasQueLoPrestan) {
+        this.estilistasQueLoPrestan = estilistasQueLoPrestan;
+    }
     public Servicio(){}
 
 

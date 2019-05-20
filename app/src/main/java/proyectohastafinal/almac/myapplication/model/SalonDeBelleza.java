@@ -15,10 +15,27 @@ public class SalonDeBelleza {
     private int personascalificadoras;
     private int calificacion;
 
-
-
     private HashMap<String, Boolean> servicios;
 
+
+    private ArrayList<Servicio> serviciosArrayList;
+    private ArrayList<Estilista> estilistasArrayList;
+
+    public ArrayList<Servicio> getServiciosArrayList(){
+        return serviciosArrayList;
+    }
+
+    public ArrayList<Estilista> getEstilistasArrayList(){
+        return estilistasArrayList;
+    }
+
+    public void setServiciosArrayList(ArrayList<Servicio> serviciosArrayList) {
+        this.serviciosArrayList = serviciosArrayList;
+    }
+
+    public void setEstilistasArrayList(ArrayList<Estilista> estilistasArrayList) {
+        this.estilistasArrayList = estilistasArrayList;
+    }
 
     public SalonDeBelleza(String nombreCompletoDuenho, String nombreSalonDeBelleza, String correo, String contrasenha, String direccion, double latitud, double longitud) {
         this.nombreCompletoDuenho = nombreCompletoDuenho;
