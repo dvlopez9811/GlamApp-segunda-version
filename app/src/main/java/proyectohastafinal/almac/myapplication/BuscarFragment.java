@@ -2,6 +2,7 @@ package proyectohastafinal.almac.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -40,7 +41,7 @@ import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 
 public class BuscarFragment extends Fragment implements View.OnClickListener, AdapterSalones.OnItemClickListener{
 
-    public final static String[] SERVICIOS_SALON = {"Uñas", "Maquillaje", "Masaje", "Depilación", "Peluquería"};
+    public final static String[] SERVICIOS_SALON = {"uñas", "maquillaje", "masaje", "depilación", "peluquería"};
 
     private static BuscarFragment instance;
 
@@ -348,6 +349,11 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
 
     @Override
     public void onItemClick(BusquedaSalonDeBelleza salonDeBelleza) {
-        Toast.makeText(getContext(), salonDeBelleza.getNombreSalonDeBelleza(), Toast.LENGTH_SHORT).show();
+
+        Intent i = new Intent(getActivity(),InformacionSalonActivity.class);
+        i.putExtra("salon",salonDeBelleza.getNombreSalonDeBelleza());
+        startActivity(i);
+
+
     }
 }
