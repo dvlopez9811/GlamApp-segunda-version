@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,9 +33,13 @@ public class AgendarCitaActivity extends AppCompatActivity implements AdapterHor
     private AdapterHorarios adapterHorarios;
     private TextView nombreSalon;
     private Spinner sp_estilista_agendarcita;
+    private LinearLayout ll_servicios_agendar_cita;
+    private Button btn_ver_estilistas_agendar_cita;
 
     private int indice;
+
     private ArrayList<String> idestilistasaptos;
+    private ArrayList<String> nombreestilistas;
 
     FirebaseDatabase rtdb;
 
@@ -48,71 +54,94 @@ public class AgendarCitaActivity extends AppCompatActivity implements AdapterHor
 
 
         adapterHorarios = new AdapterHorarios();
-        listaHorarios=findViewById(R.id.lista_horarios_disponibles_item_agendar_cita);
+        listaHorarios = findViewById(R.id.lista_horarios_disponibles_item_agendar_cita);
         listaHorarios.setLayoutManager(new LinearLayoutManager(this));
-        nombreSalon=findViewById(R.id.nombre_salon_agendar_cita_activity);
+        nombreSalon = findViewById(R.id.nombre_salon_agendar_cita_activity);
         sp_estilista_agendarcita = findViewById(R.id.item_agendar_cita_spinner_estilista);
-
+        ll_servicios_agendar_cita = findViewById(R.id.ll_servicios_agendar_cita);
 
         listaHorarios.setAdapter(adapterHorarios);
         listaHorarios.setHasFixedSize(true);
 
-        String salon = getIntent().getExtras().get("salon").toString();
+        final String salon = getIntent().getExtras().get("salon").toString();
         nombreSalon.setText(salon);
 
-/*
-        String[] arregloservicios = serv.split(" ");
+        String[] servicios = getIntent().getExtras().get("servicios").toString().split(" ");
+        final CheckBox[] checkBoxes = new CheckBox[servicios.length];
 
-        idestilistasaptos = new ArrayList<>();
+        for (int g = 0; g < servicios.length; g++) {
 
-        for(int j=0;j<arregloservicios.length;j++) {
-            rtdb.getReference().child("Salon de belleza").child(salon).child("Estilistas").child(arregloservicios[j]).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            checkBoxes[g] = new CheckBox(this);
+            checkBoxes[g].setText(servicios[g]);
+            checkBoxes[g].setChecked(true);
+            ll_servicios_agendar_cita.addView(checkBoxes[g]);
+
+        }
+
+        btn_ver_estilistas_agendar_cita = findViewById(R.id.btn_ver_estilistas_agendar_cita);
+        btn_ver_estilistas_agendar_cita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String servicios = "";
+                for (int j=0;j<checkBoxes.length;j++){
+                    if(checkBoxes[j].isChecked())
+                        servicios+=checkBoxes[j].getText().toString()+" ";
+
+                }
+
+                servicios = servicios.trim();
+                Log.e("<<<",servicios);
+                nombreestilistas = new ArrayList<>();
 
 
-                    for (DataSnapshot dsp : dataSnapshot.getChildren()){
-                        String[] datos = dsp.getValue().toString().split(",");
-                        for (int j = 0;j<datos.length;j++){
-                            if(!idestilistasaptos.contains(datos[j])) idestilistasaptos.add(datos[j]);
+                rtdb.getReference().child("Salon de belleza").child(salon).child("Estilistas").child(servicios).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot dsp: dataSnapshot.getChildren()){
+
+                            String id = dsp.getValue(String.class);
+                            Log.e("<<<",id);
+
+                            rtdb.getReference().child("Estilista").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                    Estilista estilista = dataSnapshot.getValue(Estilista.class);
+                                    nombreestilistas.add(estilista.getNombreYApellido());
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
                         }
+
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                                (AgendarCitaActivity.this, android.R.layout.simple_spinner_item, nombreestilistas);
+                        sp_estilista_agendarcita.setAdapter(adapter);
+
+
                     }
 
-                }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
-
-        indice = 0;
-        for (indice=0;indice<idestilistas.length;indice++){
-
-            rtdb.getReference().child("Estilista").child(idestilistas[indice]).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Estilista estilista = dataSnapshot.getValue(Estilista.class);
-                    nombreestilistas[indice] = estilista.getNombreYApellido();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                    (this,android.R.layout.simple_spinner_item,nombreestilistas);
+                    }
+                });
 
 
-        }
-*/
+
+
+            }
+
+
+
+        });
 
 
     }
-
     @Override
     public void onItemClick(Horario horario) {
 

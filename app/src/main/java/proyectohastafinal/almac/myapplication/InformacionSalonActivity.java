@@ -44,6 +44,7 @@ public class InformacionSalonActivity extends AppCompatActivity {
 
                 Intent i = new Intent(InformacionSalonActivity.this,AgendarCitaActivity.class);
                 i.putExtra("salon",getIntent().getExtras().get("salon").toString());
+                i.putExtra("servicios",getIntent().getExtras().get("servicios").toString());
                 startActivity(i);
             }
         });

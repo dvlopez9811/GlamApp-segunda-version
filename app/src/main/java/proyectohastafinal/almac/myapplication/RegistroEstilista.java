@@ -54,7 +54,7 @@ public class RegistroEstilista extends AppCompatActivity {
     public EditText etObtenerHoraInicio;
     public EditText etObtenerHoraFinal;
 
-    private ArrayList<String> servicios;
+    private String servicios;
 
     FirebaseAuth auth;
     FirebaseDatabase rtdb;
@@ -114,7 +114,7 @@ public class RegistroEstilista extends AppCompatActivity {
         final String passEstilista = getIntent().getExtras().getString("pass");
 
         final ArrayList<CharSequence> salonesDeBelleza = new ArrayList<>();
-        servicios = new ArrayList<>();
+        servicios = "";
 
         rtdb.getReference().child("Salon de belleza").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -212,10 +212,12 @@ public class RegistroEstilista extends AppCompatActivity {
 
                         rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("estilista");
 
-                        for (int i = 0; i<servicios.size(); i++ ){
-                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(servicios.get(i)).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                        }
-
+                            String [] serv = servicios.split(" ");
+                            String temp = serv[0];
+                            for (int i=1;i<serv.length;i++) {
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(temp).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                temp+=" "+serv[i];
+                            }
                     }
                 });
 
@@ -227,24 +229,26 @@ public class RegistroEstilista extends AppCompatActivity {
     public void comprobarServiciosEscogidos () {
 
         if (registroEstilistaCheckBoxUñas.isChecked()) {
-            servicios.add("uñas");
+            servicios+="uñas ";
         }
 
         if (registroEstilistaCheckBoxMaquillaje.isChecked()) {
-            servicios.add("maquillaje");
+            servicios+="maquillaje ";
         }
 
         if (registroEstilistaCheckBoxMasaje.isChecked()) {
-            servicios.add("masaje");
+            servicios+="masaje ";
         }
 
         if (registroEstilistaCheckBoxDepilacion.isChecked()) {
-            servicios.add("depilación");
+            servicios+="depilación ";
         }
 
         if (registroEstilistaCheckBoxPeluqueria.isChecked()) {
-            servicios.add("peluqueria");
+            servicios+="peluquería ";
         }
+
+        servicios = servicios.trim();
 
     }
 
