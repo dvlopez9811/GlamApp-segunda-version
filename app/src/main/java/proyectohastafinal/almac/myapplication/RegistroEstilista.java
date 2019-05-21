@@ -213,11 +213,42 @@ public class RegistroEstilista extends AppCompatActivity {
                         rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("estilista");
 
                             String [] serv = servicios.split(" ");
-                            String temp = serv[0];
-                            for (int i=1;i<serv.length;i++) {
+                            String temp = "";
+
+
+
+                            for (int j=0;j<serv.length;j++) {
+                                temp = serv[j];
                                 rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(temp).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                temp+=" "+serv[i];
+                                for (int i = j+1; i < serv.length; i++) {
+                                    temp+=" "+serv[i];
+                                    rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(temp).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                }
                             }
+
+                        if(serv.length>=3){
+                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0]+" "+serv[2]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                         if(serv.length>=4) {
+                             rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                             rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                             rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[1]+" "+ serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                             rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[2]+" "+ serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                             if(serv.length==5){
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[2] + " " + serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[1]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[2]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[3]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[2]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[3]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[1]+" "+ serv[2]+" "+serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[2]+" "+ serv[3]+" "+serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                            }
+                         }
+                        }
+
+
                     }
                 });
 
