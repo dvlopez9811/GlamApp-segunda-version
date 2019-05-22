@@ -208,7 +208,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void crearUsuarioNuevo(String nombre,String email){
         //*******************Crear usuario e ingresar a base de datos aqui
-        Cliente cl = new Cliente("", email, nombre, "");
+        Cliente cl = new Cliente(email,"", nombre, "","");
         rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).setValue(cl);
 
     }
