@@ -54,7 +54,7 @@ public class RegistroEstilista extends AppCompatActivity {
     public EditText etObtenerHoraInicio;
     public EditText etObtenerHoraFinal;
 
-    private ArrayList<String> servicios;
+    private String servicios;
 
     FirebaseAuth auth;
     FirebaseDatabase rtdb;
@@ -114,7 +114,7 @@ public class RegistroEstilista extends AppCompatActivity {
         final String passEstilista = getIntent().getExtras().getString("pass");
 
         final ArrayList<CharSequence> salonesDeBelleza = new ArrayList<>();
-        servicios = new ArrayList<>();
+        servicios = "";
 
         rtdb.getReference().child("Salon de belleza").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -212,9 +212,42 @@ public class RegistroEstilista extends AppCompatActivity {
 
                         rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("estilista");
 
-                        for (int i = 0; i<servicios.size(); i++ ){
-                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(servicios.get(i)).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                            String [] serv = servicios.split(" ");
+                            String temp = "";
+
+
+
+                            for (int j=0;j<serv.length;j++) {
+                                temp = serv[j];
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(temp).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                for (int i = j+1; i < serv.length; i++) {
+                                    temp+=" "+serv[i];
+                                    rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(temp).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                }
+                            }
+
+                        if(serv.length>=3){
+                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0]+" "+serv[2]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                         if(serv.length>=4) {
+                             rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                             rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                             rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[1]+" "+ serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                             rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[2]+" "+ serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                             if(serv.length==5){
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[2] + " " + serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[1]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[2]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[3]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[2]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[3]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[1]+" "+ serv[2]+" "+serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[2]+" "+ serv[3]+" "+serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                            }
+                         }
                         }
+
 
                     }
                 });
@@ -227,24 +260,26 @@ public class RegistroEstilista extends AppCompatActivity {
     public void comprobarServiciosEscogidos () {
 
         if (registroEstilistaCheckBoxUñas.isChecked()) {
-            servicios.add("uñas");
+            servicios+="uñas ";
         }
 
         if (registroEstilistaCheckBoxMaquillaje.isChecked()) {
-            servicios.add("maquillaje");
+            servicios+="maquillaje ";
         }
 
         if (registroEstilistaCheckBoxMasaje.isChecked()) {
-            servicios.add("masaje");
+            servicios+="masaje ";
         }
 
         if (registroEstilistaCheckBoxDepilacion.isChecked()) {
-            servicios.add("depilación");
+            servicios+="depilación ";
         }
 
         if (registroEstilistaCheckBoxPeluqueria.isChecked()) {
-            servicios.add("peluqueria");
+            servicios+="peluquería ";
         }
+
+        servicios = servicios.trim();
 
     }
 

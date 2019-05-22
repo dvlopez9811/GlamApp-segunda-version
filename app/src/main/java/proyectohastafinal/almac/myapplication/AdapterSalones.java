@@ -34,6 +34,8 @@ public class AdapterSalones extends RecyclerView.Adapter<AdapterSalones.CustomVi
         public CustomViewHolder(LinearLayout v) {
             super(v);
             root = v;
+
+
         }
     }
 
@@ -62,9 +64,6 @@ public class AdapterSalones extends RecyclerView.Adapter<AdapterSalones.CustomVi
             public void onClick(View v) {
                 listener.onItemClick(salones.get(position));
 
-                //Modificado por varela para poder hacer probar layout cita
-                Intent i = new Intent(holder.root.getContext(),InformacionSalonActivity.class);
-                holder.root.getContext().startActivity(i);
             }
         });
     }
