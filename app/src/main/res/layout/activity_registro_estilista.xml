@@ -27,21 +27,21 @@
                 android:gravity="center_vertical">
 
 
-                <Button
+                <ImageButton
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:id="@+id/btn_registro_estilista_volver"
-                    android:background="@drawable/ic_volver_primary"
+                    android:background="@color/fui_transparent"
+                    android:src="@drawable/ic_volver_32x32"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    />
+                    android:layout_marginBottom="5dp" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/titulo_registro_estilista"
-                    android:text="Continúa con tu registro"
+                    android:text="Un solo paso más"
                     android:textColor="@color/colorPrimaryMuyDark"
                     android:textSize="25dp"
                     />

@@ -1,113 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistroCliente"
-    android:background="@color/colorBlanco">
+    android:background="@color/colorBlanco"
+    android:padding="10dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout_banner"
+        android:gravity="center_vertical">
 
-    <Button
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:id="@+id/btn_registro_cliente_volver"
-        android:background="@drawable/ic_volver_primary"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_registro_cliente_volver"
+            android:src="@drawable/ic_volver_32x32"
+            android:background="@color/fui_transparent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_titulo_registro"
+            android:text="Únete a Glam"
+            android:layout_toRightOf="@id/btn_registro_cliente_volver"
+            android:textColor="@color/colorPrimary"
+            android:textSize="35dp"
+            android:layout_marginLeft="20dp" />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/registro_estilista_cliente_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/btn_registro_cliente_volver"
-        android:layout_marginTop="10dp"
-
+        android:layout_below="@+id/layout_banner"
+        android:layout_marginTop="30dp"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Únete a Glam"
-            android:id="@+id/txt_titulo_registro"
-            android:textColor="@color/colorPrimaryMuyDark"
-            android:textSize="30dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="20dp" />
+            android:layout_gravity="center_vertical">
 
-        <EditText
-            android:id="@+id/registro_estilista_cliente_et_correo"
-            android:layout_width="300dp"
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_mail_256x256"
+                android:background="@color/fui_transparent"
+                android:elevation="3dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/registro_estilista_cliente_et_correo"
+                android:background="@drawable/btn_redondeado_rosado"
+                android:hint="Correo electrónico*"
+                android:inputType="textEmailAddress"
+                android:textSize="20dp"
+                android:textAllCaps="false"
+                android:gravity="left|center_vertical"
+                android:layout_centerVertical="true"
+                android:paddingLeft="60dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:singleLine="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="20dp"
-            android:hint="Correo electrónico*"
-            android:textColorHint="@color/colorPrimaryDark"
-            android:inputType="textEmailAddress"
-            android:layout_marginLeft="20dp"
-            android:singleLine="true"
+            android:layout_gravity="center_vertical">
 
-            />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_profile_50x50"
+                android:background="@color/fui_transparent"
+                android:elevation="3dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp" />
 
-        <EditText
-            android:id="@+id/registro_estilista_cliente_et_nombre"
-            android:layout_width="300dp"
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/registro_estilista_cliente_et_nombre"
+                android:background="@drawable/btn_redondeado_rosado"
+                android:hint="Usuario*"
+                android:textSize="20dp"
+                android:textAllCaps="false"
+                android:gravity="left|center_vertical"
+                android:layout_centerVertical="true"
+                android:paddingLeft="60dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:singleLine="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="20dp"
-            android:hint="Usuario*"
-            android:layout_marginLeft="20dp"
-            android:textColorHint="@color/colorPrimaryDark"
-            android:singleLine="true" />
+            android:layout_gravity="center_vertical">
 
-        <EditText
-            android:id="@+id/registro_estilista_cliente_et_apellido"
-            android:layout_width="300dp"
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_nombre80x80"
+                android:background="@color/fui_transparent"
+                android:elevation="3dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/registro_estilista_cliente_et_apellido"
+                android:background="@drawable/btn_redondeado_rosado"
+                android:hint="Nombre y apellido*"
+                android:textSize="20dp"
+                android:textAllCaps="false"
+                android:gravity="left|center_vertical"
+                android:layout_centerVertical="true"
+                android:paddingLeft="60dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:singleLine="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="20dp"
-            android:hint="Nombre y apellido*"
-            android:layout_marginLeft="20dp"
-            android:singleLine="true"
-            android:textColorHint="@color/colorPrimaryDark"/>
+            android:layout_gravity="center_vertical">
 
-        <EditText
-            android:id="@+id/id_registro_estilista_cliente_et_telefono"
-            android:layout_width="300dp"
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_telefono_32x32"
+                android:background="@color/fui_transparent"
+                android:elevation="3dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/id_registro_estilista_cliente_et_telefono"
+                android:background="@drawable/btn_redondeado_rosado"
+                android:hint="Teléfono"
+                android:inputType="phone"
+                android:textSize="20dp"
+                android:textAllCaps="false"
+                android:gravity="left|center_vertical"
+                android:layout_centerVertical="true"
+                android:paddingLeft="60dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:singleLine="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="20dp"
-            android:hint="Teléfono*"
-            android:layout_marginLeft="20dp"
-            android:singleLine="true"
-            android:textColorHint="@color/colorPrimaryDark"/>
+            android:layout_gravity="center_vertical">
 
-        <EditText
-            android:id="@+id/registro_estilista_cliente_et_contrasenha"
-            android:layout_width="300dp"
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_contrasena_64x64"
+                android:background="@color/fui_transparent"
+                android:elevation="3dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/registro_estilista_cliente_et_contrasenha"
+                android:background="@drawable/btn_redondeado_rosado"
+                android:inputType="textPassword"
+                android:hint="Contraseña*"
+                android:textSize="20dp"
+                android:textAllCaps="false"
+                android:gravity="left|center_vertical"
+                android:layout_centerVertical="true"
+                android:paddingLeft="60dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:singleLine="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="20dp"
-            android:hint="Contraseña"
-            android:inputType="textPassword"
-            android:layout_marginLeft="20dp"
-            android:singleLine="true"
-            android:textColorHint="@color/colorPrimaryDark"
-            />
+            android:layout_gravity="center_vertical">
 
-        <EditText
-            android:id="@+id/registro_estilista_cliente_et_confimar_contrasenha"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="20dp"
-            android:hint="Confirmar contraseña"
-            android:layout_marginLeft="20dp"
-            android:singleLine="true"
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_contrasena_64x64"
+                android:background="@color/fui_transparent"
+                android:elevation="3dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp" />
 
-            android:textColorHint="@color/colorPrimaryDark"
-            android:inputType="textPassword" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/registro_estilista_cliente_et_confimar_contrasenha"
+                android:background="@drawable/btn_redondeado_rosado"
+                android:hint="Confirmar ontraseña*"
+                android:inputType="textPassword"
+                android:textSize="20dp"
+                android:textAllCaps="false"
+                android:gravity="left|center_vertical"
+                android:layout_centerVertical="true"
+                android:paddingLeft="60dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:singleLine="true"/>
+        </RelativeLayout>
 
         <CheckBox
             android:id="@+id/registro_estilista_cliente_check_box_estilista"
@@ -116,25 +233,21 @@
             android:layout_gravity="center"
             android:textColorHint="#000"
             android:layout_marginTop="15dp"
-            android:textColor="@color/colorPrimaryMuyDark"
             android:textSize="20dp"
             android:text="Soy estilista" />
 
         <Button
-            android:id="@+id/registro_estilista_cliente_btn_registrarme"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/registro_estilista_cliente_btn_registrarme"
+            android:padding="10dp"
             android:layout_gravity="center"
             android:background="@drawable/btn_circular_principal"
             android:text="Registrarme"
             android:textSize="20dp"
             android:textColor="@color/colorBlanco"
             android:layout_marginTop="20dp"
-            android:textAllCaps="false"
-            />
+            android:textAllCaps="false" />
 
     </LinearLayout>
-
-
-
 </RelativeLayout>
