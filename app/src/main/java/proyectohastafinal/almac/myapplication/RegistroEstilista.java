@@ -2,6 +2,7 @@ package proyectohastafinal.almac.myapplication;
 
 import android.app.TimePickerDialog;
 import android.support.annotation.NonNull;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -127,7 +128,7 @@ public class RegistroEstilista extends AppCompatActivity {
                    /* rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("servicios").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            HashMap<String, Boolean> nombreSalonDeBelleza =  (HashMap<String, Boolean>) dataSnapshot.getValue();
+                            HashMap<String, Booleazn> nombreSalonDeBelleza =  (HashMap<String, Boolean>) dataSnapshot.getValue();
                             Log.d("nombreSalonDeBelleza", nombreSalonDeBelleza.keySet().toString() + " ");
 
                             servicios.addAll(nombreSalonDeBelleza.keySet());
