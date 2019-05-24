@@ -149,6 +149,7 @@
                 android:layout_below="@id/titulo_horarios_disponibles_item_agendar_cita">
             </android.support.v7.widget.RecyclerView>
 
+
         </RelativeLayout>
     </LinearLayout>
 
