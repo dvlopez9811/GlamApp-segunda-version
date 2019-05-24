@@ -11,7 +11,7 @@
         android:text="Agenda tu cita en"
         android:fontFamily="@font/josefin_sans_thin"
         android:textStyle="bold"
-        android:textSize="30dp"
+        android:textSize="40sp"
         android:layout_marginTop="10dp"
         android:id="@+id/titulo_agendar_cita"
         android:textColor="#000"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefin_sans_thin"
         android:textStyle="bold"
-        android:textSize="30dp"
+        android:textSize="36sp"
         android:text="Paty"
         android:layout_below="@id/titulo_agendar_cita"
         android:id="@+id/nombre_salon_agendar_cita_activity"
@@ -42,112 +42,104 @@
             android:padding="10dp"
             xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-            <TextView
-                android:id="@+id/txt_tipo_servicio_item_agendar_cita"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tipo de servicio"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:fontFamily="@font/josefin_sans_thin"
-                android:textSize="25dp"
-                />
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:id="@+id/linea_tipo_servicio_agendarcita">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo de servicio"
+                    android:textSize="20sp"
+                    android:layout_weight="1"
+                    />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/sp_servicio_agendar_cita"></Spinner>
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txt_tipo_servicio_item_agendar_cita"
-                android:id="@+id/ll_servicios_agendar_cita"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/linea_date_picker_item_agendar_cita"
-                android:layout_below="@id/ll_servicios_agendar_cita"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:layout_centerHorizontal="true">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:fontFamily="@font/josefin_sans_thin"
-                    android:id="@+id/dia_seleccionado_item_agendar_cita"
-                    android:text="DD"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:fontFamily="@font/josefin_sans_thin"
-                    android:text=" / "/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="MM"
-                    android:fontFamily="@font/josefin_sans_thin"
-                    android:textSize="20dp"
-                    android:id="@+id/mes_seleccionado_item_agendar_cita"
-                    android:layout_marginRight="30dp"/>
-
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:id="@+id/date_picker_agendar_item"
-                    android:background="@drawable/ic_calendario_negro"
-                    android:layout_centerHorizontal="true" />
-
-            </LinearLayout>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/linea_date_picker_item_agendar_cita"
-                android:layout_centerInParent="true"
-                android:text="Estilistas"
-                android:id="@+id/btn_ver_estilistas_agendar_cita"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/linea_estilista_item_agendar_cita"
                 android:orientation="horizontal"
-                android:layout_below="@id/btn_ver_estilistas_agendar_cita">
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/linea_tipo_servicio_agendarcita"
+                android:id="@+id/linea_estilista_agendarcita"
+                android:weightSum="2">
+
 
                 <TextView
-                    android:fontFamily="@font/josefin_sans_thin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Estilista: "
-                    android:textSize="20dp"/>
+                    android:text="Estilista"
+                    android:textSize="20sp"
+                    android:layout_weight="1"
+                    />
 
                 <Spinner
-                    android:id="@+id/item_agendar_cita_spinner_estilista"
-                    android:layout_width="140dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tooltipText="Ninguno"/>
+                    android:layout_weight="1"
+                    android:id="@+id/sp_estilista_agendar_cita"></Spinner>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linea_hoyomanana"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linea_estilista_agendarcita"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/rg_hoyomanana_agendarcita"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_hoy_agendarcita"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hoy"
+                        android:checked="true"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_manana_agendarcita"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mañana" />
+
+                </RadioGroup>
+
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="28sp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/titulo_horarios_disponibles_item_agendar_cita"
-                android:layout_below="@id/linea_estilista_item_agendar_cita"
+                android:layout_below="@id/linea_hoyomanana"
                 android:layout_centerHorizontal="true"
                 android:fontFamily="@font/josefin_sans_thin"
-                android:text="Horarios Disponibles para este día"
+                android:text="Horarios Disponibles"
                 android:textColor="#000"
                 android:layout_marginBottom="10dp"
                 android:textStyle="bold"/>
+
+
 
 
             <android.support.v7.widget.RecyclerView

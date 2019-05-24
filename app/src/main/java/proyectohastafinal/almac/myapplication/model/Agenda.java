@@ -5,15 +5,19 @@ import java.util.Date;
 
 public class Agenda {
 
-    private ArrayList<Cita> citas;
+    private ArrayList<Horario> horarios;
 
-    public Agenda(Date horaInicio, Date horaFinal, ArrayList<Cita> citas) {
-        this.citas = citas;
+    public Agenda(ArrayList<Horario> horarios) {
+        this.horarios = horarios;
     }
 
     public Agenda(){}
 
-    public void setCitas(ArrayList<Cita> citas) {
-        this.citas = citas;
+    public ArrayList<Horario> getHorarios() {
+        return horarios;
+    }
+
+    public void setHorarios(ArrayList<Horario> horarios) {
+        this.horarios = horarios;
     }
 }
