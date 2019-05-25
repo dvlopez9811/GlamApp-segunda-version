@@ -351,14 +351,6 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
     public void onItemClick(BusquedaSalonDeBelleza salonDeBelleza) {
 
         Intent i = new Intent(getActivity(),InformacionSalonActivity.class);
-
-        String serv = "";
-                for(int j=0;j<SERVICIOS_SALON.length;j++) {
-                    if (!servicios[j]) serv += SERVICIOS_SALON[j] + " ";
-                }
-
-
-        i.putExtra("servicios",serv);
         i.putExtra("salon",salonDeBelleza.getNombreSalonDeBelleza());
 
         startActivity(i);

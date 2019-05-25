@@ -41,8 +41,9 @@ public class AdapterHorarios extends RecyclerView.Adapter<AdapterHorarios.Custom
     }
 
     public void showAllHorarios(ArrayList<Horario> allhorarios) {
+        horarios = new ArrayList<>();
         for(int i = 0 ; i<allhorarios.size() ; i++){
-            if(!horarios.contains(allhorarios.get(i))) horarios.add(allhorarios.get(i));
+            horarios.add(allhorarios.get(i));
         }
         notifyDataSetChanged();
     }
@@ -51,8 +52,37 @@ public class AdapterHorarios extends RecyclerView.Adapter<AdapterHorarios.Custom
     }
 
     public void onBindViewHolder(@NonNull final CustomViewHolder holder, final int position) {
-        ((TextView) holder.root.findViewById(R.id.hora_inicio_item_horarios)).setText(horarios.get(position).getHoraInicio());
-        ((TextView) holder.root.findViewById(R.id.hora_fin_item_horarios)).setText(horarios.get(position).getHoraFinal());
+
+        //Formato
+
+        //Hora inicio
+        int horarioinic = horarios.get(position).getHoraInicio();
+        String horarioinicio = "";
+        if(horarios.get(position).getHoraInicio()<12){
+            horarioinicio=horarioinic+"a.m";
+        }
+        else {
+            if(horarioinic!=12)
+            horarioinic-=12;
+            horarioinicio=horarioinic+" p.m";
+        }
+
+        //Hora final
+        int horariofin = horarios.get(position).getHoraFinal();
+        String horariofinal = "";
+        if(horarios.get(position).getHoraFinal()<12){
+            horariofinal=horariofin+"a.m";
+        }
+        else {
+            if(horariofin!=12)
+            horariofin-=12;
+            horariofinal=horariofin+" p.m";
+        }
+
+
+
+        ((TextView) holder.root.findViewById(R.id.hora_inicio_item_horarios)).setText(horarioinicio);
+        ((TextView) holder.root.findViewById(R.id.hora_fin_item_horarios)).setText(horariofinal);
         holder.root.findViewById(R.id.item_renglon_horario_disponible).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

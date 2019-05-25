@@ -1,6 +1,7 @@
 package proyectohastafinal.almac.myapplication;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -56,6 +58,12 @@ public class RegistroEstilista extends AppCompatActivity {
     public EditText etObtenerHoraFinal;
 
     private String servicios;
+    private int dia1;
+
+    private int horainicio;
+    private int horafin;
+
+
 
     FirebaseAuth auth;
     FirebaseDatabase rtdb;
@@ -159,12 +167,10 @@ public class RegistroEstilista extends AppCompatActivity {
 
                 final Estilista estilista = new Estilista(correoEstilista,usuarioEstilista,nombreEstilista,passEstilista,passEstilista);
 
-                ArrayList<Horario> horarios = new ArrayList<>();
-
                 String diaUno = spinnerFechaIncio.getSelectedItem().toString();
                 String diaDos = spinnerFechaFinal.getSelectedItem().toString();
 
-                int dia1 = 0;
+                dia1 = 0;
                 int dia2 = 0;
 
                 if (diaUno.equals(diaDos)) {
@@ -182,14 +188,11 @@ public class RegistroEstilista extends AppCompatActivity {
                     }
                 }
 
-                int tamanhoHorarios = dia2-dia1;
+                final int tamanhoHorarios = dia2-dia1;
 
-                for (int i = 0; i< tamanhoHorarios; i++, dia1++) {
-                    Horario ho = new Horario(DIAS_SEMANA[dia1], etObtenerHoraInicio.getText().toString(), etObtenerHoraFinal.getText().toString());
-                    horarios.add(ho);
-                }
 
-                estilista.setHorarios(horarios);
+
+
 
                 rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("nombreSalonDeBelleza").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -213,42 +216,22 @@ public class RegistroEstilista extends AppCompatActivity {
 
                         rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("estilista");
 
-                            String [] serv = servicios.split(" ");
-                            String temp = "";
-
-
-
-                            for (int j=0;j<serv.length;j++) {
-                                temp = serv[j];
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(temp).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                for (int i = j+1; i < serv.length; i++) {
-                                    temp+=" "+serv[i];
-                                    rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(temp).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                }
-                            }
-
-                        if(serv.length>=3){
-                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0]+" "+serv[2]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                         if(serv.length>=4) {
-                             rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                             rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                             rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[1]+" "+ serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                             rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[2]+" "+ serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                             if(serv.length==5){
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[2] + " " + serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[1]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[2]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[3]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[2]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[3]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[1]+" "+ serv[2]+" "+serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[2]+" "+ serv[3]+" "+serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                            }
-                         }
+                        for (int i = 0; i< tamanhoHorarios; i++, dia1++) {
+                            Horario ho = new Horario(horainicio,horafin);
+                            rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).child("horarios").child(DIAS_SEMANA[dia1]).setValue(ho);
                         }
 
+
+                        Log.e(">>>",servicios);
+                        String[] serv = servicios.split(" ");
+
+                        for (int i=0;i<serv.length;i++)
+                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[i]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+
+
+                        Intent i = new Intent(RegistroEstilista.this,MainEstilistaActivity.class);
+                        startActivity(i);
+                        finish();
 
                     }
                 });
@@ -261,23 +244,23 @@ public class RegistroEstilista extends AppCompatActivity {
     public void comprobarServiciosEscogidos () {
 
         if (registroEstilistaCheckBoxUñas.isChecked()) {
-            servicios+="uñas ";
+            servicios+="Uñas";
         }
 
         if (registroEstilistaCheckBoxMaquillaje.isChecked()) {
-            servicios+="maquillaje ";
+            servicios+=" Maquillaje";
         }
 
         if (registroEstilistaCheckBoxMasaje.isChecked()) {
-            servicios+="masaje ";
+            servicios+=" Masaje";
         }
 
         if (registroEstilistaCheckBoxDepilacion.isChecked()) {
-            servicios+="depilación ";
+            servicios+=" Depilación";
         }
 
         if (registroEstilistaCheckBoxPeluqueria.isChecked()) {
-            servicios+="peluquería ";
+            servicios+=" Peluquería";
         }
 
         servicios = servicios.trim();
@@ -291,6 +274,9 @@ public class RegistroEstilista extends AppCompatActivity {
                 String horaFormateada =  (hourOfDay < 10)? String.valueOf(CERO + hourOfDay) : String.valueOf(hourOfDay);
                 String minutoFormateado = (minute < 10)? String.valueOf(CERO + minute):String.valueOf(minute);
                 String AM_PM;
+
+                horainicio = hourOfDay;
+
                 if(hourOfDay < 12) {
                     AM_PM = "a.m.";
                 } else {
@@ -311,6 +297,9 @@ public class RegistroEstilista extends AppCompatActivity {
                 String horaFormateada =  (hourOfDay < 10)? String.valueOf(CERO + hourOfDay) : String.valueOf(hourOfDay);
                 String minutoFormateado = (minute < 10)? String.valueOf(CERO + minute):String.valueOf(minute);
                 String AM_PM;
+
+                horafin = hourOfDay;
+
                 if(hourOfDay < 12) {
                     AM_PM = "a.m.";
                 } else {
