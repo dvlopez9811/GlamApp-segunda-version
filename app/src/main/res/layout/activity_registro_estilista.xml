@@ -8,43 +8,41 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:background="@color/colorBlanco"
-    >
+    android:padding="10dp">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/layout_banner"
                 android:gravity="center_vertical">
 
-
                 <Button
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:id="@+id/btn_registro_estilista_volver"
-                    android:background="@drawable/ic_volver_primary"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    />
+                    android:background="@drawable/ic_volver_primary" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/titulo_registro_estilista"
-                    android:text="Continúa con tu registro"
-                    android:textColor="@color/colorPrimaryMuyDark"
-                    android:textSize="25dp"
-                    />
+                    android:fontFamily="@font/josefin_sans"
+                    android:gravity="center_vertical"
+                    android:text="Un solo paso más"
+                    android:layout_toRightOf="@id/btn_registro_cliente_volver"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="35dp"
+                    android:layout_marginLeft="20dp" />
 
             </LinearLayout>
 
@@ -53,20 +51,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:id="@+id/txt_elige_salon_belleza_correspondiente"
+                android:fontFamily="@font/josefin_sans"
                 android:text="Elige el Salon de belleza al cual perteneces"
                 android:textSize="20dp"
                 android:gravity="center"/>
+
             <Spinner
-                android:layout_marginTop="30dp"
                 android:id="@+id/registro_estilista_spinner_salones_belleza"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
-                android:tooltipText="Salones de Belleza"
                 android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginRight="30dp"
                 android:background="@color/colorPrimarioTransparente"
-                >
-            </Spinner>
+                android:fontFamily="@font/josefin_sans"
+                android:tooltipText="Salones de Belleza"></Spinner>
 
             <ImageView
                 android:id="@+id/registro_estilista_iv_foto"
