@@ -93,6 +93,11 @@ public class RegistroEstilista extends AppCompatActivity {
 
     ArrayList<CheckBox> checkBox;
 
+    private int dia1;
+    private int horainicio;
+    private int horafin;
+
+
     //Calendario para obtener fecha & hora
     public final Calendar c = Calendar.getInstance();
 
@@ -231,7 +236,7 @@ public class RegistroEstilista extends AppCompatActivity {
                 String diaUno = spinnerFechaIncio.getSelectedItem().toString();
                 String diaDos = spinnerFechaFinal.getSelectedItem().toString();
 
-                int dia1 = 0;
+                dia1 = 0;
                 int dia2 = 0;
 
                 if (diaUno.equals(diaDos)) {
@@ -251,10 +256,6 @@ public class RegistroEstilista extends AppCompatActivity {
 
                 int tamanhoHorarios = dia2-dia1;
 
-                for (int i = 0; i< tamanhoHorarios; i++, dia1++) {
-                    Horario ho = new Horario(DIAS_SEMANA[dia1], etObtenerHoraInicio.getText().toString(), etObtenerHoraFinal.getText().toString());
-                    horarios.add(ho);
-                }
 
                 estilista.setHorarios(horarios);
 
@@ -279,44 +280,23 @@ public class RegistroEstilista extends AppCompatActivity {
                     public void onSuccess(AuthResult authResult) {
                         rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).setValue(estilista);
 
-                        subirImagen();
-
                         rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("estilista");
 
-                        String [] serv = servicios.split(" ");
-                        String temp = "";
-
-
-                        for (int j=0;j<serv.length;j++) {
-                            temp = serv[j];
-                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(temp).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                            for (int i = j+1; i < serv.length; i++) {
-                                temp+=" "+serv[i];
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(temp).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                            }
+                        for (int i = 0; i< tamanhoHorarios; i++, dia1++) {
+                            Horario ho = new Horario(horainicio,horafin);
+                            rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).child("horarios").child(DIAS_SEMANA[dia1]).setValue(ho);
                         }
 
-                        if(serv.length>=3){
-                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0]+" "+serv[2]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                            if(serv.length>=4) {
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[1]+" "+ serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[2]+" "+ serv[3]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                if(serv.length==5){
-                                    rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                    rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                    rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[2] + " " + serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                    rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[1]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                    rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[2]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                    rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[3]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                    rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[2]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                    rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[1] + " " + serv[3]+" "+ serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                    rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[1]+" "+ serv[2]+" "+serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                    rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[0] + " " + serv[2]+" "+ serv[3]+" "+serv[4]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                                }
-                            }
-                        }
+                        String[] serv = servicios.split(" ");
+
+                        for (int i=0;i<serv.length;i++)
+                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[i]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+
+
+                        Intent i = new Intent(RegistroEstilista.this,MainEstilistaActivity.class);
+                        startActivity(i);
+                        finish();
+
                     }
                 });
 
@@ -351,6 +331,7 @@ public class RegistroEstilista extends AppCompatActivity {
                     SimpleDateFormat formato12h = new SimpleDateFormat("hh:mm a");
 
                     Date date24h = formato24h.parse(horaFormato24);
+                    horainicio = hourOfDay;
                     etObtenerHoraInicio.setText(formato12h.format(date24h));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -373,6 +354,7 @@ public class RegistroEstilista extends AppCompatActivity {
                     SimpleDateFormat formato12h = new SimpleDateFormat("hh:mm a");
 
                     Date date24h = formato24h.parse(horaFormato24);
+                    horafin = hourOfDay;
                     etObtenerHoraFinal.setText(formato12h.format(date24h));
                 } catch (Exception e) {
                     e.printStackTrace();
