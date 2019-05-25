@@ -32,7 +32,9 @@ public class RegistroCliente extends AppCompatActivity {
     private EditText registroEstilistaClienteEtContrasenha;
     private EditText registroEstilistaClienteEtContrasenhaConfirmar;
     private CheckBox registroEstilistaClienteCheckBoxEstilista;
+
     private Button registroEstilistaClienteBtnRegistrarme;
+    private Button btn_registro_cliente_volver;
 
     FirebaseAuth auth;
     FirebaseDatabase rtdb;
@@ -54,6 +56,7 @@ public class RegistroCliente extends AppCompatActivity {
         registroEstilistaClienteCheckBoxEstilista = findViewById(R.id.registro_estilista_cliente_check_box_estilista);
         registroEstilistaClienteCheckBoxEstilista.setTypeface(ResourcesCompat.getFont(this, R.font.josefin_sans));
         registroEstilistaClienteBtnRegistrarme = findViewById(R.id.registro_estilista_cliente_btn_registrarme);
+        btn_registro_cliente_volver = findViewById(R.id.btn_registro_cliente_volver);
 
         registroEstilistaClienteBtnRegistrarme.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +164,8 @@ public class RegistroCliente extends AppCompatActivity {
                 }
             }
         });
+
+        btn_registro_cliente_volver.setOnClickListener(v -> finish());
     }
 
     private class TypefaceSpan extends MetricAffectingSpan {
@@ -180,5 +185,11 @@ public class RegistroCliente extends AppCompatActivity {
             tp.setTypeface(mTypeface);
             tp.setFlags(tp.getFlags() | Paint.SUBPIXEL_TEXT_FLAG);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

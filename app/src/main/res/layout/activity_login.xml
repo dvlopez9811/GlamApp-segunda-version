@@ -3,12 +3,19 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@drawable/fondo_login">
+    android:background="@drawable/fondo_login"
+    android:padding="10dp">
 
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimarioTransparente"/>
+    <Button
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/btn_login_volver"
+        android:background="@drawable/ic_volver_primary" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimarioTransparente"/>
 
     <ImageView
         android:id="@+id/logo_login"
@@ -64,7 +71,7 @@
         android:background="@drawable/btn_circular_secundario"/>
 
     <com.facebook.login.widget.LoginButton
-        android:visibility="gone"
+        android:visibility="invisible"
         android:id="@+id/btn_login_facebook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,8 +82,7 @@
         android:textAllCaps="false"
         android:textSize="20dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/btn_redondeado_facebook"
-        />
+        android:background="@drawable/btn_redondeado_facebook" />
 
     <TextView
         android:layout_width="match_parent"
@@ -120,17 +126,4 @@
             android:layout_centerHorizontal="true" />
 
     </LinearLayout>
-
-    <Button
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:id="@+id/btn_login_volver"
-        android:background="@drawable/ic_volver_primary"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        />
-
-
 </RelativeLayout>

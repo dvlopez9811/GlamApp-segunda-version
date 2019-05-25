@@ -2,30 +2,39 @@ package proyectohastafinal.almac.myapplication.model;
 
 public class Horario {
 
-    private int horaInicio;
-    private int horaFinal;
+    private String dia;
+    private String horaInicio;
+    private String horaFinal;
 
-
-    public Horario(int horaInicio, int horaFinal) {
+    public Horario(String dia, String horaInicio, String horaFinal) {
+        this.dia = dia;
         this.horaInicio = horaInicio;
         this.horaFinal = horaFinal;
     }
 
     public Horario(){}
 
-    public void setHoraInicio(int horaInicio) {
-        this.horaInicio = horaInicio;
+    public String getDia() {
+        return dia;
     }
 
-    public void setHoraFinal(int horaFinal) {
-        this.horaFinal = horaFinal;
+    public void setDia(String dia) {
+        this.dia = dia;
     }
 
-    public int getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public int getHoraFinal() {
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public String getHoraFinal() {
         return horaFinal;
+    }
+
+    public void setHoraFinal(String horaFinal) {
+        this.horaFinal = horaFinal;
     }
 }
