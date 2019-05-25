@@ -104,7 +104,7 @@ public class RegistroCliente extends AppCompatActivity {
 
                 if (!telefono.trim().equalsIgnoreCase("")) {
                     try {
-                        int numero = Integer.parseInt(telefono);
+                        long numero = Long.parseLong(telefono);
                     } catch (NumberFormatException e) {
                         SpannableString s = new SpannableString("Por favor ingresa un número de teléfono válido");
                         s.setSpan(new TypefaceSpan(ResourcesCompat.getFont(v.getContext(), R.font.josefin_sans)), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -11,8 +11,6 @@ public class Estilista {
     private String contrasenha;
     private String nombreSalonDeBelleza;
 
-    private ArrayList<Horario> horarios;
-    private ArrayList<Agenda> agenda;
     private ArrayList<String> citas;
 
     public Estilista(String correo, String nombreYApellido, String usuario, String telefono,String contrasenha) {
@@ -71,22 +69,6 @@ public class Estilista {
 
     public void setNombreSalonDeBelleza(String nombreSalonDeBelleza) {
         this.nombreSalonDeBelleza = nombreSalonDeBelleza;
-    }
-
-    public ArrayList<Horario> getHorarios() {
-        return horarios;
-    }
-
-    public void setHorarios(ArrayList<Horario> horarios) {
-        this.horarios = horarios;
-    }
-
-    public ArrayList<Agenda> getAgenda() {
-        return agenda;
-    }
-
-    public void setAgenda(ArrayList<Agenda> agenda) {
-        this.agenda = agenda;
     }
 
     public ArrayList<String> getCitas() {

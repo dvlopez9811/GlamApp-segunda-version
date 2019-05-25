@@ -41,7 +41,7 @@ import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 
 public class BuscarFragment extends Fragment implements View.OnClickListener, AdapterSalones.OnItemClickListener{
 
-    public final static String[] SERVICIOS_SALON = {"uñas", "maquillaje", "masaje", "depilación", "peluquería"};
+    public final static String[] SERVICIOS_SALON = {"Uñas", "Maquillaje", "Masaje", "Depilación", "Peluquería"};
 
     private static BuscarFragment instance;
 
@@ -299,7 +299,6 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
         }
         Log.e("estado", busqueda);
         if( !busqueda.equals("") ) {
-            Log.e("hola", busqueda);
             mAdapater.limpiarSalones();
             rtdb.getReference().child("Buscar servicios salon de belleza").child(busqueda).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -307,7 +306,6 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
                     for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
                         String salonDeBelleza = childDataSnapshot.getKey();
 
-                        Log.e("hola", salonDeBelleza);
                         rtdb.getReference().child("Salon de belleza").child(salonDeBelleza).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
