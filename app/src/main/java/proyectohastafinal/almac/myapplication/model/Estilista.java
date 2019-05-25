@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class Estilista {
 
-    private ArrayList<Horario> horarios;
-    private ArrayList<Agenda> agenda;
     private ArrayList<String> citas;
 
     private String correo;
@@ -15,9 +13,7 @@ public class Estilista {
     private String contrasenha;
     private String nombreSalonDeBelleza;
 
-    public Estilista(ArrayList<Horario> horarios, ArrayList<Agenda> agenda, ArrayList<String> citas, String correo, String nombreYApellido, String usuario, String telefono, String contrasenha) {
-        this.horarios = horarios;
-        this.agenda = agenda;
+    public Estilista(ArrayList<Horario> horarios, ArrayList<String> citas, String correo, String nombreYApellido, String usuario, String telefono, String contrasenha) {
         this.citas = citas;
         this.correo = correo;
         this.nombreYApellido = nombreYApellido;
@@ -25,8 +21,6 @@ public class Estilista {
         this.telefono = telefono;
         this.contrasenha = contrasenha;
         this.citas = new ArrayList<>();
-        this.horarios = new ArrayList<>();
-        this.agenda = new ArrayList<>();
     }
 
     public Estilista(String correo, String nombreYApellido, String usuario, String telefono,String contrasenha) {
@@ -88,21 +82,6 @@ public class Estilista {
         this.citas = citas;
     }
 
-    public ArrayList<Horario> getHorarios() {
-        return horarios;
-    }
-
-    public void setHorarios(ArrayList<Horario> horarios) {
-        this.horarios = horarios;
-    }
-
-    public ArrayList<Agenda> getAgenda() {
-        return agenda;
-    }
-
-    public void setAgenda(ArrayList<Agenda> agenda) {
-        this.agenda = agenda;
-    }
 
     public String getNombreSalonDeBelleza() {
         return nombreSalonDeBelleza;

@@ -8,6 +8,7 @@ public class Cita {
     public static final String FINALIZADA = "Finalizada";
     public static final String RESERVADA = "Reservada";
     public static final String APLAZADA = "Aplazada";
+    public static final String SOLICITADA = "Solicitada";
     public static final String RECHAZADA = "Rechazada";
 
     //SERVICIO

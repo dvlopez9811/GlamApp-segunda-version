@@ -11,7 +11,7 @@
         android:text="Agenda tu cita en"
         android:fontFamily="@font/josefin_sans_thin"
         android:textStyle="bold"
-        android:textSize="30dp"
+        android:textSize="40sp"
         android:layout_marginTop="10dp"
         android:id="@+id/titulo_agendar_cita"
         android:textColor="#000"
@@ -22,32 +22,138 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefin_sans_thin"
         android:textStyle="bold"
-        android:textSize="30dp"
+        android:textSize="36sp"
+        android:text="Paty"
         android:layout_below="@id/titulo_agendar_cita"
         android:id="@+id/nombre_salon_agendar_cita_activity"
         android:textColor="#000"
         android:layout_marginBottom="10dp"
         />
-    <android.support.v7.widget.RecyclerView
+
+
+        <LinearLayout android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/lista_servicios_disponibles_agendar_cita_activity"
-        android:layout_marginBottom="10dp"
-        android:layout_below="@id/nombre_salon_agendar_cita_activity">
-    </android.support.v7.widget.RecyclerView>
+            android:layout_below="@id/nombre_salon_agendar_cita_activity"
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Button
-        android:layout_width="150dp"
 
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_aceptar_agendar_cita_activity"
-        android:text="Aceptar"
-        android:fontFamily="@font/josefin_sans_thin"
-        android:textAllCaps="false"
-        android:layout_below="@id/lista_servicios_disponibles_agendar_cita_activity"
-        android:textSize="30dp"
-        android:textColor="@color/colorBlanco"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/btn_circular_principal"/>
+        <RelativeLayout android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:id="@+id/linea_tipo_servicio_agendarcita">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo de servicio"
+                    android:textSize="20sp"
+                    android:layout_weight="1"
+                    />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/sp_servicio_agendar_cita"></Spinner>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/linea_tipo_servicio_agendarcita"
+                android:id="@+id/linea_estilista_agendarcita"
+                android:weightSum="2">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Estilista"
+                    android:textSize="20sp"
+                    android:layout_weight="1"
+                    />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/sp_estilista_agendar_cita"></Spinner>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linea_hoyomanana"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linea_estilista_agendarcita"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/rg_hoyomanana_agendarcita"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_hoy_agendarcita"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hoy"
+                        android:checked="true"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_manana_agendarcita"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mañana" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="28sp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/titulo_horarios_disponibles_item_agendar_cita"
+                android:layout_below="@id/linea_hoyomanana"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/josefin_sans_thin"
+                android:text="Horarios Disponibles"
+                android:textColor="#000"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"/>
+
+
+
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lista_horarios_disponibles_item_agendar_cita"
+                android:layout_below="@id/titulo_horarios_disponibles_item_agendar_cita">
+            </android.support.v7.widget.RecyclerView>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
 
 </RelativeLayout>

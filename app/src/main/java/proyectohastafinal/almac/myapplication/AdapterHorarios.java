@@ -13,55 +13,22 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import proyectohastafinal.almac.myapplication.model.BusquedaSalonDeBelleza;
 import proyectohastafinal.almac.myapplication.model.Horario;
 import proyectohastafinal.almac.myapplication.model.Servicio;
 
 public class AdapterHorarios extends RecyclerView.Adapter<AdapterHorarios.CustomViewHolder> {
 
-    FirebaseDatabase rtdb;
-    ArrayList<Horario> data;
+    ArrayList<Horario> horarios;
 
-    private static CheckBox lastChecked = null;
-    private static int lastCheckedPos = 0;
 
     public AdapterHorarios(){
-        data = new ArrayList<>();
+        horarios = new ArrayList<>();
     }
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.renglon_horario_disponible, parent, false);
         CustomViewHolder vh = new CustomViewHolder(v);
-        rtdb = FirebaseDatabase.getInstance();
         return vh;
-    }
-
-    public void onBindViewHolder(@NonNull final CustomViewHolder holder, int position) {
-        ((TextView) holder.root.findViewById(R.id.hora_inicio_item_horarios)).setText(data.get(position).getHoraInicio());
-        ((TextView) holder.root.findViewById(R.id.hora_fin_item_horarios)).setText(data.get(position).getHoraFinal());
-        ((CheckBox) holder.root.findViewById(R.id.checked_horario)).setChecked(data.get(position).isSeleccionado());
-        ((CheckBox) holder.root.findViewById(R.id.checked_horario)).setTag(new Integer(position));
-
-        if(position == 0 && data.get(0).isSeleccionado() && ((CheckBox)holder.root.findViewById(R.id.checked_horario)).isChecked()) {
-            lastChecked = holder.root.findViewById(R.id.checked_horario);
-            lastCheckedPos = 0;}
-
-        holder.root.findViewById(R.id.checked_horario).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CheckBox cb = (CheckBox) v;
-                int clickedPos = ((Integer) cb.getTag()).intValue();
-                if (cb.isChecked()) {
-                    if (lastChecked != null) {
-                        lastChecked.setChecked(false);
-                        data.get(lastCheckedPos).setSeleccionado(false);
-                    }
-                    lastChecked = cb;
-                    lastCheckedPos = clickedPos;
-                } else
-                    lastChecked = null;
-                data.get(clickedPos).setSeleccionado(cb.isChecked());
-            }
-        });
-
     }
 
     public static class CustomViewHolder extends RecyclerView.ViewHolder {
@@ -74,12 +41,67 @@ public class AdapterHorarios extends RecyclerView.Adapter<AdapterHorarios.Custom
     }
 
     public void showAllHorarios(ArrayList<Horario> allhorarios) {
+        horarios = new ArrayList<>();
         for(int i = 0 ; i<allhorarios.size() ; i++){
-            if(!data.contains(allhorarios.get(i))) data.add(allhorarios.get(i));
+            horarios.add(allhorarios.get(i));
         }
         notifyDataSetChanged();
     }
     public int getItemCount() {
-        return data.size();
+        return horarios.size();
     }
+
+    public void onBindViewHolder(@NonNull final CustomViewHolder holder, final int position) {
+
+        //Formato
+
+        //Hora inicio
+        int horarioinic = horarios.get(position).getHoraInicio();
+        String horarioinicio = "";
+        if(horarios.get(position).getHoraInicio()<12){
+            horarioinicio=horarioinic+"a.m";
+        }
+        else {
+            if(horarioinic!=12)
+            horarioinic-=12;
+            horarioinicio=horarioinic+" p.m";
+        }
+
+        //Hora final
+        int horariofin = horarios.get(position).getHoraFinal();
+        String horariofinal = "";
+        if(horarios.get(position).getHoraFinal()<12){
+            horariofinal=horariofin+"a.m";
+        }
+        else {
+            if(horariofin!=12)
+            horariofin-=12;
+            horariofinal=horariofin+" p.m";
+        }
+
+
+
+        ((TextView) holder.root.findViewById(R.id.hora_inicio_item_horarios)).setText(horarioinicio);
+        ((TextView) holder.root.findViewById(R.id.hora_fin_item_horarios)).setText(horariofinal);
+        holder.root.findViewById(R.id.item_renglon_horario_disponible).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(horarios.get(position));
+            }
+        });
+
+    }
+
+    //OBSERVER
+    public interface OnItemClickListener{
+        void onItemClick(Horario horario);
+    }
+
+    private AdapterHorarios.OnItemClickListener listener;
+
+    public void setListener(AdapterHorarios.OnItemClickListener listener){
+        this.listener = listener;
+    }
+
+
 }
