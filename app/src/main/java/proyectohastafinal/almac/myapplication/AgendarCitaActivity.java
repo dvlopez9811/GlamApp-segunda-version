@@ -139,7 +139,11 @@ public class AgendarCitaActivity extends AppCompatActivity implements AdapterHor
                     dia = DIAS[calendario.get(Calendar.DAY_OF_WEEK) - 1];
                     darHorarios(true);
                 }else{
-                    dia = DIAS[calendario.get(Calendar.DAY_OF_WEEK)];
+                    if(DIAS[calendario.get(Calendar.DAY_OF_WEEK)-1].equals(DIAS[6]))
+                        dia = DIAS[0];
+                    else
+                        dia = DIAS[calendario.get(Calendar.DAY_OF_WEEK)];
+
                     darHorarios(false);
                 }
 
@@ -167,7 +171,11 @@ public class AgendarCitaActivity extends AppCompatActivity implements AdapterHor
 
                     case R.id.rb_manana_agendarcita:
 
-                        dia = DIAS[calendario.get(Calendar.DAY_OF_WEEK)];
+                        if(DIAS[calendario.get(Calendar.DAY_OF_WEEK)-1].equals(DIAS[6]))
+                            dia = DIAS[0];
+                        else
+                            dia = DIAS[calendario.get(Calendar.DAY_OF_WEEK)];
+
                         darHorarios(false);
 
                         break;
