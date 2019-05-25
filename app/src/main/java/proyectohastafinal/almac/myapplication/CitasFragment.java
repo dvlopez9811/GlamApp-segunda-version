@@ -27,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import proyectohastafinal.almac.myapplication.model.Cita;
+import proyectohastafinal.almac.myapplication.model.Cliente;
+import proyectohastafinal.almac.myapplication.model.Estilista;
 
 public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickListener{
 
@@ -108,7 +110,7 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
 
                 for (int i=0;i<idcitas.size();i++) {
 
-                    rtdb.getReference().child("citas").child(idcitas.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
+                    rtdb.getReference().child("Citas").child(idcitas.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -153,10 +155,27 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
 
             case R.id.envio_mensaje_estilista_cita:
 
-                //Vamos a abrir la ventana de chat
-                Intent i = new Intent(getActivity(),ChatActivity.class);
-                    i.putExtra("tel", citaseleccionada.getTelefonoEstilista());
-                    startActivity(i);
+                rtdb.getReference().child("Estilista").child(citaseleccionada.getIdEstilista()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        Estilista estilista = dataSnapshot.getValue(Estilista.class);
+
+                        //Vamos a abrir la ventana de chat
+                        Intent i = new Intent(getActivity(),ChatActivity.class);
+                        i.putExtra("tel", estilista.getTelefono());
+                        startActivity(i);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
 
                 break;
 

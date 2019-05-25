@@ -1,6 +1,7 @@
 package proyectohastafinal.almac.myapplication;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,7 +26,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.UUID;
 
+import proyectohastafinal.almac.myapplication.model.Cita;
 import proyectohastafinal.almac.myapplication.model.Estilista;
 import proyectohastafinal.almac.myapplication.model.Horario;
 
@@ -35,13 +39,14 @@ public class AgendarCitaActivity extends AppCompatActivity implements AdapterHor
 
     private RecyclerView listaHorarios;
     private AdapterHorarios adapterHorarios;
-    private TextView nombreSalon;
+    private TextView tv_nombreSalon;
     private Spinner sp_servicio_agendarcita;
     private Spinner sp_estilista_agendarcita;
     private RadioGroup rg_hoyomanana_agendarcita;
     private RadioButton rb_hoy_agendarcita;
 
     FirebaseDatabase rtdb;
+    FirebaseAuth auth;
 
     private Calendar calendario;
 
@@ -58,6 +63,7 @@ public class AgendarCitaActivity extends AppCompatActivity implements AdapterHor
         setContentView(R.layout.activity_agendar_cita);
 
         rtdb = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         calendario = Calendar.getInstance();
 
@@ -68,7 +74,7 @@ public class AgendarCitaActivity extends AppCompatActivity implements AdapterHor
         listaHorarios.setAdapter(adapterHorarios);
         listaHorarios.setHasFixedSize(true);
 
-        nombreSalon = findViewById(R.id.nombre_salon_agendar_cita_activity);
+        tv_nombreSalon = findViewById(R.id.nombre_salon_agendar_cita_activity);
         sp_servicio_agendarcita = findViewById(R.id.sp_servicio_agendar_cita);
         sp_estilista_agendarcita = findViewById(R.id.sp_estilista_agendar_cita);
         rg_hoyomanana_agendarcita = findViewById(R.id.rg_hoyomanana_agendarcita);
@@ -79,7 +85,7 @@ public class AgendarCitaActivity extends AppCompatActivity implements AdapterHor
         listaHorarios.setHasFixedSize(true);
 
         salon = getIntent().getExtras().get("salon").toString();
-        nombreSalon.setText(salon);
+        tv_nombreSalon.setText(salon);
 
 
         rtdb.getReference().child("Salon de belleza").child(salon).child("servicios").addValueEventListener(new ValueEventListener() {
@@ -279,6 +285,8 @@ public class AgendarCitaActivity extends AppCompatActivity implements AdapterHor
                     });
                 } else {
 
+                    adapterHorarios.showAllHorarios(new ArrayList<Horario>());
+
                     if (!idestilista.isEmpty()) {
 
                         if (hoy)
@@ -338,24 +346,58 @@ public class AgendarCitaActivity extends AppCompatActivity implements AdapterHor
     @Override
     public void onItemClick(final Horario horario) {
 
+        if(auth.getCurrentUser()==null){
 
-        AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this);
-        dialogo1.setTitle("Confirmación");
-        dialogo1.setMessage("¿ Desea crear la cita ?");
-        dialogo1.setCancelable(false);
-        dialogo1.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogo1, int id) {
+            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this);
+            dialogo1.setTitle("Registro");
+            dialogo1.setMessage("Por favor inicia sesión");
+            dialogo1.setCancelable(false);
+            dialogo1.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
 
-                rtdb.getReference().child("Estilista").child(idestilista).child("agenda").child(dia).child("horas").child(horario.getHoraInicio()+"").setValue(true);
-                Toast.makeText(AgendarCitaActivity.this,"Cita enviada al estilista",Toast.LENGTH_LONG).show();
-            }
-        });
-        dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogo1, int id) {
+                    Intent i = new Intent(AgendarCitaActivity.this,LoginActivity.class);
+                    startActivity(i);
+                    finish();
 
-            }
-        });
-        dialogo1.show();
+                }
+            });
+            dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+
+                }
+            });
+            dialogo1.show();
+
+        }
+        else {
+            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this);
+            dialogo1.setTitle("Confirmación");
+            dialogo1.setMessage("¿ Desea crear la cita ?");
+            dialogo1.setCancelable(false);
+            dialogo1.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+
+                    String idcita = UUID.randomUUID().toString();
+
+
+            Cita cita = new Cita(idcita,Cita.RESERVADA,dia,horario.getHoraFinal(),horario.getHoraInicio(),"",salon,
+                    sp_servicio_agendarcita.getSelectedItem().toString(), idestilista, auth.getCurrentUser().getUid());
+
+
+                    rtdb.getReference().child("Citas").child(idcita).setValue(cita);
+                    rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("citas").child(idcita).setValue(idcita);
+                    rtdb.getReference().child("Estilista").child(idestilista).child("citas").child(idcita).setValue(idcita);
+                    rtdb.getReference().child("Estilista").child(idestilista).child("agenda").child(dia).child("horas").child(horario.getHoraInicio() + "").setValue(true);
+                    Toast.makeText(AgendarCitaActivity.this, "Cita enviada al estilista", Toast.LENGTH_LONG).show();
+                }
+            });
+            dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+
+                }
+            });
+            dialogo1.show();
+        }
 
 
     }

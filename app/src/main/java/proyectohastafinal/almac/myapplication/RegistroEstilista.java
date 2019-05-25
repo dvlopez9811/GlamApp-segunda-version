@@ -165,7 +165,7 @@ public class RegistroEstilista extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final Estilista estilista = new Estilista(correoEstilista,usuarioEstilista,nombreEstilista,passEstilista,passEstilista);
+                final Estilista estilista = new Estilista(correoEstilista,nombreEstilista,usuarioEstilista,telefonoEstilista,passEstilista);
 
                 String diaUno = spinnerFechaIncio.getSelectedItem().toString();
                 String diaDos = spinnerFechaFinal.getSelectedItem().toString();
