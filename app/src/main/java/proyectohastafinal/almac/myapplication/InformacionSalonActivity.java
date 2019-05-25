@@ -24,15 +24,12 @@ public class InformacionSalonActivity extends AppCompatActivity {
 
     private Button btn_agendar_cita;
 
-    FirebaseDatabase rtdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informacion_salon);
 
-
-        rtdb = FirebaseDatabase.getInstance();
 
 
 
@@ -41,10 +38,8 @@ public class InformacionSalonActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 Intent i = new Intent(InformacionSalonActivity.this,AgendarCitaActivity.class);
                 i.putExtra("salon",getIntent().getExtras().get("salon").toString());
-                i.putExtra("servicios",getIntent().getExtras().get("servicios").toString());
                 startActivity(i);
             }
         });

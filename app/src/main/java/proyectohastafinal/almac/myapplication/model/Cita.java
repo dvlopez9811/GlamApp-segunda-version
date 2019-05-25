@@ -8,50 +8,61 @@ public class Cita {
     public static final String FINALIZADA = "Finalizada";
     public static final String RESERVADA = "Reservada";
     public static final String APLAZADA = "Aplazada";
+    public static final String SOLICITADA = "Solicitada";
     public static final String RECHAZADA = "Rechazada";
 
     //SERVICIO
-    public static final String PELUQUERIA = "Peluqueria";
+    public static final String PELUQUERIA = "Peluquería";
     public static final String UNAS = "Uñas";
     public static final String MAQUILLAJE = "Maquillaje";
-    public static final String DEPILACION = "Depilacion";
+    public static final String DEPILACION = "Depilación";
     public static final String MASAJE = "Masaje";
 
 
-    private String fecha;
+    private String idcita;
+    private String dia;
     private String informacion;
     private String estado;
-    private String horainicio;
-    private String horafin;
+    private int horainicio;
+    private int horafin;
     private String servicio;
     private String nombreSalon;
-    private String telefonoCliente;
-    private String telefonoEstilista;
+    private String idEstilista;
+    private String idUsuario;
 
 
-    public Cita(String estado,String fecha,String horafin,String horainicio, String informacion, String nombreSalon,String servicio,
-                String telefonoCliente,String telefonoEstilista) {
-        this.fecha = fecha;
+    public Cita(String idcita,String estado,String dia,int horafin,int horainicio, String informacion, String nombreSalon,String servicio,
+                String idEstilista,String idUsuario) {
+        this.idcita = idcita;
+        this.dia = dia;
         this.informacion = informacion;
         this.estado = estado;
         this.horainicio = horainicio;
         this.horafin = horafin;
         this.servicio = servicio;
         this.nombreSalon = nombreSalon;
-        this.telefonoCliente = telefonoCliente;
-        this.telefonoEstilista = telefonoEstilista;
+        this.idEstilista = idEstilista;
+        this.idUsuario = idUsuario;
     }
 
     public Cita() {
 
     }
 
-    public String getFecha() {
-        return fecha;
+    public String getIdcita() {
+        return idcita;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setIdcita(String idcita) {
+        this.idcita = idcita;
+    }
+
+    public String getDia() {
+        return dia;
+    }
+
+    public void setDia(String dia) {
+        this.dia = dia;
     }
 
     public String getInformacion() {
@@ -70,19 +81,19 @@ public class Cita {
         this.estado = estado;
     }
 
-    public String getHorainicio() {
+    public int getHorainicio() {
         return horainicio;
     }
 
-    public void setHorainicio(String horainicio) {
+    public void setHorainicio(int horainicio) {
         this.horainicio = horainicio;
     }
 
-    public String getHorafin() {
+    public int getHorafin() {
         return horafin;
     }
 
-    public void setHorafin(String horafin) {
+    public void setHorafin(int horafin) {
         this.horafin = horafin;
     }
 
@@ -102,19 +113,19 @@ public class Cita {
         this.nombreSalon = nombreSalon;
     }
 
-    public String getTelefonoCliente() {
-        return telefonoCliente;
+    public String getIdEstilista() {
+        return idEstilista;
     }
 
-    public void setTelefonoCliente(String telefonoCliente) {
-        this.telefonoCliente = telefonoCliente;
+    public void setIdEstilista(String idEstilista) {
+        this.idEstilista = idEstilista;
     }
 
-    public String getTelefonoEstilista() {
-        return telefonoEstilista;
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setTelefonoEstilista(String telefonoEstilista) {
-        this.telefonoEstilista = telefonoEstilista;
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }
