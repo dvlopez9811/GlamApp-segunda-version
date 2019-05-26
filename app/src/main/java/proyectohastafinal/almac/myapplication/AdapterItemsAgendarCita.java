@@ -26,20 +26,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import proyectohastafinal.almac.myapplication.model.Estilista;
 import proyectohastafinal.almac.myapplication.model.Horario;
 import proyectohastafinal.almac.myapplication.model.Servicio;
 
 public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAgendarCita.CustomViewHolder>{
-
-    private static final String[] DIAS = new String[]{"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
 
     ArrayList<Servicio> data;
     FirebaseDatabase rtdb;
@@ -55,8 +55,6 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
     private String idestilista;
     private String dia;
     private ArrayList<String> idestilistas;
-
-
 
     public AdapterItemsAgendarCita(){
         data = new ArrayList<>();
@@ -88,8 +86,6 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
         ArrayList<Horario> horariosPrueba = new ArrayList<Horario>();
         horariosPrueba.add(prueba);
         horariosPrueba.add(prueba2);
-     //   adapterHorarios.showAllHorarios(horariosPrueba);
-darHorarios(true,holder);
 
         (holder.root.findViewById(R.id.date_picker_agendar_item)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,33 +106,39 @@ darHorarios(true,holder);
             }
         });
 
-
-        final ArrayList<CharSequence> estilistas = new ArrayList<>();
-
-       rtdb.getReference().child("Salon de belleza").child(data.get(position).getSalonDeBelleza().getNombreSalonDeBelleza()).child("Estilistas")
+        rtdb.getReference().child("Salon de belleza").child(data.get(position).getSalonDeBelleza().getNombreSalonDeBelleza()).child("Estilistas")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-                    estilistas.add(childDataSnapshot.getKey());
-                    ArrayAdapter<CharSequence> estilistasAdapter = new ArrayAdapter<>(holder.root.getContext(),
-                            R.layout.support_simple_spinner_dropdown_item, estilistas);
-                  //  darEstilistas(data.get(position).getTipo(),holder);
-                }
-            }
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-   //         @Override
-           public void onCancelled(@NonNull DatabaseError databaseError) {
+                        for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                            GenericTypeIndicator<HashMap<String,String>> t = new GenericTypeIndicator<HashMap<String,String>>() {};
+                            HashMap<String,String> estilistasHashMap = childDataSnapshot.getValue(t);
 
-            }
-        });
+                            ArrayList<CharSequence> estilistas = new ArrayList<>();
 
+                            for (String key: estilistasHashMap.keySet()) {
+                                estilistas.add(estilistasHashMap.get(key));
+                            }
+
+                            ArrayAdapter<CharSequence> estilistasAdapter = new ArrayAdapter<>(holder.root.getContext(),
+                                    R.layout.support_simple_spinner_dropdown_item, estilistas);
+
+
+                            ((Spinner) holder.root.findViewById(R.id.item_agendar_cita_spinner_estilista)).setAdapter(estilistasAdapter);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
         ((Spinner)holder.root.findViewById(R.id.item_agendar_cita_spinner_estilista)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
+                // Aquí se mostrarían los horarios.
             }
 
             @Override
@@ -144,43 +146,6 @@ darHorarios(true,holder);
             }
         });
 
-
-
-    }
-
-
-    public void darEstilistas(String servicio,CustomViewHolder holder){
-        rtdb.getReference().child("Salon de belleza").child(salon).child("Estilistas").child(servicio).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                idestilista = "";
-                idestilistas = new ArrayList<>();
-                final ArrayList<String> nombreestilistas = new ArrayList<>();
-
-                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    String id = dsp.getValue(String.class);
-                    idestilistas.add(id);
-
-                    rtdb.getReference().child("Estilista").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                           Estilista estilista = dataSnapshot.getValue(Estilista.class);
-                            nombreestilistas.add(estilista.getNombreYApellido());
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String> (holder.root.getContext(), android.R.layout.simple_spinner_item, nombreestilistas);
-                            ((Spinner) holder.root.findViewById(R.id.item_agendar_cita_spinner_estilista)).setAdapter(adapter);
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
     public void darHorarios(final boolean hoy,CustomViewHolder holder){

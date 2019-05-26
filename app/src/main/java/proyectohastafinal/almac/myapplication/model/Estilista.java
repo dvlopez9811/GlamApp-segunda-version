@@ -1,6 +1,7 @@
 package proyectohastafinal.almac.myapplication.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Estilista {
 
@@ -11,7 +12,7 @@ public class Estilista {
     private String contrasenha;
     private String nombreSalonDeBelleza;
 
-    private ArrayList<Horario> horarios;
+    private HashMap<String,Horario> horarios;
     private ArrayList<Agenda> agenda;
     private ArrayList<String> citas;
 
@@ -73,11 +74,11 @@ public class Estilista {
         this.nombreSalonDeBelleza = nombreSalonDeBelleza;
     }
 
-    public ArrayList<Horario> getHorarios() {
+    public HashMap<String, Horario> getHorarios() {
         return horarios;
     }
 
-    public void setHorarios(ArrayList<Horario> horarios) {
+    public void setHorarios(HashMap<String, Horario> horarios) {
         this.horarios = horarios;
     }
 

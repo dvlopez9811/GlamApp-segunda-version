@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
     <RelativeLayout android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:padding="10dp"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/borde">
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:id="@+id/imagen_tipo_servicio_item_agendar_cita"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_new_maquillaje_morado"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal">
+
+
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_cancelar_128x128"
+                android:layout_marginRight="10dp"/>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_aceptar_128x128" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txt_tipo_servicio_item_agendar_cita"
@@ -27,6 +40,15 @@
             android:fontFamily="@font/josefin_sans_thin"
             android:textSize="25dp"
             />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/imagen_tipo_servicio_item_agendar_cita"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_new_maquillaje_morado"/>
+
+
 
 
         <LinearLayout
@@ -103,8 +125,8 @@
                 android:layout_marginRight="30dp"/>
 
             <Button
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/date_picker_agendar_item"
                 android:background="@drawable/ic_calendario_negro"
                 android:layout_centerHorizontal="true" />

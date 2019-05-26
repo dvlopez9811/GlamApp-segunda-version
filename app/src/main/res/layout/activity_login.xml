@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@drawable/fondo_login"
-    android:padding="10dp">
+    android:background="@drawable/fondo_login">
 
     <Button
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:id="@+id/btn_login_volver"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:background="@drawable/ic_volver_primary" />
 
     <ImageView

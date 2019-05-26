@@ -231,32 +231,38 @@ public class RegistroEstilista extends AppCompatActivity {
 
                 final Estilista estilista = new Estilista(correoEstilista,usuarioEstilista,nombreEstilista,passEstilista,passEstilista);
 
-                ArrayList<Horario> horarios = new ArrayList<>();
+                HashMap<String,Horario> horarios = new HashMap<>();
+                Horario horario;
 
-                String diaUno = spinnerFechaIncio.getSelectedItem().toString();
-                String diaDos = spinnerFechaFinal.getSelectedItem().toString();
+                String diaInicio = spinnerFechaIncio.getSelectedItem().toString();
+                String diaFinal = spinnerFechaFinal.getSelectedItem().toString();
 
                 dia1 = 0;
                 int dia2 = 0;
 
-                if (diaUno.equals(diaDos)) {
-
+                if(diaInicio.equals(diaFinal)) {
+                    horario = new Horario(horainicio,horafin);
+                    horarios.put(diaInicio, horario );
                 } else {
-                    for (int i = 0; i < DIAS_SEMANA.length; i++) {
-
-                        if (diaUno.equals(DIAS_SEMANA[i])) {
-                            dia1 = (i);
-                        }
-
-                        if (diaDos.equals(DIAS_SEMANA[i])){
-                            dia2 = (i+1);
+                    boolean completado = false;
+                    boolean inicia = false;
+                    for (int i = 0; i < DIAS_SEMANA.length & !completado; i++) {
+                        if (diaInicio.equals(DIAS_SEMANA[i])) {
+                            horario = new Horario(horainicio,horafin);
+                            horarios.put(diaInicio, horario );
+                            inicia = true;
+                        } else if (diaFinal.equals(DIAS_SEMANA[i])) {
+                            horario = new Horario(horainicio,horafin);
+                            horarios.put(diaFinal, horario );
+                            completado = true;
+                        } else  {
+                            if(inicia) {
+                                horario = new Horario(horainicio, horafin);
+                                horarios.put(DIAS_SEMANA[i], horario);
+                            }
                         }
                     }
                 }
-
-                int tamanhoHorarios = dia2-dia1;
-
-
                 estilista.setHorarios(horarios);
 
                 rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("nombreSalonDeBelleza").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -271,33 +277,23 @@ public class RegistroEstilista extends AppCompatActivity {
 
                     }
                 });
+
                 comprobarServiciosEscogidos();
 
-                Toast.makeText(RegistroEstilista.this,servicios,Toast.LENGTH_SHORT).show();
+                auth.createUserWithEmailAndPassword(correoEstilista, passEstilista).addOnSuccessListener(authResult -> {
+                    rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).setValue(estilista);
 
-                auth.createUserWithEmailAndPassword(correoEstilista, passEstilista).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).setValue(estilista);
+                    rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("estilista");
 
-                        rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("estilista");
+                    String[] serv = servicios.split(" ");
 
-                        for (int i = 0; i< tamanhoHorarios; i++, dia1++) {
-                            Horario ho = new Horario(horainicio,horafin);
-                            rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).child("horarios").child(DIAS_SEMANA[dia1]).setValue(ho);
-                        }
+                    for (int i=0;i<serv.length;i++)
+                        rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[i]).child(auth.getCurrentUser().getUid()).setValue(estilista.getNombreYApellido());
 
-                        String[] serv = servicios.split(" ");
+                    Intent i = new Intent(RegistroEstilista.this,MainEstilistaActivity.class);
+                    startActivity(i);
+                    finish();
 
-                        for (int i=0;i<serv.length;i++)
-                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[i]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-
-
-                        Intent i = new Intent(RegistroEstilista.this,MainEstilistaActivity.class);
-                        startActivity(i);
-                        finish();
-
-                    }
                 });
 
             }
