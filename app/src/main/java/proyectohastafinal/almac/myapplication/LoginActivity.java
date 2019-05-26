@@ -62,21 +62,21 @@ import proyectohastafinal.almac.myapplication.model.Cliente;
 
 public class LoginActivity extends AppCompatActivity {
 
-    // Codigo de los permisos
-    private static final int MY_REQUEST_CODE= 7117;
-
     private static final String TAG = "FacebookLogin";
     private static final int RC_SIGN_IN_GOOGLE = 9001;
 
-
-    private Button btn_iniciar_sesion,btn_inicio_sesion_facebook,btn_inicio_sesion_google;
+    private Button btn_iniciar_sesion;
+    private Button btn_inicio_sesion_facebook;
+    private Button btn_inicio_sesion_google;
     private Button  btn_login_volver;
+
+    private EditText et_login_correo;
+    private EditText et_login_password;
+
     private LoginButton loginButton;
-    private EditText et_login_correo, et_login_password;
     private GoogleSignInClient mGoogleSignInClient;
     private CallbackManager mCallbackManager;
 
-    List<AuthUI.IdpConfig> providers;
     FirebaseAuth auth;
     FirebaseDatabase rtdb;
 
@@ -89,8 +89,6 @@ public class LoginActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         rtdb = FirebaseDatabase.getInstance();
-
-        Log.e("INFORMACION", (auth == null ? "en realidad":"galso"));
 
         btn_iniciar_sesion= findViewById(R.id.btn_iniciarsesion);
         btn_inicio_sesion_google=findViewById(R.id.btn_login_google);
@@ -122,12 +120,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         //GOOGLE
-        btn_inicio_sesion_google.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signInGoogle();
-            }
-        });
+        btn_inicio_sesion_google.setOnClickListener(v -> signInGoogle());
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -135,99 +128,67 @@ public class LoginActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         //E-MAIL Y PASSWORD
-        btn_iniciar_sesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_iniciar_sesion.setOnClickListener(v -> {
 
-                String correo = et_login_correo.getText().toString();
-                String pass = et_login_password.getText().toString();
-                if (!correo.equals("") && !pass.equals("")) {
-                    auth.signInWithEmailAndPassword(correo, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                        @Override
-                        public void onSuccess(AuthResult authResult) {
-
-                            rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    String tipo = dataSnapshot.getValue(String.class);
-                                    if(tipo.equals("cliente")){
-                                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                                        startActivity(i);
-                                        finish();
-                                    }else{
-                                        Intent i = new Intent(LoginActivity.this, MainEstilistaActivity.class);
-                                        startActivity(i);
-                                        finish();
-                                    }
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
-
-
+            String correo = et_login_correo.getText().toString();
+            String pass = et_login_password.getText().toString();
+            if (!correo.equals("") && !pass.equals("")) {
+                auth.signInWithEmailAndPassword(correo, pass).addOnSuccessListener(authResult -> rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String tipo = dataSnapshot.getValue(String.class);
+                        if(tipo.equals("cliente")){
+                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(i);
+                            finish();
+                        }else{
+                            Intent i = new Intent(LoginActivity.this, MainEstilistaActivity.class);
+                            startActivity(i);
+                            finish();
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(LoginActivity.this, "Usuario o contraseña incorrecta", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else {
-                    Toast.makeText(LoginActivity.this, "Por favor llena todos los campos", Toast.LENGTH_SHORT).show();
 
-                }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                })).addOnFailureListener(e -> Toast.makeText(LoginActivity.this, "Usuario o contraseña incorrecta", Toast.LENGTH_SHORT).show());
+            } else {
+                Toast.makeText(LoginActivity.this, "Por favor llena todos los campos", Toast.LENGTH_SHORT).show();
+
             }
         });
 
-        btn_inicio_sesion_facebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginButton.callOnClick();
-                loginButton.performClick();
-            }
+        btn_inicio_sesion_facebook.setOnClickListener(v -> {
+            loginButton.callOnClick();
+            loginButton.performClick();
         });
 
-
-
-        btn_login_volver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this,InicioActivity.class);
-                startActivity(i);
-                finish();
-            }
+        btn_login_volver.setOnClickListener(v -> {
+            Intent i = new Intent(LoginActivity.this,InicioActivity.class);
+            startActivity(i);
+            finish();
         });
-
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
     }
 
-
     private void crearUsuarioNuevo(String nombre,String email){
-        //*******************Crear usuario e ingresar a base de datos aqui
         Cliente cl = new Cliente(email, "", nombre, "","");
         rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).setValue(cl);
-
     }
 
     private void anadirNuevoUsuarioFacebook(AccessToken token){
-            GraphRequest request = GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback() {
-                //OnCompleted is invoked once the GraphRequest is successful
-                @Override
-                public void onCompleted(JSONObject object, GraphResponse response) {
-                    try {
-                        String name = object.getString("name");
-                        String email = object.getString("email");
-                        String image = object.getJSONObject("picture").getJSONObject("data").getString("url");
-                        crearUsuarioNuevo(name,email);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+        //OnCompleted is invoked once the GraphRequest is successful
+        GraphRequest request = GraphRequest.newMeRequest(token, (object, response) -> {
+            try {
+                String name = object.getString("name");
+                String email = object.getString("email");
+                String image = object.getJSONObject("picture").getJSONObject("data").getString("url");
+                crearUsuarioNuevo(name,email);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        });
 
         // We set parameters to the GraphRequest using a Bundle.
         Bundle parameters = new Bundle();
@@ -242,11 +203,7 @@ public class LoginActivity extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             String personName = acct.getDisplayName();
-            String personGivenName = acct.getGivenName();
-            String personFamilyName = acct.getFamilyName();
             String personEmail = acct.getEmail();
-            String personId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
             crearUsuarioNuevo(personName,personEmail);
         }
     }
@@ -292,7 +249,6 @@ public class LoginActivity extends AppCompatActivity {
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
-                // ...
             }
         }
     }
@@ -302,29 +258,22 @@ public class LoginActivity extends AppCompatActivity {
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         auth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = auth.getCurrentUser();
-                            //updateUI(user);
-                            AccessToken accessToken = AccessToken.getCurrentAccessToken();
-                            verificarExistenciaUsuarioFacebook(task,accessToken);
-                            Toast.makeText(LoginActivity.this,"Ingresaste con correo "+user.getEmail(),Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(i);
-                            finish();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-
-                        // ...
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithCredential:success");
+                        FirebaseUser user = auth.getCurrentUser();
+                        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                        verificarExistenciaUsuarioFacebook(task,accessToken);
+                        Toast.makeText(LoginActivity.this,"Ingresaste con correo "+user.getEmail(),Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -334,42 +283,20 @@ public class LoginActivity extends AppCompatActivity {
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         auth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = auth.getCurrentUser();
-                            updateUI(user);
-                            verificarExistenciaUsuarioGoogle(task);
-                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(i);
-                            finish();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            updateUI(null);
-                        }
-
-                        // ...
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithCredential:success");
+                        FirebaseUser user = auth.getCurrentUser();
+                        verificarExistenciaUsuarioGoogle(task);
+                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
                     }
                 });
-    }
-
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            findViewById(R.id.btn_login_facebook).setVisibility(View.GONE);
-        } else {
-            findViewById(R.id.btn_login_facebook).setVisibility(View.VISIBLE);
-        }
-    }
-
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = auth.getCurrentUser();
-        updateUI(currentUser);
     }
 
     @Override

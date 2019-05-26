@@ -123,7 +123,7 @@
         </RelativeLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txt_crear_cuenta_inicio_activity"
             android:text="Crea una cuenta"
@@ -140,13 +140,10 @@
         android:id="@+id/btn_login_facebook_inicio_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="10dp"
         android:textAllCaps="false"
         android:layout_below="@id/linear_layout_botones_inicio_activity"
         android:textSize="20dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/btn_redondeado_facebook"
-        />
+        android:enabled="false"/>
 </RelativeLayout>

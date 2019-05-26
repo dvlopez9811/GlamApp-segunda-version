@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -50,8 +49,13 @@ public class InicioActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN_GOOGLE = 9001;
 
     private ImageButton btn_salir_inicio_activity;
-    private Button btn_inicio_sesion_facebook,btn_inicio_sesion_google,btn_inicio_sesion_email;
+
+    private Button btn_inicio_sesion_facebook;
+    private Button btn_inicio_sesion_google;
+    private Button btn_inicio_sesion_email;
+
     private TextView txt_crear_cuenta;
+
     private LoginButton loginButton;
     private GoogleSignInClient mGoogleSignInClient;
     private CallbackManager mCallbackManager;
@@ -59,20 +63,13 @@ public class InicioActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseDatabase rtdb;
 
-    private void crearUsuarioNuevo(String nombre,String email){
-        //*******************Crear usuario e ingresar a base de datos aqui
-
-        Cliente cl = new Cliente(email, "", nombre, "","");
-        rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).setValue(cl);
-
-    }
-
+    private Intent intentMain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
 
-        // Lo primero que se realiza es soliticar los permisos,
+        // Lo primero que se realiza es solicitar todos los permisos necesarios para ejecutar la aplicación.
         ActivityCompat.requestPermissions(this, new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -80,27 +77,34 @@ public class InicioActivity extends AppCompatActivity {
                 Manifest.permission.READ_EXTERNAL_STORAGE
         }, REQUEST_CODE);
 
+        // Se obtiene la referencia de Firebase de autenticación y la base de datos.
         auth = FirebaseAuth.getInstance();
         rtdb = FirebaseDatabase.getInstance();
 
+        /*
+        Se inicializar la clase principal. No se coloca como "Launch" debido a que el primer fragment
+        que se carga necesita de los permisos de localización.
+         */
+        intentMain = new Intent(InicioActivity.this, MainActivity.class);
+
+        // Si ya hay una sesión iniciada, esta pantalla no se muestra.
         if (auth.getCurrentUser() != null) {
-            Intent i = new Intent(InicioActivity.this, MainActivity.class);
-            startActivity(i);
+            startActivity(intentMain);
             finish();
         }
 
+        // Se inicializan los componentes gráficos necesarios de la actividad.
         btn_salir_inicio_activity = findViewById(R.id.btn_salir_inicio_activity);
-        txt_crear_cuenta=findViewById(R.id.txt_crear_cuenta_inicio_activity);
         btn_inicio_sesion_email = findViewById(R.id.btn_correo_inicio_activity);
         btn_inicio_sesion_google = findViewById(R.id.btn_google_inicio_activity);
         btn_inicio_sesion_facebook=findViewById(R.id.btn_facebook_inicio_activity);
+        txt_crear_cuenta=findViewById(R.id.txt_crear_cuenta_inicio_activity);
 
-
+        // Tratamiento del inicio de sesión de Facebook.
         mCallbackManager = CallbackManager.Factory.create();
 
         loginButton = findViewById(R.id.btn_login_facebook_inicio_activity);
         loginButton.setReadPermissions("email", "public_profile", "user_friends");
-
 
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -118,55 +122,38 @@ public class InicioActivity extends AppCompatActivity {
             }
         });
 
-        btn_inicio_sesion_facebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginButton.callOnClick();
-                loginButton.performClick();
-            }
+        btn_inicio_sesion_facebook.setOnClickListener(v -> {
+            loginButton.callOnClick();
+            loginButton.performClick();
         });
-        btn_inicio_sesion_google.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signInGoogle();
-            }
-        });
+
+        // Tratamiento del inicio de sesión de Google.
+        btn_inicio_sesion_google.setOnClickListener(v -> signInGoogle());
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        btn_inicio_sesion_email.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(InicioActivity.this,LoginActivity.class);
-                startActivity(i);
-            }
+        btn_inicio_sesion_email.setOnClickListener(v -> {
+            Intent intentLogin = new Intent(InicioActivity.this,LoginActivity.class);
+            startActivity(intentLogin);
+            finish();
         });
 
-        txt_crear_cuenta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(InicioActivity.this,RegistroActivity.class);
-                startActivity(i);
-
-            }
+        // Listener del botón crear cuenta, este botón manda a la actividad de registro.
+        txt_crear_cuenta.setOnClickListener(v -> {
+            Intent intentRegistro = new Intent(InicioActivity.this,RegistroActivity.class);
+            startActivity(intentRegistro);
         });
 
-
-
-        btn_salir_inicio_activity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(InicioActivity.this, MainActivity.class);
-                startActivity(i);
-                finish();
-            }
+        // Listener del botón salir, aquí se manda a la clase principal.
+        btn_salir_inicio_activity.setOnClickListener(v -> {
+            startActivity(intentMain);
+            finish();
         });
 
     }
-
 
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
@@ -183,8 +170,7 @@ public class InicioActivity extends AppCompatActivity {
                             //updateUI(user);
                             AccessToken accessToken = AccessToken.getCurrentAccessToken();
                             verificarExistenciaUsuarioFacebook(task,accessToken);
-                            Intent i = new Intent(InicioActivity.this, MainActivity.class);
-                            startActivity(i);
+                            startActivity(intentMain);
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
@@ -203,12 +189,12 @@ public class InicioActivity extends AppCompatActivity {
             anadirNuevoUsuarioFacebook(token);
         }
     }
+
     private void verificarExistenciaUsuarioGoogle(@NonNull Task<AuthResult> task){
         boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
         if(isNew){
             anadirNuevoUsuarioGoogle();
         }
-
     }
 
     private void anadirNuevoUsuarioFacebook(AccessToken token){
@@ -220,7 +206,7 @@ public class InicioActivity extends AppCompatActivity {
                     String name = object.getString("name");
                     String email = object.getString("email");
                     String image = object.getJSONObject("picture").getJSONObject("data").getString("url");
-                    crearUsuarioNuevo(name,email);
+                    crearUsuarioDeFacebookOGoogle(name,email);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -245,7 +231,7 @@ public class InicioActivity extends AppCompatActivity {
             String personEmail = acct.getEmail();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
-            crearUsuarioNuevo(personName,personEmail);
+            crearUsuarioDeFacebookOGoogle(personName,personEmail);
         }
     }
 
@@ -268,8 +254,7 @@ public class InicioActivity extends AppCompatActivity {
                             FirebaseUser user = auth.getCurrentUser();
                             updateUI(user);
                             verificarExistenciaUsuarioGoogle(task);
-                            Intent i = new Intent(InicioActivity.this, MainActivity.class);
-                            startActivity(i);
+                            startActivity(intentMain);
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
@@ -313,5 +298,10 @@ public class InicioActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = auth.getCurrentUser();
         updateUI(currentUser);
+    }
+
+    private void crearUsuarioDeFacebookOGoogle(String nombre,String email){
+        Cliente cl = new Cliente(email, "", nombre, "","");
+        rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).setValue(cl);
     }
 }
