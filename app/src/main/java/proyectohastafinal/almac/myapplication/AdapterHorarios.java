@@ -8,23 +8,22 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 
-import proyectohastafinal.almac.myapplication.model.BusquedaSalonDeBelleza;
 import proyectohastafinal.almac.myapplication.model.Horario;
-import proyectohastafinal.almac.myapplication.model.Servicio;
 
 public class AdapterHorarios extends RecyclerView.Adapter<AdapterHorarios.CustomViewHolder> {
 
-    ArrayList<Horario> horarios;
+    ArrayList<Horario> data;
 
+    private static CheckBox lastChecked = null;
+    private static int lastCheckedPos = 0;
 
     public AdapterHorarios(){
-        horarios = new ArrayList<>();
+        data = new ArrayList<>();
     }
+
+
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.renglon_horario_disponible, parent, false);
         CustomViewHolder vh = new CustomViewHolder(v);
@@ -41,24 +40,23 @@ public class AdapterHorarios extends RecyclerView.Adapter<AdapterHorarios.Custom
     }
 
     public void showAllHorarios(ArrayList<Horario> allhorarios) {
-        horarios = new ArrayList<>();
+        data = new ArrayList<>();
         for(int i = 0 ; i<allhorarios.size() ; i++){
-            horarios.add(allhorarios.get(i));
+            data.add(allhorarios.get(i));
         }
         notifyDataSetChanged();
     }
     public int getItemCount() {
-        return horarios.size();
+        return data.size();
     }
 
     public void onBindViewHolder(@NonNull final CustomViewHolder holder, final int position) {
 
-        //Formato
 
         //Hora inicio
-        int horarioinic = horarios.get(position).getHoraInicio();
+        int horarioinic = data.get(position).getHoraInicio();
         String horarioinicio = "";
-        if(horarios.get(position).getHoraInicio()<12){
+        if(data.get(position).getHoraInicio()<12){
             horarioinicio=horarioinic+"a.m";
         }
         else {
@@ -68,9 +66,9 @@ public class AdapterHorarios extends RecyclerView.Adapter<AdapterHorarios.Custom
         }
 
         //Hora final
-        int horariofin = horarios.get(position).getHoraFinal();
+        int horariofin = data.get(position).getHoraFinal();
         String horariofinal = "";
-        if(horarios.get(position).getHoraFinal()<12){
+        if(data.get(position).getHoraFinal()<12){
             horariofinal=horariofin+"a.m";
         }
         else {
@@ -83,13 +81,31 @@ public class AdapterHorarios extends RecyclerView.Adapter<AdapterHorarios.Custom
 
         ((TextView) holder.root.findViewById(R.id.hora_inicio_item_horarios)).setText(horarioinicio);
         ((TextView) holder.root.findViewById(R.id.hora_fin_item_horarios)).setText(horariofinal);
-        holder.root.findViewById(R.id.item_renglon_horario_disponible).setOnClickListener(new View.OnClickListener() {
+
+        ((CheckBox) holder.root.findViewById(R.id.checked_horario)).setChecked(data.get(position).isSeleccionado());
+        ((CheckBox) holder.root.findViewById(R.id.checked_horario)).setTag(new Integer(position));
+
+        if(position == 0 && data.get(0).isSeleccionado() && ((CheckBox)holder.root.findViewById(R.id.checked_horario)).isChecked()) {
+            lastChecked = holder.root.findViewById(R.id.checked_horario);
+            lastCheckedPos = 0;}
+
+        holder.root.findViewById(R.id.checked_horario).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(horarios.get(position));
+                CheckBox cb = (CheckBox) v;
+                int clickedPos = ((Integer) cb.getTag()).intValue();
+                if (cb.isChecked()) {
+                    if (lastChecked != null) {
+                        lastChecked.setChecked(false);
+                        data.get(lastCheckedPos).setSeleccionado(false);
+                    }
+                    lastChecked = cb;
+                    lastCheckedPos = clickedPos;
+                } else
+                    lastChecked = null;
+                data.get(clickedPos).setSeleccionado(cb.isChecked());
             }
         });
-
     }
 
     //OBSERVER
