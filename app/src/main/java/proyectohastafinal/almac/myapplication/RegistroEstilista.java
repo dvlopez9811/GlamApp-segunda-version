@@ -229,7 +229,7 @@ public class RegistroEstilista extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final Estilista estilista = new Estilista(correoEstilista,usuarioEstilista,nombreEstilista,passEstilista,passEstilista);
+                final Estilista estilista = new Estilista(correoEstilista,nombreEstilista,usuarioEstilista,telefonoEstilista,passEstilista);
 
                 ArrayList<Horario> horarios = new ArrayList<>();
 
@@ -286,6 +286,17 @@ public class RegistroEstilista extends AppCompatActivity {
                             Horario ho = new Horario(horainicio,horafin);
                             rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).child("horarios").child(DIAS_SEMANA[dia1]).setValue(ho);
                         }
+
+                        String[] serv = servicios.split(" ");
+
+                        for (int i=0;i<serv.length;i++)
+                            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[i]).child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+
+
+                        Intent i = new Intent(RegistroEstilista.this,MainEstilistaActivity.class);
+                        startActivity(i);
+                        finish();
+
 
                         String[] serv = servicios.split(" ");
 
