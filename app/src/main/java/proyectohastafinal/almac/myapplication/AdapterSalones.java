@@ -1,26 +1,15 @@
 package proyectohastafinal.almac.myapplication;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import proyectohastafinal.almac.myapplication.model.BusquedaSalonDeBelleza;
-import proyectohastafinal.almac.myapplication.model.Cita;
-import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 
 public class AdapterSalones extends RecyclerView.Adapter<AdapterSalones.CustomViewHolder> {
 
@@ -59,13 +48,7 @@ public class AdapterSalones extends RecyclerView.Adapter<AdapterSalones.CustomVi
         ((TextView) holder.root.findViewById(R.id.txt_item_nombre_salon)).setText(salones.get(position).getNombreSalonDeBelleza());
         ((TextView) holder.root.findViewById(R.id.txt_item_direccion_salon)).setText(salones.get(position).getDireccionSalonDeBelleza());
         ((TextView) holder.root.findViewById(R.id.txt_item_distancia_a_salon)).setText(salones.get(position).getDistanciaASalonDeBelleza());
-        holder.root.findViewById(R.id.item_salon).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onItemClick(salones.get(position));
-
-            }
-        });
+        holder.root.findViewById(R.id.item_salon).setOnClickListener(v -> listener.onItemClick(salones.get(position)));
     }
 
 
