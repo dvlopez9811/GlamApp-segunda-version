@@ -71,8 +71,9 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
 
     @Override
     public void onBindViewHolder(@NonNull final CustomViewHolder holder, int position) {
+        String tipo = data.get(position).getTipo();
 
-        ((TextView) holder.root.findViewById(R.id.txt_tipo_servicio_item_agendar_cita)).setText(data.get(position).getTipo());
+        ((TextView) holder.root.findViewById(R.id.txt_tipo_servicio_item_agendar_cita)).setText(tipo);
         adapterHorarios = new AdapterHorarios();
         listaHorarios = holder.root.findViewById(R.id.lista_horarios_disponibles_item_agendar_cita);
         listaHorarios.setLayoutManager(new LinearLayoutManager(holder.root.getContext()));
@@ -86,6 +87,21 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
         ArrayList<Horario> horariosPrueba = new ArrayList<Horario>();
         horariosPrueba.add(prueba);
         horariosPrueba.add(prueba2);
+
+
+        //Imagen de servicio
+
+        if(tipo.equals("Maquillaje"))
+            ((ImageView)holder.root.findViewById(R.id.imagen_tipo_servicio_item_agendar_cita)).setImageResource(R.drawable.ic_new_maquillaje_morado);
+        else if(tipo.equals("Depilación"))
+            ((ImageView)holder.root.findViewById(R.id.imagen_tipo_servicio_item_agendar_cita)).setImageResource(R.drawable.ic_new_depilacion_morado);
+        else if(tipo.equals("Masaje"))
+            ((ImageView)holder.root.findViewById(R.id.imagen_tipo_servicio_item_agendar_cita)).setImageResource(R.drawable.ic_new_masaje_morado);
+        else if(tipo.equals("Peluquería"))
+            ((ImageView)holder.root.findViewById(R.id.imagen_tipo_servicio_item_agendar_cita)).setImageResource(R.drawable.ic_new_peluqueria_morado);
+        else if(tipo.equals("Uñas"))
+            ((ImageView)holder.root.findViewById(R.id.imagen_tipo_servicio_item_agendar_cita)).setImageResource(R.drawable.uc_new_unas_morado);
+
 
         (holder.root.findViewById(R.id.date_picker_agendar_item)).setOnClickListener(new View.OnClickListener() {
             @Override
