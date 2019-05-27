@@ -1,15 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_height="match_parent"
+<RelativeLayout
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Agendar Cita"
-        android:id="@+id/btn_agendar_cita_info_salon_activity"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+<ScrollView
+    android:layout_width="match_parent"
+    android:id="@+id/scroll"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        >
 
+
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/back_morado_primary"
+        android:id="@+id/btn_atras_informacion_salon_activity"
+        />
+    <ImageView
+        android:layout_below="@id/btn_atras_informacion_salon_activity"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/default_salon"
+        android:layout_marginBottom="5dp"
+        android:scaleType="centerCrop"
+        android:id="@+id/imagen_perfil_info_salon_activity"/>
+
+    <TextView
+        android:id="@+id/titulo_salon_informacion_salon_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imagen_perfil_info_salon_activity"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/josefin_sans"
+        android:textColor="@color/colorPrimaryMuyDark"
+        android:textSize="40sp" />
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/fav_128_sin_seleccionar"
+        android:id="@+id/btn_anadir_favoritos_informacion_salon_activity"
+        android:layout_below="@id/imagen_perfil_info_salon_activity"
+        android:layout_alignEnd="@id/imagen_perfil_info_salon_activity"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="0dp"
+        />
+
+
+    <ImageView
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/titulo_salon_informacion_salon_activity"
+        android:id="@+id/calificacion_1_informacion_salon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_calificacion_25x25"/>
+
+    <ImageView
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/calificacion_1_informacion_salon"
+        android:layout_below="@id/titulo_salon_informacion_salon_activity"
+        android:id="@+id/calificacion_2_informacion_salon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_calificacion_25x25"/>
+
+    <ImageView
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/calificacion_2_informacion_salon"
+        android:layout_below="@id/titulo_salon_informacion_salon_activity"
+        android:id="@+id/calificacion_3_informacion_salon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_calificacion_25x25"/>
+
+    <ImageView
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/calificacion_3_informacion_salon"
+        android:layout_below="@id/titulo_salon_informacion_salon_activity"
+        android:id="@+id/calificacion_4_informacion_salon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_calificacion_25x25"/>
+
+    <ImageView
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/calificacion_4_informacion_salon"
+        android:layout_below="@id/titulo_salon_informacion_salon_activity"
+        android:id="@+id/calificacion_5_informacion_salon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_calificacion_25x25"/>
+
+
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/josefin_sans"
+        android:textSize="20sp"
+        android:text="Agenda tu cita"
+        android:textAllCaps="false"
+        android:background="@drawable/btn_circular_principal"
+        android:textColor="@color/colorBlanco"
+        android:id="@+id/btn_agendar_cita_info_salon_activity"
+        android:layout_alignEnd="@id/btn_anadir_favoritos_informacion_salon_activity"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/titulo_salon_informacion_salon_activity"
+        />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/listado_servicios_informacion_salon_activity"
+        android:layout_below="@id/btn_agendar_cita_info_salon_activity">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+
+        <proyectohastafinal.almac.myapplication.ExpandableHeightGridView
+            android:id="@+id/grid_Catalogo_informacion_salon_activity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fastScrollAlwaysVisible="true"
+            android:gravity="center"
+            android:numColumns="auto_fit"
+            android:padding="10dp"
+            android:verticalSpacing="2dp"
+            android:horizontalSpacing="1dp"
+            android:layout_below="@id/listado_servicios_informacion_salon_activity"
+            >
+
+        </proyectohastafinal.almac.myapplication.ExpandableHeightGridView>
+
+
+
+    </RelativeLayout>
+</ScrollView>
 
 </RelativeLayout>
