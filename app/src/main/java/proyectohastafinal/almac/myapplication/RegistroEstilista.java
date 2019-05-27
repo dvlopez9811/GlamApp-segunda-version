@@ -229,7 +229,7 @@ public class RegistroEstilista extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final Estilista estilista = new Estilista(correoEstilista,nombreEstilista,usuarioEstilista,telefonoEstilista,passEstilista);
+                final Estilista estilista = new Estilista(correoEstilista,usuarioEstilista,nombreEstilista,passEstilista,passEstilista);
 
                 ArrayList<Horario> horarios = new ArrayList<>();
 
@@ -255,6 +255,9 @@ public class RegistroEstilista extends AppCompatActivity {
                 }
 
                 int tamanhoHorarios = dia2-dia1;
+
+
+                estilista.setHorarios(horarios);
 
                 rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("nombreSalonDeBelleza").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
