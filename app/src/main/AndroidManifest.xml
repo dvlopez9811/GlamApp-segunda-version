@@ -32,6 +32,8 @@
         <activity android:name=".RegistroSalonDeBelleza" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegistroCliente" />
+        <activity android:name=".InformacionSalonActivity" />
+        <activity android:name=".AgendarCitaActivity" />
         <activity android:name=".RegistroEstilista" />
         <activity android:name=".MainActivity" />
         <activity android:name=".CambiarContrasenhaActivity"></activity>
@@ -63,6 +65,18 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <provider
+            android:authorities="$(applicationid)"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/providerpath">
+            </meta-data>
+        </provider>
     </application>
 
 </manifest>

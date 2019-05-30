@@ -1,12 +1,9 @@
 package proyectohastafinal.almac.myapplication.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Estilista {
-
-    private ArrayList<Horario> horarios;
-    private ArrayList<Agenda> agenda;
-    private ArrayList<String> citas;
 
     private String correo;
     private String nombreYApellido;
@@ -15,19 +12,9 @@ public class Estilista {
     private String contrasenha;
     private String nombreSalonDeBelleza;
 
-    public Estilista(ArrayList<Horario> horarios, ArrayList<Agenda> agenda, ArrayList<String> citas, String correo, String nombreYApellido, String usuario, String telefono, String contrasenha) {
-        this.horarios = horarios;
-        this.agenda = agenda;
-        this.citas = citas;
-        this.correo = correo;
-        this.nombreYApellido = nombreYApellido;
-        this.usuario = usuario;
-        this.telefono = telefono;
-        this.contrasenha = contrasenha;
-        this.citas = new ArrayList<>();
-        this.horarios = new ArrayList<>();
-        this.agenda = new ArrayList<>();
-    }
+    private HashMap<String,Horario> horarios;
+    private ArrayList<Agenda> agenda;
+    private ArrayList<String> citas;
 
     public Estilista(String correo, String nombreYApellido, String usuario, String telefono,String contrasenha) {
         this.correo = correo;
@@ -35,7 +22,6 @@ public class Estilista {
         this.usuario = usuario;
         this.telefono = telefono;
         this.contrasenha = contrasenha;
-        this.citas = new ArrayList<>();
     }
 
     public Estilista() {}
@@ -80,19 +66,19 @@ public class Estilista {
         this.contrasenha = contrasenha;
     }
 
-    public ArrayList<String> getCitas() {
-        return citas;
+    public String getNombreSalonDeBelleza() {
+        return nombreSalonDeBelleza;
     }
 
-    public void setCitas(ArrayList<String> citas) {
-        this.citas = citas;
+    public void setNombreSalonDeBelleza(String nombreSalonDeBelleza) {
+        this.nombreSalonDeBelleza = nombreSalonDeBelleza;
     }
 
-    public ArrayList<Horario> getHorarios() {
+    public HashMap<String, Horario> getHorarios() {
         return horarios;
     }
 
-    public void setHorarios(ArrayList<Horario> horarios) {
+    public void setHorarios(HashMap<String, Horario> horarios) {
         this.horarios = horarios;
     }
 
@@ -104,11 +90,11 @@ public class Estilista {
         this.agenda = agenda;
     }
 
-    public String getNombreSalonDeBelleza() {
-        return nombreSalonDeBelleza;
+    public ArrayList<String> getCitas() {
+        return citas;
     }
 
-    public void setNombreSalonDeBelleza(String nombreSalonDeBelleza) {
-        this.nombreSalonDeBelleza = nombreSalonDeBelleza;
+    public void setCitas(ArrayList<String> citas) {
+        this.citas = citas;
     }
 }

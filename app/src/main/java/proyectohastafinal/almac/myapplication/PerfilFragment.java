@@ -69,58 +69,60 @@ public class PerfilFragment extends Fragment {
 
         final String tuCorreo = "";
 
-        rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("correo").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String tuCorreo = dataSnapshot.getValue(String.class);
-                correo.setText(tuCorreo);
-            }
+        if ( auth.getCurrentUser() != null) {
+            rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("correo").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String tuCorreo = dataSnapshot.getValue(String.class);
+                    correo.setText(tuCorreo);
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
 
-        rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("nombreYApellido").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String tuNombre = dataSnapshot.getValue(String.class);
-                nombre.setText(tuNombre);
-            }
+            rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("nombreYApellido").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String tuNombre = dataSnapshot.getValue(String.class);
+                    nombre.setText(tuNombre);
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
 
-        // Inflate the layout for this fragment
-        btn_cerrar_sesion = mView.findViewById(R.id.btn_cerrar_sesion);
-        btn_cerrar_sesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AuthUI.getInstance()
-                        .signOut(inflater.getContext())
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Intent i = new Intent(PerfilFragment.this.getContext(), InicioActivity.class);
-                                startActivity(i);
-                                getActivity().finish();
-                            }
-                        });
-            }
-        });
+            // Inflate the layout for this fragment
+            btn_cerrar_sesion = mView.findViewById(R.id.btn_cerrar_sesion);
+            btn_cerrar_sesion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AuthUI.getInstance()
+                            .signOut(inflater.getContext())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Intent i = new Intent(PerfilFragment.this.getContext(), InicioActivity.class);
+                                    startActivity(i);
+                                    getActivity().finish();
+                                }
+                            });
+                }
+            });
 
-        btn_cambiar_contrasenha = mView.findViewById(R.id.btn_cambiar_contraseña_perfil_fragment);
+            btn_cambiar_contrasenha = mView.findViewById(R.id.btn_cambiar_contraseña_perfil_fragment);
 
-        btn_cambiar_contrasenha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getContext(), CambiarContrasenhaActivity.class);
-                startActivity(i);
-            }
-        });
+            btn_cambiar_contrasenha.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getContext(), CambiarContrasenhaActivity.class);
+                    startActivity(i);
+                }
+            });
+        }
 
         return mView;
     }

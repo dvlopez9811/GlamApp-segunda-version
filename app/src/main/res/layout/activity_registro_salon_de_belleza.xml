@@ -6,125 +6,269 @@
     android:layout_height="match_parent"
     tools:context=".RegistroSalonDeBelleza"
     android:orientation="vertical"
-    android:background="@color/colorPrimarioTransparente"
-    >
+    android:padding="10dp">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
+                android:layout_height="wrap_content">
+
                 <Button
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:id="@+id/btn_registro_salon_volver"
-                    android:background="@drawable/ic_volver_primary"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    />
+                    android:background="@drawable/ic_volver_primary"/>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/titulo_registro_salon"
                     android:text="Registra tu salón de belleza"
-                    android:textColor="@color/colorPrimaryMuyDark"
-                    android:textSize="25dp"
-                    />
-
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/josefin_sans"
+                    android:textSize="25sp" />
             </LinearLayout>
-            <EditText
-                android:id="@+id/registro_salon_belleza_et_nombre_salon_belleza"
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nombre del salón"
-                android:layout_marginTop="20dp"
-                android:textColorHint="@color/colorPrimaryDark"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp"
-                />
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_nombre_salon_100x100"
+                    android:background="@color/fui_transparent"
+                    android:elevation="3dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/registro_salon_belleza_et_nombre_salon_belleza"
+                    android:fontFamily="@font/josefin_sans"
+                    android:background="@drawable/btn_redondeado_rosado"
+                    android:hint="Nombre del salón*"
+                    android:inputType="textEmailAddress"
+                    android:textSize="15sp"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="60dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"/>
+            </RelativeLayout>
 
             <ImageView
                 android:id="@+id/registro_salon_belleza_iv_foto"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_foto_perfil_defecto_salon"
-                />
+                android:src="@drawable/ic_picture"
+                android:layout_marginTop="20dp"/>
 
             <TextView
                 android:id="@+id/registro_salon_belleza_et_camara"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/colorPrimaryMuyDark"
+
+                android:textColor="@color/colorNegro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cambiar foto"
                 android:layout_gravity="center_horizontal"
-                android:textSize="20dp"
-                />
+                android:fontFamily="@font/josefin_sans"
+                android:textSize="20sp"
+                android:layout_marginTop="5dp"/>
 
-            <EditText
-                android:id="@+id/registro_salon_belleza_et_nombre_correo"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Correo"
-                android:layout_marginTop="20dp"
-                android:textColorHint="@color/colorPrimaryDark"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp"
-                />
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="30dp">
 
-            <EditText
-                android:id="@+id/registro_salon_belleza_et_nombre_duenho"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_mail_256x256"
+                    android:background="@color/fui_transparent"
+                    android:elevation="3dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/registro_salon_belleza_et_nombre_correo"
+                    android:fontFamily="@font/josefin_sans"
+                    android:background="@drawable/btn_redondeado_rosado"
+                    android:hint="Correo electrónico*"
+                    android:inputType="textEmailAddress"
+                    android:textSize="20dp"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="60dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingRight="10dp"
+                    android:singleLine="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nombre del dueño"
-                android:layout_marginTop="20dp"
-                android:textColorHint="@color/colorPrimaryDark"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp"
-                />
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
 
-            <EditText
-                android:id="@+id/registro_salon_belleza_et_contrasenha"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_dueno_256x256"
+                    android:background="@color/fui_transparent"
+                    android:elevation="3dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/registro_salon_belleza_et_nombre_duenho"
+                    android:fontFamily="@font/josefin_sans"
+                    android:background="@drawable/btn_redondeado_rosado"
+                    android:hint="Nombre del dueño"
+                    android:inputType="textEmailAddress"
+                    android:textSize="20dp"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="60dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingRight="10dp"
+                    android:singleLine="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Contraseña"
-                android:layout_marginTop="20dp"
-                android:textColorHint="@color/colorPrimaryDark"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp"
-                />
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
 
-            <EditText
-                android:id="@+id/registro_salon_belleza_et_contrasenha_confimar"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_contrasehna_128x128"
+                    android:background="@color/fui_transparent"
+                    android:elevation="3dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/registro_salon_belleza_et_contrasenha"
+                    android:fontFamily="@font/josefin_sans"
+                    android:background="@drawable/btn_redondeado_rosado"
+                    android:inputType="textPassword"
+                    android:hint="Contraseña*"
+                    android:textSize="20dp"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="60dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Confirmar contraseña"
-                android:layout_marginTop="20dp"
-                android:textColorHint="@color/colorPrimaryDark"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp"
-                />
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
 
-            <EditText
-                android:id="@+id/registro_salon_belleza_et_direccion"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_contrasehna_128x128"
+                    android:background="@color/fui_transparent"
+                    android:elevation="3dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/registro_salon_belleza_et_contrasenha_confimar"
+                    android:fontFamily="@font/josefin_sans"
+                    android:background="@drawable/btn_redondeado_rosado"
+                    android:hint="Confirmar ontraseña*"
+                    android:inputType="textPassword"
+                    android:textSize="20dp"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="60dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
 
-                android:hint="Dirección"
-                android:layout_marginTop="20dp"
-                android:textColorHint="@color/colorPrimaryDark"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp"
-                />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_direccion_256x256"
+                    android:background="@color/fui_transparent"
+                    android:elevation="3dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/registro_salon_belleza_et_direccion"
+                    android:fontFamily="@font/josefin_sans"
+                    android:background="@drawable/btn_redondeado_rosado"
+                    android:hint="Dirección*"
+                    android:inputType="text"
+                    android:textSize="20dp"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="60dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"/>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_marginTop="20dp"
@@ -133,62 +277,63 @@
                 android:orientation="vertical"
                 android:background="@drawable/borde"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                >
+                android:layout_marginRight="15dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="¿Qué servicios ofreces?"
+                    android:text="¿Cuáles servicios ofreces?"
+                    android:fontFamily="@font/josefin_sans"
+                    android:textSize="20sp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
-                    android:textColor="@color/colorPrimaryMuyDark"
-                    />
+                    android:textColor="@color/colorPrimary" />
 
                 <CheckBox
                     android:id="@+id/registro_salon_belleza_servicio_peluqueria"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Peluquería"
-                    android:textColor="@color/colorPrimaryMuyDark"
-                    />
+                    android:textColor="@color/colorNegro"
+                    android:fontFamily="@font/josefin_sans"
+                    android:textSize="15sp"/>
 
                 <CheckBox
                     android:id="@+id/registro_salon_belleza_servicio_depilacion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryMuyDark"
                     android:text="Depilación"
-                    />
+                    android:textColor="@color/colorNegro"
+                    android:fontFamily="@font/josefin_sans"
+                    android:textSize="15sp"/>
 
                 <CheckBox
                     android:id="@+id/registro_salon_belleza_servicio_uñas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Uñas"
-                    android:textColor="@color/colorPrimaryMuyDark"
-
-                    />
+                    android:textColor="@color/colorNegro"
+                    android:fontFamily="@font/josefin_sans"
+                    android:textSize="15sp" />
 
                 <CheckBox
                     android:id="@+id/registro_salon_belleza_servicio_maquillaje"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Maquillaje"
-                    android:textColor="@color/colorPrimaryMuyDark"
-
-                    />
+                    android:textColor="@color/colorNegro"
+                    android:fontFamily="@font/josefin_sans"
+                    android:textSize="15sp"/>
 
                 <CheckBox
                     android:id="@+id/registro_salon_belleza_servicio_masaje"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Masaje"
-                    android:textColor="@color/colorPrimaryMuyDark"
-
-                    />
-
+                    android:textColor="@color/colorNegro"
+                    android:fontFamily="@font/josefin_sans"
+                    android:textSize="15sp"/>
             </LinearLayout>
 
             <Button
@@ -197,15 +342,14 @@
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="20sp"
                 android:background="@drawable/btn_circular_principal"
                 android:gravity="center"
                 android:text="Listo"
-                android:textColor="@color/colorBlanco"
-                android:layout_marginBottom="20dp"
-                />
-
+                android:textAllCaps="false"
+                android:fontFamily="@font/josefin_sans"
+                android:textColor="@color/colorBlanco" />
         </LinearLayout>
-
     </ScrollView>
-
 </LinearLayout>

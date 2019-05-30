@@ -13,20 +13,22 @@
         android:background="@color/fui_transparent" />
 
     <TextView
+        android:id="@+id/txt_logo_inicio_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txt_logo_inicio_activity"
+        android:layout_below="@id/btn_salir_inicio_activity"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/josefin_sans"
         android:text="Glam"
         android:textColor="@color/colorPrimary"
-        android:textSize="40sp"
-        android:layout_below="@id/btn_salir_inicio_activity"
-        android:layout_marginTop="50dp"/>
+        android:textSize="50sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txt_lema_inicio_activity"
         android:text="Descubre los mejores salones de belleza."
+        android:fontFamily="@font/josefin_sans_bold"
         android:textSize="35dp"
         android:textColor="#000"
         android:layout_below="@id/txt_logo_inicio_activity"
@@ -60,12 +62,13 @@
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/btn_redondeado_facebook"
+                android:fontFamily="@font/josefin_sans"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="60dp"
                 android:text="Ingresa con Facebook"
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlanco"
-                android:textSize="20dp" />
+                android:textSize="15sp" />
         </RelativeLayout>
 
 
@@ -87,7 +90,8 @@
                 android:id="@+id/btn_google_inicio_activity"
                 android:background="@drawable/btn_redondeado_normal"
                 android:text="Ingresa con Google"
-                android:textSize="20dp"
+                android:fontFamily="@font/josefin_sans"
+                android:textSize="15sp"
                 android:layout_centerVertical="true"
                 android:textAllCaps="false"
                 android:gravity="left|center_vertical"
@@ -113,7 +117,8 @@
                 android:id="@+id/btn_correo_inicio_activity"
                 android:background="@drawable/btn_redondeado_normal"
                 android:text="Ingresa con tu email"
-                android:textSize="20dp"
+                android:fontFamily="@font/josefin_sans"
+                android:textSize="15sp"
                 android:textAllCaps="false"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="60dp"
@@ -122,7 +127,7 @@
         </RelativeLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txt_crear_cuenta_inicio_activity"
             android:text="Crea una cuenta"
@@ -130,7 +135,8 @@
             android:textColor="#000"
             android:textStyle="bold"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="30dp"/>
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/josefin_sans_bold"/>
     </LinearLayout>
 
 
@@ -139,13 +145,10 @@
         android:id="@+id/btn_login_facebook_inicio_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="10dp"
         android:textAllCaps="false"
         android:layout_below="@id/linear_layout_botones_inicio_activity"
-        android:textSize="20dp"
+        android:textSize="25sp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/btn_redondeado_facebook"
-        />
+        android:enabled="false"/>
 </RelativeLayout>

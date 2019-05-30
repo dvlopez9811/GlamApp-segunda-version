@@ -10,4 +10,5 @@
     <color name="colorPrimaryClaro">#F7DFED</color>
     <color name="colorPrimaryMuyDark">#606</color>
     <color name="colorFacebook">#3b5998</color>
+    <color name="colorNegro">#000</color>
 </resources>

@@ -2,6 +2,7 @@ package proyectohastafinal.almac.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -298,7 +299,6 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
         }
         Log.e("estado", busqueda);
         if( !busqueda.equals("") ) {
-            Log.e("hola", busqueda);
             mAdapater.limpiarSalones();
             rtdb.getReference().child("Buscar servicios salon de belleza").child(busqueda).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -306,7 +306,6 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
                     for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
                         String salonDeBelleza = childDataSnapshot.getKey();
 
-                        Log.e("hola", salonDeBelleza);
                         rtdb.getReference().child("Salon de belleza").child(salonDeBelleza).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -348,6 +347,12 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
 
     @Override
     public void onItemClick(BusquedaSalonDeBelleza salonDeBelleza) {
-        Toast.makeText(getContext(), salonDeBelleza.getNombreSalonDeBelleza(), Toast.LENGTH_SHORT).show();
+
+        Intent i = new Intent(getActivity(),InformacionSalonActivity.class);
+        i.putExtra("salon",salonDeBelleza.getNombreSalonDeBelleza());
+
+        startActivity(i);
+
+
     }
 }
