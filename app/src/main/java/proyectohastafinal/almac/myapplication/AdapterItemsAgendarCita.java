@@ -240,7 +240,6 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
             }
         });
 
-
     }
 
 
