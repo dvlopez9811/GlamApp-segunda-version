@@ -17,11 +17,11 @@ import proyectohastafinal.almac.myapplication.model.Servicio;
 
 public class AdapterServiciosInformacionSalon extends RecyclerView.Adapter<AdapterServiciosInformacionSalon.CustomViewHolder>{
 
-    ArrayList<Servicio> data;
+    ArrayList<Servicio> servicios;
 
 
     public AdapterServiciosInformacionSalon(){
-        data = new ArrayList<>();
+        servicios = new ArrayList<>();
     }
 
     @NonNull
@@ -35,7 +35,7 @@ public class AdapterServiciosInformacionSalon extends RecyclerView.Adapter<Adapt
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
 
-        String tipo=data.get(position).getTipo();
+        String tipo=servicios.get(position).getTipo();
         ((TextView) holder.root.findViewById(R.id.nombre_servicio_renglon_servicio_informacion)).setText(tipo);
         if(tipo.equals("Maquillaje"))
             ((ImageView)holder.root.findViewById(R.id.imagen_servicio_renglon_informacion_activity)).setImageResource(R.drawable.ic_new_maquillaje_morado);
@@ -56,12 +56,12 @@ public class AdapterServiciosInformacionSalon extends RecyclerView.Adapter<Adapt
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return servicios.size();
     }
 
     public void showAllServicios(ArrayList<Servicio> allservicios) {
         for(int i = 0 ; i<allservicios.size() ; i++){
-            if(!data.contains(allservicios.get(i))) data.add(allservicios.get(i));
+            if(!servicios.contains(allservicios.get(i))) servicios.add(allservicios.get(i));
         }
         notifyDataSetChanged();
     }

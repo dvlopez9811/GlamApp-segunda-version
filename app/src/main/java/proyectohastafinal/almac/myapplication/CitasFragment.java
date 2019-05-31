@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import proyectohastafinal.almac.myapplication.model.Cita;
 import proyectohastafinal.almac.myapplication.model.Cliente;
@@ -43,6 +45,8 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
     private Button btn_iniciar_sesion_fragment_citas;
 
     private Cita citaseleccionada;
+
+    Calendar calendario;
 
     public static CitasFragment getInstance(){
         instance = instance == null ? new CitasFragment() : instance;
@@ -66,6 +70,8 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
         View v = inflater.inflate(R.layout.fragment_citas, container, false);
 
         auth = FirebaseAuth.getInstance();
+
+        calendario = Calendar.getInstance();
 
         txt_iniciar_sesion_fragment_citas = v.findViewById(R.id.txt_iniciar_sesion_fragment_citas);
         btn_iniciar_sesion_fragment_citas = v.findViewById(R.id.btn_iniciar_sesion_fragment_citas);
@@ -107,6 +113,10 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
                 for (DataSnapshot hijo:dataSnapshot.getChildren())
                     idcitas.add(hijo.getValue().toString());
 
+                int dia = calendario.get(Calendar.DAY_OF_MONTH)-1;
+                int mes = calendario.get(Calendar.MONTH) + 1;
+                int anio = calendario.get(Calendar.YEAR);
+                int hora = calendario.get(Calendar.HOUR_OF_DAY);
 
                 for (int i=0;i<idcitas.size();i++) {
 
@@ -115,7 +125,54 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                                 Cita cita = (dataSnapshot.getValue(Cita.class));
+
+                            String[] fecha = cita.getFecha().split("-");
+                            int diacita = Integer.parseInt(fecha[2]);
+                            int mescita = Integer.parseInt(fecha[1]);
+                            int anocita = Integer.parseInt(fecha[0]);
+                            int horacita = cita.getHorainicio();
+
+
+                            if (anio > anocita || (anio == anocita && mes > mescita) || (anio == anocita && mes == mescita && dia > diacita) ||
+                                    (anio == anocita && mes == mescita && dia == diacita && hora >= horacita)) {
+
+                                /*
+                               new Thread(() -> {
+
+                                    new ServiceManager.BorrarCitas(idcita, new ServiceManager.BorrarCitas.OnResponseListener() {
+                                        @Override
+                                        public void onResponse(String response) {
+
+                                        }
+                                    });
+
+                                    new ServiceManager.BorrarCitasUsuario(cita.getIdUsuario(),idcita, new ServiceManager.BorrarCitasUsuario.OnResponseListener() {
+                                        @Override
+                                        public void onResponse(String response) {
+
+                                        }
+                                    });
+
+                                    new ServiceManager.BorrarCitasEstilista(cita.getIdEstilista(),idcita, new ServiceManager.BorrarCitasEstilista.OnResponseListener() {
+                                        @Override
+                                        public void onResponse(String response) {
+
+                                        }
+                                    });
+
+                                    new ServiceManager.BorrarHorarioEstilista(cita.getIdEstilista(),cita.getFecha(),cita.getHorainicio(), new ServiceManager.BorrarHorarioEstilista.OnResponseListener() {
+                                        @Override
+                                        public void onResponse(String response) {
+
+                                        }
+                                    });
+
+                                }).start();
+                                */
+
+                            } else
                                 adapterCitas.agregarcita(cita);
+
                         }
 
                         @Override
@@ -138,8 +195,9 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
     }
 
     @Override
-    public void onItemClick(ImageView iv_cita,Cita cita) {
-        getActivity().registerForContextMenu(iv_cita);
+    public void onItemClick(View v,Cita cita) {
+        getActivity().registerForContextMenu(v);
+        getActivity().openContextMenu(v);
         citaseleccionada = cita;
     }
 
@@ -163,7 +221,7 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
 
                         //Vamos a abrir la ventana de chat
                         Intent i = new Intent(getActivity(),ChatActivity.class);
-                        i.putExtra("tel", estilista.getTelefono());
+                        i.putExtra("telEstilista", estilista.getTelefono());
                         startActivity(i);
 
                     }

@@ -23,8 +23,8 @@ import proyectohastafinal.almac.myapplication.model.Mensaje;
 
 public class ChatActivity extends AppCompatActivity {
 
-    private String telefonoestilista;
-    private String telefonopropio;
+    private String telefonoEstilista;
+    private String telefonoUsuario;
     private String idChat;
     private String nombre;
 
@@ -49,50 +49,56 @@ public class ChatActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         rtdb = FirebaseDatabase.getInstance();
 
-        telefonoestilista = getIntent().getExtras().getString("tel");
+        telefonoEstilista = getIntent().getExtras().getString("telEstilista");
+        telefonoUsuario = getIntent().getExtras().getString("telUsuario");
+        nombre = getIntent().getExtras().getString("usEstilista");
 
-        //Si no se mi propio telefono
-        rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Cliente me = dataSnapshot.getValue(Cliente.class);
-                telefonopropio = me.getTelefono();
-                nombre = me.getNombreYApellido();
+        if(telefonoUsuario==null) {
+            rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Cliente me = dataSnapshot.getValue(Cliente.class);
+                    telefonoUsuario = me.getTelefono();
+                    nombre = me.getUsuario();
 
-                //Después de saber los teléfonos de ambos, podemos cargar o crear los chats
-                initChat();
-            }
+                    //Después de saber los teléfonos de ambos, podemos cargar o crear los chats
+                    initChat();
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }else{
+            initChat();
+        }
     }
 
     private void initChat() {
-        rtdb.getReference().child("chat").child(telefonopropio).child(telefonoestilista).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue()==null){
-                    String pushID = rtdb.getReference().child("chat").child(telefonopropio).child(telefonoestilista).push().getKey();
-                    //Crear ramas gemelas
-                    rtdb.getReference().child("chat").child(telefonopropio).child(telefonoestilista).setValue(pushID);
-                    rtdb.getReference().child("chat").child(telefonoestilista).child(telefonopropio).setValue(pushID);
-                    idChat = pushID;
-                }else{
-                    idChat = dataSnapshot.getValue(String.class);
+
+            rtdb.getReference().child("chat").child(telefonoEstilista).child(telefonoUsuario).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() == null) {
+                        String pushID = rtdb.getReference().child("chat").child(telefonoUsuario).child(telefonoEstilista).push().getKey();
+                        //Crear ramas gemelas
+                        rtdb.getReference().child("chat").child(telefonoUsuario).child(telefonoEstilista).setValue(pushID);
+                        rtdb.getReference().child("chat").child(telefonoEstilista).child(telefonoUsuario).setValue(pushID);
+                        idChat = pushID;
+                    }else
+                        idChat = dataSnapshot.getValue(String.class);
+
+                    activarListenerBoton();
+                    cargarMensajes();
                 }
 
-                activarListenerBoton();
-                cargarMensajes();
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
 
-            }
-        });
     }
 
     private void cargarMensajes() {

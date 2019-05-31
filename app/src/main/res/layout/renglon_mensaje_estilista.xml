@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/renglon_mensaje_estilista"
+    android:gravity="center"
+    android:weightSum="4">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CrisAlex"
+        android:textSize="32sp"
+        android:layout_weight="3"
+        android:textStyle="bold"
+        android:id="@+id/tv_usuario_mensaje_estilista"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/telefono"
+        android:id="@+id/llamar_mensaje_estilista"
+        />
+
+
+</LinearLayout>
