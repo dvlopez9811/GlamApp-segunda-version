@@ -87,7 +87,6 @@ public class ChatActivity extends AppCompatActivity {
                         rtdb.getReference().child("chat").child(telefonoEstilista).child(telefonoUsuario).setValue(pushID);
                         idChat = pushID;
                     }
-
                         idChat = dataSnapshot.getValue(String.class);
 
                     activarListenerBoton();
