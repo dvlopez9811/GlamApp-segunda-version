@@ -4,43 +4,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="15dp">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <SearchView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/layout_buscar">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:id="@+id/et_buscar_salon_fragment_buscar"
-            android:hint="@string/buscar_salon_de_belleza_hint"
-            android:inputType="text"
-            android:padding="11dp"
-            android:background="@color/colorPrimaryClaro"
-            android:textSize="20sp"
-            android:singleLine="true"
-            android:maxLength="16"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:orientation="horizontal"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:padding="5dp">
-
-            <ImageButton
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:id="@+id/btn_cancelar_busqueda_fragment_buscar"
-                android:background="@drawable/ic_eliminar_50x50"
-                android:layout_marginRight="5dp"
-                android:layout_gravity="center_vertical"/>
-            
-        </LinearLayout>
-        
-
-    </RelativeLayout>
+        android:id="@+id/searchview"
+        android:background="@color/colorPrimaryClaro">
+    </SearchView>
 
     <TextView
         android:layout_width="match_parent"
@@ -48,18 +17,21 @@
         android:id="@+id/txt_filtrar"
         android:text="o filtra los salones de acuerdo a tus preferencia"
         android:gravity="center_horizontal"
-        android:layout_below="@id/layout_buscar"/>
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/josefin_sans"
+        android:textSize="15sp"
+        android:layout_below="@id/searchview"/>
 
     <GridLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/layout_filtros"
         android:columnCount="5"
-        android:orientation="horizontal"
+        android:rowCount="2"
         android:layout_below="@id/txt_filtrar"
-        android:gravity="center"
+        android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp">
+        android:useDefaultMargins="true">
         
         <ImageView
             android:layout_width="wrap_content"
@@ -73,14 +45,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/image_filtro_depilacion_fragment_buscar"
             android:src="@drawable/image_filtro_depilacion"
-            android:layout_marginRight="5dp"
             android:layout_gravity="center_horizontal"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/image_filtro_unas_fragment_buscar"
-            android:src="@drawable/image_filtro_unas" />
+            android:src="@drawable/image_filtro_unas"
+            android:layout_gravity="center_horizontal"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -90,41 +62,38 @@
             android:layout_gravity="center_horizontal"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/image_filtro_masaje_fragment_buscar"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
             android:src="@drawable/image_filtro_masaje"
             android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:text="Peluquería"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginRight="5dp"/>
+            android:fontFamily="@font/josefin_sans"
+            android:layout_gravity="center_horizontal"/>
         <TextView
             android:text="Depilación"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginRight="5dp"/>
+            android:fontFamily="@font/josefin_sans"
+            android:layout_gravity="center_horizontal"/>
         <TextView
             android:text="Uñas"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginRight="5dp"/>
+            android:fontFamily="@font/josefin_sans"
+            android:layout_gravity="center_horizontal" />
         <TextView
             android:text="Maquillaje"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginRight="5dp"/>
+            android:fontFamily="@font/josefin_sans" />
         <TextView
             android:text="Masaje"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginRight="5dp"/>
+            android:fontFamily="@font/josefin_sans"
+            android:layout_gravity="center_horizontal"/>
 
     </GridLayout>
 
-
-    <android.support.v7.widget.RecyclerView
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recycler_view_salones"
         android:layout_below="@id/layout_filtros">
-
-    </android.support.v7.widget.RecyclerView>
+    </ListView>
 </RelativeLayout>
