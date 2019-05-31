@@ -46,6 +46,7 @@ public class InformacionSalonActivity extends AppCompatActivity {
     FirebaseAuth auth;
     private boolean favoritoMarcado;
 
+
     private ExpandableHeightGridView gridCatalogo;
     private AdapterCatalogo adapterCatalogo;
 
@@ -75,7 +76,7 @@ public class InformacionSalonActivity extends AppCompatActivity {
         listaServicios=findViewById(R.id.listado_servicios_informacion_salon_activity);
         listaServicios.setLayoutManager(new LinearLayoutManager(this));
 
-        String nombreSalon= getIntent().getExtras().get("salon").toString();
+         String nombreSalon= getIntent().getExtras().get("salon").toString();
         txt_titulo_salon.setText(nombreSalon);
 
 

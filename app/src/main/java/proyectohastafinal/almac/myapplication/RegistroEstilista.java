@@ -93,7 +93,6 @@ public class RegistroEstilista extends AppCompatActivity {
 
     ArrayList<CheckBox> checkBox;
 
-    private int dia1;
     private int horainicio;
     private int horafin;
 
@@ -237,7 +236,6 @@ public class RegistroEstilista extends AppCompatActivity {
                 String diaInicio = spinnerFechaIncio.getSelectedItem().toString();
                 String diaFinal = spinnerFechaFinal.getSelectedItem().toString();
 
-                dia1 = 0;
                 int dia2 = 0;
 
                 if(diaInicio.equals(diaFinal)) {

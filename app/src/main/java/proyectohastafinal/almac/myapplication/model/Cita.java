@@ -21,6 +21,7 @@ public class Cita {
 
     private String idcita;
     private String dia;
+    private String fecha;
     private String informacion;
     private String estado;
     private int horainicio;
@@ -31,10 +32,11 @@ public class Cita {
     private String idUsuario;
 
 
-    public Cita(String idcita,String estado,String dia,int horafin,int horainicio, String informacion, String nombreSalon,String servicio,
+    public Cita(String idcit,String estado,String dia,String fecha,int horafin,int horainicio, String informacion, String nombreSalon,String servicio,
                 String idEstilista,String idUsuario) {
         this.idcita = idcita;
         this.dia = dia;
+        this.fecha = fecha;
         this.informacion = informacion;
         this.estado = estado;
         this.horainicio = horainicio;
@@ -127,5 +129,13 @@ public class Cita {
 
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 }

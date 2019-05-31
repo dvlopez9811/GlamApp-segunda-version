@@ -6,7 +6,8 @@
         android:layout_width="match_parent"
         android:padding="10dp"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@drawable/borde">
+        android:background="@drawable/borde"
+        android:id="@+id/renglon_item_agendar_cita">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -25,7 +26,8 @@
             <ImageButton
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/ic_aceptar_128x128" />
+                android:background="@drawable/ic_aceptar_128x128"
+                android:id="@+id/ib_aceptar_item_agendar_cita"/>
 
         </LinearLayout>
 
@@ -148,6 +150,14 @@
             android:layout_marginBottom="10dp"
             android:textStyle="bold"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/titulo_horarios_disponibles_item_agendar_cita"
+            android:id="@+id/ll_lista_servicios_disponibles_agendar_cita_activity"
+            >
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
@@ -155,6 +165,8 @@
             android:id="@+id/lista_horarios_disponibles_item_agendar_cita"
             android:layout_below="@id/titulo_horarios_disponibles_item_agendar_cita">
         </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
 
     </RelativeLayout>
 </LinearLayout>
