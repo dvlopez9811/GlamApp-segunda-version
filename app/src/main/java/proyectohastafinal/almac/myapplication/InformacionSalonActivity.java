@@ -120,7 +120,6 @@ public class InformacionSalonActivity extends AppCompatActivity {
                 gridCatalogo.setExpanded(true);
 
 
-
             }
 
             @Override

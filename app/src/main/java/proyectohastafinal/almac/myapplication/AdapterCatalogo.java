@@ -50,19 +50,23 @@ public class AdapterCatalogo extends BaseAdapter {
         ImageView imagen = view.findViewById(R.id.imagen_catalogo_informacion_salon_activity);
         TextView descripcion = view.findViewById(R.id.descripcion_imagen_catalogo_informacion_activity);
 
+        Glide.with(imagen.getContext()).load(uris.get(position)).into(imagen);
 
-            ((InformacionSalonActivity)context).runOnUiThread( ()-> {
-                for (int i = 0; i < uris.size(); i++) {
 
-                    Glide.with(imagen.getContext()).load(uris.get(i)).into(imagen);
-                    descripcion.setText("Betty");
-                }
-            });
+        //     ((InformacionSalonActivity)context).runOnUiThread( ()-> {
+        //       for (int i = 0; i < uris.size(); i++) {
+
+        //           Glide.with(imagen.getContext()).load(uris.get(i)).into(imagen);
+        //           descripcion.setText("Betty");
+        //        }
+        //      });
 
         return view;
     }
 
-    public void showCatalogo(String nombreSalon){
+
+
+    public void showCatalogo(ArrayList<Uri> uris){
 
     }
 }
