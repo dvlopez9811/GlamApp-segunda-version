@@ -13,6 +13,7 @@ public class Estilista {
     private String nombreSalonDeBelleza;
 
     private HashMap<String,Horario> horarios;
+    private HashMap<String,String> citas;
 
     public Estilista(String correo, String nombreYApellido, String usuario, String telefono,String contrasenha) {
         this.correo = correo;
@@ -21,6 +22,7 @@ public class Estilista {
         this.telefono = telefono;
         this.contrasenha = contrasenha;
         horarios = new HashMap<>();
+        citas = new HashMap<>();
     }
 
     public Estilista() {}
@@ -79,5 +81,13 @@ public class Estilista {
 
     public void setHorarios(HashMap<String, Horario> horarios) {
         this.horarios = horarios;
+    }
+
+    public HashMap<String, String> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(HashMap<String, String> citas) {
+        this.citas = citas;
     }
 }

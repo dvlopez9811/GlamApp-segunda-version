@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,9 +22,9 @@ import proyectohastafinal.almac.myapplication.model.Cliente;
 
 public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensajesEstilista.CustomViewHolder>{
 
-    private ArrayList<String> usuarios;
+    private ArrayList<Cliente> usuarios;
 
-    public void agregarusuario(String usuario){
+    public void agregarusuario(Cliente usuario){
         usuarios.add(usuario);
         notifyDataSetChanged();
     }
@@ -53,7 +54,13 @@ public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensaj
     @Override
     public void onBindViewHolder(final CustomViewHolder holder, final int position) {
 
-        ((TextView)holder.root.findViewById(R.id.tv_usuario_mensaje_estilista)).setText(usuarios.get(position));
+        ((TextView)holder.root.findViewById(R.id.tv_usuario_mensaje_estilista)).setText(usuarios.get(position).getUsuario());
+        ((ImageView)holder.root.findViewById(R.id.llamar_mensaje_estilista)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemCall(usuarios.get(position).getTelefono());
+            }
+        });
 
         holder.root.findViewById(R.id.renglon_mensaje_estilista).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +78,8 @@ public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensaj
 
     //OBSERVER
     public interface OnItemClickListener{
-        void onItemClick(String telefono);
+        void onItemClick(Cliente usuario);
+        void onItemCall(String telefono);
     }
 
     private OnItemClickListener listener;

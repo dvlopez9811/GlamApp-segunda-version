@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.UUID;
 
 import proyectohastafinal.almac.myapplication.model.Cita;
@@ -234,6 +235,7 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                             tiposervicio, idestilista, auth.getCurrentUser().getUid());
                     rtdb.getReference().child("Citas").child(idcita).setValue(cita);
                     rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("citas").child(idcita).setValue(idcita);
+
                     rtdb.getReference().child("Estilista").child(idestilista).child("citas").child(idcita).setValue(idcita);
                     rtdb.getReference().child("Estilista").child(idestilista).child("agenda").child(fechaelegida).child("horas").child(horaelegida + "").setValue(horaelegida);
                     darHorarios(holder,position);

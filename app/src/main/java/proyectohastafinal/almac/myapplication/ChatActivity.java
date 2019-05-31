@@ -62,7 +62,7 @@ public class ChatActivity extends AppCompatActivity {
                     nombre = me.getUsuario();
 
                     //Después de saber los teléfonos de ambos, podemos cargar o crear los chats
-                    initChat(false);
+                    initChat();
                 }
 
                 @Override
@@ -71,22 +71,22 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
         }else{
-            initChat(true);
+            initChat();
         }
     }
 
-    private void initChat(boolean esEstilista) {
+    private void initChat() {
 
             rtdb.getReference().child("chat").child(telefonoEstilista).child(telefonoUsuario).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (!esEstilista && dataSnapshot.getValue() == null) {
+                    if (dataSnapshot.getValue() == null) {
                         String pushID = rtdb.getReference().child("chat").child(telefonoUsuario).child(telefonoEstilista).push().getKey();
                         //Crear ramas gemelas
                         rtdb.getReference().child("chat").child(telefonoUsuario).child(telefonoEstilista).setValue(pushID);
                         rtdb.getReference().child("chat").child(telefonoEstilista).child(telefonoUsuario).setValue(pushID);
                         idChat = pushID;
-                    }
+                    }else
                         idChat = dataSnapshot.getValue(String.class);
 
                     activarListenerBoton();
