@@ -183,7 +183,7 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                         fechaelegida = year+"-"+(month+1)+"-"+dayOfMonth;
 
 
-                        //Log.e(">>>",dia+" "+dayOfMonth+"-"+mes+" "+month+"-"+anio+" "+year);
+                        Log.e(">>>",dia+" "+dayOfMonth+"-"+mes+" "+month+"-"+anio+" "+year+"/"+diaelegido);
 
                         if(dia==dayOfMonth && mes==month && anio==year)
                             diaelegidoeshoy = true;
@@ -233,7 +233,17 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
             }
         });
 
+        ((ImageButton)holder.root.findViewById(R.id.ib_rechazar_item_agendar_cita)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapterHorarios.get(position).showAllHorasDisponibles(new ArrayList<>());
+            }
+        });
+
+
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -299,7 +309,7 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                     }
 
                 }else{
-                    Toast.makeText(holder.root.getContext(), "El estilista no trabaja el día elegido",Toast.LENGTH_LONG);
+                    Toast.makeText(holder.root.getContext(), "El estilista no trabaja el día elegido",Toast.LENGTH_LONG).show();
                 }
             }
 
