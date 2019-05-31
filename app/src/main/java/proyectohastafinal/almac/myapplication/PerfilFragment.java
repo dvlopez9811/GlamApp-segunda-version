@@ -69,32 +69,32 @@ public class PerfilFragment extends Fragment {
 
         final String tuCorreo = "";
 
-        if ( auth.getCurrentUser() != null) {
-            rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("correo").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String tuCorreo = dataSnapshot.getValue(String.class);
-                    correo.setText(tuCorreo);
-                }
+            if ( auth.getCurrentUser() != null) {
+                rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("correo").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String tuCorreo = dataSnapshot.getValue(String.class);
+                        correo.setText(tuCorreo);
+                    }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
+                    }
+                });
 
-            rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("nombreYApellido").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String tuNombre = dataSnapshot.getValue(String.class);
-                    nombre.setText(tuNombre);
-                }
+                rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("nombreYApellido").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String tuNombre = dataSnapshot.getValue(String.class);
+                        nombre.setText(tuNombre);
+                    }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
+                    }
+                });
 
             // Inflate the layout for this fragment
             btn_cerrar_sesion = mView.findViewById(R.id.btn_cerrar_sesion);
