@@ -51,6 +51,8 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
     private ArrayList<RecyclerView> listaHorarios;
 
     private ArrayList<String> idestilistas;
+    private int[] estilistasporservicio;
+
     private String tiposervicio;
     private String idestilista;
     private String diaelegido;
@@ -101,6 +103,8 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
         adapterHorario.setListener(this);
         adapterHorarios.add(adapterHorario);
 
+        estilistasporservicio = new int[servicios.size()];
+
         //Imagen de servicio
 
         if(tiposervicio.equals("Maquillaje"))
@@ -133,6 +137,9 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
 
                             ((Spinner) holder.root.findViewById(R.id.item_agendar_cita_spinner_estilista)).setAdapter(estilistasAdapter);
                         }
+
+                        estilistasporservicio[position]=estilistas.size();
+
                     }
 
                     @Override
@@ -173,8 +180,13 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                         ((TextView) holder.root.findViewById(R.id.mes_seleccionado_item_agendar_cita)).setText(month + 1 + "");
                         ((TextView) holder.root.findViewById(R.id.dia_seleccionado_item_agendar_cita)).setText(dayOfMonth + "");
 
-                        idestilista = idestilistas.get(position+posicionspinner);
-                        //Log.e(">>>",idestilista+" "+position+"-"+posicionspinner);
+
+                        int pos = 0;
+                        for(int k=0;k<position;k++){
+                            pos+=estilistasporservicio[k];
+                        }
+
+                        idestilista = idestilistas.get(pos+posicionspinner);
 
                         diaelegido = fechaelegida = "";
                         Calendar c = Calendar.getInstance();
@@ -183,7 +195,7 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                         fechaelegida = year+"-"+(month+1)+"-"+dayOfMonth;
 
 
-                        Log.e(">>>",dia+" "+dayOfMonth+"-"+mes+" "+month+"-"+anio+" "+year+"/"+diaelegido);
+                        //Log.e(">>>",dia+" "+dayOfMonth+"-"+mes+" "+month+"-"+anio+" "+year+"/"+diaelegido);
 
                         if(dia==dayOfMonth && mes==month && anio==year)
                             diaelegidoeshoy = true;

@@ -68,7 +68,7 @@ public class AdapterCitas extends RecyclerView.Adapter<AdapterCitas.CustomViewHo
         iv_menu_cita_renglon_cita.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 listener.onItemClick(iv_menu_cita_renglon_cita,citas.get(position));
+                 listener.onItemClick(v,citas.get(position));
              }
          });
     }
@@ -80,7 +80,7 @@ public class AdapterCitas extends RecyclerView.Adapter<AdapterCitas.CustomViewHo
 
     //OBSERVER
     public interface OnItemClickListener{
-        void onItemClick(ImageView iv_cita,Cita cita);
+        void onItemClick(View v,Cita cita);
     }
 
     private OnItemClickListener listener;

@@ -2,6 +2,7 @@ package proyectohastafinal.almac.myapplication;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,13 +18,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,12 +44,13 @@ public class InformacionSalonActivity extends AppCompatActivity {
     private RecyclerView listaServicios;
     private AdapterServiciosInformacionSalon adapterServicios;
     private Button btn_agendar_cita,btn_anadir_favoritos,btn_volver;
-    private TextView txt_titulo_salon,txt_descripcion_servicios;
-    private ImageView imagen_salon,estrella_calificacion1,estrella_calificacion2
+    private TextView txt_titulo_salon,txt_descripcion_servicios,txt_informacion_direccion_salon;
+    private ImageView imagen_perfil_info_salon_activity,estrella_calificacion1,estrella_calificacion2
             ,estrella_calificacion3,estrella_calificacion4,estrella_calificacion5;
 
     FirebaseDatabase rtdb;
     FirebaseAuth auth;
+    FirebaseStorage storage;
     private boolean favoritoMarcado;
 
 
@@ -60,8 +67,9 @@ public class InformacionSalonActivity extends AppCompatActivity {
         btn_volver = findViewById(R.id.btn_atras_informacion_salon_activity);
         btn_agendar_cita = findViewById(R.id.btn_agendar_cita_info_salon_activity);
         txt_titulo_salon = findViewById(R.id.titulo_salon_informacion_salon_activity);
+        txt_informacion_direccion_salon = findViewById(R.id.txt_informacion_direccion_salon);
         //txt_descripcion_servicios = findViewById(R.id.txt_resumen_servicios_info_salon_activity);
-        imagen_salon = findViewById(R.id.imagen_perfil_info_salon_activity);
+        imagen_perfil_info_salon_activity = findViewById(R.id.imagen_perfil_info_salon_activity);
         estrella_calificacion1 = findViewById(R.id.calificacion_1_informacion_salon);
         estrella_calificacion2 = findViewById(R.id.calificacion_2_informacion_salon);
         estrella_calificacion3 = findViewById(R.id.calificacion_3_informacion_salon);
@@ -70,7 +78,7 @@ public class InformacionSalonActivity extends AppCompatActivity {
 
         rtdb=FirebaseDatabase.getInstance();
         auth=FirebaseAuth.getInstance();
-
+        storage=FirebaseStorage.getInstance();
 
         adapterServicios=new AdapterServiciosInformacionSalon();
         listaServicios=findViewById(R.id.listado_servicios_informacion_salon_activity);
@@ -79,9 +87,17 @@ public class InformacionSalonActivity extends AppCompatActivity {
          String nombreSalon= getIntent().getExtras().get("salon").toString();
         txt_titulo_salon.setText(nombreSalon);
 
+        //Mostrar foto
+        StorageReference ref = storage.getReference().child("salones de belleza").child(nombreSalon).child("profile");
+        if(ref == null){
+            Log.e("hola","es nulllllllllll");
+        }
+        runOnUiThread( ()->{
+            ref.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(InformacionSalonActivity.this).load(uri).into(imagen_perfil_info_salon_activity));
+        });
+
 
         //Catalogo
-
         gridCatalogo =  findViewById(R.id.grid_Catalogo_informacion_salon_activity);
         adapterCatalogo= new AdapterCatalogo(this);
         gridCatalogo.setAdapter(adapterCatalogo);
@@ -106,6 +122,7 @@ public class InformacionSalonActivity extends AppCompatActivity {
             }
         });
 
+
         //Mostrar servicios en adapter
         rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("servicios").addValueEventListener(new ValueEventListener() {
             @Override
@@ -124,6 +141,20 @@ public class InformacionSalonActivity extends AppCompatActivity {
                 listaServicios.setAdapter(adapterServicios);
                 listaServicios.setHasFixedSize(true);
                 adapterServicios.showAllServicios(servicios);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        //Mostrar dirección
+        rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("direccion").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        txt_informacion_direccion_salon.setText(dataSnapshot.getValue()+"");
+
             }
 
             @Override
@@ -174,5 +205,9 @@ public class InformacionSalonActivity extends AppCompatActivity {
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

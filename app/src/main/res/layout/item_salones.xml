@@ -19,13 +19,14 @@
             android:gravity="center_horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_marcador_salon"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_marcador_salon_100x100"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/josefin_sans"
                 android:id="@+id/txt_item_distancia_a_salon" />
         </LinearLayout>
 
@@ -41,28 +42,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_item_nombre_salon"
-                android:text="Salon de belleza"
-                android:textSize="25dp"/>
+                android:fontFamily="@font/josefin_sans"
+                android:textSize="20sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_item_direccion_salon"
                 android:layout_marginTop="5dp"
-                android:text="Cl. 119 #123-124 Cali" />
+                android:fontFamily="@font/josefin_sans"
+                android:textSize="15sp" />
 
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="#9C9C9C" />
         </LinearLayout>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:padding="1dp"
-            android:src="@drawable/ic_go_16x16"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_go_64x64"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"/>
 

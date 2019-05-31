@@ -2,39 +2,31 @@ package proyectohastafinal.almac.myapplication;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,31 +34,28 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import proyectohastafinal.almac.myapplication.model.Estilista;
 import proyectohastafinal.almac.myapplication.model.Horario;
-import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 import proyectohastafinal.almac.myapplication.util.UtilDomi;
 
 public class RegistroEstilista extends AppCompatActivity {
 
+    private static final String AUTHORITY = BuildConfig.APPLICATION_ID+".fileprovider";
     private static final String [] DIAS_SEMANA  ={"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
-    private static final String CERO = "0";
     private static final String DOS_PUNTOS = ":";
+    private static final int CAMERA_CALLBACK_ID = 100;
     private static final int GALLERY_CALLBACK_ID = 101;
 
     private Spinner spinnerSalonesDeBelleza;
@@ -85,6 +74,9 @@ public class RegistroEstilista extends AppCompatActivity {
     private LinearLayout help_layout_linear;
 
     private ImageView registro_estilista_iv_foto;
+    private ImageButton btn_abrir_galeria;
+    private ImageButton btn_abrir_camara;
+
     FirebaseAuth auth;
     FirebaseDatabase rtdb;
     FirebaseStorage storage;
@@ -95,7 +87,6 @@ public class RegistroEstilista extends AppCompatActivity {
 
     private int horainicio;
     private int horafin;
-
 
     //Calendario para obtener fecha & hora
     public final Calendar c = Calendar.getInstance();
@@ -112,6 +103,9 @@ public class RegistroEstilista extends AppCompatActivity {
         spinnerSalonesDeBelleza = findViewById(R.id.registro_estilista_spinner_salones_belleza);
         spinnerFechaFinal = findViewById(R.id.registro_estilista_spinner_fecha_final);
         spinnerFechaIncio = findViewById(R.id.registro_estilista_spinner_fecha_inicio);
+        btn_abrir_galeria = findViewById(R.id.btn_abrir_galeria);
+        btn_abrir_camara = findViewById(R.id.btn_abrir_camara);
+        registro_estilista_iv_foto = findViewById(R.id.registro_estilista_iv_foto);
 
         registro_estilista_btn_listo = findViewById(R.id.registro_estilista_btn_listo);
         btn_registro_estilista_volver = findViewById(R.id.btn_registro_estilista_volver);
@@ -119,27 +113,23 @@ public class RegistroEstilista extends AppCompatActivity {
         etObtenerHoraInicio = findViewById(R.id.et_obtener_hora_inicio);
         etObtenerHoraFinal = findViewById(R.id.et_obtener_hora_final);
 
+        etObtenerHoraInicio.setOnClickListener(v -> modificarHoraInicio());
 
-        etObtenerHoraInicio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                modificarHoraInicio();
-            }
-        });
-
-        etObtenerHoraFinal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                modificarHoraFinal();
-            }
-        });
+        etObtenerHoraFinal.setOnClickListener(v -> modificarHoraFinal());
 
         auth = FirebaseAuth.getInstance();
         rtdb = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
 
-        registro_estilista_iv_foto = findViewById(R.id.registro_estilista_iv_foto);
-        registro_estilista_iv_foto.setOnClickListener(v -> {
+        btn_abrir_camara.setOnClickListener(view -> {
+            Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            photoFile = new File(Environment.getExternalStorageDirectory() + "/" + UUID.randomUUID().toString() + ".png" );
+            Uri uri = FileProvider.getUriForFile(RegistroEstilista.this,getPackageName(),photoFile);
+            i.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+            startActivityForResult(i,CAMERA_CALLBACK_ID);
+        });
+
+        btn_abrir_galeria.setOnClickListener(v -> {
             Intent i = new Intent();
             i.setAction(Intent.ACTION_GET_CONTENT);
             i.setType("image/*");
@@ -224,77 +214,72 @@ public class RegistroEstilista extends AppCompatActivity {
         spinnerFechaIncio.setAdapter(diasDeLaSemana);
         spinnerFechaFinal.setAdapter(diasDeLaSemana);
 
-        registro_estilista_btn_listo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        registro_estilista_btn_listo.setOnClickListener(v -> {
 
-                final Estilista estilista = new Estilista(correoEstilista,usuarioEstilista,nombreEstilista,passEstilista,passEstilista);
+            final Estilista estilista = new Estilista(correoEstilista,nombreEstilista,usuarioEstilista,telefonoEstilista,passEstilista);
 
-                HashMap<String,Horario> horarios = new HashMap<>();
-                Horario horario;
+            HashMap<String,Horario> horarios = new HashMap<>();
+            Horario horario;
 
-                String diaInicio = spinnerFechaIncio.getSelectedItem().toString();
-                String diaFinal = spinnerFechaFinal.getSelectedItem().toString();
+            String diaInicio = spinnerFechaIncio.getSelectedItem().toString();
+            String diaFinal = spinnerFechaFinal.getSelectedItem().toString();
 
-                int dia2 = 0;
-
-                if(diaInicio.equals(diaFinal)) {
-                    horario = new Horario(horainicio,horafin);
-                    horarios.put(diaInicio, horario );
-                } else {
-                    boolean completado = false;
-                    boolean inicia = false;
-                    for (int i = 0; i < DIAS_SEMANA.length & !completado; i++) {
-                        if (diaInicio.equals(DIAS_SEMANA[i])) {
-                            horario = new Horario(horainicio,horafin);
-                            horarios.put(diaInicio, horario );
-                            inicia = true;
-                        } else if (diaFinal.equals(DIAS_SEMANA[i])) {
-                            horario = new Horario(horainicio,horafin);
-                            horarios.put(diaFinal, horario );
-                            completado = true;
-                        } else  {
-                            if(inicia) {
-                                horario = new Horario(horainicio, horafin);
-                                horarios.put(DIAS_SEMANA[i], horario);
-                            }
+            if(diaInicio.equals(diaFinal)) {
+                horario = new Horario(horainicio,horafin);
+                horarios.put(diaInicio, horario );
+            } else {
+                boolean completado = false;
+                boolean inicia = false;
+                for (int i = 0; i < DIAS_SEMANA.length & !completado; i++) {
+                    if (diaInicio.equals(DIAS_SEMANA[i])) {
+                        horario = new Horario(horainicio,horafin);
+                        horarios.put(diaInicio, horario );
+                        inicia = true;
+                    } else if (diaFinal.equals(DIAS_SEMANA[i])) {
+                        horario = new Horario(horainicio,horafin);
+                        horarios.put(diaFinal, horario );
+                        completado = true;
+                    } else  {
+                        if(inicia) {
+                            horario = new Horario(horainicio, horafin);
+                            horarios.put(DIAS_SEMANA[i], horario);
                         }
                     }
                 }
-                estilista.setHorarios(horarios);
-
-                rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("nombreSalonDeBelleza").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String nombreSalonDeBelleza = dataSnapshot.getValue(String.class);
-                        estilista.setNombreSalonDeBelleza(nombreSalonDeBelleza);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-                comprobarServiciosEscogidos();
-
-                auth.createUserWithEmailAndPassword(correoEstilista, passEstilista).addOnSuccessListener(authResult -> {
-                    rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).setValue(estilista);
-
-                    rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("estilista");
-
-                    String[] serv = servicios.split(" ");
-
-                    for (int i=0;i<serv.length;i++)
-                        rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[i]).child(auth.getCurrentUser().getUid()).setValue(estilista.getNombreYApellido());
-
-                    Intent i = new Intent(RegistroEstilista.this,MainEstilistaActivity.class);
-                    startActivity(i);
-                    finish();
-
-                });
-
             }
+            estilista.setHorarios(horarios);
+
+            rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("nombreSalonDeBelleza").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String nombreSalonDeBelleza = dataSnapshot.getValue(String.class);
+                    estilista.setNombreSalonDeBelleza(nombreSalonDeBelleza);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            comprobarServiciosEscogidos();
+
+            auth.createUserWithEmailAndPassword(correoEstilista, passEstilista).addOnSuccessListener(authResult -> {
+                rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).setValue(estilista);
+
+                rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("estilista");
+                subirImagen();
+                String[] serv = servicios.split(" ");
+
+                for (int i=0;i<serv.length;i++)
+                    rtdb.getReference().child("Salon de belleza").child(spinnerSalonesDeBelleza.getSelectedItem().toString()).child("Estilistas").child(serv[i]).child(auth.getCurrentUser().getUid()).setValue(estilista.getNombreYApellido());
+
+                Intent i = new Intent(RegistroEstilista.this,MainEstilistaActivity.class);
+                startActivity(i);
+                finish();
+
+            });
+
         });
 
         btn_registro_estilista_volver.setOnClickListener(v -> {
@@ -368,6 +353,13 @@ public class RegistroEstilista extends AppCompatActivity {
                 registro_estilista_iv_foto.setBackground(null);
                 registro_estilista_iv_foto.setImageURI(uri);
             });
+        } if(requestCode == CAMERA_CALLBACK_ID && resultCode == RESULT_OK) {
+            final Uri uri = data.getData();
+            photoFile = new File(  UtilDomi.getPath(this, uri)  );
+            runOnUiThread( () -> {
+                registro_estilista_iv_foto.setBackground(null);
+                registro_estilista_iv_foto.setImageURI(uri);
+            });
         }
     }
 
@@ -376,12 +368,7 @@ public class RegistroEstilista extends AppCompatActivity {
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(photoFile);
-            ref.putStream(fis).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    cargarFotoPerfil();
-                }
-            });
+            ref.putStream(fis).addOnSuccessListener(taskSnapshot -> cargarFotoPerfil());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -390,12 +377,7 @@ public class RegistroEstilista extends AppCompatActivity {
 
     private void cargarFotoPerfil() {
         StorageReference ref = storage.getReference().child("estilistas").child(auth.getCurrentUser().getUid());
-        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(RegistroEstilista.this).load(uri).into(registro_estilista_iv_foto);
-            }
-        });
+        ref.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(RegistroEstilista.this).load(uri).into(registro_estilista_iv_foto));
     }
 
     @Override

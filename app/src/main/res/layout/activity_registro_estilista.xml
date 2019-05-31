@@ -78,12 +78,14 @@
                     <ImageButton
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:id="@+id/btn_abrir_camara"
                         android:background="@drawable/ic_camara_128x128"
                         android:layout_marginRight="10dp"/>
 
                     <ImageButton
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:id="@+id/btn_abrir_galeria"
                         android:background="@drawable/ic_galeria_128x128"/>
                 </LinearLayout>
 

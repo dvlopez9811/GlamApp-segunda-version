@@ -13,8 +13,6 @@ public class Estilista {
     private String nombreSalonDeBelleza;
 
     private HashMap<String,Horario> horarios;
-    private ArrayList<Agenda> agenda;
-    private ArrayList<String> citas;
 
     public Estilista(String correo, String nombreYApellido, String usuario, String telefono,String contrasenha) {
         this.correo = correo;
@@ -22,6 +20,7 @@ public class Estilista {
         this.usuario = usuario;
         this.telefono = telefono;
         this.contrasenha = contrasenha;
+        horarios = new HashMap<>();
     }
 
     public Estilista() {}
@@ -80,21 +79,5 @@ public class Estilista {
 
     public void setHorarios(HashMap<String, Horario> horarios) {
         this.horarios = horarios;
-    }
-
-    public ArrayList<Agenda> getAgenda() {
-        return agenda;
-    }
-
-    public void setAgenda(ArrayList<Agenda> agenda) {
-        this.agenda = agenda;
-    }
-
-    public ArrayList<String> getCitas() {
-        return citas;
-    }
-
-    public void setCitas(ArrayList<String> citas) {
-        this.citas = citas;
     }
 }
