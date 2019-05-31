@@ -95,12 +95,40 @@ public class InformacionSalonActivity extends AppCompatActivity {
             ref.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(InformacionSalonActivity.this).load(uri).into(imagen_perfil_info_salon_activity));
         });
 
+        final long[] fotos = new long[1];
+        final ArrayList<Uri> uris = new ArrayList<>();
+        // Catálogo
+        rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("fotos").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                long fotos = (Long) dataSnapshot.getValue();
+                for (int i = 1; i <= fotos; i++){
+                    StorageReference ref2 = storage.getReference().child("salones de belleza").child(nombreSalon).child(i+".png");
+                    ref2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            uris.add(uri);
+                        }
+                    });
+                }
 
-        //Catalogo
-        gridCatalogo =  findViewById(R.id.grid_Catalogo_informacion_salon_activity);
-        adapterCatalogo= new AdapterCatalogo(this);
-        gridCatalogo.setAdapter(adapterCatalogo);
-        gridCatalogo.setExpanded(true);
+                //Catalogo
+                Log.e("entra", uris.size()+"");
+                gridCatalogo =  findViewById(R.id.grid_Catalogo_informacion_salon_activity);
+                adapterCatalogo= new AdapterCatalogo(InformacionSalonActivity.this,uris);
+                gridCatalogo.setAdapter(adapterCatalogo);
+                gridCatalogo.setExpanded(true);
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         btn_anadir_favoritos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,37 +191,29 @@ public class InformacionSalonActivity extends AppCompatActivity {
         });
 
 
-
-        btn_agendar_cita.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(auth.getCurrentUser()==null){
-                    AlertDialog.Builder dialogo1 = new AlertDialog.Builder(v.getContext());
-                    dialogo1.setTitle("Registro");
-                    dialogo1.setMessage("Por favor inicia sesión");
-                    dialogo1.setCancelable(false);
-                    dialogo1.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialogo1, int id) {
-                            Intent i = new Intent(InformacionSalonActivity.this,LoginActivity.class);
-                            startActivity(i);
-                            finish();
-                        }
-                    });
-                    dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialogo1, int id) {
-
-                        }
-                    });
-                    dialogo1.show();
-
-                }
-                else{
-                    Intent i = new Intent(InformacionSalonActivity.this, AgendarCitaActivity.class);
-                    i.putExtra("salon", getIntent().getExtras().get("salon").toString());
+        btn_agendar_cita.setOnClickListener(v -> {
+            if(auth.getCurrentUser()==null){
+                AlertDialog.Builder dialogo1 = new AlertDialog.Builder(v.getContext());
+                dialogo1.setTitle("Registro");
+                dialogo1.setMessage("Por favor inicia sesión");
+                dialogo1.setCancelable(false);
+                dialogo1.setPositiveButton("Aceptar", (dialogo11, id) -> {
+                    Intent i = new Intent(InformacionSalonActivity.this,InicioActivity.class);
                     startActivity(i);
-                }
+                    finish();
+                });
+                dialogo1.setNegativeButton("Cancelar", (dialogo112, id) -> {
+
+                });
+                dialogo1.show();
 
             }
+            else{
+                Intent i = new Intent(InformacionSalonActivity.this, AgendarCitaActivity.class);
+                i.putExtra("salon", getIntent().getExtras().get("salon").toString());
+                startActivity(i);
+            }
+
         });
 
         btn_volver.setOnClickListener(new View.OnClickListener() {

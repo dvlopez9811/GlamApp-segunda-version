@@ -2,6 +2,7 @@ package proyectohastafinal.almac.myapplication;
 
 import android.content.Context;
 import android.media.Image;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,37 +15,28 @@ import java.util.ArrayList;
 public class AdapterCatalogo extends BaseAdapter {
 
     private Context context;
+    ArrayList<Uri> uris;
 
-    ArrayList data;
 
-
-    public AdapterCatalogo(Context context) {
+    public AdapterCatalogo(Context context, ArrayList<Uri> uris) {
         this.context = context;
-        data = new ArrayList();
-
-        data.add("a");
-        data.add("b");
-        data.add("c");
-        data.add("d");
-        data.add("e");
-        data.add("f");
-        data.add("g");
+        this.uris = uris;
     }
 
 
     @Override
     public int getCount() {
-        return data.size();
+        return uris.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return data.get(position);
+        return uris.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -58,8 +50,15 @@ public class AdapterCatalogo extends BaseAdapter {
         ImageView imagen = view.findViewById(R.id.imagen_catalogo_informacion_salon_activity);
         TextView descripcion = view.findViewById(R.id.descripcion_imagen_catalogo_informacion_activity);
 
-        Glide.with(imagen.getContext()).load(R.drawable.ejemplo_catalogo).into(imagen);
-        descripcion.setText("Betty");
+
+            ((InformacionSalonActivity)context).runOnUiThread( ()-> {
+                for (int i = 0; i < uris.size(); i++) {
+
+                    Glide.with(imagen.getContext()).load(uris.get(i)).into(imagen);
+                    descripcion.setText("Betty");
+                }
+            });
+
         return view;
     }
 
