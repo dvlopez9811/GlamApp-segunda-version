@@ -97,6 +97,12 @@ public class InformacionSalonActivity extends AppCompatActivity {
 
         final long[] fotos = new long[1];
         final ArrayList<Uri> uris = new ArrayList<>();
+        gridCatalogo =  findViewById(R.id.grid_Catalogo_informacion_salon_activity);
+        adapterCatalogo= new AdapterCatalogo(InformacionSalonActivity.this,uris);
+        gridCatalogo.setAdapter(adapterCatalogo);
+        gridCatalogo.setExpanded(true);
+
+
         // Catálogo
         rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("fotos").addValueEventListener(new ValueEventListener() {
             @Override
@@ -108,16 +114,13 @@ public class InformacionSalonActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             uris.add(uri);
+                            adapterCatalogo.notifyDataSetChanged();
                         }
                     });
                 }
 
                 //Catalogo
                 Log.e("entra", uris.size()+"");
-                gridCatalogo =  findViewById(R.id.grid_Catalogo_informacion_salon_activity);
-                adapterCatalogo= new AdapterCatalogo(InformacionSalonActivity.this,uris);
-                gridCatalogo.setAdapter(adapterCatalogo);
-                gridCatalogo.setExpanded(true);
 
 
             }
@@ -132,7 +135,6 @@ public class InformacionSalonActivity extends AppCompatActivity {
         btn_anadir_favoritos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //TODO        Implementar cambio de favoritos en base de datos
                 if(favoritoMarcado){
                     btn_anadir_favoritos.setBackgroundResource(R.drawable.fav_128_sin_seleccionar);
@@ -143,7 +145,6 @@ public class InformacionSalonActivity extends AppCompatActivity {
                     btn_anadir_favoritos.setBackgroundResource(R.drawable.fav_seleccionado_128);
                     favoritoMarcado=true;
                     Toast.makeText(InformacionSalonActivity.this,"Añadiste a "+nombreSalon+" a tus favoritos",Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
