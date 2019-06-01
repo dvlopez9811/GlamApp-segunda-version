@@ -7,28 +7,31 @@
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginRight="10dp"
         android:id="@+id/imagen_servicio_renglon_informacion_activity"
         android:src="@drawable/ic_new_peluqueria_morado"
-        />
+        android:layout_marginRight="10dp"
+        android:layout_gravity="center"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/nombre_servicio_renglon_servicio_informacion"
         android:text="Service"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:fontFamily="@font/josefin_sans"
-        android:textColor="@color/colorPrimaryMuyDark"
-        android:layout_marginRight="20dp"
-        />
+        android:textColor="@color/colorPrimary"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"/>
 
     <TextView
-        android:fontFamily="@font/josefin_sans"
-        android:id="@+id/precio_renglon_servicio_informacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/precio_renglon_servicio_informacion"
+        android:fontFamily="@font/josefin_sans"
         android:text="Valor: $"
-        android:textSize="15dp"/>
-
+        android:textSize="15dp"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="5dp"/>
 
 </LinearLayout>

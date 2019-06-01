@@ -53,11 +53,20 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_calificacion"
+                        android:text="5.0"
+                        android:fontFamily="@font/josefin_sans"
+                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="center"/>
+
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:id="@+id/calificacion_1_informacion_salon"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="5dp"
                         android:src="@drawable/ic_calificacion_25x25"/>
 
                     <ImageView
@@ -87,6 +96,15 @@
                         android:id="@+id/calificacion_5_informacion_salon"
                         android:layout_marginLeft="5dp"
                         android:src="@drawable/ic_calificacion_25x25"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_personas_calificacion"
+                        android:text="(456)"
+                        android:fontFamily="@font/josefin_sans"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"/>
                 </LinearLayout>
 
                 <TextView
@@ -142,12 +160,8 @@
                 android:padding="10dp"
                 android:verticalSpacing="2dp"
                 android:horizontalSpacing="1dp"
-                android:layout_below="@id/listado_servicios_informacion_salon_activity"
-                >
-
+                android:layout_below="@id/listado_servicios_informacion_salon_activity">
             </proyectohastafinal.almac.myapplication.ExpandableHeightGridView>
-
-
 
         </RelativeLayout>
     </ScrollView>
