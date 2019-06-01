@@ -99,6 +99,21 @@ public class AjustesSalonFragment extends Fragment {
         final String tuCorreo = "";
 
         if (auth.getCurrentUser() != null) {
+
+
+            rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String nombreSalon = dataSnapshot.getValue(String.class);
+                    nombre.setText(nombreSalon);
+
+
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+
             rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("correo").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -148,6 +163,12 @@ public class AjustesSalonFragment extends Fragment {
                 }
             });
         }
+
+
+
+
+
+
 
         return mView;
     }

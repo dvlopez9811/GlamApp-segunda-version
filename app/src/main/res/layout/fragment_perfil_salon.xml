@@ -6,28 +6,17 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:id="@+id/scroll"
-        android:layout_height="wrap_content">
+        android:id="@+id/scroll_perfil_salon"
+        android:layout_height="match_parent">
         <RelativeLayout
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             xmlns:android="http://schemas.android.com/apk/res/android"
             >
-
-
-
-            <Button
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/back_morado_primary"
-                android:id="@+id/btn_atras_informacion_salon_activity"
-                />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/linear_imagen_perfil_salon_fragment"
-                android:layout_below="@id/btn_atras_informacion_salon_activity"
+                android:id="@+id/relative_imagen_perfil_salon_fragment"
                 >
                 <ImageView
                     android:layout_width="match_parent"
@@ -35,19 +24,24 @@
                     android:src="@drawable/default_salon"
                     android:layout_marginBottom="5dp"
                     android:scaleType="centerCrop"
-                    android:id="@+id/imagen_perfil_info_salon_activity"/>
-                <Button
-                    android:layout_width="40dp"
-                    android:layout_height="40dp" />
+                    android:id="@+id/imagen_perfil_perfil_salon_fragment"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cambia la foto de perfil de tu salón"
+                    android:layout_below="@id/imagen_perfil_perfil_salon_fragment"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/josefin_sans"
+
+                    />
             </RelativeLayout>
 
 
             <TextView
-                android:text="Nombre Salon"
                 android:id="@+id/titulo_nombre_salon_perfil_fragment_"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/linear_imagen_perfil_salon_fragment"
+                android:layout_below="@id/relative_imagen_perfil_salon_fragment"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="3dp"
@@ -65,7 +59,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ubicación"
+                    android:text="Dirección: "
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="10dp"
@@ -76,9 +70,9 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Tu ubicación"
                     android:textColorHint="#777"
                     android:enabled="false"
+                    android:fontFamily="@font/josefin_sans"
                     android:id="@+id/et_uibacion_editable_perfil_salon_fragment"
                     android:background="@color/fui_transparent"
                     android:layout_marginRight="20dp"
@@ -87,7 +81,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/edit"
-                    android:id="@+id/imagen_linea_editar_ubicacion_perfil_salon_fragment"
+                    android:id="@+id/boton_editar_ubicacion_perfil_salon_fragment"
                     />
             </LinearLayout>
 
@@ -101,35 +95,35 @@
                 android:layout_below="@id/titulo_nombre_salon_perfil_fragment_">
 
                 <ImageView
-                    android:id="@+id/calificacion_1_informacion_salon"
+                    android:id="@+id/calificacion_1_perfil_salon"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_calificacion_25x25"/>
 
                 <ImageView
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/calificacion_2_informacion_salon"
+                    android:id="@+id/calificacion_2_perfil_salon"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_calificacion_25x25"/>
 
                 <ImageView
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/calificacion_3_informacion_salon"
+                    android:id="@+id/calificacion_3_perfil_salon"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_calificacion_25x25"/>
 
                 <ImageView
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/calificacion_4_informacion_salon"
+                    android:id="@+id/calificacion_4_perfil_salon"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_calificacion_25x25"/>
 
                 <ImageView
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/calificacion_5_informacion_salon"
+                    android:id="@+id/calificacion_5_perfil_salon"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_calificacion_25x25"/>
@@ -165,7 +159,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:id="@+id/listado_servicios_informacion_salon_activity"
+                android:id="@+id/listado_servicios_perfil_salon_fragment"
                 android:layout_below="@id/linea_agregar_servicio">
 
             </android.support.v7.widget.RecyclerView>
@@ -175,7 +169,7 @@
                 android:id="@+id/titulo_catalogo_perfil_salon_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/listado_servicios_informacion_salon_activity"
+                android:layout_below="@id/listado_servicios_perfil_salon_fragment"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 

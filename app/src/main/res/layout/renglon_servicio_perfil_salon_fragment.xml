@@ -6,7 +6,6 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-
         android:layout_height="match_parent">
 
         <ImageView
@@ -28,45 +27,6 @@
             android:fontFamily="@font/josefin_sans"
             android:textColor="@color/colorPrimaryMuyDark"
             android:layout_marginRight="20dp"
-            />
-
-        <TextView
-            android:layout_centerVertical="true"
-
-            android:fontFamily="@font/josefin_sans"
-            android:id="@+id/precio_renglon_servicio_perfil_fragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/nombre_servicio_renglon_servicio_perfil_fragmen"
-            android:text="Valor: $"
-            android:textSize="15dp"/>
-
-
-        <EditText
-            android:id="@+id/edit_text_precio_renglon_salon_perfil_fragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:hint="Precio"
-            android:fontFamily="@font/josefin_sans"
-            android:textSize="15dp"
-            android:layout_marginRight="5dp"
-            android:background="@color/fui_transparent"
-            android:layout_toRightOf="@id/precio_renglon_servicio_perfil_fragment"
-            />
-        <Button
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/edit"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/edit_text_precio_renglon_salon_perfil_fragment"
-            android:id="@+id/imagen_linea_editar_precio_renglon_perfil_fragment"
-            />
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/ic_cancelar_128x128"
             />
 
     </RelativeLayout>
