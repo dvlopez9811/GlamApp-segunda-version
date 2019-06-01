@@ -39,7 +39,7 @@ public class AgendarCitaActivity extends AppCompatActivity{
     private RecyclerView listaServicios;
     private AdapterItemsAgendarCita adapterServicios;
 
-    private Button btn_aceptar;
+    private Button btn_aceptar_agendar_cita_activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class AgendarCitaActivity extends AppCompatActivity{
         listaServicios.setLayoutManager(new LinearLayoutManager(this));
         adapterServicios = new AdapterItemsAgendarCita(salon);
 
-        btn_aceptar=findViewById(R.id.btn_aceptar_agendar_cita_activity);
+        btn_aceptar_agendar_cita_activity=findViewById(R.id.btn_aceptar_agendar_cita_activity);
 
         rtdb.getReference().child("Salon de belleza").child(salon).child("servicios").addValueEventListener(new ValueEventListener() {
             @Override
@@ -84,13 +84,10 @@ public class AgendarCitaActivity extends AppCompatActivity{
             }
         });
 
-
-
-
-        btn_aceptar.setOnClickListener(new View.OnClickListener() {
+        btn_aceptar_agendar_cita_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                finish();
 
             }
         });

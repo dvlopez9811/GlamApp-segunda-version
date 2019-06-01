@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -124,7 +125,7 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        ArrayList<String> estilistas = new ArrayList<>();
+                        ArrayList<CharSequence> estilistas = new ArrayList<>();
 
                         for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
 
@@ -132,8 +133,8 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                             idestilistas.add(childDataSnapshot.getKey());
                             //Log.e(">>>>",childDataSnapshot.getKey());
 
-                            ArrayAdapter<String> estilistasAdapter = new ArrayAdapter<>(holder.root.getContext(),
-                                    R.layout.support_simple_spinner_dropdown_item, estilistas);
+                            ArrayAdapter<CharSequence> estilistasAdapter = new ArrayAdapter<>(holder.root.getContext(),
+                                    R.layout.spinner_item_salones, estilistas);
 
 
                             ((Spinner) holder.root.findViewById(R.id.item_agendar_cita_spinner_estilista)).setAdapter(estilistasAdapter);
@@ -208,7 +209,7 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                         }
                         else {
 
-                                darHorarios(holder,position);
+                            darHorarios(holder,position);
                         }
 
                     }
@@ -227,19 +228,41 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
         ((ImageButton)holder.root.findViewById(R.id.ib_aceptar_item_agendar_cita)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if (horaelegida != 0) {
                     String idcita = UUID.randomUUID().toString();
                     Cita cita = new Cita(idcita, Cita.RESERVADA, diaelegido, fechaelegida, horaelegida + 1, horaelegida, "", salon,
                             tiposervicio, idestilista, auth.getCurrentUser().getUid());
                     rtdb.getReference().child("Citas").child(idcita).setValue(cita);
                     rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("citas").child(idcita).setValue(idcita);
-
                     rtdb.getReference().child("Estilista").child(idestilista).child("citas").child(idcita).setValue(idcita);
                     rtdb.getReference().child("Estilista").child(idestilista).child("agenda").child(fechaelegida).child("horas").child(horaelegida + "").setValue(horaelegida);
+
                     darHorarios(holder,position);
+
+                    String horaMostrada = "";
+                    if(horaelegida<12){
+                        horaMostrada=horaelegida+" a.m";
+                    }
+                    else {
+                        if(horaelegida!=12)
+                            horaelegida-=12;
+                        horaMostrada=horaelegida+" p.m";
+                    }
+
                     Toast.makeText(holder.root.getContext(), "Cita enviada al estilista", Toast.LENGTH_LONG).show();
+
+                    ((TextView)holder.root.findViewById(R.id.txt_cita_confirmada)).setText("Se agendó con éxito la cita el día " +
+                            ((TextView) holder.root.findViewById(R.id.dia_seleccionado_item_agendar_cita)).getText() + "/" +
+                            ((TextView) holder.root.findViewById(R.id.mes_seleccionado_item_agendar_cita)).getText() + " a las: " +
+                            horaMostrada);
+                    (holder.root.findViewById(R.id.layout_confirmacion_cita)).setVisibility(LinearLayout.VISIBLE);
+                    (holder.root.findViewById(R.id.ib_rechazar_item_agendar_cita)).setVisibility(ImageButton.GONE);
+                    (holder.root.findViewById(R.id.ib_aceptar_item_agendar_cita)).setVisibility(ImageButton.GONE);
+                    (holder.root.findViewById(R.id.txt_tipo_servicio_item_agendar_cita)).setVisibility(TextView.GONE);
+                    (holder.root.findViewById(R.id.linea_estilista_item_agendar_cita)).setVisibility(LinearLayout.GONE);
+                    (holder.root.findViewById(R.id.linea_date_picker_item_agendar_cita)).setVisibility(LinearLayout.GONE);
+                    (holder.root.findViewById(R.id.titulo_horarios_disponibles_item_agendar_cita)).setVisibility(TextView.GONE);
+                    (holder.root.findViewById(R.id.ll_lista_servicios_disponibles_agendar_cita_activity)).setVisibility(LinearLayout.GONE);
                     horaelegida = 0;
                 }else{
                     Toast.makeText(holder.root.getContext(), "Elige un horario", Toast.LENGTH_LONG).show();
@@ -250,7 +273,8 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
         ((ImageButton)holder.root.findViewById(R.id.ib_rechazar_item_agendar_cita)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapterHorarios.get(position).showAllHorasDisponibles(new ArrayList<>());
+                servicios.remove(position);
+                notifyDataSetChanged();
             }
         });
 
@@ -260,7 +284,7 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
 
     @Override
     public int getItemCount() {
-            return servicios.size();
+        return servicios.size();
     }
 
     public void showAllServicios(ArrayList<Servicio> allservicios) {
@@ -288,7 +312,7 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                     if(diaelegidoeshoy && hora >= horario.getHoraFinal()-1)
                         Toast.makeText(holder.root.getContext(), "Lo siento, no puedes agendar hoy", Toast.LENGTH_LONG).show();
 
-                        else{
+                    else{
 
                         rtdb.getReference().child("Estilista").child(idestilista).child("agenda").child(fechaelegida).child("horas").addValueEventListener(new ValueEventListener() {
                             @Override
@@ -369,6 +393,11 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
     @Override
     public void onClickHorario(int horaseleccionada, Context context) {
         horaelegida = horaseleccionada;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
 

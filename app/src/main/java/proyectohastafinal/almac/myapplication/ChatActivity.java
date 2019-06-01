@@ -140,6 +140,7 @@ public class ChatActivity extends AppCompatActivity {
                 String mensaje = et_mensaje_chat.getText().toString();
                 Mensaje m = new Mensaje(mensaje,nombre);
                 rtdb.getReference().child("mensajes").child(idChat).push().setValue(m);
+                et_mensaje_chat.setText("");
             }
         });
     }

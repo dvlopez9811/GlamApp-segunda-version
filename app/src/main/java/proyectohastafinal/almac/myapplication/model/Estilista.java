@@ -15,7 +15,7 @@ public class Estilista {
     private HashMap<String,Horario> horarios;
     private HashMap<String,String> citas;
 
-    public Estilista(String correo, String nombreYApellido, String usuario, String telefono,String contrasenha) {
+    public Estilista(String correo, String usuario, String nombreYApellido, String telefono,String contrasenha) {
         this.correo = correo;
         this.nombreYApellido = nombreYApellido;
         this.usuario = usuario;

@@ -1,56 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/renglon_cita"
     android:orientation="horizontal"
+    android:padding="10dp">
 
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:padding="10dp"
-    android:id="@+id/renglon_cita">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/borde">
 
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@color/colorPrimary"/>
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/image_cita_estilista"
+            android:background="@color/colorPrimary"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="20dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_informacion_cita"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/image_cita_estilista"
+            android:layout_marginLeft="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/salon_renglon_cita"
+                android:textSize="30sp"
+                android:fontFamily="@font/josefin_sans" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nombre_estilista_cita"
+                android:text="CrisAlex"
+                android:fontFamily="@font/josefin_sans" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/servicio_renglon_cita"
+                android:fontFamily="@font/josefin_sans"/>
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:id="@+id/salon_renglon_cita"/>
+            android:textSize="32sp"
+            android:layout_marginLeft="40dp"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/horainicio_renglon_cita"
+            android:layout_toRightOf="@id/layout_informacion_cita"
+            android:fontFamily="@font/josefin_sans"
+            android:layout_centerVertical="true"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/servicio_renglon_cita"/>
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textSize="32sp"
-        android:layout_marginLeft="24dp"
-        android:layout_gravity="center_vertical"
-        android:id="@+id/horainicio_renglon_cita"/>
-
-    <ImageView
-        android:id="@+id/iv_menu_cita_renglon_cita"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="16dp"
-        android:src="@drawable/menu_cita" />
-
+        <ImageView
+            android:id="@+id/iv_menu_cita_renglon_cita"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_menu_100x100"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 </LinearLayout>
