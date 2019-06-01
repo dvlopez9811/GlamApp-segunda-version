@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="proyectohastafinal.almac.myapplication">
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -68,15 +69,13 @@
             android:resource="@array/preloaded_fonts" />
 
         <provider
-            android:authorities="$(applicationid)"
             android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/providerpath">
-            </meta-data>
+                android:resource="@xml/providerpath" />
         </provider>
     </application>
 
