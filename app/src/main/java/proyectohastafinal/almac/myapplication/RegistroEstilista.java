@@ -370,13 +370,13 @@ public class RegistroEstilista extends AppCompatActivity {
 
     private void subirImagen(){
         StorageReference ref = storage.getReference().child("estilistas").child(auth.getCurrentUser().getUid());
-//        FileInputStream fis = null;
-//        try {
-//            fis = new FileInputStream(photoFile);
-//            ref.putStream(fis).addOnSuccessListener(taskSnapshot -> cargarFotoPerfil());
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(photoFile);
+            ref.putStream(fis);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void cargarFotoPerfil() {
