@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    tools:context=".AjustesSalonFragment"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/foto_perfil_salon_fragment_perfil"
+            android:src="@drawable/ic_foto_perfil_defecto_estilista"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cambia tu foto de perfil"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/txt_cambiar_foto_perfil_salon"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tu salón"
+            android:fontFamily="@font/josefin_sans_thin"
+            android:textStyle="bold"
+            android:textSize="30dp"
+            android:textColor="#000"
+            android:id="@+id/txt_nombre_salon_ajustes_fragment"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_correo_ajustes_salon_fragment"
+            android:fontFamily="@font/josefin_sans_thin"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="#000"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:elevation="3dp"
+                android:src="@drawable/ic_password_perfil_64" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_cambiar_contraseña_ajustes_salon_fragment"
+                android:background="@drawable/btn_redondeado_normal"
+                android:text="Cambia tu contraseña"
+                android:textSize="20dp"
+                android:layout_centerVertical="true"
+                android:textAllCaps="false"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="60dp"
+                android:layout_marginBottom="10dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_logout_64"
+                android:elevation="3dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_cerrar_sesion_ajustes_salon"
+                android:background="@drawable/btn_redondeado_normal"
+                android:text="Salir"
+                android:textSize="20dp"
+                android:layout_centerVertical="true"
+                android:textAllCaps="false"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="60dp"
+                android:layout_marginBottom="10dp"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
+</FrameLayout>
