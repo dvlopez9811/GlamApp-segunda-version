@@ -16,12 +16,12 @@
             android:id="@+id/imagen_servicio_renglon_perfil_fragment"
             android:src="@drawable/ic_new_peluqueria_morado"
             />
-        <TextView
+        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/imagen_servicio_renglon_perfil_fragment"
-            android:id="@+id/nombre_servicio_renglon_servicio_perfil_fragmen"
+            android:id="@+id/checkbox_servicio_renglon_servicio_perfil_fragmen"
             android:text="Service"
             android:textSize="20dp"
             android:fontFamily="@font/josefin_sans"
