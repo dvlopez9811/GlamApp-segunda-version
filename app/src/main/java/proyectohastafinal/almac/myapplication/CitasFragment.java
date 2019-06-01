@@ -1,20 +1,27 @@
 package proyectohastafinal.almac.myapplication;
 
+import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,8 +30,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import proyectohastafinal.almac.myapplication.model.Cita;
+import proyectohastafinal.almac.myapplication.model.Cliente;
+import proyectohastafinal.almac.myapplication.model.Estilista;
 
 public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickListener{
 
@@ -39,6 +49,8 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
     private Button btn_iniciar_sesion_fragment_citas;
 
     private Cita citaseleccionada;
+
+    Calendar calendario;
 
     public static CitasFragment getInstance(){
         instance = instance == null ? new CitasFragment() : instance;
@@ -63,8 +75,12 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
 
         auth = FirebaseAuth.getInstance();
 
+        calendario = Calendar.getInstance();
+
         txt_iniciar_sesion_fragment_citas = v.findViewById(R.id.txt_iniciar_sesion_fragment_citas);
         btn_iniciar_sesion_fragment_citas = v.findViewById(R.id.btn_iniciar_sesion_fragment_citas);
+
+
 
         btn_iniciar_sesion_fragment_citas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,8 +107,6 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
         lista_citas.setAdapter(adapterCitas);
         lista_citas.setHasFixedSize(true);
 
-        registerForContextMenu(lista_citas);
-
         rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("citas").addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -103,15 +117,66 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
                 for (DataSnapshot hijo:dataSnapshot.getChildren())
                     idcitas.add(hijo.getValue().toString());
 
+                int dia = calendario.get(Calendar.DAY_OF_MONTH)-1;
+                int mes = calendario.get(Calendar.MONTH) + 1;
+                int anio = calendario.get(Calendar.YEAR);
+                int hora = calendario.get(Calendar.HOUR_OF_DAY);
 
                 for (int i=0;i<idcitas.size();i++) {
 
-                    rtdb.getReference().child("citas").child(idcitas.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
+                    rtdb.getReference().child("Citas").child(idcitas.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                                 Cita cita = (dataSnapshot.getValue(Cita.class));
+
+                            String[] fecha = cita.getFecha().split("-");
+                            int diacita = Integer.parseInt(fecha[2]);
+                            int mescita = Integer.parseInt(fecha[1]);
+                            int anocita = Integer.parseInt(fecha[0]);
+                            int horacita = cita.getHorainicio();
+
+
+                            if (anio > anocita || (anio == anocita && mes > mescita) || (anio == anocita && mes == mescita && dia > diacita) ||
+                                    (anio == anocita && mes == mescita && dia == diacita && hora >= horacita)) {
+
+                                /*
+                               new Thread(() -> {
+
+                                    new ServiceManager.BorrarCitas(idcita, new ServiceManager.BorrarCitas.OnResponseListener() {
+                                        @Override
+                                        public void onResponse(String response) {
+
+                                        }
+                                    });
+
+                                    new ServiceManager.BorrarCitasUsuario(cita.getIdUsuario(),idcita, new ServiceManager.BorrarCitasUsuario.OnResponseListener() {
+                                        @Override
+                                        public void onResponse(String response) {
+
+                                        }
+                                    });
+
+                                    new ServiceManager.BorrarCitasEstilista(cita.getIdEstilista(),idcita, new ServiceManager.BorrarCitasEstilista.OnResponseListener() {
+                                        @Override
+                                        public void onResponse(String response) {
+
+                                        }
+                                    });
+
+                                    new ServiceManager.BorrarHorarioEstilista(cita.getIdEstilista(),cita.getFecha(),cita.getHorainicio(), new ServiceManager.BorrarHorarioEstilista.OnResponseListener() {
+                                        @Override
+                                        public void onResponse(String response) {
+
+                                        }
+                                    });
+
+                                }).start();
+                                */
+
+                            } else
                                 adapterCitas.agregarcita(cita);
+
                         }
 
                         @Override
@@ -134,30 +199,43 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
     }
 
     @Override
-    public void onItemClick(Cita cita) {
-            citaseleccionada = cita;
+    public void onItemClick(View v,Cita cita) {
+        getActivity().registerForContextMenu(v);
+        getActivity().openContextMenu(v);
+        citaseleccionada = cita;
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-
-        if(citaseleccionada!=null) {
-            MenuInflater inflater = getActivity().getMenuInflater();
-            inflater.inflate(R.menu.context_menu_citas, menu);
-        }
+       getActivity().getMenuInflater().inflate(R.menu.context_menu_citas,menu);
     }
+
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo contextMenuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
 
             case R.id.envio_mensaje_estilista_cita:
 
-                //Vamos a abrir la ventana de chat
-                Intent i = new Intent(getActivity(),ChatActivity.class);
-                    i.putExtra("tel", citaseleccionada.getTelefonoEstilista());
-                    startActivity(i);
+                rtdb.getReference().child("Estilista").child(citaseleccionada.getIdEstilista()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        Estilista estilista = dataSnapshot.getValue(Estilista.class);
+
+                        //Vamos a abrir la ventana de chat
+                        Intent i = new Intent(getActivity(),ChatActivity.class);
+                        i.putExtra("telEstilista", estilista.getTelefono());
+                        startActivity(i);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
 
 
 

@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -32,6 +33,8 @@
         <activity android:name=".RegistroSalonDeBelleza" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegistroCliente" />
+        <activity android:name=".InformacionSalonActivity" />
+        <activity android:name=".AgendarCitaActivity" />
         <activity android:name=".RegistroEstilista" />
         <activity android:name=".MainActivity" />
         <activity android:name=".CambiarContrasenhaActivity"></activity>
@@ -63,6 +66,18 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <provider
+            android:authorities="$(applicationid)"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/providerpath">
+            </meta-data>
+        </provider>
     </application>
 
 </manifest>

@@ -9,7 +9,6 @@ public class Cliente {
     private String usuario;
     private String telefono;
     private String contrasenha;
-    private ArrayList<String> citas;
 
     public Cliente(String correo, String usuario, String nombreYApellido, String telefono, String contrasenha, ArrayList<String> citas) {
         this.correo = correo;
@@ -17,7 +16,6 @@ public class Cliente {
         this.usuario = usuario;
         this.telefono = telefono;
         this.contrasenha = contrasenha;
-        this.citas = citas;
     }
 
     public Cliente(String correo, String usuario, String nombreYApellido, String telefono,String contrasenha) {
@@ -26,7 +24,6 @@ public class Cliente {
         this.usuario = usuario;
         this.telefono = telefono;
         this.contrasenha = contrasenha;
-        this.citas = new ArrayList<>();
     }
 
     public Cliente() {}
@@ -71,11 +68,4 @@ public class Cliente {
         this.contrasenha = contrasenha;
     }
 
-    public ArrayList<String> getCitas() {
-        return citas;
-    }
-
-    public void setCitas(ArrayList<String> citas) {
-        this.citas = citas;
-    }
 }

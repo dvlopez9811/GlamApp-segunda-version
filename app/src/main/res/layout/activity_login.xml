@@ -5,10 +5,18 @@
     android:orientation="vertical"
     android:background="@drawable/fondo_login">
 
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimarioTransparente"/>
+    <Button
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/btn_login_volver"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/ic_volver_primary" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimarioTransparente"/>
 
     <ImageView
         android:id="@+id/logo_login"
@@ -30,6 +38,7 @@
         android:textColor="@color/colorBlanco"
         android:textColorHint="@color/colorBlanco"
         android:layout_centerHorizontal="true"
+        android:fontFamily="@font/josefin_sans"
         android:singleLine="true"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"/>
@@ -46,25 +55,28 @@
         android:inputType="textPassword"
         android:textColorHint="@color/colorBlanco"
         android:layout_centerHorizontal="true"
+        android:fontFamily="@font/josefin_sans"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"/>
 
     <Button
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:text="Inicia sesión"
         android:id="@+id/btn_iniciarsesion"
         android:layout_below="@id/et_password"
         android:textAllCaps="false"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textColor="@color/colorBlanco"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/btn_circular_secundario"/>
+        android:fontFamily="@font/josefin_sans"
+        android:background="@drawable/btn_circular_principal"/>
 
     <com.facebook.login.widget.LoginButton
-        android:visibility="gone"
+        android:visibility="invisible"
         android:id="@+id/btn_login_facebook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,17 +87,17 @@
         android:textAllCaps="false"
         android:textSize="20dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/btn_redondeado_facebook"
-        />
+        android:background="@drawable/btn_redondeado_facebook" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="o accede con:"
-        android:textSize="20dp"
-        android:textColor="@color/colorBlanco"
+        android:textSize="20sp"
+        android:textColor="@color/colorNegro"
         android:id="@+id/txt_iniciar_sesion_con"
         android:layout_below="@id/btn_iniciarsesion"
+        android:fontFamily="@font/josefin_sans"
         android:gravity="center_horizontal"
         />
 
@@ -94,6 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txt_iniciar_sesion_con"
         android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:orientation="horizontal"
         android:id="@+id/linear_layout_botones_fb_google"
         android:layout_marginBottom="20dp">
@@ -120,17 +133,4 @@
             android:layout_centerHorizontal="true" />
 
     </LinearLayout>
-
-    <Button
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:id="@+id/btn_login_volver"
-        android:background="@drawable/ic_volver_primary"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        />
-
-
 </RelativeLayout>

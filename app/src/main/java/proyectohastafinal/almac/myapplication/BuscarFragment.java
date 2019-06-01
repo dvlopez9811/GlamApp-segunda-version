@@ -2,6 +2,8 @@ package proyectohastafinal.almac.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -9,17 +11,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.Toast;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.Marker;
 
@@ -32,13 +36,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
-import java.util.Map;
 
 import proyectohastafinal.almac.myapplication.model.BusquedaSalonDeBelleza;
 import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 
 
-public class BuscarFragment extends Fragment implements View.OnClickListener, AdapterSalones.OnItemClickListener{
+public class BuscarFragment extends Fragment implements View.OnClickListener, AdapterSalones.OnItemClickListener, SearchView.OnQueryTextListener{
 
     public final static String[] SERVICIOS_SALON = {"Uñas", "Maquillaje", "Masaje", "Depilación", "Peluquería"};
 
@@ -49,17 +52,16 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
         return instance;
     }
 
-    private RecyclerView recyclerView;
+    private ListView recyclerView;
     private AdapterSalones mAdapater;
     private RecyclerView.LayoutManager layoutManager;
 
-    private EditText et_buscar_salon_fragment_buscar;
-    private ImageButton btn_cancelar_busqueda_fragment_buscar;
     private ImageView image_filtro_peluqueria_fragment_buscar;
     private ImageView image_filtro_depilacion_fragment_buscar;
     private ImageView image_filtro_unas_fragment_buscar;
     private ImageView image_filtro_maquillaje_fragment_buscar;
     private ImageView image_filtro_masaje_fragment_buscar;
+    private SearchView searchView;
 
     // Location Manager
     private LocationManager locationManager;
@@ -102,42 +104,46 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
         if(location==null)
             location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-        et_buscar_salon_fragment_buscar = mView.findViewById(R.id.et_buscar_salon_fragment_buscar);
-        btn_cancelar_busqueda_fragment_buscar = mView.findViewById(R.id.btn_cancelar_busqueda_fragment_buscar);
         image_filtro_peluqueria_fragment_buscar = mView.findViewById(R.id.image_filtro_peluqueria_fragment_buscar);
         image_filtro_depilacion_fragment_buscar = mView.findViewById(R.id.image_filtro_depilacion_fragment_buscar);
         image_filtro_unas_fragment_buscar = mView.findViewById(R.id.image_filtro_unas_fragment_buscar);
         image_filtro_maquillaje_fragment_buscar = mView.findViewById(R.id.image_filtro_maquillaje_fragment_buscar);
         image_filtro_masaje_fragment_buscar = mView.findViewById(R.id.image_filtro_masaje_fragment_buscar);
+        searchView = mView.findViewById(R.id.searchview);
+
         servicios = new boolean[5];
         image_filtro_peluqueria_fragment_buscar.setOnClickListener(this);
         image_filtro_depilacion_fragment_buscar.setOnClickListener(this);
         image_filtro_unas_fragment_buscar.setOnClickListener(this);
         image_filtro_maquillaje_fragment_buscar.setOnClickListener(this);
         image_filtro_masaje_fragment_buscar.setOnClickListener(this);
-        btn_cancelar_busqueda_fragment_buscar.setOnClickListener(this);
-
-        btn_cancelar_busqueda_fragment_buscar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                et_buscar_salon_fragment_buscar.setText(null);
-            }
-        });
 
         recyclerView = mView.findViewById(R.id.recycler_view_salones);
-        recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        mAdapater = new AdapterSalones();
-        mAdapater.setListener(this);
-        recyclerView.setAdapter(mAdapater);
+        mAdapater = new AdapterSalones(getActivity());
 
         rtdb.getReference().child("Salon de belleza").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    mostrarSalonDeBellezaAdapter(dsp,mAdapater,true);
+                    SalonDeBelleza salonDeBelleza = dsp.getValue(SalonDeBelleza.class);
+
+                    Location locationDestino = new Location("Location destino");
+                    locationDestino.setLatitude(salonDeBelleza.getLatitud());
+                    locationDestino.setLongitude(salonDeBelleza.getLongitud());
+
+                    double distancia = location.distanceTo(locationDestino) / 1000.0;
+                    DecimalFormat twoDForm = new DecimalFormat("#.#");
+                    String distacia = twoDForm.format(distancia);
+                    if(distacia.length() == 2){
+                        distacia += ".0";
+                    }
+
+                    BusquedaSalonDeBelleza busquedaSalonDeBelleza = new BusquedaSalonDeBelleza(salonDeBelleza.getNombreSalonDeBelleza(), salonDeBelleza.getDireccion(),  distacia + " km");
+
+                    mAdapater.agregarSalon(busquedaSalonDeBelleza);
+                    mAdapater.crearCopia();
                 }
             }
 
@@ -146,6 +152,9 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
 
             }
         });
+
+        recyclerView.setAdapter(mAdapater);
+        mAdapater.setListener(this);
 
         rtdb.getReference().child("Salon de belleza").addChildEventListener(new ChildEventListener() {
             @Override
@@ -173,6 +182,14 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
 
             }
         });
+
+        int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text",null,null);
+        TextView searchText = searchView.findViewById(id);
+        Typeface typeface = ResourcesCompat.getFont(getContext(),R.font.josefin_sans);
+        searchText.setTypeface(typeface);
+
+        recyclerView.setTextFilterEnabled(true);
+        setupSearchView();
 
         return mView;
     }
@@ -277,8 +294,12 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
 
         double distancia = location.distanceTo(locationDestino) / 1000.0;
         DecimalFormat twoDForm = new DecimalFormat("#.#");
+        String distacia = twoDForm.format(distancia);
+        if(distacia.length() == 2){
+            distacia += ".0";
+        }
 
-        BusquedaSalonDeBelleza busquedaSalonDeBelleza = new BusquedaSalonDeBelleza(salonDeBelleza.getNombreSalonDeBelleza(), salonDeBelleza.getDireccion(), twoDForm.format(distancia) + " km");
+        BusquedaSalonDeBelleza busquedaSalonDeBelleza = new BusquedaSalonDeBelleza(salonDeBelleza.getNombreSalonDeBelleza(), salonDeBelleza.getDireccion(),  distacia + " km");
 
         if(paraAgregar)
             mAdapater.agregarSalon(busquedaSalonDeBelleza);
@@ -298,7 +319,6 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
         }
         Log.e("estado", busqueda);
         if( !busqueda.equals("") ) {
-            Log.e("hola", busqueda);
             mAdapater.limpiarSalones();
             rtdb.getReference().child("Buscar servicios salon de belleza").child(busqueda).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -306,7 +326,6 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
                     for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
                         String salonDeBelleza = childDataSnapshot.getKey();
 
-                        Log.e("hola", salonDeBelleza);
                         rtdb.getReference().child("Salon de belleza").child(salonDeBelleza).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -348,6 +367,40 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
 
     @Override
     public void onItemClick(BusquedaSalonDeBelleza salonDeBelleza) {
-        Toast.makeText(getContext(), salonDeBelleza.getNombreSalonDeBelleza(), Toast.LENGTH_SHORT).show();
+
+        Intent i = new Intent(getActivity(),InformacionSalonActivity.class);
+        i.putExtra("salon",salonDeBelleza.getNombreSalonDeBelleza());
+
+        startActivity(i);
+    }
+
+    private void setupSearchView()
+    {
+        searchView.setIconifiedByDefault(false);
+        searchView.setOnQueryTextListener(this);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryHint("Buscar salón");
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        if(TextUtils.isEmpty(query)){
+            mAdapater.filtrar("");
+            recyclerView.clearTextFilter();
+        } else {
+            mAdapater.filtrar(query);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if(TextUtils.isEmpty(newText)){
+            mAdapater.filtrar("");
+            recyclerView.clearTextFilter();
+        } else {
+            mAdapater.filtrar(newText);
+        }
+        return true;
     }
 }
