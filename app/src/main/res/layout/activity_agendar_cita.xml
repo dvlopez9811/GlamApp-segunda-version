@@ -28,23 +28,32 @@
             android:textColor="#000"
             android:layout_marginBottom="10dp"
             />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/nombre_salon_agendar_cita_activity"
+            android:id="@+id/ll_lista_servicios_disponibles_agendar_cita_activity"
+            >
+
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/lista_servicios_disponibles_agendar_cita_activity"
-            android:layout_marginBottom="10dp"
-            android:layout_below="@id/nombre_salon_agendar_cita_activity">
+            >
         </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
 
-        <Button
+    <Button
             android:layout_width="150dp"
-
             android:layout_height="wrap_content"
             android:id="@+id/btn_aceptar_agendar_cita_activity"
             android:text="Aceptar"
             android:fontFamily="@font/josefin_sans_thin"
             android:textAllCaps="false"
-            android:layout_below="@id/lista_servicios_disponibles_agendar_cita_activity"
+            android:layout_below="@id/ll_lista_servicios_disponibles_agendar_cita_activity"
             android:textSize="30dp"
             android:textColor="@color/colorBlanco"
             android:layout_centerHorizontal="true"
