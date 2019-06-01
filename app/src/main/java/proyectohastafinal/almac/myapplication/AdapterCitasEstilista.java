@@ -1,5 +1,6 @@
 package proyectohastafinal.almac.myapplication;
 
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -81,8 +82,7 @@ public class AdapterCitasEstilista extends RecyclerView.Adapter<AdapterCitasEsti
                 }
 
                 ((TextView) holder.root.findViewById(R.id.horainicio_renglon_cita_estilista)).setText(horarioinicio);
-                final Button btn_cancelar_cita_estilista = holder.root.findViewById(R.id.btn_cancelar_renglon_cita_estilista);
-                btn_cancelar_cita_estilista.setOnClickListener(new View.OnClickListener() {
+                ((ImageView)holder.root.findViewById(R.id.im_cancelar_renglon_cita_estilista)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         listener.onItemClick(citas.get(position));
