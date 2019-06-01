@@ -3,6 +3,7 @@ package proyectohastafinal.almac.myapplication;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,9 +17,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.FirebaseDatabase;
 
 import proyectohastafinal.almac.myapplication.model.Cliente;
@@ -149,15 +155,32 @@ public class RegistroCliente extends AppCompatActivity {
                         i.putExtra("correo", correo).putExtra("usuario", usuario).putExtra("nombre", nombre).putExtra("telefono", telefono).putExtra("pass", pass);
                         startActivity(i);
                     } else {
-                        auth.createUserWithEmailAndPassword(correo, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-                                rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).setValue(cl);
-                                Intent i = new Intent(RegistroCliente.this, MainActivity.class);
-                                startActivity(i);
-                                finish();
+                        auth.createUserWithEmailAndPassword(correo, pass).addOnSuccessListener(authResult -> {
+                            rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).setValue(cl);
+                            Intent i = new Intent(RegistroCliente.this, MainActivity.class);
+                            startActivity(i);
+                            finish();
 
-                                rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("cliente");
+                            rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("cliente");
+                        }).addOnCompleteListener(task -> {
+                            if (!task.isSuccessful())  {
+                                try {
+                                    throw task.getException();
+                                } catch (FirebaseAuthWeakPasswordException weakPassword) {
+                                    SpannableString s = new SpannableString("Por favor ingrese otra contraseña");
+                                    s.setSpan(new TypefaceSpan(ResourcesCompat.getFont(v.getContext(), R.font.josefin_sans)), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    registroEstilistaClienteEtContrasenha.setError(s);
+                                } catch (FirebaseAuthInvalidCredentialsException malformedEmail) {
+                                    SpannableString s = new SpannableString("Por favor ingrese otro correo electrónico");
+                                    s.setSpan(new TypefaceSpan(ResourcesCompat.getFont(v.getContext(), R.font.josefin_sans)), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    registroEstilistaClienteEtCorreo.setError(s);
+                                } catch (FirebaseAuthUserCollisionException existEmail)  {
+                                    SpannableString s = new SpannableString("Ya existe un usuario con este correo electrónico");
+                                    s.setSpan(new TypefaceSpan(ResourcesCompat.getFont(v.getContext(), R.font.josefin_sans)), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    registroEstilistaClienteEtCorreo.setError(s);
+                                } catch (Exception e) {
+
+                                }
                             }
                         });
                     }
@@ -166,6 +189,12 @@ public class RegistroCliente extends AppCompatActivity {
         });
 
         btn_registro_cliente_volver.setOnClickListener(v -> finish());
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     private class TypefaceSpan extends MetricAffectingSpan {
@@ -185,11 +214,5 @@ public class RegistroCliente extends AppCompatActivity {
             tp.setTypeface(mTypeface);
             tp.setFlags(tp.getFlags() | Paint.SUBPIXEL_TEXT_FLAG);
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
     }
 }
