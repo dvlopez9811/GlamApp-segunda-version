@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import proyectohastafinal.almac.myapplication.model.Cita;
 import proyectohastafinal.almac.myapplication.model.Cliente;
 import proyectohastafinal.almac.myapplication.model.Estilista;
+import proyectohastafinal.almac.myapplication.model.Servicio;
 
 public class AdapterCitasEstilista extends RecyclerView.Adapter<AdapterCitasEstilista.CustomViewHolder>{
 
@@ -28,25 +29,22 @@ public class AdapterCitasEstilista extends RecyclerView.Adapter<AdapterCitasEsti
     FirebaseDatabase rtdb;
 
 
-    public void agregarcita(Cita cita){
-        citas.add(cita);
-        notifyDataSetChanged();
-    }
+//    public void agregarcita(Cita cita){
+//        citas.add(cita);
+//        notifyDataSetChanged();
+//    }
 
     public static class CustomViewHolder extends RecyclerView.ViewHolder {
         public LinearLayout root;
         public CustomViewHolder(LinearLayout v) {
             super(v);
             root = v;
-
-
         }
-
     }
 
     public AdapterCitasEstilista(){
-        citas = new ArrayList<>();
         rtdb = FirebaseDatabase.getInstance();
+        citas = new ArrayList<>();
     }
 
     @Override
@@ -58,6 +56,10 @@ public class AdapterCitasEstilista extends RecyclerView.Adapter<AdapterCitasEsti
 
     @Override
     public void onBindViewHolder(final CustomViewHolder holder, final int position) {
+
+        Cita aux = citas.get(position);
+
+        Log.d("CITASSS", aux.getIdUsuario() + "");
 
         rtdb.getReference().child("usuario").child(citas.get(position).getIdUsuario()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -102,6 +104,13 @@ public class AdapterCitasEstilista extends RecyclerView.Adapter<AdapterCitasEsti
     @Override
     public int getItemCount() {
         return citas.size();
+    }
+
+    public void showAllCitas(ArrayList<Cita> allCitas) {
+        for (int i = 0; i < allCitas.size(); i++) {
+            if (!citas.contains(allCitas.get(i))) citas.add(allCitas.get(i));
+        }
+        notifyDataSetChanged();
     }
 
     //OBSERVER
