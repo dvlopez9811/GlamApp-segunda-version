@@ -73,6 +73,7 @@ public class CitasEstilistaFragment extends Fragment implements AdapterCitasEsti
         lista_citas_estilista = v.findViewById(R.id.lista_citas_estilista);
         adapterCitasEstilista = new AdapterCitasEstilista();
         adapterCitasEstilista.setListener(this);
+
         lista_citas_estilista.setLayoutManager(new LinearLayoutManager(v.getContext()));
         //lista_citas_estilista.setAdapter(adapterCitasEstilista);
         //lista_citas_estilista.setHasFixedSize(true);
