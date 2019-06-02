@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    tools:context=".PerfilFragment"
+    tools:context=".PerfilEstilistaFragment"
     android:layout_height="match_parent"
     android:padding="15dp">
 
@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Aqui iría tu nombre"
+            android:id="@+id/txt_nombre_estilista_fragment_perfil"
             android:fontFamily="@font/josefin_sans_thin"
             android:textStyle="bold"
             android:textSize="30dp"
@@ -44,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="correo"
+            android:id="@+id/txt_correo_estilista_fragment_perfil"
             android:fontFamily="@font/josefin_sans_thin"
             android:textStyle="bold"
             android:textSize="20dp"

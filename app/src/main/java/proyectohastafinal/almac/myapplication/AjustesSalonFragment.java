@@ -6,13 +6,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,6 +25,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
 public class AjustesSalonFragment extends Fragment {
@@ -36,6 +42,7 @@ public class AjustesSalonFragment extends Fragment {
 
     FirebaseDatabase rtdb;
     FirebaseAuth auth;
+    FirebaseStorage storage;
 
     public static AjustesSalonFragment getInstance(){
         instance = instance == null ? new AjustesSalonFragment() :instance;
@@ -95,6 +102,7 @@ public class AjustesSalonFragment extends Fragment {
 
         rtdb = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
+        storage=FirebaseStorage.getInstance();
 
         final String tuCorreo = "";
 
@@ -107,38 +115,38 @@ public class AjustesSalonFragment extends Fragment {
                     String nombreSalon = dataSnapshot.getValue(String.class);
                     nombre.setText(nombreSalon);
 
+                    rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("correo").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String tuCorreo = dataSnapshot.getValue(String.class);
+                            correo.setText(tuCorreo);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                        }
+                    });
+
+
+                    //Mostrar foto
+                    StorageReference ref = storage.getReference().child("salones de belleza").child(nombreSalon).child("profile");
+                    if(ref == null){
+                        Log.e("hola","es nulllllllllll");
+                    }
+                    ref.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(mView.getContext())
+                            .load(uri).apply(RequestOptions.circleCropTransform()).into((ImageView) mView.findViewById(R.id.foto_perfil_salon_fragment_ajustes)));
+
+
+
+                    ///////////////
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
 
-            rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("correo").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String tuCorreo = dataSnapshot.getValue(String.class);
-                    correo.setText(tuCorreo);
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
-
-            rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("nombreYApellido").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String tuNombre = dataSnapshot.getValue(String.class);
-                    nombre.setText(tuNombre);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
 
             btn_cerrar_sesion.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -158,8 +166,8 @@ public class AjustesSalonFragment extends Fragment {
             btn_cambiar_contrasenha.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(inflater.getContext(),"Implementar",Toast.LENGTH_SHORT);
-
+                    Intent i = new Intent(mView.getContext(),CambiarContrasenhaActivity.class);
+                    startActivity(i);
                 }
             });
         }

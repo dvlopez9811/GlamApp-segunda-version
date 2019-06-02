@@ -2,6 +2,7 @@ package proyectohastafinal.almac.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
@@ -20,6 +22,7 @@ import com.google.firebase.auth.EmailAuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -63,11 +66,12 @@ public class PerfilFragment extends Fragment {
 
         correo = mView.findViewById(R.id.perfil_correo);
         nombre = mView.findViewById(R.id.perfil_nombre);
+        btn_cambiar_contrasenha = mView.findViewById(R.id.btn_cambiar_contraseña_perfil_fragment);
+        btn_cerrar_sesion = mView.findViewById(R.id.btn_cerrar_sesion);
 
         rtdb = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
 
-        final String tuCorreo = "";
 
             if ( auth.getCurrentUser() != null) {
                 rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("correo").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -97,7 +101,6 @@ public class PerfilFragment extends Fragment {
                 });
 
             // Inflate the layout for this fragment
-            btn_cerrar_sesion = mView.findViewById(R.id.btn_cerrar_sesion);
             btn_cerrar_sesion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -113,7 +116,6 @@ public class PerfilFragment extends Fragment {
                 }
             });
 
-            btn_cambiar_contrasenha = mView.findViewById(R.id.btn_cambiar_contraseña_perfil_fragment);
 
             btn_cambiar_contrasenha.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -122,7 +124,24 @@ public class PerfilFragment extends Fragment {
                     startActivity(i);
                 }
             });
-        }
+
+                for (UserInfo user: auth.getCurrentUser().getProviderData()) {
+                    if (user.getProviderId().equals("google.com")) {
+                        btn_cambiar_contrasenha.setVisibility(View.GONE);
+                        ((ImageView)mView.findViewById(R.id.imagen_boton_cambiar_contrasena_cliente)).setVisibility(View.GONE);
+
+                    }
+                    else if(user.getProviderId().equals("facebook.com")){
+                        btn_cambiar_contrasenha.setVisibility(View.GONE);
+                        ((ImageView)mView.findViewById(R.id.imagen_boton_cambiar_contrasena_cliente)).setVisibility(View.GONE);
+                    }
+                }
+            }else{
+                btn_cambiar_contrasenha.setVisibility(View.GONE);
+                correo.setVisibility(View.GONE);
+                nombre.setVisibility(View.GONE);
+                ((ImageView)mView.findViewById(R.id.imagen_boton_cambiar_contrasena_cliente)).setVisibility(View.GONE);
+            }
 
         return mView;
     }
