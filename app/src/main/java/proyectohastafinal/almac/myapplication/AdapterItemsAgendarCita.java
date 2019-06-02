@@ -64,11 +64,19 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
     private boolean diaelegidoeshoy;
     private int posicionspinner;
 
+    private HashMap<String, Boolean> servicioEscogido;
+
     public AdapterItemsAgendarCita(String salon){
         idestilistas = new ArrayList<>();
         this.salon = salon;
         adapterHorarios = new ArrayList<>();
         listaHorarios = new ArrayList<>();
+        servicioEscogido = new HashMap<>();
+        servicioEscogido.put("Maquillaje", false);
+        servicioEscogido.put("Depilación", false);
+        servicioEscogido.put("Masaje", false);
+        servicioEscogido.put("Peluquería", false);
+        servicioEscogido.put("Uñas", false);
     }
 
     @NonNull
@@ -97,6 +105,7 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
     public void onBindViewHolder(@NonNull final CustomViewHolder holder, int position) {
 
         tiposervicio = servicios.get(position).getTipo();
+        Log.e("SERVICIOS", tiposervicio + "");
         ((TextView) holder.root.findViewById(R.id.txt_tipo_servicio_item_agendar_cita)).setText(tiposervicio);
 
         listaHorarios.add(holder.root.findViewById(R.id.lista_horarios_disponibles_item_agendar_cita));
@@ -109,16 +118,59 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
 
         //Imagen de servicio
 
-        if(tiposervicio.equals("Maquillaje"))
+        if(tiposervicio.equals("Maquillaje")) {
             ((ImageView)holder.root.findViewById(R.id.imagen_tipo_servicio_item_agendar_cita)).setImageResource(R.drawable.ic_new_maquillaje_morado);
-        else if(tiposervicio.equals("Depilación"))
+            ((ImageButton)holder.root.findViewById(R.id.ib_aceptar_item_agendar_cita)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("ENTRANDO ACA", "MAQUILLAJE");
+                    tiposervicio = "Maquillaje";
+                    doAction(holder, position);
+                }
+            });
+        }
+        else if(tiposervicio.equals("Depilación")) {
             ((ImageView)holder.root.findViewById(R.id.imagen_tipo_servicio_item_agendar_cita)).setImageResource(R.drawable.ic_new_depilacion_morado);
-        else if(tiposervicio.equals("Masaje"))
+            ((ImageButton)holder.root.findViewById(R.id.ib_aceptar_item_agendar_cita)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("ENTRANDO ACA", "DEPILACION");
+                    tiposervicio = "Depilación";
+                    doAction(holder, position);
+
+                }
+            });
+        }
+        else if(tiposervicio.equals("Masaje")){
             ((ImageView)holder.root.findViewById(R.id.imagen_tipo_servicio_item_agendar_cita)).setImageResource(R.drawable.ic_new_masaje_morado);
-        else if(tiposervicio.equals("Peluquería"))
+            ((ImageButton)holder.root.findViewById(R.id.ib_aceptar_item_agendar_cita)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tiposervicio = "Masaje";
+                    doAction(holder, position);
+                }
+            });
+        }
+        else if(tiposervicio.equals("Peluquería")) {
             ((ImageView)holder.root.findViewById(R.id.imagen_tipo_servicio_item_agendar_cita)).setImageResource(R.drawable.ic_new_peluqueria_morado);
-        else if(tiposervicio.equals("Uñas"))
+            ((ImageButton)holder.root.findViewById(R.id.ib_aceptar_item_agendar_cita)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tiposervicio = "Peluquería";
+                    doAction(holder, position);
+                }
+            });
+        }
+        else if(tiposervicio.equals("Uñas")) {
             ((ImageView)holder.root.findViewById(R.id.imagen_tipo_servicio_item_agendar_cita)).setImageResource(R.drawable.uc_new_unas_morado);
+            ((ImageButton)holder.root.findViewById(R.id.ib_aceptar_item_agendar_cita)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tiposervicio = "Uñas";
+                    doAction(holder, position);
+                }
+            });
+        }
 
         rtdb.getReference().child("Salon de belleza").child(salon).child("Estilistas").child(servicios.get(position).getTipo())
                 .addValueEventListener(new ValueEventListener() {
@@ -173,10 +225,7 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                 int mes = calendario.get(Calendar.MONTH);
                 int anio = calendario.get(Calendar.YEAR);
 
-
                 dpd = new DatePickerDialog(holder.root.getContext(), new DatePickerDialog.OnDateSetListener() {
-
-
 
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         ((TextView) holder.root.findViewById(R.id.mes_seleccionado_item_agendar_cita)).setText(month + 1 + "");
@@ -195,7 +244,6 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                         c.set(year,month,dayOfMonth);
                         diaelegido = DIASSEMANA[c.get(Calendar.DAY_OF_WEEK)-1];
                         fechaelegida = year+"-"+(month+1)+"-"+dayOfMonth;
-
 
                         //Log.e(">>>",dia+" "+dayOfMonth+"-"+mes+" "+month+"-"+anio+" "+year+"/"+diaelegido);
 
@@ -217,58 +265,9 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
 
                 }, anio, mes, dia);
                 dpd.show();
-
-
-
             }
         });
 
-
-
-        ((ImageButton)holder.root.findViewById(R.id.ib_aceptar_item_agendar_cita)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (horaelegida != 0) {
-                    String idcita = UUID.randomUUID().toString();
-                    Cita cita = new Cita(idcita, Cita.RESERVADA, diaelegido, fechaelegida, horaelegida + 1, horaelegida, "", salon,
-                            tiposervicio, idestilista, auth.getCurrentUser().getUid());
-                    rtdb.getReference().child("Citas").child(idcita).setValue(cita);
-                    rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("citas").child(idcita).setValue(idcita);
-                    rtdb.getReference().child("Estilista").child(idestilista).child("citas").child(idcita).setValue(idcita);
-                    rtdb.getReference().child("Estilista").child(idestilista).child("agenda").child(fechaelegida).child("horas").child(horaelegida + "").setValue(horaelegida);
-
-                    darHorarios(holder,position);
-
-                    String horaMostrada = "";
-                    if(horaelegida<12){
-                        horaMostrada=horaelegida+" a.m";
-                    }
-                    else {
-                        if(horaelegida!=12)
-                            horaelegida-=12;
-                        horaMostrada=horaelegida+" p.m";
-                    }
-
-                    Toast.makeText(holder.root.getContext(), "Cita enviada al estilista", Toast.LENGTH_LONG).show();
-
-                    ((TextView)holder.root.findViewById(R.id.txt_cita_confirmada)).setText("Se agendó con éxito la cita el día " +
-                            ((TextView) holder.root.findViewById(R.id.dia_seleccionado_item_agendar_cita)).getText() + "/" +
-                            ((TextView) holder.root.findViewById(R.id.mes_seleccionado_item_agendar_cita)).getText() + " a las: " +
-                            horaMostrada);
-                    (holder.root.findViewById(R.id.layout_confirmacion_cita)).setVisibility(LinearLayout.VISIBLE);
-                    (holder.root.findViewById(R.id.ib_rechazar_item_agendar_cita)).setVisibility(ImageButton.GONE);
-                    (holder.root.findViewById(R.id.ib_aceptar_item_agendar_cita)).setVisibility(ImageButton.GONE);
-                    (holder.root.findViewById(R.id.txt_tipo_servicio_item_agendar_cita)).setVisibility(TextView.GONE);
-                    (holder.root.findViewById(R.id.linea_estilista_item_agendar_cita)).setVisibility(LinearLayout.GONE);
-                    (holder.root.findViewById(R.id.linea_date_picker_item_agendar_cita)).setVisibility(LinearLayout.GONE);
-                    (holder.root.findViewById(R.id.titulo_horarios_disponibles_item_agendar_cita)).setVisibility(TextView.GONE);
-                    (holder.root.findViewById(R.id.ll_lista_servicios_disponibles_agendar_cita_activity)).setVisibility(LinearLayout.GONE);
-                    horaelegida = 0;
-                }else{
-                    Toast.makeText(holder.root.getContext(), "Elige un horario", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
 
         ((ImageButton)holder.root.findViewById(R.id.ib_rechazar_item_agendar_cita)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -280,7 +279,48 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
 
     }
 
+    public void doAction (CustomViewHolder holder, int position) {
 
+        if (horaelegida != 0) {
+            String idcita = UUID.randomUUID().toString();
+            Log.e("TIPO AL GUARDAR", tiposervicio + "");
+            Cita cita = new Cita(idcita, Cita.RESERVADA, diaelegido, fechaelegida, horaelegida + 1, horaelegida, "", salon,
+                    tiposervicio, idestilista, auth.getCurrentUser().getUid());
+            rtdb.getReference().child("Citas").child(idcita).setValue(cita);
+            rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("citas").child(idcita).setValue(idcita);
+            rtdb.getReference().child("Estilista").child(idestilista).child("citas").child(idcita).setValue(idcita);
+            rtdb.getReference().child("Estilista").child(idestilista).child("agenda").child(fechaelegida).child("horas").child(horaelegida + "").setValue(horaelegida);
+
+            darHorarios(holder, position);
+
+            String horaMostrada = "";
+            if (horaelegida < 12) {
+                horaMostrada = horaelegida + " a.m";
+            } else {
+                if (horaelegida != 12)
+                    horaelegida -= 12;
+                horaMostrada = horaelegida + " p.m";
+            }
+
+            Toast.makeText(holder.root.getContext(), "Cita enviada al estilista", Toast.LENGTH_LONG).show();
+
+            ((TextView) holder.root.findViewById(R.id.txt_cita_confirmada)).setText("Se agendó con éxito la cita el día " +
+                    ((TextView) holder.root.findViewById(R.id.dia_seleccionado_item_agendar_cita)).getText() + "/" +
+                    ((TextView) holder.root.findViewById(R.id.mes_seleccionado_item_agendar_cita)).getText() + " a las: " +
+                    horaMostrada);
+            (holder.root.findViewById(R.id.layout_confirmacion_cita)).setVisibility(LinearLayout.VISIBLE);
+            (holder.root.findViewById(R.id.ib_rechazar_item_agendar_cita)).setVisibility(ImageButton.GONE);
+            (holder.root.findViewById(R.id.ib_aceptar_item_agendar_cita)).setVisibility(ImageButton.GONE);
+            (holder.root.findViewById(R.id.txt_tipo_servicio_item_agendar_cita)).setVisibility(TextView.GONE);
+            (holder.root.findViewById(R.id.linea_estilista_item_agendar_cita)).setVisibility(LinearLayout.GONE);
+            (holder.root.findViewById(R.id.linea_date_picker_item_agendar_cita)).setVisibility(LinearLayout.GONE);
+            (holder.root.findViewById(R.id.titulo_horarios_disponibles_item_agendar_cita)).setVisibility(TextView.GONE);
+            (holder.root.findViewById(R.id.ll_lista_servicios_disponibles_agendar_cita_activity)).setVisibility(LinearLayout.GONE);
+            horaelegida = 0;
+        } else {
+            Toast.makeText(holder.root.getContext(), "Elige un horario", Toast.LENGTH_LONG).show();
+        }
+    }
 
     @Override
     public int getItemCount() {
@@ -387,8 +427,6 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
             }
         }
     }
-
-
 
     @Override
     public void onClickHorario(int horaseleccionada, Context context) {
