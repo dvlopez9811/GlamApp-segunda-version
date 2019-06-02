@@ -119,7 +119,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/fav_128_sin_seleccionar"
+                android:visibility="gone"
                 android:id="@+id/btn_anadir_favoritos_informacion_salon_activity"
                 android:layout_below="@id/imagen_perfil_info_salon_activity"
                 android:layout_marginRight="20dp"
