@@ -32,7 +32,7 @@
                     android:layout_below="@id/imagen_perfil_perfil_salon_fragment"
                     android:layout_alignParentEnd="true"
                     android:fontFamily="@font/josefin_sans"
-
+                    android:id="@+id/cambiar_imagen_perfil_salon_fragment"
                     />
             </RelativeLayout>
 
@@ -152,8 +152,11 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/ic_add_imagen"
+                    android:id="@+id/boton_editar_servicios_perfil_salon_fragment"
                     />
+
             </LinearLayout>
+
             <android.support.v7.widget.RecyclerView
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
@@ -163,7 +166,6 @@
                 android:layout_below="@id/linea_agregar_servicio">
 
             </android.support.v7.widget.RecyclerView>
-
 
             <LinearLayout
                 android:id="@+id/titulo_catalogo_perfil_salon_fragment"
