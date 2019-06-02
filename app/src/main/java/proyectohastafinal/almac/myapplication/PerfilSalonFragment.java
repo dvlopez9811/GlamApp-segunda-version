@@ -2,6 +2,7 @@ package proyectohastafinal.almac.myapplication;
 
 import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -29,7 +30,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,10 +49,12 @@ import java.util.stream.Stream;
 import proyectohastafinal.almac.myapplication.model.Marcador;
 import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 import proyectohastafinal.almac.myapplication.model.Servicio;
+import proyectohastafinal.almac.myapplication.util.UtilDomi;
 
 
 public class PerfilSalonFragment extends Fragment {
 
+    private static final int GALLERY_CALLBACK_ID = 101;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,7 +76,9 @@ public class PerfilSalonFragment extends Fragment {
     private static PerfilSalonFragment instance;
     private ArrayList<String> serviciosViejos;
     private ArrayList<String> serviciosNuevos;
+    private File photoFile;
 
+    private ImageView auxFotoPerfilSalon;
 
     public static PerfilSalonFragment getInstance() {
         instance = instance == null ? new PerfilSalonFragment() : instance;
@@ -120,7 +129,6 @@ public class PerfilSalonFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View mView = inflater.inflate(R.layout.fragment_perfil_salon, container, false);
-        Log.d("USUARIO", auth.getCurrentUser().getUid());
         rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -216,11 +224,26 @@ public class PerfilSalonFragment extends Fragment {
                     }
                 });
 
+                // TODO para varela, esto se encarga de estar pendiente del texto para cambiar la foto y abrir la galeria y a ver el onActivityResult
+                ( mView.findViewById(R.id.cambiar_imagen_perfil_salon_fragment)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent i = new Intent();
+                        i.setAction(Intent.ACTION_GET_CONTENT);
+                        i.setType("image/*");
+                        startActivityForResult(i, GALLERY_CALLBACK_ID);
+
+                    }
+                });
+
                 //Mostrar foto
                 StorageReference ref = storage.getReference().child("salones de belleza").child(nombreSalon).child("profile");
                 if(ref == null){
                     Log.e("hola","es nulllllllllll");
                 }
+
+                auxFotoPerfilSalon = mView.findViewById(R.id.imagen_perfil_perfil_salon_fragment);
 
                 ref.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(mView.getContext())
                             .load(uri).into((ImageView) mView.findViewById(R.id.imagen_perfil_perfil_salon_fragment)));
@@ -377,22 +400,31 @@ public class PerfilSalonFragment extends Fragment {
         return ordenada;
     }
 
-    public void comprobarServiciosEscogidos () {
+    //TODO por aca lo que hace es recibir una imagen de la galeria y ponerla de fondo con un hilito y ademas llamar a subirImagen que lo que hace es
+    //TODO subir la imagen a la storage
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == GALLERY_CALLBACK_ID && resultCode == RegistroSalonDeBelleza.RESULT_OK) {
+            final Uri uri = data.getData();
+            photoFile = new File(  UtilDomi.getPath(this.getContext(), uri)  );
+            getActivity().runOnUiThread( () -> {
+                auxFotoPerfilSalon.setBackground(null);
+                auxFotoPerfilSalon.setImageURI(uri);
+            });
+            subirImagen();
+        }
+    }
 
-        /*if (registroSalonDeBellezaCheckBoxUñas.isChecked())
-            servicios.add(registroSalonDeBellezaCheckBoxUñas.getText().toString());
-
-        if (registroSalonDeBellezaCheckBoxMaquillaje.isChecked())
-            servicios.add(registroSalonDeBellezaCheckBoxMaquillaje.getText().toString());
-
-        if (registroSalonDeBellezaCheckBoxMasaje.isChecked())
-            servicios.add(registroSalonDeBellezaCheckBoxMasaje.getText().toString());
-
-        if (registroSalonDeBellezaCheckBoxDepilacion.isChecked())
-            servicios.add(registroSalonDeBellezaCheckBoxDepilacion.getText().toString());
-
-        if (registroSalonDeBellezaCheckBoxPeluqueria.isChecked())
-            servicios.add(registroSalonDeBellezaCheckBoxPeluqueria.getText().toString());*/
+    //TODO sube a storage
+    private void subirImagen(){
+        StorageReference ref = storage.getReference().child("salones de belleza").child(nombreSalon).child("profile");
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(photoFile);
+            ref.putStream(fis);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -32,7 +32,7 @@
                     android:layout_below="@id/imagen_perfil_perfil_salon_fragment"
                     android:layout_alignParentEnd="true"
                     android:fontFamily="@font/josefin_sans"
-
+                    android:id="@+id/cambiar_imagen_perfil_salon_fragment"
                     />
             </RelativeLayout>
 
