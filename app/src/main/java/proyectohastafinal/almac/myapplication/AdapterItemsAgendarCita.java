@@ -64,19 +64,11 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
     private boolean diaelegidoeshoy;
     private int posicionspinner;
 
-    private HashMap<String, Boolean> servicioEscogido;
-
     public AdapterItemsAgendarCita(String salon){
         idestilistas = new ArrayList<>();
         this.salon = salon;
         adapterHorarios = new ArrayList<>();
         listaHorarios = new ArrayList<>();
-        servicioEscogido = new HashMap<>();
-        servicioEscogido.put("Maquillaje", false);
-        servicioEscogido.put("Depilación", false);
-        servicioEscogido.put("Masaje", false);
-        servicioEscogido.put("Peluquería", false);
-        servicioEscogido.put("Uñas", false);
     }
 
     @NonNull
