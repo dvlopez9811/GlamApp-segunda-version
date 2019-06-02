@@ -222,7 +222,7 @@
                     android:id="@+id/registro_salon_belleza_et_contrasenha_confimar"
                     android:fontFamily="@font/josefin_sans"
                     android:background="@drawable/btn_redondeado_rosado"
-                    android:hint="Confirmar ontraseña*"
+                    android:hint="Confirmar contraseña*"
                     android:inputType="textPassword"
                     android:textSize="20dp"
                     android:textAllCaps="false"

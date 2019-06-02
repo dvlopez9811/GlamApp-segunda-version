@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layoutDirection="rtl"
             android:layout_toRightOf="@id/imagen_servicio_renglon_perfil_fragment"
             android:id="@+id/checkbox_servicio_renglon_servicio_perfil_fragmen"
             android:text="Service"
