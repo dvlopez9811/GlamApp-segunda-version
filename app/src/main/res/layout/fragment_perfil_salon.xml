@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:id="@+id/scroll_perfil_salon"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/relative_imagen_perfil_salon_fragment"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:src="@drawable/default_salon"
+                    android:layout_marginBottom="5dp"
+                    android:scaleType="centerCrop"
+                    android:id="@+id/imagen_perfil_perfil_salon_fragment"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cambia la foto de perfil de tu salón"
+                    android:layout_below="@id/imagen_perfil_perfil_salon_fragment"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/josefin_sans"
+                    android:id="@+id/cambiar_imagen_perfil_salon_fragment"
+                    />
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/titulo_nombre_salon_perfil_fragment_"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_imagen_perfil_salon_fragment"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="3dp"
+                android:fontFamily="@font/josefin_sans"
+                android:textColor="@color/colorPrimaryMuyDark"
+                android:textSize="40sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/linea_ubicacion_salon_perfil"
+                android:layout_below="@id/linea_estrellas_perfil_salon">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dirección: "
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/josefin_sans"
+                    android:textColor="@color/colorPrimaryMuyDark"
+
+                    android:textSize="20sp"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="#777"
+                    android:enabled="false"
+                    android:fontFamily="@font/josefin_sans"
+                    android:id="@+id/et_uibacion_editable_perfil_salon_fragment"
+                    android:background="@color/fui_transparent"
+                    android:layout_marginRight="20dp"
+                    android:singleLine="true"/>
+                <Button
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/edit"
+                    android:id="@+id/boton_editar_ubicacion_perfil_salon_fragment"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="3dp"
+                android:id="@+id/linea_estrellas_perfil_salon"
+                android:layout_below="@id/titulo_nombre_salon_perfil_fragment_">
+
+                <ImageView
+                    android:id="@+id/calificacion_1_perfil_salon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_calificacion_25x25"/>
+
+                <ImageView
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/calificacion_2_perfil_salon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_calificacion_25x25"/>
+
+                <ImageView
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/calificacion_3_perfil_salon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_calificacion_25x25"/>
+
+                <ImageView
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/calificacion_4_perfil_salon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_calificacion_25x25"/>
+
+                <ImageView
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/calificacion_5_perfil_salon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_calificacion_25x25"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/linea_agregar_servicio"
+                android:layout_below="@id/linea_ubicacion_salon_perfil">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Agrega un servicio"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/josefin_sans"
+                    android:textColor="@color/colorPrimaryMuyDark"
+                    android:textSize="20sp"/>
+
+                <Button
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/ic_add_imagen"
+                    android:id="@+id/boton_editar_servicios_perfil_salon_fragment"
+                    />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/listado_servicios_perfil_salon_fragment"
+                android:layout_below="@id/linea_agregar_servicio">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:id="@+id/titulo_catalogo_perfil_salon_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/listado_servicios_perfil_salon_fragment"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/josefin_sans"
+                    android:text="Catálogo"
+                    android:textColor="@color/colorPrimaryMuyDark"
+                    android:textSize="25sp" />
+
+                <Button
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/ic_add_imagen" />
+            </LinearLayout>
+
+            <proyectohastafinal.almac.myapplication.ExpandableHeightGridView
+                android:id="@+id/grid_Catalogo_informacion_salon_activity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fastScrollAlwaysVisible="true"
+                android:gravity="center"
+                android:numColumns="auto_fit"
+                android:padding="10dp"
+                android:verticalSpacing="2dp"
+                android:horizontalSpacing="1dp"
+                android:layout_below="@id/titulo_catalogo_perfil_salon_fragment"
+                >
+
+            </proyectohastafinal.almac.myapplication.ExpandableHeightGridView>
+
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

@@ -141,8 +141,13 @@ public class LoginActivity extends AppCompatActivity {
                             Intent i = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(i);
                             finish();
-                        }else{
+                        }else if(tipo.equals("estilista")){
                             Intent i = new Intent(LoginActivity.this, MainEstilistaActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+                        else{
+                            Intent i = new Intent(LoginActivity.this, MainSalonActivity.class);
                             startActivity(i);
                             finish();
                         }
