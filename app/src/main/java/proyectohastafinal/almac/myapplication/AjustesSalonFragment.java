@@ -132,7 +132,7 @@ public class AjustesSalonFragment extends Fragment {
                     StorageReference ref = storage.getReference().child("salones de belleza").child(nombreSalon).child("profile");
                     if(ref == null){
                         Log.e("hola","es nulllllllllll");
-                    }
+                    }else
                     ref.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(mView.getContext())
                             .load(uri).apply(RequestOptions.circleCropTransform()).into((ImageView) mView.findViewById(R.id.foto_perfil_salon_fragment_ajustes)));
 

@@ -62,7 +62,6 @@
                 android:layout_marginLeft="20dp"
                 android:elevation="3dp"
                 android:id="@+id/imagen_boton_cambiar_contrasena_cliente"
-
                 android:src="@drawable/ic_password_perfil_64" />
 
             <Button

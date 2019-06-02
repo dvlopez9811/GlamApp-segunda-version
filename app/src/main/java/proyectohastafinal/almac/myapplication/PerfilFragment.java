@@ -141,6 +141,8 @@ public class PerfilFragment extends Fragment {
                 correo.setVisibility(View.GONE);
                 nombre.setVisibility(View.GONE);
                 ((ImageView)mView.findViewById(R.id.imagen_boton_cambiar_contrasena_cliente)).setVisibility(View.GONE);
+                ((ImageView)mView.findViewById(R.id.foto_perfil_usuario_fragment_perfil)).setVisibility(View.GONE);
+
             }
 
         return mView;

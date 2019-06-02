@@ -23,16 +23,6 @@
                 />
 
 
-
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cambia tu foto de perfil"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/txt_cambiar_foto_perfil_salon"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

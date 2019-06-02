@@ -16,10 +16,9 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:id="@+id/foto_perfil_estilista_fragment_perfil"
-            android:src="@drawable/ic_foto_perfil_defecto_estilista"
             android:layout_marginBottom="10dp"
             />
 
@@ -29,11 +28,10 @@
             android:text="Cambia tu foto de perfil"
             android:textStyle="bold"
             android:layout_marginBottom="10dp"
-            android:id="@+id/txt_cambiar_foto_perfil"/>
+            android:id="@+id/txt_cambiar_foto_perfil_estilista"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Aqui iría tu nombre"
             android:id="@+id/txt_nombre_estilista_fragment_perfil"
             android:fontFamily="@font/josefin_sans_thin"
             android:textStyle="bold"
@@ -44,7 +42,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="correo"
             android:id="@+id/txt_correo_estilista_fragment_perfil"
             android:fontFamily="@font/josefin_sans_thin"
             android:textStyle="bold"
@@ -67,7 +64,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/btn_cambiar_contraseña_perfil_fragment"
+                android:id="@+id/btn_cambiar_contraseña_perfil_estilista_fragment"
                 android:background="@drawable/btn_redondeado_normal"
                 android:text="Cambia tu contraseña"
                 android:textSize="20dp"
@@ -93,7 +90,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/btn_cerrar_sesion"
+                android:id="@+id/btn_cerrar_sesion_estilista"
                 android:background="@drawable/btn_redondeado_normal"
                 android:text="Salir"
                 android:textSize="20dp"

@@ -28,10 +28,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cambia la foto de perfil de tu salón"
+                    android:text="Subir nueva foto de perfil"
                     android:layout_below="@id/imagen_perfil_perfil_salon_fragment"
                     android:layout_alignParentEnd="true"
                     android:fontFamily="@font/josefin_sans"
+                    android:layout_marginRight="10dp"
                     android:id="@+id/cambiar_imagen_perfil_salon_fragment"
                     />
             </RelativeLayout>
@@ -140,20 +141,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Agrega un servicio"
-                    android:layout_marginLeft="20dp"
+                    android:text="Servicios (Selecciona los que desees añadir)"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="10dp"
                     android:fontFamily="@font/josefin_sans"
                     android:textColor="@color/colorPrimaryMuyDark"
                     android:textSize="20sp"/>
 
-                <Button
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/ic_add_imagen"
-                    android:id="@+id/boton_editar_servicios_perfil_salon_fragment"
-                    />
+
 
             </LinearLayout>
 
@@ -167,13 +163,45 @@
 
             </android.support.v7.widget.RecyclerView>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/listado_servicios_perfil_salon_fragment"
+                android:id="@+id/linea_anadir_nuevos_servicios">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Añadir nuevos servicios"
+                    android:fontFamily="@font/josefin_sans"
+                    android:textColor="@color/colorPrimaryMuyDark"
+                    android:layout_marginRight="20dp"
+                    android:textSize="25dp"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="50dp"
+                    android:textAllCaps="false"
+                    android:background="@drawable/btn_redondeado_rosado"
+                    android:id="@+id/boton_editar_servicios_perfil_salon_fragment"
+                   />
+                <ImageView
+                    android:layout_alignParentStart="true"
+                    android:layout_width="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_centerVertical="true"
+                    android:elevation="3dp"
+                    android:layout_height="25dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_add_imagen"
+                    />
+
+            </RelativeLayout>
             <LinearLayout
                 android:id="@+id/titulo_catalogo_perfil_salon_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/listado_servicios_perfil_salon_fragment"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:layout_below="@id/linea_anadir_nuevos_servicios"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -184,18 +212,20 @@
                     android:text="Catálogo"
                     android:textColor="@color/colorPrimaryMuyDark"
                     android:textSize="25sp" />
-
                 <Button
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginRight="20dp"
+                    android:id="@+id/boton_agregar_al_catalogo"
                     android:background="@drawable/ic_add_imagen" />
+
             </LinearLayout>
+
 
             <proyectohastafinal.almac.myapplication.ExpandableHeightGridView
                 android:id="@+id/grid_Catalogo_informacion_salon_activity"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:fastScrollAlwaysVisible="true"
                 android:gravity="center"
                 android:numColumns="auto_fit"

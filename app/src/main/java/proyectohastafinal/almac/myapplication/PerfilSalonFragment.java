@@ -55,6 +55,7 @@ import proyectohastafinal.almac.myapplication.util.UtilDomi;
 public class PerfilSalonFragment extends Fragment {
 
     private static final int GALLERY_CALLBACK_ID = 101;
+    private static final int GALLERY_CALLBACK_ID_CATALOGO = 102;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,6 +78,7 @@ public class PerfilSalonFragment extends Fragment {
     private ArrayList<String> serviciosViejos;
     private ArrayList<String> serviciosNuevos;
     private File photoFile;
+    private File photoFileCatalogo;
 
     private ImageView auxFotoPerfilSalon;
 
@@ -249,18 +251,18 @@ public class PerfilSalonFragment extends Fragment {
                             .load(uri).into((ImageView) mView.findViewById(R.id.imagen_perfil_perfil_salon_fragment)));
 
                 final long[] fotos = new long[1];
-                final ArrayList<Uri> uris = new ArrayList<>();
+
                 //Catalogo
-                gridCatalogo =  mView.findViewById(R.id.grid_Catalogo_informacion_salon_activity);
-                adapterCatalogo= new AdapterCatalogoPerfilSalon(mView.getContext(),uris);
-                gridCatalogo.setAdapter(adapterCatalogo);
-                gridCatalogo.setExpanded(true);
+
                 // Catálogo
-                Log.d("NOMBRE SALIN", nombreSalon);
                 rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("fotos").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Log.e("entra>>>>>>>>>>>>>>", nombreSalon);
+                        final ArrayList<Uri> uris = new ArrayList<>();
+                        gridCatalogo =  mView.findViewById(R.id.grid_Catalogo_informacion_salon_activity);
+                        adapterCatalogo= new AdapterCatalogoPerfilSalon(mView.getContext(),uris);
+                        gridCatalogo.setAdapter(adapterCatalogo);
+                        gridCatalogo.setExpanded(true);
                         long fotos = (long) dataSnapshot.getValue();
                         for (int i = 1; i <= fotos; i++){
                             StorageReference ref2 = storage.getReference().child("salones de belleza").child(nombreSalon).child(i+".png");
@@ -328,6 +330,15 @@ public class PerfilSalonFragment extends Fragment {
 
 
 
+                mView.findViewById(R.id.boton_agregar_al_catalogo).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent();
+                        i.setAction(Intent.ACTION_GET_CONTENT);
+                        i.setType("image/*");
+                        startActivityForResult(i, GALLERY_CALLBACK_ID_CATALOGO);
+                    }
+                });
 
 
 
@@ -341,6 +352,7 @@ public class PerfilSalonFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
         return mView;
     }
 
@@ -413,6 +425,11 @@ public class PerfilSalonFragment extends Fragment {
             });
             subirImagen();
         }
+        if (requestCode == GALLERY_CALLBACK_ID_CATALOGO && resultCode == RegistroSalonDeBelleza.RESULT_OK) {
+            final Uri uri = data.getData();
+            photoFileCatalogo = new File(  UtilDomi.getPath(this.getContext(), uri)  );
+            subirImagenCatalogo();
+        }
     }
 
     //TODO sube a storage
@@ -425,6 +442,35 @@ public class PerfilSalonFragment extends Fragment {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+    }
+    private void subirImagenCatalogo(){
+
+        rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("fotos").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                long fotos = (long) dataSnapshot.getValue();
+                long nuevoTamaño=fotos+1;
+                StorageReference ref = storage.getReference().child("salones de belleza").child(nombreSalon).child(nuevoTamaño+".png");
+                FileInputStream fis = null;
+                try {
+                    fis = new FileInputStream(photoFileCatalogo);
+                    ref.putStream(fis);
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("fotos").setValue(nuevoTamaño);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
 
     }
 
