@@ -1,62 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20dp"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Agenda tu cita en"
-            android:fontFamily="@font/josefin_sans_thin"
-            android:textStyle="bold"
-            android:textSize="40sp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/titulo_agendar_cita"
-            android:textColor="#000"
-            />
+    <ScrollView android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/josefin_sans_thin"
-            android:textStyle="bold"
-            android:textSize="36sp"
-            android:layout_below="@id/titulo_agendar_cita"
-            android:id="@+id/nombre_salon_agendar_cita_activity"
-            android:textColor="#000"
-            android:layout_marginBottom="10dp"
-            />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="10dp"
-            android:layout_below="@id/nombre_salon_agendar_cita_activity"
-            android:id="@+id/ll_lista_servicios_disponibles_agendar_cita_activity"
-            >
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Agenda tu cita en"
+                android:fontFamily="@font/josefin_sans_thin"
+                android:textStyle="bold"
+                android:textSize="40sp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/titulo_agendar_cita"
+                android:textColor="#000"
+                />
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/lista_servicios_disponibles_agendar_cita_activity"
-            >
-        </android.support.v7.widget.RecyclerView>
-        </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/josefin_sans_thin"
+                android:textStyle="bold"
+                android:textSize="36sp"
+                android:layout_below="@id/titulo_agendar_cita"
+                android:id="@+id/nombre_salon_agendar_cita_activity"
+                android:textColor="#000"
+                android:layout_marginBottom="10dp"
+                />
 
-    <Button
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_aceptar_agendar_cita_activity"
-            android:text="Aceptar"
-            android:fontFamily="@font/josefin_sans_thin"
-            android:textAllCaps="false"
-            android:layout_below="@id/ll_lista_servicios_disponibles_agendar_cita_activity"
-            android:textSize="30dp"
-            android:textColor="@color/colorBlanco"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/btn_circular_principal"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@id/nombre_salon_agendar_cita_activity"
+                android:id="@+id/ll_lista_servicios_disponibles_agendar_cita_activity"
+                >
 
-    </RelativeLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lista_servicios_disponibles_agendar_cita_activity"
+                    >
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_aceptar_agendar_cita_activity"
+                android:padding="10dp"
+                android:text="Volver"
+                android:fontFamily="@font/josefin_sans_thin"
+                android:textAllCaps="false"
+                android:layout_below="@id/ll_lista_servicios_disponibles_agendar_cita_activity"
+                android:textSize="25sp"
+                android:textColor="@color/colorBlanco"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/btn_circular_principal"/>
+        </RelativeLayout>
+
+    </ScrollView>
+</RelativeLayout>

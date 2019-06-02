@@ -21,12 +21,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import proyectohastafinal.almac.myapplication.model.Cita;
+import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 import proyectohastafinal.almac.myapplication.model.ServiceManager;
+import proyectohastafinal.almac.myapplication.model.Servicio;
 
 public class CitasEstilistaFragment extends Fragment implements AdapterCitasEstilista.OnItemClickListener{
 
@@ -34,6 +38,7 @@ public class CitasEstilistaFragment extends Fragment implements AdapterCitasEsti
 
     private AdapterCitasEstilista adapterCitasEstilista;
     private RecyclerView lista_citas_estilista;
+    private ArrayList <Cita> citas;
 
     FirebaseDatabase rtdb;
     FirebaseAuth auth;
@@ -69,13 +74,13 @@ public class CitasEstilistaFragment extends Fragment implements AdapterCitasEsti
         adapterCitasEstilista = new AdapterCitasEstilista();
         adapterCitasEstilista.setListener(this);
         lista_citas_estilista.setLayoutManager(new LinearLayoutManager(v.getContext()));
-        lista_citas_estilista.setAdapter(adapterCitasEstilista);
-        lista_citas_estilista.setHasFixedSize(true);
+        //lista_citas_estilista.setAdapter(adapterCitasEstilista);
+        //lista_citas_estilista.setHasFixedSize(true);
 
         rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).child("citas").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                citas = new ArrayList<>();
                 int dia = calendario.get(Calendar.DAY_OF_MONTH);
                 int mes = calendario.get(Calendar.MONTH) + 1;
                 int anio = calendario.get(Calendar.YEAR);
@@ -94,46 +99,19 @@ public class CitasEstilistaFragment extends Fragment implements AdapterCitasEsti
                             int anocita = Integer.parseInt(fecha[0]);
                             int horacita = cita.getHorainicio();
 
+                            for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                                Log.d("CITA", diacita + " " + mescita + " " + anocita);
+                                if (dia == diacita && mes == mescita && anio == anocita) {
+                                    Log.d("PASO", "PASO");
+                                    citas.add(cita);
+                                }
+                            }
 
-                            if (anio > anocita || (anio == anocita && mes > mescita) || (anio == anocita && mes == mescita && dia > diacita) ||
-                                    (anio == anocita && mes == mescita && dia == diacita && hora >= horacita)) {
+                            lista_citas_estilista.setAdapter(adapterCitasEstilista);
+                            lista_citas_estilista.setHasFixedSize(true);
+                            adapterCitasEstilista.showAllCitas(citas);
 
-                                /*
-                               new Thread(() -> {
 
-                                    new ServiceManager.BorrarCitas(idcita, new ServiceManager.BorrarCitas.OnResponseListener() {
-                                        @Override
-                                        public void onResponse(String response) {
-
-                                        }
-                                    });
-
-                                    new ServiceManager.BorrarCitasUsuario(cita.getIdUsuario(),idcita, new ServiceManager.BorrarCitasUsuario.OnResponseListener() {
-                                        @Override
-                                        public void onResponse(String response) {
-
-                                        }
-                                    });
-
-                                    new ServiceManager.BorrarCitasEstilista(cita.getIdEstilista(),idcita, new ServiceManager.BorrarCitasEstilista.OnResponseListener() {
-                                        @Override
-                                        public void onResponse(String response) {
-
-                                        }
-                                    });
-
-                                    new ServiceManager.BorrarHorarioEstilista(cita.getIdEstilista(),cita.getFecha(),cita.getHorainicio(), new ServiceManager.BorrarHorarioEstilista.OnResponseListener() {
-                                        @Override
-                                        public void onResponse(String response) {
-
-                                        }
-                                    });
-
-                                }).start();
-                                */
-
-                            } else
-                                adapterCitasEstilista.agregarcita(cita);
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -149,13 +127,11 @@ public class CitasEstilistaFragment extends Fragment implements AdapterCitasEsti
             }
         });
 
-
         return v;
     }
 
     @Override
     public void onItemClick(Cita cita) {
-
         AlertDialog.Builder dialogo1 = new AlertDialog.Builder(getActivity());
         dialogo1.setTitle("Cita");
         dialogo1.setMessage("¿ Esta seguro de cancelar la cita ?");
@@ -172,6 +148,5 @@ public class CitasEstilistaFragment extends Fragment implements AdapterCitasEsti
             }
         });
         dialogo1.show();
-
     }
 }

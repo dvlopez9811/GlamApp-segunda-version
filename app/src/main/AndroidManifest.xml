@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="proyectohastafinal.almac.myapplication">
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -17,7 +18,8 @@
         android:roundIcon="@drawable/ic_glam_150x150_borde"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainEstilistaActivity"></activity>
+        <activity android:name=".MainSalonActivity"></activity>
+        <activity android:name=".MainEstilistaActivity" />
         <activity
             android:name=".InicioActivity"
             android:theme="@style/SplashTheme">
@@ -37,7 +39,7 @@
         <activity android:name=".AgendarCitaActivity" />
         <activity android:name=".RegistroEstilista" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".CambiarContrasenhaActivity"></activity>
+        <activity android:name=".CambiarContrasenhaActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -68,15 +70,13 @@
             android:resource="@array/preloaded_fonts" />
 
         <provider
-            android:authorities="$(applicationid)"
             android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/providerpath">
-            </meta-data>
+                android:resource="@xml/providerpath" />
         </provider>
     </application>
 

@@ -2,6 +2,8 @@ package proyectohastafinal.almac.myapplication;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Environment;
@@ -118,6 +120,7 @@ public class RegistroEstilista extends AppCompatActivity {
         etObtenerHoraFinal.setOnClickListener(v -> modificarHoraFinal());
 
         auth = FirebaseAuth.getInstance();
+        Log.d("auth" , auth.getCurrentUser() +"");
         rtdb = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
 
@@ -266,7 +269,6 @@ public class RegistroEstilista extends AppCompatActivity {
 
             auth.createUserWithEmailAndPassword(correoEstilista, passEstilista).addOnSuccessListener(authResult -> {
                 rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).setValue(estilista);
-
                 rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("estilista");
                 subirImagen();
                 String[] serv = servicios.split(" ");
@@ -353,12 +355,15 @@ public class RegistroEstilista extends AppCompatActivity {
                 registro_estilista_iv_foto.setBackground(null);
                 registro_estilista_iv_foto.setImageURI(uri);
             });
-        } if(requestCode == CAMERA_CALLBACK_ID && resultCode == RESULT_OK) {
-            final Uri uri = data.getData();
-            photoFile = new File(  UtilDomi.getPath(this, uri)  );
+        }
+        if(requestCode == CAMERA_CALLBACK_ID && resultCode == RESULT_OK) {
+            //final Uri uri = data.getData();
+            //photoFile = new File(  UtilDomi.getPath(this, uri)  );
+            Bitmap ima = BitmapFactory.decodeFile(photoFile.toString());
             runOnUiThread( () -> {
                 registro_estilista_iv_foto.setBackground(null);
-                registro_estilista_iv_foto.setImageURI(uri);
+                //registro_estilista_iv_foto.setImageURI(uri);
+                registro_estilista_iv_foto.setImageBitmap(ima);
             });
         }
     }
@@ -368,11 +373,10 @@ public class RegistroEstilista extends AppCompatActivity {
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(photoFile);
-            ref.putStream(fis).addOnSuccessListener(taskSnapshot -> cargarFotoPerfil());
+            ref.putStream(fis);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     private void cargarFotoPerfil() {
