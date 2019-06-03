@@ -21,8 +21,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import proyectohastafinal.almac.myapplication.model.Cita;
 import proyectohastafinal.almac.myapplication.model.Cliente;
@@ -38,6 +42,7 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
     private String telefonopropio;
     private ArrayList<Cliente> usuarios;
     private String usuarioEstilista;
+    ArrayList<Cita> citasEstilista;
 
     private AdapterMensajesEstilista adapterMensajesEstilista;
     private RecyclerView listamensajesEstilista;
@@ -72,13 +77,9 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
         usuarios = new ArrayList<>();
 
         listamensajesEstilista = v.findViewById(R.id.lista_mensajes_estilista);
-        adapterMensajesEstilista = new AdapterMensajesEstilista();
-        adapterMensajesEstilista.setListener(this);
-        listamensajesEstilista.setLayoutManager(new LinearLayoutManager(v.getContext()));
-        listamensajesEstilista.setAdapter(adapterMensajesEstilista);
-        listamensajesEstilista.setHasFixedSize(true);
 
 
+        citasEstilista = new ArrayList<>();
         rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -91,12 +92,14 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             Cita cita = dataSnapshot.getValue(Cita.class);
+                            citasEstilista.add(cita);
                             rtdb.getReference().child("usuario").child(cita.getIdUsuario()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     Cliente usuario = dataSnapshot.getValue(Cliente.class);
                                     usuarios.add(usuario);
-                                    adapterMensajesEstilista.agregarusuario(usuario);
+                                    //adapterMensajesEstilista.agregarusuario(usuario);
+                                    adapter();
                                 }
 
                                 @Override
@@ -113,8 +116,6 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
                     });
                 }
 
-
-
                 telefonopropio = estilista.getTelefono();
                 usuarioEstilista = estilista.getUsuario();
 
@@ -126,26 +127,60 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
             }
         });
 
-
-
-
-
         return v;
+    }
 
+    private void adapter() {
+        Collections.sort(citasEstilista);
 
+        Calendar calendarioActual = Calendar.getInstance();
+
+        for (int i = 0; i < citasEstilista.size(); i++) {
+            Cita cita = citasEstilista.get(i);
+            String[] fechaCita = cita.getFecha().split("-");
+            Calendar calendarioCita = new GregorianCalendar(Integer.parseInt(fechaCita[0]), Integer.parseInt(fechaCita[1]) - 1, Integer.parseInt(fechaCita[2]), cita.getHorainicio(), 0, 0);
+
+            if (calendarioCita.getTimeInMillis() < calendarioActual.getTimeInMillis()) {
+
+            } else {
+                if (calendarioActual.get(Calendar.DAY_OF_MONTH) == Integer.parseInt(fechaCita[2])) {
+                    if ( i == 0) {
+                        cita.setInformacion("HOY");
+                        cita.setCabecera(cita.getDia().toUpperCase());
+                    } else if ( !citasEstilista.get(i - 1).getInformacion().equals("HOY")) {
+                        cita.setInformacion("HOY");
+                        cita.setCabecera(cita.getDia().toUpperCase());
+                    }
+                } else {
+                    long diff = calendarioCita.getTime().getTime() - calendarioActual.getTime().getTime();
+                    long diferencia = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+                    if ( i == 0){
+                        cita.setInformacion("PRÓXIMO");
+                        cita.setCabecera(cita.getDia().toUpperCase()+" "+diferencia);
+                    } else if (  Integer.parseInt((citasEstilista.get(i - 1).getFecha().split("-"))[2]) != Integer.parseInt((cita.getFecha().split("-"))[2])){
+                        cita.setInformacion("PRÓXIMO");
+                        cita.setCabecera(cita.getDia().toUpperCase()+" "+diferencia);
+                    }
+                }
+            }
+        }
+
+        adapterMensajesEstilista = new AdapterMensajesEstilista(getContext(), usuarios, citasEstilista);
+        adapterMensajesEstilista.setListener(this);
+        listamensajesEstilista.setLayoutManager(new LinearLayoutManager(getContext()));
+        listamensajesEstilista.setAdapter(adapterMensajesEstilista);
+        listamensajesEstilista.setHasFixedSize(true);
 
     }
 
-    @Override
-    public void onItemClick(Cliente usuario) {
 
+    @Override
+    public void onItemClick(View v, Cliente usario) {
         Intent i = new Intent(getActivity(),ChatActivity.class);
-        i.putExtra("telUsuario", usuario.getTelefono());
+        i.putExtra("telUsuario", usario.getTelefono());
         i.putExtra("telEstilista",telefonopropio);
         i.putExtra("usEstilista",usuarioEstilista);
         startActivity(i);
-
-
     }
 
     @Override
