@@ -509,7 +509,7 @@ public class PerfilSalonFragment extends Fragment {
 
     public void adapterDepilacion(ArrayList<FotoCatalogo> fotos) {
         gridCatalogoDepilacion = getView().findViewById(R.id.grid_catalogo_depilacion);
-        adapterCatalogoDepilacion = new AdapterCatalogoPerfilSalon(getView().getContext(), fotos);
+        adapterCatalogoDepilacion = new AdapterCatalogoPerfilSalon(getView().getContext(), fotos, "Salon");
         adapterCatalogoDepilacion.notifyDataSetChanged();
         gridCatalogoDepilacion.setAdapter(adapterCatalogoDepilacion);
         gridCatalogoDepilacion.setExpanded(true);
@@ -517,28 +517,28 @@ public class PerfilSalonFragment extends Fragment {
 
     public void adapterMaquillaje(ArrayList<FotoCatalogo> fotos) {
         gridCatalogoMaquillaje = getView().findViewById(R.id.grid_catalogo_maquillaje);
-        adapterCatalogoMaquillaje = new AdapterCatalogoPerfilSalon(getView().getContext(), fotos);
+        adapterCatalogoMaquillaje = new AdapterCatalogoPerfilSalon(getView().getContext(), fotos, "Salon");
         gridCatalogoMaquillaje.setAdapter(adapterCatalogoMaquillaje);
         gridCatalogoMaquillaje.setExpanded(true);
     }
 
     public void adapterMasaje(ArrayList<FotoCatalogo> fotos) {
         gridCatalogoMasaje = getView().findViewById(R.id.grid_catalogo_masaje);
-        adapterCatalogoMasaje = new AdapterCatalogoPerfilSalon(getView().getContext(), fotos);
+        adapterCatalogoMasaje = new AdapterCatalogoPerfilSalon(getView().getContext(), fotos, "Salon");
         gridCatalogoMasaje.setAdapter(adapterCatalogoMasaje);
         gridCatalogoMasaje.setExpanded(true);
     }
 
     public void adapterPeluqueria(ArrayList<FotoCatalogo> fotos) {
         gridCatalogoPeluqueria = getView().findViewById(R.id.grid_catalogo_peluqueria);
-        adapterCatalogoPeluqueria = new AdapterCatalogoPerfilSalon(getView().getContext(), fotos);
+        adapterCatalogoPeluqueria = new AdapterCatalogoPerfilSalon(getView().getContext(), fotos, "Salon");
         gridCatalogoPeluqueria.setAdapter(adapterCatalogoPeluqueria);
         gridCatalogoPeluqueria.setExpanded(true);
     }
 
     public void adapterUnhas(ArrayList<FotoCatalogo> fotos) {
         gridCatalogoUnhas = getView().findViewById(R.id.grid_catalogo_unhas);
-        adapterCatalogoUnhas = new AdapterCatalogoPerfilSalon(getView().getContext(), fotos);
+        adapterCatalogoUnhas = new AdapterCatalogoPerfilSalon(getView().getContext(), fotos, "Salon");
         gridCatalogoUnhas.setAdapter(adapterCatalogoUnhas);
         gridCatalogoUnhas.setExpanded(true);
     }
