@@ -4,7 +4,7 @@
     <item
         android:icon="@drawable/ic_calificacion_llena_25x25"
         android:title="Enviar mensaje a usuario"
-        android:id="@+id/envio_mensaje_usuario_cita"/>
+        android:id="@+id/envio_mensaje_a_usuario_cita"/>
 
     <item
         android:title="Ver información de la cita"
