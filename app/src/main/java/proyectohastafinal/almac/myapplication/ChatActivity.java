@@ -177,7 +177,6 @@ public class ChatActivity extends AppCompatActivity {
                     idEstilista = getIntent().getExtras().getString("idEstilista");
                     rtdb.getReference().child("Alerta").child(idEstilista).push().setValue(valor);}
 
-
             }
         });
     }
