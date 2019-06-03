@@ -1,52 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:id="@+id/renglon_cita"
+    android:orientation="vertical"
+    android:padding="10dp">
 
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:padding="10dp"
-    android:id="@+id/renglon_cita">
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="20dp">
+        android:id="@+id/relative_renglon_cita_header_fragment_estilista_hoy"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:id="@+id/renglon_cita_dia_de_la_semana_fragment_estilista_hoy"
+            android:text="MIÉRCOLES"
             android:textSize="20sp"
-            android:id="@+id/usuario_renglon_cita_estilista"/>
+            android:textColor="@color/colorBlanco"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/servicio_renglon_cita_estilista"/>
+            android:id="@+id/renglon_cita_fecha_fragment_estilista_hoy"
+            android:text="30-09-2019"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlanco"
+            android:layout_below="@id/renglon_cita_dia_de_la_semana_fragment_estilista_hoy"/>
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/renglon_cita_dias_restantes_fragment_estilista_hoy"
+            android:text="Hoy"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlanco"
+            android:layout_alignParentEnd="true"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    </RelativeLayout>
 
-        android:textSize="32sp"
-        android:layout_marginLeft="24dp"
-        android:layout_gravity="center_vertical"
-        android:id="@+id/horainicio_renglon_cita_estilista"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/relative_layout">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:text="Cancelar"
-        android:textSize="12sp"
-        android:id="@+id/btn_cancelar_renglon_cita_estilista"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_informacion_cita_fragment_estilista_hoy"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/salon_renglon_cita_fragment_estilista_hoy"
+                android:textSize="30sp"
+                android:fontFamily="@font/josefin_sans" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nombre_estilista_cita_fragment_estilista_hoy"
+                android:text="CrisAlex"
+                android:fontFamily="@font/josefin_sans" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/servicio_renglon_cita_fragment_estilista_hoy"
+                android:fontFamily="@font/josefin_sans"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:layout_marginLeft="200dp"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/horainicio_renglon_cita_fragment_estilista_hoy"
+            android:fontFamily="@font/josefin_sans"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/iv_menu_cita_renglon_cita_fragment_estilista_hoy"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_menu_100x100"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 
 </LinearLayout>
+<!--<LinearLayout android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:orientation="horizontal"-->
+
+    <!--android:layout_marginLeft="20dp"-->
+    <!--android:layout_marginRight="20dp"-->
+    <!--android:padding="10dp"-->
+    <!--android:id="@+id/renglon_cita">-->
+
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginLeft="20dp">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textSize="20sp"-->
+            <!--android:id="@+id/usuario_renglon_cita_estilista"/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/servicio_renglon_cita_estilista"/>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+
+        <!--android:textSize="32sp"-->
+        <!--android:layout_marginLeft="24dp"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:id="@+id/horainicio_renglon_cita_estilista"/>-->
+
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:text="Cancelar"-->
+        <!--android:textSize="12sp"-->
+        <!--android:id="@+id/btn_cancelar_renglon_cita_estilista"/>-->
+
+<!--</LinearLayout>-->
+
+
