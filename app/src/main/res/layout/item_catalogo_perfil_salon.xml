@@ -3,11 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="200dp">
 
+
     <ImageView
         android:id="@+id/imagen_catalogo_perfil_salon_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/ic_eliminar_50x50"
+        android:id="@+id/iv_eliminar_foto"
+        android:background="@color/colorPrimarioTransparente"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,9 +49,23 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:id="@+id/btn_editar_descripcion_catalogo"
-            android:background="@drawable/edit"
-            android:layout_toRightOf="@id/descripcion_imagen_catalogo_perfil_activity"
+            android:background="@drawable/edit_blanco"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/descripcion_imagen_catalogo_perfil_activity"
             android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="Valor: $"
+            android:textColor="@color/colorBlanco"
+            android:fontFamily="@font/josefin_sans"
+            android:id="@+id/textview_valor"
+            android:padding="2dp"
+            android:layout_gravity="bottom"
+            android:gravity="center_vertical"
+            android:layout_below="@id/descripcion_imagen_catalogo_perfil_activity"
+            android:textSize="10sp"/>
 
         <EditText
             android:id="@+id/precio_imagen_catalogo_perfil_activity"
@@ -49,9 +74,12 @@
             android:layout_gravity="bottom"
             android:gravity="center_vertical"
             android:singleLine="true"
+            android:background="@color/fui_transparent"
             android:text="$200.000"
+            android:inputType="number"
             android:maxLength="9"
             android:padding="2dp"
+            android:layout_toRightOf="@+id/textview_valor"
             android:textSize="10sp"
             android:fontFamily="@font/josefin_sans"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
@@ -62,10 +90,10 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:id="@+id/btn_editar_precio_catalogo"
-            android:background="@drawable/edit"
-            android:layout_below="@id/btn_editar_descripcion_catalogo"
-            android:layout_toRightOf="@id/precio_imagen_catalogo_perfil_activity"
+            android:background="@drawable/edit_blanco"
+            android:layout_alignBottom="@id/precio_imagen_catalogo_perfil_activity"
             android:layout_marginTop="5dp"
+            android:layout_alignParentEnd="true"
             android:layout_marginLeft="10dp"/>
     </RelativeLayout>
 </RelativeLayout>

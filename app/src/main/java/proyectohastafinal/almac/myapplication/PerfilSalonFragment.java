@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -36,6 +37,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -45,6 +48,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import proyectohastafinal.almac.myapplication.model.BusquedaSalonDeBelleza;
 import proyectohastafinal.almac.myapplication.model.FotoCatalogo;
 import proyectohastafinal.almac.myapplication.model.Marcador;
 import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
@@ -101,6 +105,9 @@ public class PerfilSalonFragment extends Fragment {
     private EditText et_popup_window_precio;
     private Button btn_popup_windows_subir;
 
+    private ImageView estrella_calificacion1,estrella_calificacion2
+            ,estrella_calificacion3,estrella_calificacion4,estrella_calificacion5;
+    private TextView txt_calificacion,txt_numeroCalificiones;
     View popUpView;
     PopupWindow popupWindow;
     LayoutInflater layoutInflater;
@@ -220,6 +227,10 @@ public class PerfilSalonFragment extends Fragment {
                             direccionActual = ((EditText) mView.findViewById(R.id.et_uibacion_editable_perfil_salon_fragment)).getText().toString();
                             (mView.findViewById(R.id.et_uibacion_editable_perfil_salon_fragment)).setEnabled(true);
                             (mView.findViewById(R.id.boton_editar_ubicacion_perfil_salon_fragment)).setBackgroundResource(R.drawable.ic_chulo);
+                            InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            ((EditText)mView.findViewById(R.id.et_uibacion_editable_perfil_salon_fragment)).setSelection(((EditText)mView.findViewById(R.id.et_uibacion_editable_perfil_salon_fragment)).getText().length());
+                            (mView.findViewById(R.id.et_uibacion_editable_perfil_salon_fragment)).requestFocus();
+                            imm.showSoftInput((mView.findViewById(R.id.et_uibacion_editable_perfil_salon_fragment)), InputMethodManager.SHOW_IMPLICIT);
                             //Deshabilita edicion
                         } else {
                             (mView.findViewById(R.id.et_uibacion_editable_perfil_salon_fragment)).setEnabled(false);
@@ -496,6 +507,37 @@ public class PerfilSalonFragment extends Fragment {
                 });
 
 
+
+                rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("calificacion").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String cal=  dataSnapshot.getValue(String.class);
+                        double calificacion = Double.parseDouble(cal);
+                        DecimalFormat df = new DecimalFormat("#.##");
+                        df.setRoundingMode(RoundingMode.CEILING);
+                        txt_calificacion.setText(df.format(calificacion)+"");
+                        mostrarEstrellas(calificacion);
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("numeroCalificaciones").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        long numero = (Long) dataSnapshot.getValue();
+                        txt_numeroCalificiones.setText("("+numero+" calificaciones)");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
                 ////////////////////////////FUERA DE AQUI NO HAY ACCESO A EL NOMBRE DEL SALON
             }
 
@@ -503,6 +545,14 @@ public class PerfilSalonFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
+        estrella_calificacion1 = mView.findViewById(R.id.calificacion_1_perfil_salon);
+        estrella_calificacion2 = mView.findViewById(R.id.calificacion_2_perfil_salon);
+        estrella_calificacion3 = mView.findViewById(R.id.calificacion_3_perfil_salon);
+        estrella_calificacion4 = mView.findViewById(R.id.calificacion_4_perfil_salon);
+        estrella_calificacion5 = mView.findViewById(R.id.calificacion_5_perfil_salon);
+        txt_calificacion=mView.findViewById(R.id.txt_valor_calificacion_perfil_salon);
+        txt_numeroCalificiones=mView.findViewById(R.id.tv_personas_calificacion_perfil_salon);
 
         return mView;
     }
@@ -693,4 +743,85 @@ public class PerfilSalonFragment extends Fragment {
         return result;
     }
 
+
+    public void mostrarEstrellas(double calificacion){
+        if(calificacion>=0.5){
+            if(calificacion>=1){
+                estrella_calificacion1.setImageResource(R.drawable.ic_estrella_llena);
+                if(calificacion>=1.5){
+                    if(calificacion>=2){
+                        estrella_calificacion2.setImageResource(R.drawable.ic_estrella_llena);
+                        if(calificacion>=2.5){
+                            if(calificacion>=3){
+                                estrella_calificacion3.setImageResource(R.drawable.ic_estrella_llena);
+                                if(calificacion>=3.5){
+                                    if(calificacion>=4.0){
+                                        estrella_calificacion4.setImageResource(R.drawable.ic_estrella_llena);
+                                        if(calificacion>=4.5){
+                                            if(calificacion==5)
+                                                estrella_calificacion5.setImageResource(R.drawable.ic_estrella_llena);
+                                            else
+                                                estrella_calificacion5.setImageResource(R.drawable.ic_estrella_mitad);
+                                        }else{
+                                            estrella_calificacion5.setImageResource(R.drawable.ic_estrella_vacia);
+                                        }
+                                    }else{
+                                        estrella_calificacion4.setImageResource(R.drawable.ic_estrella_mitad);
+                                        estrella_calificacion5.setImageResource(R.drawable.ic_estrella_vacia);
+                                    }
+                                }else{
+                                    estrella_calificacion4.setImageResource(R.drawable.ic_estrella_vacia);
+                                    estrella_calificacion5.setImageResource(R.drawable.ic_estrella_vacia);
+                                }
+                            }else{
+                                estrella_calificacion3.setImageResource(R.drawable.ic_estrella_mitad);
+                                estrella_calificacion4.setImageResource(R.drawable.ic_estrella_vacia);
+                                estrella_calificacion5.setImageResource(R.drawable.ic_estrella_vacia);
+                            }
+                        }else{
+                            estrella_calificacion3.setImageResource(R.drawable.ic_estrella_vacia);
+                            estrella_calificacion4.setImageResource(R.drawable.ic_estrella_vacia);
+                            estrella_calificacion5.setImageResource(R.drawable.ic_estrella_vacia);
+                        }
+                    }else{
+                        estrella_calificacion2.setImageResource(R.drawable.ic_estrella_mitad);
+                        estrella_calificacion3.setImageResource(R.drawable.ic_estrella_vacia);
+                        estrella_calificacion4.setImageResource(R.drawable.ic_estrella_vacia);
+                        estrella_calificacion5.setImageResource(R.drawable.ic_estrella_vacia);
+
+                    }
+
+                }else{
+                    estrella_calificacion2.setImageResource(R.drawable.ic_estrella_vacia);
+                    estrella_calificacion3.setImageResource(R.drawable.ic_estrella_vacia);
+                    estrella_calificacion4.setImageResource(R.drawable.ic_estrella_vacia);
+                    estrella_calificacion5.setImageResource(R.drawable.ic_estrella_vacia);
+
+                }
+            }else{
+                estrella_calificacion1.setImageResource(R.drawable.ic_estrella_mitad);
+                estrella_calificacion2.setImageResource(R.drawable.ic_estrella_vacia);
+                estrella_calificacion3.setImageResource(R.drawable.ic_estrella_vacia);
+                estrella_calificacion4.setImageResource(R.drawable.ic_estrella_vacia);
+                estrella_calificacion5.setImageResource(R.drawable.ic_estrella_vacia);
+
+            }
+        }else{
+            estrella_calificacion1.setImageResource(R.drawable.ic_estrella_vacia);
+            estrella_calificacion2.setImageResource(R.drawable.ic_estrella_vacia);
+            estrella_calificacion3.setImageResource(R.drawable.ic_estrella_vacia);
+            estrella_calificacion4.setImageResource(R.drawable.ic_estrella_vacia);
+            estrella_calificacion5.setImageResource(R.drawable.ic_estrella_vacia);
+
+        }
+    }
+
+
+
+    public void onItemClick(FotoCatalogo fotoCatalogo) {
+       // Intent i = new Intent(getActivity(),InformacionSalonActivity.class);
+  //      i.putExtra("salon",salonDeBelleza.getNombreSalonDeBelleza());
+      //  startActivity(i);
+      //  getActivity().recreate();
+    }
 }
