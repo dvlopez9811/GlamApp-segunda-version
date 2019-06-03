@@ -18,9 +18,9 @@ public class AdapterCatalogo extends BaseAdapter {
     ArrayList<Uri> uris;
 
 
-    public AdapterCatalogo(Context context, ArrayList<Uri> uris) {
+    public AdapterCatalogo(Context context,ArrayList<Uri> nUris) {
         this.context = context;
-        this.uris = uris;
+        this.uris = nUris;
     }
 
 
@@ -36,7 +36,7 @@ public class AdapterCatalogo extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return 0;
     }
 
     @Override
@@ -66,7 +66,10 @@ public class AdapterCatalogo extends BaseAdapter {
 
 
 
-    public void showCatalogo(ArrayList<Uri> uris){
-
+    public void showCatalogo(ArrayList<Uri> nUris){
+        for(int i = 0 ; i<nUris.size() ; i++){
+            if(!uris.contains(nUris.get(i))) uris.add(nUris.get(i));
+        }
+        notifyDataSetChanged();
     }
 }

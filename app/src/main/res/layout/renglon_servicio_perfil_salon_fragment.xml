@@ -14,8 +14,8 @@
             android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
             android:id="@+id/imagen_servicio_renglon_perfil_fragment"
-            android:src="@drawable/ic_new_peluqueria_morado"
-            />
+            android:src="@drawable/ic_new_peluqueria_morado" />
+
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,13 +26,8 @@
             android:text="Service"
             android:textSize="20dp"
             android:fontFamily="@font/josefin_sans"
-            android:textColor="@color/colorPrimaryMuyDark"
-            android:layout_marginRight="20dp"
-            />
+            android:textColor="@color/colorNegro"
+            android:layout_marginRight="20dp" />
 
     </RelativeLayout>
-
-
-
-
 </LinearLayout>
