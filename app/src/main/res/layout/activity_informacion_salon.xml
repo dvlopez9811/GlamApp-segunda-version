@@ -175,20 +175,224 @@
                 android:id="@+id/listado_servicios_informacion_salon_activity"
                 android:layout_below="@id/linear_botones_agendar_maps"/>
 
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/titulo_catalogo_activity_informacion_salon"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="@font/josefin_sans"
+                android:text="Catálogo"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"
+                android:layout_below="@id/listado_servicios_informacion_salon_activity"
+                android:layout_marginTop="20dp"
+                android:layout_centerInParent="true"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/header_depilacion_informacion_salon"
+                android:layout_below="@id/titulo_catalogo_activity_informacion_salon">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titulo_depilacion_activity_informacion_salon"
+                    android:fontFamily="@font/josefin_sans"
+                    android:text="Depilación"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="20dp"/>
+
+               <!-- <Button
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/btn_agregar_depilacion_catalogo_activity_informacion_salon"
+                    android:background="@drawable/ic_add_imagen"
+                    android:layout_toRightOf="@id/titulo_depilacion_activity_informacion_salon"
+                    android:layout_centerVertical="true"/>-->
+            </RelativeLayout>
+
+
             <proyectohastafinal.almac.myapplication.ExpandableHeightGridView
-                android:id="@+id/grid_Catalogo_informacion_salon_activity"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fastScrollAlwaysVisible="true"
+                android:layout_height="wrap_content"
+                android:id="@+id/grid_catalogo_depilacion_activity_informacion_salon"
+                android:fastScrollAlwaysVisible="false"
                 android:gravity="center"
                 android:numColumns="auto_fit"
                 android:padding="10dp"
                 android:verticalSpacing="2dp"
                 android:horizontalSpacing="1dp"
-                android:layout_below="@id/listado_servicios_informacion_salon_activity">
+                android:layout_below="@id/header_depilacion_informacion_salon">
+            </proyectohastafinal.almac.myapplication.ExpandableHeightGridView>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/header_maquillaje_activity_informacion_salon"
+                android:layout_below="@id/grid_catalogo_depilacion_activity_informacion_salon">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titulo_maquillaje_activity_informacion_salon"
+                    android:fontFamily="@font/josefin_sans"
+                    android:text="Maquillaje"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="20dp"/>
+
+                <!--<Button-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="20dp"-->
+                    <!--android:id="@+id/btn_agregar_maquillaje_catalogo_activity_informacion_salon"-->
+                    <!--android:background="@drawable/ic_add_imagen"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_toRightOf="@id/titulo_maquillaje_activity_informacion_salon"-->
+                    <!--android:layout_centerVertical="true"/>-->
+            </RelativeLayout>
+
+            <proyectohastafinal.almac.myapplication.ExpandableHeightGridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/grid_catalogo_maquillaje_activity_informacion_salon"
+                android:fastScrollAlwaysVisible="false"
+                android:gravity="center"
+                android:numColumns="auto_fit"
+                android:padding="10dp"
+                android:verticalSpacing="2dp"
+                android:horizontalSpacing="1dp"
+                android:layout_below="@id/header_maquillaje_activity_informacion_salon">
+            </proyectohastafinal.almac.myapplication.ExpandableHeightGridView>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/header_masaje_activity_informacion_salon"
+                android:layout_below="@id/grid_catalogo_maquillaje_activity_informacion_salon">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titulo_masaje_activity_informacion_salon"
+                    android:fontFamily="@font/josefin_sans"
+                    android:text="Masaje"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="20dp"/>
+
+                <!--<Button-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="20dp"-->
+                    <!--android:id="@+id/btn_agregar_masaje_catalogo_activity_informacion_salon"-->
+                    <!--android:background="@drawable/ic_add_imagen"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_toRightOf="@id/titulo_masaje_activity_informacion_salon"-->
+                    <!--android:layout_centerVertical="true"/>-->
+            </RelativeLayout>
+
+            <proyectohastafinal.almac.myapplication.ExpandableHeightGridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/grid_catalogo_masaje_activity_informacion_salon"
+                android:fastScrollAlwaysVisible="false"
+                android:gravity="center"
+                android:numColumns="auto_fit"
+                android:padding="10dp"
+                android:verticalSpacing="2dp"
+                android:horizontalSpacing="1dp"
+                android:layout_below="@id/header_masaje_activity_informacion_salon">
+            </proyectohastafinal.almac.myapplication.ExpandableHeightGridView>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/header_peluqueria_activity_informacion_salon"
+                android:layout_below="@id/grid_catalogo_masaje_activity_informacion_salon">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titulo_peluqueria_activity_informacion_salon"
+                    android:fontFamily="@font/josefin_sans"
+                    android:text="Peluqueria"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="20dp"/>
+
+               <!-- <Button
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/btn_agregar_peluqueria_catalogo_activity_informacion_salon"
+                    android:background="@drawable/ic_add_imagen"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/titulo_peluqueria_activity_informacion_salon"
+                    android:layout_centerVertical="true"/>-->
+            </RelativeLayout>
+
+            <proyectohastafinal.almac.myapplication.ExpandableHeightGridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/grid_catalogo_peluqueria_activity_informacion_salon"
+                android:fastScrollAlwaysVisible="false"
+                android:gravity="center"
+                android:numColumns="auto_fit"
+                android:padding="10dp"
+                android:verticalSpacing="2dp"
+                android:horizontalSpacing="1dp"
+                android:layout_below="@id/header_peluqueria_activity_informacion_salon">
+            </proyectohastafinal.almac.myapplication.ExpandableHeightGridView>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/header_unhas_activity_informacion_salon"
+                android:layout_below="@id/grid_catalogo_peluqueria_activity_informacion_salon">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titulo_unhas_activity_informacion_salon"
+                    android:fontFamily="@font/josefin_sans"
+                    android:text="Uñas"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="20dp"/>
+
+                <!--<Button-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="20dp"-->
+                    <!--android:id="@+id/btn_agregar_unhas_catalogo_activity_informacion_salon"-->
+                    <!--android:background="@drawable/ic_add_imagen"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_toRightOf="@id/titulo_unhas_activity_informacion_salon"-->
+                    <!--android:layout_centerVertical="true"/>-->
+            </RelativeLayout>
+
+            <proyectohastafinal.almac.myapplication.ExpandableHeightGridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/grid_catalogo_unhas_activity_informacion_salon"
+                android:fastScrollAlwaysVisible="false"
+                android:gravity="center"
+                android:numColumns="auto_fit"
+                android:padding="10dp"
+                android:verticalSpacing="2dp"
+                android:horizontalSpacing="1dp"
+                android:layout_below="@id/header_unhas_activity_informacion_salon">
             </proyectohastafinal.almac.myapplication.ExpandableHeightGridView>
 
         </RelativeLayout>
+
+
+
+
     </ScrollView>
 
 </RelativeLayout>

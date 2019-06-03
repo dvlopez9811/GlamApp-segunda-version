@@ -37,6 +37,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import proyectohastafinal.almac.myapplication.model.FotoCatalogo;
 import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 import proyectohastafinal.almac.myapplication.model.Servicio;
 
@@ -50,15 +51,32 @@ public class InformacionSalonActivity extends AppCompatActivity {
     private ImageView imagen_perfil_info_salon_activity,estrella_calificacion1,estrella_calificacion2
             ,estrella_calificacion3,estrella_calificacion4,estrella_calificacion5;
 
+    private boolean favoritoMarcado;
+    private ExpandableHeightGridView gridCatalogo;
+    private AdapterCatalogo adapterCatalogo;
+    // Catálogo de depilación
+    private ExpandableHeightGridView gridCatalogoDepilacion;
+    private AdapterCatalogoPerfilSalon adapterCatalogoDepilacion;
+
+    // Catálogo de maquillaje
+    private ExpandableHeightGridView gridCatalogoMaquillaje;
+    private AdapterCatalogoPerfilSalon adapterCatalogoMaquillaje;
+
+    // Catálogo de masaje
+    private ExpandableHeightGridView gridCatalogoMasaje;
+    private AdapterCatalogoPerfilSalon adapterCatalogoMasaje;
+
+    // Catálogo de peluqueria
+    private ExpandableHeightGridView gridCatalogoPeluqueria;
+    private AdapterCatalogoPerfilSalon adapterCatalogoPeluqueria;
+
+    // Catálogo de uñas
+    private ExpandableHeightGridView gridCatalogoUnhas;
+    private AdapterCatalogoPerfilSalon adapterCatalogoUnhas;
+
     FirebaseDatabase rtdb;
     FirebaseAuth auth;
     FirebaseStorage storage;
-    private boolean favoritoMarcado;
-
-
-    private ExpandableHeightGridView gridCatalogo;
-    private AdapterCatalogo adapterCatalogo;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,10 +121,10 @@ public class InformacionSalonActivity extends AppCompatActivity {
 
         final long[] fotos = new long[1];
         final ArrayList<Uri> uris = new ArrayList<>();
-        gridCatalogo =  findViewById(R.id.grid_Catalogo_informacion_salon_activity);
-        adapterCatalogo= new AdapterCatalogo(InformacionSalonActivity.this,uris);
-        gridCatalogo.setAdapter(adapterCatalogo);
-        gridCatalogo.setExpanded(true);
+//        gridCatalogo =  findViewById(R.id.grid_Catalogo_informacion_salon_activity);
+//        adapterCatalogo= new AdapterCatalogo(InformacionSalonActivity.this,uris);
+//        gridCatalogo.setAdapter(adapterCatalogo);
+//        gridCatalogo.setExpanded(true);
         // Catálogo
         rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("fotos").addValueEventListener(new ValueEventListener() {
             @Override
@@ -309,6 +327,118 @@ public class InformacionSalonActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        // CATALAGO
+
+        // Depilación
+
+        rtdb.getReference().child("fotos").child(nombreSalon).child("depilacion").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<FotoCatalogo> fotosDepilacion = new ArrayList<>();
+                long fotos = dataSnapshot.getChildrenCount();
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+
+                    FotoCatalogo foto = childDataSnapshot.getValue(FotoCatalogo.class);
+                    fotosDepilacion.add(foto);
+                    if (fotos == fotosDepilacion.size()) adapterDepilacion(fotosDepilacion);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        // Maquillaje
+
+        rtdb.getReference().child("fotos").child(nombreSalon).child("maquillaje").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<FotoCatalogo> fotosMaquillaje = new ArrayList<>();
+                long fotos = dataSnapshot.getChildrenCount();
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+
+                    FotoCatalogo foto = childDataSnapshot.getValue(FotoCatalogo.class);
+                    fotosMaquillaje.add(foto);
+                    if (fotos == fotosMaquillaje.size()) {
+                        adapterMaquillaje(fotosMaquillaje);
+                    }
+                    ;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        // Masaje
+        rtdb.getReference().child("fotos").child(nombreSalon).child("masaje").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<FotoCatalogo> fotosMasaje = new ArrayList<>();
+                long fotos = dataSnapshot.getChildrenCount();
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+
+                    FotoCatalogo foto = childDataSnapshot.getValue(FotoCatalogo.class);
+                    fotosMasaje.add(foto);
+                    if (fotos == fotosMasaje.size()) {
+                        adapterMasaje(fotosMasaje);
+                    }
+                    ;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        // Peluqueria
+        rtdb.getReference().child("fotos").child(nombreSalon).child("peluqueria").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<FotoCatalogo> fotosPeluqueria = new ArrayList<>();
+                long fotos = dataSnapshot.getChildrenCount();
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+
+                    FotoCatalogo foto = childDataSnapshot.getValue(FotoCatalogo.class);
+                    fotosPeluqueria.add(foto);
+                    if (fotos == fotosPeluqueria.size()) {
+                        adapterPeluqueria(fotosPeluqueria);
+                    }
+                    ;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        // Uñas
+        rtdb.getReference().child("fotos").child(nombreSalon).child("uñas").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<FotoCatalogo> fotosUhnas = new ArrayList<>();
+                long fotos = dataSnapshot.getChildrenCount();
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+
+                    FotoCatalogo foto = childDataSnapshot.getValue(FotoCatalogo.class);
+                    fotosUhnas.add(foto);
+                    if (fotos == fotosUhnas.size()) {
+                        adapterUnhas(fotosUhnas);
+                    }
+                    ;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
     }
 
     @Override
@@ -388,4 +518,41 @@ public class InformacionSalonActivity extends AppCompatActivity {
 
         }
     }
+
+    public void adapterDepilacion(ArrayList<FotoCatalogo> fotos) {
+        gridCatalogoDepilacion = findViewById(R.id.grid_catalogo_depilacion_activity_informacion_salon);
+        adapterCatalogoDepilacion = new AdapterCatalogoPerfilSalon(this, fotos, "User");
+        adapterCatalogoDepilacion.notifyDataSetChanged();
+        gridCatalogoDepilacion.setAdapter(adapterCatalogoDepilacion);
+        gridCatalogoDepilacion.setExpanded(true);
+    }
+
+    public void adapterMaquillaje(ArrayList<FotoCatalogo> fotos) {
+        gridCatalogoMaquillaje = findViewById(R.id.grid_catalogo_maquillaje_activity_informacion_salon);
+        adapterCatalogoMaquillaje = new AdapterCatalogoPerfilSalon(this, fotos, "User");
+        gridCatalogoMaquillaje.setAdapter(adapterCatalogoMaquillaje);
+        gridCatalogoMaquillaje.setExpanded(true);
+    }
+
+    public void adapterMasaje(ArrayList<FotoCatalogo> fotos) {
+        gridCatalogoMasaje = findViewById(R.id.grid_catalogo_masaje_activity_informacion_salon);
+        adapterCatalogoMasaje = new AdapterCatalogoPerfilSalon(this, fotos, "User");
+        gridCatalogoMasaje.setAdapter(adapterCatalogoMasaje);
+        gridCatalogoMasaje.setExpanded(true);
+    }
+
+    public void adapterPeluqueria(ArrayList<FotoCatalogo> fotos) {
+        gridCatalogoPeluqueria = findViewById(R.id.grid_catalogo_peluqueria_activity_informacion_salon);
+        adapterCatalogoPeluqueria = new AdapterCatalogoPerfilSalon(this, fotos, "User");
+        gridCatalogoPeluqueria.setAdapter(adapterCatalogoPeluqueria);
+        gridCatalogoPeluqueria.setExpanded(true);
+    }
+
+    public void adapterUnhas(ArrayList<FotoCatalogo> fotos) {
+        gridCatalogoUnhas = findViewById(R.id.grid_catalogo_unhas_activity_informacion_salon);
+        adapterCatalogoUnhas = new AdapterCatalogoPerfilSalon(this, fotos, "User");
+        gridCatalogoUnhas.setAdapter(adapterCatalogoUnhas);
+        gridCatalogoUnhas.setExpanded(true);
+    }
+
 }
