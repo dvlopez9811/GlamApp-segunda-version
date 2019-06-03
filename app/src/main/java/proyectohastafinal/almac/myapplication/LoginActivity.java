@@ -180,6 +180,7 @@ public class LoginActivity extends AppCompatActivity {
     private void crearUsuarioNuevo(String nombre,String email){
         Cliente cl = new Cliente(email, "", nombre, "","");
         rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).setValue(cl);
+        rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("cliente");
     }
 
     private void anadirNuevoUsuarioFacebook(AccessToken token){

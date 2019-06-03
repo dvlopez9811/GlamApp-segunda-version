@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import proyectohastafinal.almac.myapplication.model.Cliente;
+import proyectohastafinal.almac.myapplication.model.Estilista;
 import proyectohastafinal.almac.myapplication.model.Mensaje;
 
 public class ChatActivity extends AppCompatActivity {
@@ -53,12 +54,29 @@ public class ChatActivity extends AppCompatActivity {
         telefonoUsuario = getIntent().getExtras().getString("telUsuario");
         nombre = getIntent().getExtras().getString("usEstilista");
 
-        if(telefonoUsuario==null) {
+        if (telefonoUsuario==null) {
             rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Cliente me = dataSnapshot.getValue(Cliente.class);
                     telefonoUsuario = me.getTelefono();
+                    nombre = me.getUsuario();
+
+                    //Después de saber los teléfonos de ambos, podemos cargar o crear los chats
+                    initChat();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        } else if (telefonoEstilista==null) {
+            rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Estilista me = dataSnapshot.getValue(Estilista.class);
+                    telefonoEstilista = me.getTelefono();
                     nombre = me.getUsuario();
 
                     //Después de saber los teléfonos de ambos, podemos cargar o crear los chats
@@ -76,28 +94,28 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void initChat() {
+        Log.d("TELEFONO eSTILI", telefonoEstilista+"");
+        rtdb.getReference().child("chat").child(telefonoEstilista).child(telefonoUsuario).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null) {
+                    String pushID = rtdb.getReference().child("chat").child(telefonoUsuario).child(telefonoEstilista).push().getKey();
+                    //Crear ramas gemelas
+                    rtdb.getReference().child("chat").child(telefonoUsuario).child(telefonoEstilista).setValue(pushID);
+                    rtdb.getReference().child("chat").child(telefonoEstilista).child(telefonoUsuario).setValue(pushID);
+                    idChat = pushID;
+                } else
+                    idChat = dataSnapshot.getValue(String.class);
 
-            rtdb.getReference().child("chat").child(telefonoEstilista).child(telefonoUsuario).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.getValue() == null) {
-                        String pushID = rtdb.getReference().child("chat").child(telefonoUsuario).child(telefonoEstilista).push().getKey();
-                        //Crear ramas gemelas
-                        rtdb.getReference().child("chat").child(telefonoUsuario).child(telefonoEstilista).setValue(pushID);
-                        rtdb.getReference().child("chat").child(telefonoEstilista).child(telefonoUsuario).setValue(pushID);
-                        idChat = pushID;
-                    }else
-                        idChat = dataSnapshot.getValue(String.class);
+                activarListenerBoton();
+                cargarMensajes();
+            }
 
-                    activarListenerBoton();
-                    cargarMensajes();
-                }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
+            }
+        });
 
     }
 
@@ -132,10 +150,13 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void activarListenerBoton() {
+        Log.e("HOLA", "Activar boton");
+
         btn_enviar_chat.setVisibility(View.VISIBLE);
         btn_enviar_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("HOLA", "Activar boton");
                 //Vamos a enviar los mensajes
                 String mensaje = et_mensaje_chat.getText().toString();
                 Mensaje m = new Mensaje(mensaje,nombre);

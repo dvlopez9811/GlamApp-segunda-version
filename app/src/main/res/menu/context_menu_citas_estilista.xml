@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/ic_calificacion_llena_25x25"
+        android:title="Enviar mensaje a usuario"
+        android:id="@+id/envio_mensaje_a_usuario_cita"/>
+
+    <item
+        android:title="Ver información de la cita"
+        android:id="@+id/verinformacion_cita"/>
+
+    <item
+        android:title="Cancelar cita"
+        android:id="@+id/cancelar_cita_desde_estilista"/>
+
+</menu>

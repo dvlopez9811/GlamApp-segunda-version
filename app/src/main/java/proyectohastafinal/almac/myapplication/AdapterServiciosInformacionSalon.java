@@ -51,7 +51,6 @@ public class AdapterServiciosInformacionSalon extends RecyclerView.Adapter<Adapt
 
 
         //TODO implementar mostrar precio cuando haya sido hecho tambien en el registro
-        ((TextView)holder.root.findViewById(R.id.precio_renglon_servicio_informacion)).setText("Valor: $"+"10000");
     }
 
     @Override

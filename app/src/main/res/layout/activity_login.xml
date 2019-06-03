@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@drawable/fondo_login">
+    android:background="@drawable/fondo_login"
+    >
 
     <Button
         android:layout_width="32dp"
