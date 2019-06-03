@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_main);
 
         NotificationService notificationService = new NotificationService();
-
-
         Intent ser = new Intent(this, notificationService.getClass());
         startService(ser);
 
