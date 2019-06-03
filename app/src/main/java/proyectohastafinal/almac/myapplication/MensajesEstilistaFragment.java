@@ -41,6 +41,7 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
 
     private String telefonopropio;
     private ArrayList<Cliente> usuarios;
+    private ArrayList<String> idusuarios;
     private String usuarioEstilista;
     ArrayList<Cita> citasEstilista;
 
@@ -74,6 +75,7 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
         auth = FirebaseAuth.getInstance();
         rtdb = FirebaseDatabase.getInstance();
 
+        idusuarios = new ArrayList<>();
         usuarios = new ArrayList<>();
 
         listamensajesEstilista = v.findViewById(R.id.lista_mensajes_estilista);
@@ -98,6 +100,7 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     Cliente usuario = dataSnapshot.getValue(Cliente.class);
                                     usuarios.add(usuario);
+                                    idusuarios.add(cita.getIdUsuario());
                                     //adapterMensajesEstilista.agregarusuario(usuario);
                                     adapter();
                                 }
@@ -165,7 +168,7 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
             }
         }
 
-        adapterMensajesEstilista = new AdapterMensajesEstilista(getContext(), usuarios, citasEstilista);
+        adapterMensajesEstilista = new AdapterMensajesEstilista(getContext(), usuarios, idusuarios, citasEstilista);
         adapterMensajesEstilista.setListener(this);
         listamensajesEstilista.setLayoutManager(new LinearLayoutManager(getContext()));
         listamensajesEstilista.setAdapter(adapterMensajesEstilista);
@@ -175,11 +178,13 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
 
 
     @Override
-    public void onItemClick(View v, Cliente usario) {
+    public void onItemClick(View v, Cliente usario,String idusuario) {
         Intent i = new Intent(getActivity(),ChatActivity.class);
         i.putExtra("telUsuario", usario.getTelefono());
         i.putExtra("telEstilista",telefonopropio);
         i.putExtra("usEstilista",usuarioEstilista);
+        i.putExtra("idUsuario",idusuario);
+        i.putExtra("esEstilista",true);
         startActivity(i);
     }
 

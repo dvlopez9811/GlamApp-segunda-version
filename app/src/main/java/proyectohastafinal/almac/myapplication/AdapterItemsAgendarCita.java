@@ -34,6 +34,8 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import proyectohastafinal.almac.myapplication.model.Cita;
+import proyectohastafinal.almac.myapplication.model.Cliente;
+import proyectohastafinal.almac.myapplication.model.Estilista;
 import proyectohastafinal.almac.myapplication.model.Horario;
 import proyectohastafinal.almac.myapplication.model.Servicio;
 
@@ -293,6 +295,24 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                     horaelegida -= 12;
                 horaMostrada = horaelegida + " p.m";
             }
+
+            rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    Cliente cliente = dataSnapshot.getValue(Cliente.class);
+
+                    String valor = "Cita nueva de "+cliente.getUsuario();
+                            rtdb.getReference().child("Alerta").child(idestilista).push().setValue(valor);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
 
             Toast.makeText(holder.root.getContext(), "Cita enviada al estilista", Toast.LENGTH_LONG).show();
 
