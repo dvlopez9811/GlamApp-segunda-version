@@ -83,6 +83,21 @@
                     android:id="@+id/calificacion_5_perfil_salon"
                     android:src="@drawable/ic_calificacion_25x25"
                     android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_valor_calificacion_perfil_salon"
+                    android:fontFamily="@font/josefin_sans"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_personas_calificacion_perfil_salon"
+                    android:fontFamily="@font/josefin_sans"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"/>
             </LinearLayout>
 
             <LinearLayout
