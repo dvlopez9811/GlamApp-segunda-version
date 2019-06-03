@@ -1,17 +1,42 @@
 package proyectohastafinal.almac.myapplication;
 
-import android.content.Context;
-import android.net.Uri;
+
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.ArrayList;
+
+import proyectohastafinal.almac.myapplication.model.Cita;
+import proyectohastafinal.almac.myapplication.model.FotoCatalogo;
+
+import static proyectohastafinal.almac.myapplication.model.ConsutaFirebase.*;
 
 public class CitasSalonFragment extends Fragment {
 
-
     private static  CitasSalonFragment instance;
+    private ArrayList<Cita> citas;
+    private AdapterCitas adapterCitas;
+    private RecyclerView recyclerView;
+
+    private String nombreSalon;
+
+    FirebaseAuth auth;
+    FirebaseDatabase rtdb;
 
     public static CitasSalonFragment getInstance(){
         instance = instance == null ? new CitasSalonFragment():instance;
@@ -19,55 +44,66 @@ public class CitasSalonFragment extends Fragment {
     }
 
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-
-
     public CitasSalonFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CitasSalonFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CitasSalonFragment newInstance(String param1, String param2) {
-        CitasSalonFragment fragment = new CitasSalonFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        rtdb = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
+        citas = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_citas_salon, container, false);
+        View view = inflater.inflate(R.layout.fragment_citas_salon, container, false);
+        recyclerView = view.findViewById(R.id.recycler_view_citas_salones);
+        rtdb.getReference().child(RAMA_IDENTIFICADORES).child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                nombreSalon = dataSnapshot.getValue(String.class);
+
+                rtdb.getReference().child(RAMA_CITAS).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        long numeroCitas = dataSnapshot.getChildrenCount();
+                        int contador = 0;
+                        for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                            Cita cita = childDataSnapshot.getValue(Cita.class);
+                            if(cita.getNombreSalon().equals(nombreSalon))
+                                citas.add(cita);
+                            contador++;
+                            if(numeroCitas == contador) mostrarCitas();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        return view;
     }
 
-
-
+    public void mostrarCitas(){
+        adapterCitas = new AdapterCitas(getContext(),citas);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapterCitas);
+        recyclerView.setHasFixedSize(true);
+    }
 }

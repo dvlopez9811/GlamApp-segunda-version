@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/colorPrimaryClaro">
+
+    <ImageButton
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/btn_volver_popup"
+        android:background="@drawable/ic_volver_primary"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/image_popup_window_agregar"
+        android:background="@drawable/ic_add_image"
+        android:layout_gravity="center_horizontal"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_popup_window_descripcion"
+        android:padding="10dp"
+        android:maxLength="20"
+        android:hint="Descripción de la foto*"
+        android:fontFamily="@font/josefin_sans"
+        android:singleLine="true"
+        android:background="#777"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorNegro"
+        android:layout_margin="10dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_popup_window_precio"
+        android:padding="10dp"
+        android:hint="$ Valor"
+        android:fontFamily="@font/josefin_sans"
+        android:background="#777"
+        android:maxLength="9"
+        android:singleLine="true"
+        android:inputType="number"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorNegro"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_popup_windows_subir"
+        android:layout_gravity="center_horizontal"
+        android:text="Subir"
+        android:textSize="15sp"
+        android:textAllCaps="false"
+        android:background="@drawable/btn_circular_principal"
+        android:textColor="@color/colorBlanco"/>
+
+</LinearLayout>

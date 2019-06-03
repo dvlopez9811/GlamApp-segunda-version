@@ -151,6 +151,7 @@ public class AdapterServiciosPerfilSalon extends RecyclerView.Adapter<AdapterSer
         }
         notifyDataSetChanged();
     }
+
     public static class CustomViewHolder extends RecyclerView.ViewHolder {
         public LinearLayout root;
         public CustomViewHolder(LinearLayout v) {
