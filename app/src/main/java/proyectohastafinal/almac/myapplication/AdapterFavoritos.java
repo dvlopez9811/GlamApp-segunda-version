@@ -12,10 +12,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import proyectohastafinal.almac.myapplication.model.BusquedaSalonDeBelleza;
@@ -65,6 +70,29 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.Cust
 
         holder.root.findViewById(R.id.renglon_favorito).setOnClickListener(v1 -> listener.onItemClick(salones.get(position)));
 
+        rtdb.getReference().child("Salon de belleza").child(salones.get(position).getNombreSalonDeBelleza()).child("direccion").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String direccion = dataSnapshot.getValue(String.class);
+                ((TextView)holder.root.findViewById(R.id.txt_direccion_renglon_favoritos)).setText(direccion);
+                rtdb.getReference().child("Salon de belleza").child(salones.get(position).getNombreSalonDeBelleza()).child("calificacion").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String cal=  dataSnapshot.getValue(String.class);
+                        double calificacion = Double.parseDouble(cal);
+                        DecimalFormat df = new DecimalFormat("#.##");
+                        df.setRoundingMode(RoundingMode.CEILING);
+                        ((TextView)holder.root.findViewById(R.id.txt_calificacion_renglon_favoritos)).setText(df.format(calificacion)+"");
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
 
