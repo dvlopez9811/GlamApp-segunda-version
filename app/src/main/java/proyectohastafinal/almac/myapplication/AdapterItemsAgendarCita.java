@@ -278,16 +278,6 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
             }
         });
 
-
-        ((ImageButton)holder.root.findViewById(R.id.ib_rechazar_item_agendar_cita)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LinearLayout vista_item_agendar_cita = holder.root.findViewById(R.id.vista_item_agendar_cita);
-                vista_item_agendar_cita.setVisibility(View.GONE);
-                notifyDataSetChanged();
-            }
-        });
-
     }
 
     public void doAction (CustomViewHolder holder, int position) {
@@ -320,7 +310,6 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                     ((TextView) holder.root.findViewById(R.id.mes_seleccionado_item_agendar_cita)).getText() + " a las: " +
                     horaMostrada);
             (holder.root.findViewById(R.id.layout_confirmacion_cita)).setVisibility(LinearLayout.VISIBLE);
-            (holder.root.findViewById(R.id.ib_rechazar_item_agendar_cita)).setVisibility(ImageButton.GONE);
             (holder.root.findViewById(R.id.ib_aceptar_item_agendar_cita)).setVisibility(ImageButton.GONE);
             (holder.root.findViewById(R.id.txt_tipo_servicio_item_agendar_cita)).setVisibility(TextView.GONE);
             (holder.root.findViewById(R.id.linea_estilista_item_agendar_cita)).setVisibility(LinearLayout.GONE);

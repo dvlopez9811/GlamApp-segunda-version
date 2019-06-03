@@ -1,16 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PerfilFragment"
-    android:padding="15dp">
+    tools:context=".PerfilFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/titulo_fragment_perfil"
+        android:text="Mi cuenta"
+        android:textSize="40sp"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="@font/josefin_sans"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#777"
+        android:layout_below="@id/titulo_fragment_perfil" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_below="@id/titulo_fragment_perfil"
+        android:layout_marginTop="20dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -19,26 +37,27 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-             <TextView
-            android:id="@+id/perfil_nombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/josefin_sans_thin"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            android:textColor="#000"
-            />
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp">
 
-            <TextView
-            android:id="@+id/perfil_correo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/josefin_sans_thin"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:textColor="#000"
-            />
+                <TextView android:id="@+id/perfil_nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/josefin_sans_thin"
+                    android:textStyle="bold"
+                    android:textSize="30dp"
+                    android:textColor="#000"
+                    />
+
+                <TextView
+                    android:id="@+id/perfil_correo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/josefin_sans_thin"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:textColor="#000"
+                    />
             </LinearLayout>
 
             <ImageView
@@ -47,13 +66,15 @@
                 android:layout_alignParentEnd="true"
                 android:id="@+id/foto_perfil_usuario_fragment_perfil"
                 />
-    </RelativeLayout>
+        </RelativeLayout>
 
 
-    <RelativeLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
 
             <ImageView
                 android:layout_width="30dp"
@@ -80,7 +101,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
 
             <ImageView
                 android:layout_width="30dp"
@@ -110,4 +133,4 @@
 
 
 
-</FrameLayout>
+</RelativeLayout>

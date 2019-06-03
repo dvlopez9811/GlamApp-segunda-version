@@ -79,29 +79,6 @@ public class AdapterSalones extends BaseAdapter {
         this.listener = listener;
     }
 
-    public void agregarSalon(BusquedaSalonDeBelleza salonDeBelleza){
-        if(!salones.contains(salonDeBelleza))
-            salones.add(salonDeBelleza);
-        notifyDataSetChanged();
-    }
-
-    public void actualizarDistancia (BusquedaSalonDeBelleza busquedaSalonDeBelleza){
-        for (int i = 0; i < salones.size(); i++){
-            if( salones.get(i).equals(busquedaSalonDeBelleza) ) {
-                salones.get(i).setDistanciaASalonDeBelleza(busquedaSalonDeBelleza.getDistanciaASalonDeBelleza());
-            }
-        }
-        notifyDataSetChanged();
-    }
-
-    public BusquedaSalonDeBelleza darItem(int posicion){
-        return salones.get(posicion);
-    }
-
-    public void limpiarSalones(){
-        salones = new ArrayList<>();
-        notifyDataSetChanged();
-    }
 
     public void filtrar(String charText){
         charText = charText.toLowerCase(Locale.getDefault());
