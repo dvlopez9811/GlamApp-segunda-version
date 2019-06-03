@@ -336,5 +336,6 @@ public class InicioActivity extends AppCompatActivity {
     private void crearUsuarioDeFacebookOGoogle(String nombre,String email){
         Cliente cl = new Cliente(email, "", nombre, "","");
         rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).setValue(cl);
+        rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("cliente");
     }
 }

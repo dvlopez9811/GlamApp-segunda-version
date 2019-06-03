@@ -23,15 +23,6 @@
         android:layout_gravity="center"
         android:gravity="center_horizontal"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/precio_renglon_servicio_informacion"
-        android:fontFamily="@font/josefin_sans"
-        android:text="Valor: $"
-        android:textSize="15dp"
-        android:layout_gravity="center"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="5dp"/>
+
 
 </LinearLayout>

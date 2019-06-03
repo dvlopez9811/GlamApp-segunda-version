@@ -164,6 +164,7 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
             Calendar calendarioCita = new GregorianCalendar(Integer.parseInt(fechaCita[0]), Integer.parseInt(fechaCita[1]) - 1, Integer.parseInt(fechaCita[2]), cita.getHorainicio(), 0, 0);
 
             if (calendarioCita.getTimeInMillis() < calendarioActual.getTimeInMillis()) {
+                cita.setEstado(Cita.FINALIZADA);
                 if (i == 0) {
                     cita.setInformacion("CITAS POR CALIFICAR");
                 }
