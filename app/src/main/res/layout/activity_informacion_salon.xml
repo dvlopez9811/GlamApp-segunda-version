@@ -125,21 +125,46 @@
                 android:layout_marginRight="20dp"
                 android:layout_alignParentEnd="true"/>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:id="@+id/linear_botones_agendar_maps"
+                android:layout_below="@id/layout_informacion"
+                android:layout_height="wrap_content">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_agendar_cita_info_salon_activity"
-                android:padding="10dp"
-                android:fontFamily="@font/josefin_sans"
-                android:textSize="20sp"
-                android:text="Agenda tu cita"
-                android:textAllCaps="false"
-                android:background="@drawable/btn_circular_principal"
-                android:textColor="@color/colorBlanco"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/layout_informacion" />
+                <Button
+                    android:id="@+id/btn_ver_ubicacion_maps_intent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btn_circular_secundario"
+                    android:fontFamily="@font/josefin_sans"
+                    android:padding="10dp"
+                    android:text="Ver cómo llegar"
+                    android:textAllCaps="false"
+                    android:gravity="center|left"
+                    android:textColor="@color/colorBlanco"
+                    android:textSize="20sp" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_agendar_cita_info_salon_activity"
+                    android:padding="10dp"
+                    android:fontFamily="@font/josefin_sans"
+                    android:textSize="20sp"
+                    android:text="Agenda tu cita"
+                    android:textAllCaps="false"
+                    android:background="@drawable/btn_circular_principal"
+                    android:textColor="@color/colorBlanco"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center|right"
+                    android:layout_marginTop="10dp"
+                    />
+
+            </RelativeLayout>
+
+
 
 
             <android.support.v7.widget.RecyclerView
@@ -148,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:id="@+id/listado_servicios_informacion_salon_activity"
-                android:layout_below="@id/btn_agendar_cita_info_salon_activity"/>
+                android:layout_below="@id/linear_botones_agendar_maps"/>
 
             <proyectohastafinal.almac.myapplication.ExpandableHeightGridView
                 android:id="@+id/grid_Catalogo_informacion_salon_activity"

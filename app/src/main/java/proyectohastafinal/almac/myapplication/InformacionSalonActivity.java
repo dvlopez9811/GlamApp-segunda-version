@@ -45,7 +45,7 @@ public class InformacionSalonActivity extends AppCompatActivity {
 
     private RecyclerView listaServicios;
     private AdapterServiciosInformacionSalon adapterServicios;
-    private Button btn_agendar_cita,btn_anadir_favoritos,btn_volver;
+    private Button btn_agendar_cita,btn_anadir_favoritos,btn_volver,btn_como_llegar;
     private TextView txt_titulo_salon,txt_descripcion_servicios,txt_informacion_direccion_salon,txt_calificacion,txt_calificadores;
     private ImageView imagen_perfil_info_salon_activity,estrella_calificacion1,estrella_calificacion2
             ,estrella_calificacion3,estrella_calificacion4,estrella_calificacion5;
@@ -68,6 +68,7 @@ public class InformacionSalonActivity extends AppCompatActivity {
         btn_anadir_favoritos = findViewById(R.id.btn_anadir_favoritos_informacion_salon_activity);
         btn_volver = findViewById(R.id.btn_atras_informacion_salon_activity);
         btn_agendar_cita = findViewById(R.id.btn_agendar_cita_info_salon_activity);
+        btn_como_llegar = findViewById(R.id.btn_ver_ubicacion_maps_intent);
         txt_titulo_salon = findViewById(R.id.titulo_salon_informacion_salon_activity);
         txt_informacion_direccion_salon = findViewById(R.id.txt_informacion_direccion_salon);
         //txt_descripcion_servicios = findViewById(R.id.txt_resumen_servicios_info_salon_activity);
@@ -236,6 +237,36 @@ public class InformacionSalonActivity extends AppCompatActivity {
             }
 
         });
+
+
+        rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("latitud").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                double latitud = (double)dataSnapshot.getValue();
+                rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("longitud").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        double longitud = (double)dataSnapshot.getValue();
+
+                        btn_como_llegar.setOnClickListener(v -> {
+                            Uri gmmIntentUri = Uri.parse("google.navigation:q="+latitud+","+longitud);
+                            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                            mapIntent.setPackage("com.google.android.apps.maps");
+                            if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                                startActivity(mapIntent);
+                            }
+                        });
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) { }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+
 
 
         ////Calificación

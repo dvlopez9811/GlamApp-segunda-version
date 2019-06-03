@@ -216,7 +216,7 @@ public class RegistroSalonDeBelleza extends AppCompatActivity {
                             rtdb.getReference().child("Salon de belleza").child(nombreSalonBelleza).setValue(salonDeBelleza);
                             subirImagen();
                             rtdb.getReference().child("Salon de belleza").child(nombreSalonBelleza).child("calificacion").setValue("5.0");
-                            rtdb.getReference().child("Salon de belleza").child(nombreSalonBelleza).child("numeroCalificaciones").setValue("0.0");
+                            rtdb.getReference().child("Salon de belleza").child(nombreSalonBelleza).child("numeroCalificaciones").setValue(1);
                             rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("salón de belleza");
 
                             Marcador marcador = new Marcador(salonDeBelleza.getLatitud(), salonDeBelleza.getLongitud(), salonDeBelleza.getNombreSalonDeBelleza());
