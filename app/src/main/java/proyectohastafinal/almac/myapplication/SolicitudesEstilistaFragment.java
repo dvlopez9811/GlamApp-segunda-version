@@ -33,6 +33,7 @@ import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
 import proyectohastafinal.almac.myapplication.model.Cita;
+import proyectohastafinal.almac.myapplication.model.Cliente;
 import proyectohastafinal.almac.myapplication.model.Estilista;
 
 
@@ -181,17 +182,19 @@ public class SolicitudesEstilistaFragment extends Fragment implements AdapterCit
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
-            case R.id.envio_mensaje_usuario_cita:
+            case R.id.envio_mensaje_a_usuario_cita:
+                Log.e("SI LLEGA", "UYUYU");
 
-                rtdb.getReference().child("Estilista").child(citaseleccionada.getIdEstilista()).addListenerForSingleValueEvent(new ValueEventListener() {
+                rtdb.getReference().child("usuario").child(citaseleccionada.getIdUsuario()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        Estilista estilista = dataSnapshot.getValue(Estilista.class);
+                        Cliente cliente = dataSnapshot.getValue(Cliente.class);
 
                         //Vamos a abrir la ventana de chat
                         Intent i = new Intent(getActivity(),ChatActivity.class);
-                        i.putExtra("telEstilista", estilista.getTelefono());
+                        Log.e("USUARIO", cliente.getTelefono()+"");
+                        i.putExtra("telUsuario", cliente.getTelefono());
                         startActivity(i);
 
                     }
