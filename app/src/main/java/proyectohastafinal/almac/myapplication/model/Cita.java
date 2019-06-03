@@ -1,7 +1,5 @@
 package proyectohastafinal.almac.myapplication.model;
 
-import android.util.Log;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -33,12 +31,14 @@ public class Cita implements Comparable < Cita >{
     private String nombreSalon;
     private String idEstilista;
     private String idUsuario;
+    private String nombreEstilista;
+    private String nombreUsuario;
     private int tipo;
 
     private String cabecera;
 
     public Cita(String idcita,String estado,String dia,String fecha,int horafin,int horainicio, String informacion, String nombreSalon,String servicio,
-                String idEstilista,String idUsuario) {
+                String idEstilista, String nombreEstilista, String idUsuario, String nombreUsuario) {
         this.iIdcita = idcita;
         this.dia = dia;
         this.fecha = fecha;
@@ -50,6 +50,8 @@ public class Cita implements Comparable < Cita >{
         this.nombreSalon = nombreSalon;
         this.idEstilista = idEstilista;
         this.idUsuario = idUsuario;
+        this.nombreEstilista = nombreEstilista;
+        this.nombreUsuario = nombreUsuario;
     }
 
     public Cita() {
@@ -157,6 +159,30 @@ public class Cita implements Comparable < Cita >{
 
     public void setCabecera(String cabecera) {
         this.cabecera = cabecera;
+    }
+
+    public String getiIdcita() {
+        return iIdcita;
+    }
+
+    public void setiIdcita(String iIdcita) {
+        this.iIdcita = iIdcita;
+    }
+
+    public String getNombreEstilista() {
+        return nombreEstilista;
+    }
+
+    public void setNombreEstilista(String nombreEstilista) {
+        this.nombreEstilista = nombreEstilista;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     @Override

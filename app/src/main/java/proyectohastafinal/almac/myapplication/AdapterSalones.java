@@ -1,20 +1,17 @@
 package proyectohastafinal.almac.myapplication;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.ColorSpace;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
+
+import static proyectohastafinal.almac.myapplication.model.Constantes.*;
 
 import proyectohastafinal.almac.myapplication.model.BusquedaSalonDeBelleza;
 
@@ -26,18 +23,12 @@ public class AdapterSalones extends BaseAdapter {
     ArrayList<BusquedaSalonDeBelleza> copiaSalones;
 
     public AdapterSalones(Context context, ArrayList<BusquedaSalonDeBelleza> salones){
+        inflater = LayoutInflater.from(context);
         this.context = context;
         this.salones = salones;
-        inflater = LayoutInflater.from(context);
-        copiaSalones = salones;
+        copiaSalones = new ArrayList<>();
+        copiaSalones.addAll(salones);
     }
-
-    public AdapterSalones(Context context){
-        this.context = context;
-        this.salones = new ArrayList<>();
-        this.copiaSalones = new ArrayList<>();
-    }
-
 
     @Override
     public int getCount() {
@@ -53,14 +44,6 @@ public class AdapterSalones extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-
-
-    public void addAll(ArrayList<BusquedaSalonDeBelleza> category) {
-        for (int i = 0; i < category.size(); i++) {
-            salones.add(category.get(i));
-        }
-    }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -84,10 +67,6 @@ public class AdapterSalones extends BaseAdapter {
         return v;
     }
 
-    public AdapterSalones(){
-        salones = new ArrayList<>();
-
-    }
 
     //OBSERVER
     public interface OnItemClickListener{
@@ -106,16 +85,10 @@ public class AdapterSalones extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void crearCopia(){
-        copiaSalones = new ArrayList<>();
-        copiaSalones.addAll(salones);
-    }
-
     public void actualizarDistancia (BusquedaSalonDeBelleza busquedaSalonDeBelleza){
         for (int i = 0; i < salones.size(); i++){
             if( salones.get(i).equals(busquedaSalonDeBelleza) ) {
                 salones.get(i).setDistanciaASalonDeBelleza(busquedaSalonDeBelleza.getDistanciaASalonDeBelleza());
-
             }
         }
         notifyDataSetChanged();

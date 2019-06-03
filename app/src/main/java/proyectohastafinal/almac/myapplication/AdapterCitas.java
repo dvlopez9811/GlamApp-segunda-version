@@ -73,7 +73,7 @@ public class AdapterCitas extends RecyclerView.Adapter<AdapterCitas.CustomViewHo
         holder.salon_renglon_cita.setText(citas.get(position).getNombreSalon());
         holder.servicio_renglon_cita.setText(citas.get(position).getServicio());
         holder.horainicio_renglon_cita.setText(horarioinicio);
-        holder.nombre_estilista_cita.setText("arreglar estilista");
+        holder.nombre_estilista_cita.setText(citas.get(position).getNombreEstilista());
         holder.relative_renglon_cita_header.setVisibility(View.GONE);
 
 

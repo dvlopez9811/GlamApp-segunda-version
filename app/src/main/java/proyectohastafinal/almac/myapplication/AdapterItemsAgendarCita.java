@@ -49,6 +49,7 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
     Calendar calendario;
     DatePickerDialog dpd;
 
+    ArrayList<String> nombreEstilistas;
     private ArrayList<AdapterHorarios> adapterHorarios;
     private ArrayList<RecyclerView> listaHorarios;
 
@@ -57,15 +58,18 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
 
     private String tiposervicio;
     private String idestilista;
+    private String nombreEstilista;
     private String diaelegido;
     private String fechaelegida;
     private String salon;
     private int horaelegida;
     private boolean diaelegidoeshoy;
     private int posicionspinner;
+    private String nombreUsuario;
 
     public AdapterItemsAgendarCita(String salon){
         idestilistas = new ArrayList<>();
+        nombreEstilistas = new ArrayList<>();
         this.salon = salon;
         adapterHorarios = new ArrayList<>();
         listaHorarios = new ArrayList<>();
@@ -96,6 +100,17 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
     @Override
     public void onBindViewHolder(@NonNull final CustomViewHolder holder, int position) {
 
+        rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("nombreYApellido").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                nombreUsuario = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         tiposervicio = servicios.get(position).getTipo();
         Log.e("SERVICIOS", tiposervicio + "");
         ((TextView) holder.root.findViewById(R.id.txt_tipo_servicio_item_agendar_cita)).setText(tiposervicio);
@@ -174,6 +189,7 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                         for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
 
                             estilistas.add(childDataSnapshot.getValue(String.class));
+                            nombreEstilistas.add(childDataSnapshot.getValue(String.class));
                             idestilistas.add(childDataSnapshot.getKey());
                             //Log.e(">>>>",childDataSnapshot.getKey());
 
@@ -229,7 +245,9 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                             pos+=estilistasporservicio[k];
                         }
 
+
                         idestilista = idestilistas.get(pos+posicionspinner);
+                        nombreEstilista = nombreEstilistas.get(pos+posicionspinner).toString();
 
                         diaelegido = fechaelegida = "";
                         Calendar c = Calendar.getInstance();
@@ -264,7 +282,8 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
         ((ImageButton)holder.root.findViewById(R.id.ib_rechazar_item_agendar_cita)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                servicios.remove(position);
+                LinearLayout vista_item_agendar_cita = holder.root.findViewById(R.id.vista_item_agendar_cita);
+                vista_item_agendar_cita.setVisibility(View.GONE);
                 notifyDataSetChanged();
             }
         });
@@ -277,7 +296,7 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
             String idcita = UUID.randomUUID().toString();
             Log.e("TIPO AL GUARDAR", tiposervicio + "");
             Cita cita = new Cita(idcita, Cita.RESERVADA, diaelegido, fechaelegida, horaelegida + 1, horaelegida, "", salon,
-                    tiposervicio, idestilista, auth.getCurrentUser().getUid());
+                    tiposervicio, idestilista, nombreEstilista, auth.getCurrentUser().getUid(), nombreUsuario);
             rtdb.getReference().child("Citas").child(idcita).setValue(cita);
             rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("citas").child(idcita).setValue(idcita);
             rtdb.getReference().child("Estilista").child(idestilista).child("citas").child(idcita).setValue(idcita);
