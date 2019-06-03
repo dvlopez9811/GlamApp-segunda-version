@@ -42,10 +42,12 @@ public class AdapterCitas extends RecyclerView.Adapter<AdapterCitas.CustomViewHo
     Context context;
     ArrayList<Cita> citas;
     FirebaseDatabase rtdb;
+    FirebaseStorage storage;
 
     public AdapterCitas(Context context, ArrayList<Cita> citas){
         this.context = context;
         this.citas = citas;
+        storage = FirebaseStorage.getInstance();
     }
 
     @Override
@@ -67,13 +69,13 @@ public class AdapterCitas extends RecyclerView.Adapter<AdapterCitas.CustomViewHo
             horarioinicio=horarioinic+" p.m";
         }
 
-        //StorageReference ref = storage.getReference().child("estilistas").child(citas.get(position).getIdEstilista());
+        StorageReference ref = storage.getReference().child("estilistas").child(citas.get(position).getIdEstilista());
         //ImageView image =  holder.root.findViewById(R.id.image_cita_estilista);
         //ref.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(image.getContext()).load(uri).into(image));
         holder.salon_renglon_cita.setText(citas.get(position).getNombreSalon());
         holder.servicio_renglon_cita.setText(citas.get(position).getServicio());
         holder.horainicio_renglon_cita.setText(horarioinicio);
-        holder.nombre_estilista_cita.setText("arreglar estilista");
+        holder.nombre_estilista_cita.setText(citas.get(position).getNombreEstilista());
         holder.relative_renglon_cita_header.setVisibility(View.GONE);
 
 
@@ -81,20 +83,22 @@ public class AdapterCitas extends RecyclerView.Adapter<AdapterCitas.CustomViewHo
             holder.relative_renglon_calificar_cita.setVisibility(View.VISIBLE);
             holder.iv_menu_cita_renglon_cita.setVisibility(View.GONE);
         }
+
+        String fecha[] = citas.get(position).getFecha().split("-");
         if(citas.get(position).getInformacion().equals("CITAS POR CALIFICAR")) {
             holder.relative_renglon_cita_header.setVisibility(View.VISIBLE);
             holder.renglon_cita_fecha.setVisibility(TextView.GONE);
             holder.renglon_cita_dias_restantes.setVisibility(TextView.GONE);
-            holder.renglon_cita_dia_de_la_semana.setText("CITAS POR CALIFICAR");
+            holder.renglon_cita_dia_de_la_semana.setText("Citas por calificar");
         } else if(citas.get(position).getInformacion().equals("HOY")) {
             holder.relative_renglon_cita_header.setVisibility(View.VISIBLE);
-            holder.renglon_cita_fecha.setText(citas.get(position).getFecha());
-            holder.renglon_cita_dias_restantes.setText("HOY");
+            holder.renglon_cita_fecha.setText(fecha[2]+ "/" + fecha[1] + "/" + fecha[0]);
+            holder.renglon_cita_dias_restantes.setText("Hoy");
             holder.renglon_cita_dia_de_la_semana.setText(citas.get(position).getCabecera());
         }else if(citas.get(position).getInformacion().equals("PRÓXIMO")) {
             String[] datos = citas.get(position).getCabecera().split(" ");
             holder.relative_renglon_cita_header.setVisibility(View.VISIBLE);
-            holder.renglon_cita_fecha.setText(citas.get(position).getFecha());
+            holder.renglon_cita_fecha.setText(fecha[2]+ "/" + fecha[1] + "/" + fecha[0]);
             holder.renglon_cita_dias_restantes.setText(datos[1] + " dias");
             holder.renglon_cita_dia_de_la_semana.setText(datos[0]);
         }

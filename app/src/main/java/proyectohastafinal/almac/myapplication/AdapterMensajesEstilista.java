@@ -26,14 +26,12 @@ import proyectohastafinal.almac.myapplication.model.Cliente;
 public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensajesEstilista.CustomViewHolder>{
 
     private ArrayList<Cliente> usuarios;
-    private ArrayList<String> idusuarios;
     ArrayList<Cita> citas;
     FirebaseDatabase rtdb;
     Context context;
 
-    public void agregarusuario(Cliente usuario,String idusuario){
+    public void agregarusuario(Cliente usuario){
         usuarios.add(usuario);
-        idusuarios.add(idusuario);
         notifyDataSetChanged();
     }
 
@@ -60,11 +58,10 @@ public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensaj
         }
     }
 
-    public AdapterMensajesEstilista(Context context, ArrayList<Cliente> clientes,ArrayList<String> idusuarios, ArrayList<Cita> citas){
+    public AdapterMensajesEstilista(Context context, ArrayList<Cliente> clientes, ArrayList<Cita> citas){
         this.context = context;
         this.usuarios = clientes;
         this.citas = citas;
-        this.idusuarios = idusuarios;
     }
 
     @Override
@@ -124,7 +121,7 @@ public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensaj
             @Override
             public void onClick(View v) {
                 Log.d("PASANDOOOOO", "PASANDO");
-                listener.onItemClick(v,usuarios.get(position),idusuarios.get(position));
+                listener.onItemClick(v,usuarios.get(position));
             }
         });
     }
@@ -136,7 +133,7 @@ public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensaj
 
     //OBSERVER
     public interface OnItemClickListener{
-        void onItemClick(View v,Cliente usario,String idusuario);
+        void onItemClick(View v,Cliente usario);
         void onItemCall(String telefono);
     }
 

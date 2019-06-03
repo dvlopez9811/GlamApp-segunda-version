@@ -12,11 +12,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,12 +46,35 @@ import proyectohastafinal.almac.myapplication.model.Servicio;
 
 public class CitasEstilistaFragment extends Fragment implements AdapterCitasEstilista.OnItemClickListenerHoy{
 
+    private static final String NOMBRE_SALON = "Salón de belleza: ";
+    private static final String NOMBRE_ESTILISTA = "Estilista: ";
+    private static final String NOMBRE_USUARIO = "Cliente: ";
+    private static final String TIPO_SERVICIO = "Servicio: ";
+    private static final String FECHA = "Fecha: ";
+    private static final String HORA_INICIO = "Hora inicio: ";
+    private static final String HORA_FINALIZACION = "Hora finalización: ";
+
     private static CitasEstilistaFragment instance;
 
     private AdapterCitasEstilista adapterCitasEstilista;
     private RecyclerView lista_citas_estilista;
     private ArrayList <Cita> citas;
     private Cita citaseleccionada;
+
+    private TextView popup_window_informacion_cita_nombre_salon;
+    private TextView popup_window_informacion_cita_nombre_estilista;
+    private TextView popup_window_informacion_cita_nombre_usuario;
+    private TextView popup_window_informacion_cita_tipo_servicio;
+    private TextView popup_window_informacion_cita_fecha;
+    private TextView popup_window_informacion_cita_hora_inicio;
+    private TextView popup_window_informacion_cita_hora_final;
+
+
+    View popUpView;
+    PopupWindow popupWindow;
+    LayoutInflater layoutInflater;
+
+    View v;
 
     FirebaseDatabase rtdb;
     FirebaseAuth auth;
@@ -145,7 +171,7 @@ public class CitasEstilistaFragment extends Fragment implements AdapterCitasEsti
         //TODO
 
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_citas_estilista, container, false);
+        v = inflater.inflate(R.layout.fragment_citas_estilista, container, false);
 
         auth = FirebaseAuth.getInstance();
 
@@ -328,6 +354,33 @@ public class CitasEstilistaFragment extends Fragment implements AdapterCitasEsti
 
                     }
                 });
+
+                break;
+
+            case R.id.verinformacion_cita:
+                layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                popUpView = layoutInflater.inflate(R.layout.popup_window_informacion_cita, null);
+                popupWindow = new PopupWindow(popUpView, RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT);
+                popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+                popup_window_informacion_cita_nombre_salon = popUpView.findViewById(R.id.popup_window_informacion_cita_nombre_salon);
+                popup_window_informacion_cita_nombre_estilista = popUpView.findViewById(R.id.popup_window_informacion_cita_nombre_estilista);
+                popup_window_informacion_cita_nombre_usuario = popUpView.findViewById(R.id.popup_window_informacion_cita_nombre_usuario);
+                popup_window_informacion_cita_tipo_servicio = popUpView.findViewById(R.id.popup_window_informacion_cita_tipo_servicio);
+                popup_window_informacion_cita_fecha = popUpView.findViewById(R.id.popup_window_informacion_cita_fecha);
+                popup_window_informacion_cita_hora_inicio = popUpView.findViewById(R.id.popup_window_informacion_cita_hora_inicio);
+                popup_window_informacion_cita_hora_final = popUpView.findViewById(R.id.popup_window_informacion_cita_hora_final);
+
+                popup_window_informacion_cita_nombre_salon.setText(NOMBRE_SALON + citaseleccionada.getNombreSalon());
+                popup_window_informacion_cita_nombre_estilista.setText(NOMBRE_ESTILISTA + citaseleccionada.getNombreEstilista());
+                popup_window_informacion_cita_nombre_usuario.setText(NOMBRE_USUARIO + citaseleccionada.getNombreUsuario());
+                popup_window_informacion_cita_tipo_servicio.setText(TIPO_SERVICIO + citaseleccionada.getServicio());
+                popup_window_informacion_cita_fecha.setText(FECHA + citaseleccionada.getFecha());
+                popup_window_informacion_cita_hora_inicio.setText(HORA_INICIO + citaseleccionada.getHorainicio());
+                popup_window_informacion_cita_hora_final.setText(HORA_FINALIZACION + citaseleccionada.getHorafin());
+
+                popupWindow.setFocusable(true);
+                popupWindow.update();
 
                 break;
 

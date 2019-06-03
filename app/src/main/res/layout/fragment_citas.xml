@@ -6,10 +6,30 @@
     tools:context=".CitasFragment"
     android:layout_marginBottom="55dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/titulo_fragment_citas"
+        android:text="Mis citas"
+        android:textSize="40sp"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="@font/josefin_sans"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#777"
+        android:layout_below="@id/titulo_fragment_citas" />
+
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/lista_citas">
+        android:layout_below="@id/titulo_fragment_citas"
+        android:id="@+id/lista_citas"
+        android:layout_marginTop="5dp">
     </android.support.v7.widget.RecyclerView>
 
     <TextView

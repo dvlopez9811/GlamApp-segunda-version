@@ -1,6 +1,6 @@
 package proyectohastafinal.almac.myapplication.model;
 
-public final class ConsutaFirebase {
+public final class Constantes {
     public final static String RAMA_SALONES_DE_BELLEZA = "Salon de belleza";
     public final static String RAMA_ESTILISTAS = "Estilista";
     public final static String RAMA_BUSQUEDA_SALONES = "buscar salon por servicios";
@@ -17,4 +17,7 @@ public final class ConsutaFirebase {
     public final static String SERVICIO_PELUQUERIA = "Peluqueria";
     public final static String SERVICIO_UNHAS = "Uñas";
     public final static String[] SERVICIOS = {SERVICIO_DEPILACION,SERVICIO_MAQUILLAJE,SERVICIO_MASAJE,SERVICIO_PELUQUERIA,SERVICIO_UNHAS};
+    public final static String SALON_DE_BELLEZA = "Salon de belleza";
+    public final static String ESTILISTA = "Estilista";
+    public final static String USUARIO = "Usuario";
 }

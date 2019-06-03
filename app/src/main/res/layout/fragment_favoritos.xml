@@ -4,24 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FavoritosFragment"
-    android:padding="20dp"
     android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tus salones favoritos"
+        android:id="@+id/titulo_fragment_favoritos"
+        android:text="Mis favoritos"
+        android:textSize="40sp"
+        android:textColor="@color/colorPrimary"
         android:fontFamily="@font/josefin_sans"
-        android:textSize="30sp"
-        android:textColor="@color/colorPrimaryMuyDark"
-        />
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#777"
+        android:layout_below="@id/titulo_fragment_favoritos" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefin_sans"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorNegro"
         android:layout_marginTop="30dp"
         android:textSize="20sp"
         android:text="Aún no has añadido salones a esta lista."
@@ -33,7 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listado_salones_favoritos"
-        android:layout_below="@id/layout_filtros">
+        android:layout_below="@id/layout_filtros"
+        android:layout_marginLeft="10dp">
     </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
