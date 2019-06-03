@@ -53,50 +53,50 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_calificacion"
-                        android:text="5.0"
-                        android:fontFamily="@font/josefin_sans"
-                        android:layout_marginLeft="20dp"
-                        android:layout_gravity="center"/>
+
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:id="@+id/calificacion_1_informacion_salon"
-                        android:layout_marginLeft="5dp"
-                        android:src="@drawable/ic_calificacion_25x25"/>
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/ic_estrella_vacia"/>
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:id="@+id/calificacion_2_informacion_salon"
                         android:layout_marginLeft="5dp"
-                        android:src="@drawable/ic_calificacion_25x25"/>
+                        android:src="@drawable/ic_estrella_vacia"/>
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:id="@+id/calificacion_3_informacion_salon"
                         android:layout_marginLeft="5dp"
-                        android:src="@drawable/ic_calificacion_25x25"/>
+                        android:src="@drawable/ic_estrella_vacia"/>
 
                     <ImageView
                         android:layout_marginLeft="5dp"
                         android:id="@+id/calificacion_4_informacion_salon"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_calificacion_25x25"/>
+                        android:src="@drawable/ic_estrella_vacia"/>
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:id="@+id/calificacion_5_informacion_salon"
                         android:layout_marginLeft="5dp"
-                        android:src="@drawable/ic_calificacion_25x25"/>
-
+                        android:src="@drawable/ic_estrella_vacia"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txt_valor_calificacion_informacion_salon"
+                        android:text="5.0"
+                        android:fontFamily="@font/josefin_sans"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
                         android:text="(456)"
                         android:fontFamily="@font/josefin_sans"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="5dp"/>
+                        android:layout_marginLeft="10dp"/>
                 </LinearLayout>
 
                 <TextView
