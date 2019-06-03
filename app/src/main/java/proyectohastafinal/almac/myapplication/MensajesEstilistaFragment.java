@@ -96,7 +96,7 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     Cliente usuario = dataSnapshot.getValue(Cliente.class);
                                     usuarios.add(usuario);
-                                    adapterMensajesEstilista.agregarusuario(usuario);
+                                    adapterMensajesEstilista.agregarusuario(usuario,cita.getIdUsuario());
                                 }
 
                                 @Override
@@ -137,10 +137,11 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
     }
 
     @Override
-    public void onItemClick(Cliente usuario) {
+    public void onItemClick(Cliente usuario,String idusuario) {
 
         Intent i = new Intent(getActivity(),ChatActivity.class);
         i.putExtra("telUsuario", usuario.getTelefono());
+        i.putExtra("idUsuario", idusuario);
         i.putExtra("telEstilista",telefonopropio);
         i.putExtra("usEstilista",usuarioEstilista);
         startActivity(i);

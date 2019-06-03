@@ -23,9 +23,11 @@ import proyectohastafinal.almac.myapplication.model.Cliente;
 public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensajesEstilista.CustomViewHolder>{
 
     private ArrayList<Cliente> usuarios;
+    private ArrayList<String> idusuarios;
 
-    public void agregarusuario(Cliente usuario){
+    public void agregarusuario(Cliente usuario,String idusuario){
         usuarios.add(usuario);
+        idusuarios.add(idusuario);
         notifyDataSetChanged();
     }
 
@@ -42,6 +44,7 @@ public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensaj
 
     public AdapterMensajesEstilista(){
         usuarios = new ArrayList<>();
+        idusuarios = new ArrayList<>();
     }
 
     @Override
@@ -65,7 +68,7 @@ public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensaj
         holder.root.findViewById(R.id.renglon_mensaje_estilista).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(usuarios.get(position));
+                listener.onItemClick(usuarios.get(position),idusuarios.get(position));
             }
         });
 
@@ -78,7 +81,7 @@ public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensaj
 
     //OBSERVER
     public interface OnItemClickListener{
-        void onItemClick(Cliente usuario);
+        void onItemClick(Cliente usuario,String idusuario);
         void onItemCall(String telefono);
     }
 

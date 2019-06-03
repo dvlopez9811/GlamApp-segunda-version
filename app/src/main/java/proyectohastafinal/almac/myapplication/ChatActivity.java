@@ -27,6 +27,9 @@ public class ChatActivity extends AppCompatActivity {
     private String telefonoUsuario;
     private String idChat;
     private String nombre;
+    private String idEstilista;
+    private String idUsuario;
+    private boolean esEstilista;
 
     FirebaseAuth auth;
     FirebaseDatabase rtdb;
@@ -54,6 +57,7 @@ public class ChatActivity extends AppCompatActivity {
         nombre = getIntent().getExtras().getString("usEstilista");
 
         if(telefonoUsuario==null) {
+            idEstilista = getIntent().getExtras().getString("idEstilista");
             rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -71,6 +75,8 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
         }else{
+            idUsuario = getIntent().getExtras().getString("idUsuario");
+            esEstilista=true;
             initChat();
         }
     }
@@ -141,6 +147,15 @@ public class ChatActivity extends AppCompatActivity {
                 Mensaje m = new Mensaje(mensaje,nombre);
                 rtdb.getReference().child("mensajes").child(idChat).push().setValue(m);
                 et_mensaje_chat.setText("");
+
+                //Notificaciones
+                String valor = "Mensaje nuevo de "+nombre;;
+                if(esEstilista)
+                    rtdb.getReference().child("Alerta").child(idUsuario).push().setValue(valor);
+                else
+                    rtdb.getReference().child("Alerta").child(idEstilista).push().setValue(valor);
+
+
             }
         });
     }

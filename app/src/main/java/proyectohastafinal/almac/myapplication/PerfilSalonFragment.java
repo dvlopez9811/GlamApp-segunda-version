@@ -1,5 +1,6 @@
 package proyectohastafinal.almac.myapplication;
 
+import android.app.Service;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
@@ -31,7 +32,14 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import proyectohastafinal.almac.myapplication.model.Marcador;
 import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
@@ -59,6 +67,8 @@ public class PerfilSalonFragment extends Fragment {
     private String nombreSalon;
     private String direccionActual;
     private static PerfilSalonFragment instance;
+    private ArrayList<String> serviciosViejos;
+    private ArrayList<String> serviciosNuevos;
 
 
     public static PerfilSalonFragment getInstance() {
@@ -110,6 +120,7 @@ public class PerfilSalonFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View mView = inflater.inflate(R.layout.fragment_perfil_salon, container, false);
+        Log.d("USUARIO", auth.getCurrentUser().getUid());
         rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -126,6 +137,44 @@ public class PerfilSalonFragment extends Fragment {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                ( mView.findViewById(R.id.boton_editar_servicios_perfil_salon_fragment)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        serviciosNuevos = new ArrayList<>();
+
+                        HashMap<String, Boolean> checked = adapterServicios.getChecked();
+
+                        for (Map.Entry<String, Boolean> entry : checked.entrySet()) {
+                            if (entry.getValue()) {
+                                serviciosNuevos.add(entry.getKey());
+                            }
+                        }
+
+                        ArrayList<String> nuevosServicios = compararListasServicios();
+
+                        for (int i = 0; i < nuevosServicios.size(); i++) {
+                            rtdb.getReference().child("Buscar servicios salon de belleza").child(nuevosServicios.get(i)).child(nombreSalon).push().setValue(nombreSalon);
+                        }
+
+                        rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("servicios").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                HashMap<String, Boolean> aux = (HashMap<String, Boolean>) dataSnapshot.getValue();
+                                for (int i = 0; i < serviciosNuevos.size(); i++) {
+                                    aux.put(serviciosNuevos.get(i), true);
+                                }
+                                rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("servicios").setValue(aux);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
 
                     }
                 });
@@ -184,6 +233,7 @@ public class PerfilSalonFragment extends Fragment {
                 gridCatalogo.setAdapter(adapterCatalogo);
                 gridCatalogo.setExpanded(true);
                 // Catálogo
+                Log.d("NOMBRE SALIN", nombreSalon);
                 rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("fotos").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -214,6 +264,7 @@ public class PerfilSalonFragment extends Fragment {
                 rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("servicios").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        serviciosViejos = new ArrayList<>();
                         ArrayList<Servicio> servicios=new ArrayList<>();
                         for (DataSnapshot dsp: dataSnapshot.getChildren()){
                             if(dsp.getValue(Boolean.class)) {
@@ -221,11 +272,30 @@ public class PerfilSalonFragment extends Fragment {
                                 s.setNombreSalonDeBelleza(nombreSalon);
                                 Servicio servicioNuevo = new Servicio(dsp.getKey(),s);
                                 servicios.add(servicioNuevo);
+                                serviciosViejos.add(servicioNuevo.getTipo());
                             }
                         }
+
+                        ArrayList<String> serviciosNombre = new ArrayList<>();
+
+                        serviciosNombre.add("Maquillaje");
+                        serviciosNombre.add("Depilación");
+                        serviciosNombre.add("Masaje");
+                        serviciosNombre.add("Peluquería");
+                        serviciosNombre.add("Uñas");
+
+                        for (int i = 0; i < serviciosNombre.size(); i++) {
+                            if (!servicios.contains(serviciosNombre.get(i))) {
+                                Servicio auxTemp = new Servicio(serviciosNombre.get(i), null);
+                                servicios.add(auxTemp);
+                                auxTemp = null;
+                            }
+                        }
+
                         listaServicios.setAdapter(adapterServicios);
                         listaServicios.setHasFixedSize(true);
                         adapterServicios.showAllServicios(servicios);
+
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -251,10 +321,94 @@ public class PerfilSalonFragment extends Fragment {
         return mView;
     }
 
+    public void modificarServicios (SalonDeBelleza salonDeBelleza) {
+
+        for (int i = 0; i < serviciosViejos.size(); i++) {
+            salonDeBelleza.getServicios().put(serviciosViejos.get(i), true);
+        }
+
+    }
+
+    public ArrayList<String> compararListasServicios () {
+        ArrayList<String> result = new ArrayList<>();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            List<String> total = Stream.of(serviciosNuevos, serviciosViejos)
+                    .flatMap(x -> x.stream())
+                    .collect(Collectors.toList());
+
+            ArrayList<String> totalOrdenada = ordenar(total);
+            ArrayList<String> listaViejaOrdenada = ordenar(serviciosViejos);
+
+            ArrayList<String> auxTotal = combinaciones(totalOrdenada);
+            ArrayList<String> auxVieja = combinaciones(listaViejaOrdenada);
 
 
+            for (int i = 0; i < auxTotal.size(); i++) {
 
+                if (!auxVieja.contains(auxTotal.get(i))){
+                    result.add(auxTotal.get(i));
+                }
+            }
+        }
 
+        return  result;
+    }
 
+    public ArrayList<String> ordenar (List<String> aOrdenar) {
+
+        ArrayList<String> ordenada = new ArrayList<>();
+
+        if (aOrdenar.contains("Uñas")) {
+            ordenada.add("Uñas");
+        }
+        if (aOrdenar.contains("Maquillaje")) {
+            ordenada.add("Maquillaje");
+        }
+        if (aOrdenar.contains("Masaje")) {
+            ordenada.add("Masaje");
+        }
+        if (aOrdenar.contains("Depilación")){
+            ordenada.add("Depilación");
+        }
+        if (aOrdenar.contains("Peluquería")){
+            ordenada.add("Peluquería");
+        }
+
+        return ordenada;
+    }
+
+    public void comprobarServiciosEscogidos () {
+
+        /*if (registroSalonDeBellezaCheckBoxUñas.isChecked())
+            servicios.add(registroSalonDeBellezaCheckBoxUñas.getText().toString());
+
+        if (registroSalonDeBellezaCheckBoxMaquillaje.isChecked())
+            servicios.add(registroSalonDeBellezaCheckBoxMaquillaje.getText().toString());
+
+        if (registroSalonDeBellezaCheckBoxMasaje.isChecked())
+            servicios.add(registroSalonDeBellezaCheckBoxMasaje.getText().toString());
+
+        if (registroSalonDeBellezaCheckBoxDepilacion.isChecked())
+            servicios.add(registroSalonDeBellezaCheckBoxDepilacion.getText().toString());
+
+        if (registroSalonDeBellezaCheckBoxPeluqueria.isChecked())
+            servicios.add(registroSalonDeBellezaCheckBoxPeluqueria.getText().toString());*/
+
+    }
+
+    public ArrayList<String> combinaciones (ArrayList<String> serviciosParaCombinar) {
+        String[] res = new String[(1 << serviciosParaCombinar.size()) - 1];
+        int k = 0;
+        int x = 1;
+        for (int i = serviciosParaCombinar.size() - 1; i >= 0; --i) {
+            res[k++] = serviciosParaCombinar.get(i);
+            for (int j = 1; j < x; ++j) {
+                res[k++] = serviciosParaCombinar.get(i) + "-" + res[j - 1];
+            }
+            x *= 2;
+        }
+        ArrayList<String> result = new ArrayList<>(Arrays.asList(res));
+        return result;
+    }
 
 }

@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import proyectohastafinal.almac.myapplication.model.Cita;
+import proyectohastafinal.almac.myapplication.model.Cliente;
 import proyectohastafinal.almac.myapplication.model.Horario;
 import proyectohastafinal.almac.myapplication.model.Servicio;
 
@@ -250,6 +251,21 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                     }
 
                     Toast.makeText(holder.root.getContext(), "Cita enviada al estilista", Toast.LENGTH_LONG).show();
+
+                    //Notificacion
+                    rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    String valor = "Cita nueva de "+dataSnapshot.getValue(Cliente.class).getUsuario();
+                                    rtdb.getReference().child("Alerta").child(idestilista).push().setValue(valor);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
 
                     ((TextView)holder.root.findViewById(R.id.txt_cita_confirmada)).setText("Se agendó con éxito la cita el día " +
                             ((TextView) holder.root.findViewById(R.id.dia_seleccionado_item_agendar_cita)).getText() + "/" +

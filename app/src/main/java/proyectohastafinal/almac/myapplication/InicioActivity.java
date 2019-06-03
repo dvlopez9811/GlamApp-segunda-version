@@ -35,7 +35,10 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -90,8 +93,30 @@ public class InicioActivity extends AppCompatActivity {
 
         // Si ya hay una sesión iniciada, esta pantalla no se muestra.
         if (auth.getCurrentUser() != null) {
-            startActivity(intentMain);
-            finish();
+
+            rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.getValue(String.class).equals("estilista")){
+                        intentMain = new Intent(InicioActivity.this, MainEstilistaActivity.class);
+                    }else if(dataSnapshot.getValue(String.class).equals("salón de belleza")){
+                        intentMain = new Intent(InicioActivity.this, MainSalonActivity.class);
+                    }else{
+                        intentMain = new Intent(InicioActivity.this, MainActivity.class);
+                    }
+
+                    startActivity(intentMain);
+                    finish();
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
         }
 
         // Se inicializan los componentes gráficos necesarios de la actividad.
