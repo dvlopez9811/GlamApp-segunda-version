@@ -93,20 +93,26 @@ public class InicioActivity extends AppCompatActivity {
 
         // Si ya hay una sesión iniciada, esta pantalla no se muestra.
         if (auth.getCurrentUser() != null) {
-
-            rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            // LO NUEVO - se muestra por poco tiempo porque hay que verificar de quien es
+            rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.getValue(String.class).equals("estilista")){
-                        intentMain = new Intent(InicioActivity.this, MainEstilistaActivity.class);
-                    }else if(dataSnapshot.getValue(String.class).equals("salón de belleza")){
-                        intentMain = new Intent(InicioActivity.this, MainSalonActivity.class);
-                    }else{
-                        intentMain = new Intent(InicioActivity.this, MainActivity.class);
-                    }
 
-                    startActivity(intentMain);
-                    finish();
+                    String tipo = dataSnapshot.getValue(String.class);
+                    if(tipo.equals("cliente")){
+                        Intent i = new Intent(InicioActivity.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    }else if(tipo.equals("estilista")){
+                        Intent i = new Intent(InicioActivity.this, MainEstilistaActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                    else{
+                        Intent i = new Intent(InicioActivity.this, MainSalonActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
 
                 }
 
@@ -116,7 +122,8 @@ public class InicioActivity extends AppCompatActivity {
                 }
             });
 
-
+            //startActivity(intentMain);
+            //finish();
         }
 
         // Se inicializan los componentes gráficos necesarios de la actividad.
@@ -329,5 +336,6 @@ public class InicioActivity extends AppCompatActivity {
     private void crearUsuarioDeFacebookOGoogle(String nombre,String email){
         Cliente cl = new Cliente(email, "", nombre, "","");
         rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).setValue(cl);
+        rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("cliente");
     }
 }

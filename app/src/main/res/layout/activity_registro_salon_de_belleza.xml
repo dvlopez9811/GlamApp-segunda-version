@@ -77,7 +77,7 @@
             <ImageView
                 android:id="@+id/registro_salon_belleza_iv_foto"
                 android:layout_width="match_parent"
-                android:layout_height="256dp"
+                android:layout_height="250dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_picture"
                 android:layout_marginTop="20dp"/>
@@ -222,7 +222,7 @@
                     android:id="@+id/registro_salon_belleza_et_contrasenha_confimar"
                     android:fontFamily="@font/josefin_sans"
                     android:background="@drawable/btn_redondeado_rosado"
-                    android:hint="Confirmar ontraseña*"
+                    android:hint="Confirmar contraseña*"
                     android:inputType="textPassword"
                     android:textSize="20dp"
                     android:textAllCaps="false"

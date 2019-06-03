@@ -1,8 +1,12 @@
 package proyectohastafinal.almac.myapplication.model;
 
-import java.util.Date;
+import android.util.Log;
 
-public class Cita {
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+public class Cita implements Comparable < Cita >{
 
     //ESTADO
     public static final String FINALIZADA = "Finalizada";
@@ -18,8 +22,7 @@ public class Cita {
     public static final String DEPILACION = "Depilación";
     public static final String MASAJE = "Masaje";
 
-
-    private String idcita;
+    private String iIdcita;
     private String dia;
     private String fecha;
     private String informacion;
@@ -30,11 +33,13 @@ public class Cita {
     private String nombreSalon;
     private String idEstilista;
     private String idUsuario;
+    private int tipo;
 
+    private String cabecera;
 
-    public Cita(String idcit,String estado,String dia,String fecha,int horafin,int horainicio, String informacion, String nombreSalon,String servicio,
+    public Cita(String idcita,String estado,String dia,String fecha,int horafin,int horainicio, String informacion, String nombreSalon,String servicio,
                 String idEstilista,String idUsuario) {
-        this.idcita = idcita;
+        this.iIdcita = idcita;
         this.dia = dia;
         this.fecha = fecha;
         this.informacion = informacion;
@@ -48,15 +53,14 @@ public class Cita {
     }
 
     public Cita() {
-
     }
 
     public String getIdcita() {
-        return idcita;
+        return iIdcita;
     }
 
     public void setIdcita(String idcita) {
-        this.idcita = idcita;
+        this.iIdcita = idcita;
     }
 
     public String getDia() {
@@ -137,5 +141,35 @@ public class Cita {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getCabecera() {
+        return cabecera;
+    }
+
+    public void setCabecera(String cabecera) {
+        this.cabecera = cabecera;
+    }
+
+    @Override
+    public int compareTo(Cita o) {
+
+            String[] fecha = this.getFecha().split("-");
+            Calendar cal = new GregorianCalendar(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1])-1, Integer.parseInt(fecha[2]), horainicio, 0, 0);
+            Date d = cal.getTime();
+
+            String[] fecha2 = o.getFecha().split("-");
+            Calendar cal2 = new GregorianCalendar(Integer.parseInt(fecha2[0]), Integer.parseInt(fecha2[1])-1, Integer.parseInt(fecha2[2]), o.getHorainicio(), 0, 0);
+            Date d2 = cal2.getTime();
+
+            return d.compareTo(d2);
     }
 }

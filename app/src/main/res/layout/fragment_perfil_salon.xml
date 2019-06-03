@@ -2,215 +2,404 @@
 <RelativeLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginBottom="60dp">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:id="@+id/scroll_perfil_salon"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            >
-            <RelativeLayout
+            android:layout_width="match_parent">
+
+            <ImageView
+                android:id="@+id/imagen_perfil_perfil_salon_fragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/relative_imagen_perfil_salon_fragment"
-                >
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:src="@drawable/default_salon"
-                    android:layout_marginBottom="5dp"
-                    android:scaleType="centerCrop"
-                    android:id="@+id/imagen_perfil_perfil_salon_fragment"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cambia la foto de perfil de tu salón"
-                    android:layout_below="@id/imagen_perfil_perfil_salon_fragment"
-                    android:layout_alignParentEnd="true"
-                    android:fontFamily="@font/josefin_sans"
-
-                    />
-            </RelativeLayout>
-
+                android:layout_height="250dp"
+                android:layout_marginBottom="5dp"
+                android:scaleType="centerCrop" />
 
             <TextView
-                android:id="@+id/titulo_nombre_salon_perfil_fragment_"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cambiar_imagen_perfil_salon_fragment"
+                android:text="Subir nueva foto de perfil"
+                android:fontFamily="@font/josefin_sans"
+                android:layout_below="@id/imagen_perfil_perfil_salon_fragment"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"/>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/relative_imagen_perfil_salon_fragment"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="3dp"
+                android:id="@+id/titulo_nombre_salon_perfil_fragment_"
                 android:fontFamily="@font/josefin_sans"
-                android:textColor="@color/colorPrimaryMuyDark"
-                android:textSize="40sp" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="40sp"
+                android:layout_below="@id/cambiar_imagen_perfil_salon_fragment"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/linea_estrellas_perfil_salon"
                 android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/titulo_nombre_salon_perfil_fragment_">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/calificacion_1_perfil_salon"
+                    android:src="@drawable/ic_calificacion_25x25"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/calificacion_2_perfil_salon"
+                    android:src="@drawable/ic_calificacion_25x25"
+                    android:layout_marginLeft="5dp"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/calificacion_3_perfil_salon"
+                    android:src="@drawable/ic_calificacion_25x25"
+                    android:layout_marginLeft="5dp"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/calificacion_4_perfil_salon"
+                    android:src="@drawable/ic_calificacion_25x25"
+                    android:layout_marginLeft="5dp"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/calificacion_5_perfil_salon"
+                    android:src="@drawable/ic_calificacion_25x25"
+                    android:layout_marginLeft="5dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/linea_ubicacion_salon_perfil"
-                android:layout_below="@id/linea_estrellas_perfil_salon">
+                android:orientation="horizontal"
+                android:layout_below="@id/linea_estrellas_perfil_salon"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Dirección: "
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
                     android:fontFamily="@font/josefin_sans"
-                    android:textColor="@color/colorPrimaryMuyDark"
-
+                    android:textColor="@color/colorPrimary"
                     android:textSize="20sp"/>
+
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/et_uibacion_editable_perfil_salon_fragment"
                     android:textColorHint="#777"
                     android:enabled="false"
                     android:fontFamily="@font/josefin_sans"
-                    android:id="@+id/et_uibacion_editable_perfil_salon_fragment"
                     android:background="@color/fui_transparent"
                     android:layout_marginRight="20dp"
+                    android:layout_marginLeft="5dp"
                     android:singleLine="true"/>
                 <Button
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:background="@drawable/edit"
                     android:id="@+id/boton_editar_ubicacion_perfil_salon_fragment"
-                    />
+                    android:background="@drawable/edit"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:id="@+id/txt_agregar_servicio"
+                android:text="Servicios: "
                 android:layout_marginLeft="20dp"
-                android:layout_marginBottom="3dp"
-                android:id="@+id/linea_estrellas_perfil_salon"
-                android:layout_below="@id/titulo_nombre_salon_perfil_fragment_">
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/josefin_sans"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:layout_below="@id/linea_ubicacion_salon_perfil"/>
 
-                <ImageView
-                    android:id="@+id/calificacion_1_perfil_salon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_calificacion_25x25"/>
-
-                <ImageView
-                    android:layout_marginLeft="5dp"
-                    android:id="@+id/calificacion_2_perfil_salon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_calificacion_25x25"/>
-
-                <ImageView
-                    android:layout_marginLeft="5dp"
-                    android:id="@+id/calificacion_3_perfil_salon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_calificacion_25x25"/>
-
-                <ImageView
-                    android:layout_marginLeft="5dp"
-                    android:id="@+id/calificacion_4_perfil_salon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_calificacion_25x25"/>
-
-                <ImageView
-                    android:layout_marginLeft="5dp"
-                    android:id="@+id/calificacion_5_perfil_salon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_calificacion_25x25"/>
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/linea_agregar_servicio"
-                android:layout_below="@id/linea_ubicacion_salon_perfil">
+                android:text="(Selecciona los que desees añadir)"
+                android:fontFamily="@font/josefin_sans"
+                android:textColor="#777"
+                android:layout_toRightOf="@id/txt_agregar_servicio"
+                android:layout_above="@id/listado_servicios_perfil_salon_fragment"
+                android:layout_marginBottom="12dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Agrega un servicio"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    android:fontFamily="@font/josefin_sans"
-                    android:textColor="@color/colorPrimaryMuyDark"
-                    android:textSize="20sp"/>
-
-                <Button
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/ic_add_imagen"
-                    android:id="@+id/boton_editar_servicios_perfil_salon_fragment"
-                    />
-
-            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:id="@+id/listado_servicios_perfil_salon_fragment"
-                android:layout_below="@id/linea_agregar_servicio">
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@id/txt_agregar_servicio">
 
             </android.support.v7.widget.RecyclerView>
 
-            <LinearLayout
-                android:id="@+id/titulo_catalogo_perfil_salon_fragment"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/linea_anadir_nuevos_servicios"
                 android:layout_below="@id/listado_servicios_perfil_salon_fragment"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:layout_centerInParent="true">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Añadir nuevos servicios"
+                    android:fontFamily="@font/josefin_sans"
+                    android:paddingRight="20dp"
+                    android:layout_marginBottom="2dp"
+                    android:textColor="@color/colorNegro"
+                    android:textSize="25dp"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="50dp"
+                    android:textAllCaps="false"
+                    android:background="@drawable/btn_redondeado_rosado"
+                    android:id="@+id/boton_editar_servicios_perfil_salon_fragment" />
+
+                <ImageView
+                    android:layout_alignParentStart="true"
+                    android:layout_width="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_centerVertical="true"
+                    android:elevation="3dp"
+                    android:layout_height="25dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_add_imagen" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/titulo_catalogo_perfil_salon_fragment"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="@font/josefin_sans"
+                android:text="Catálogo"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"
+                android:layout_below="@id/linea_anadir_nuevos_servicios"
+                android:layout_marginTop="20dp"
+                android:layout_centerInParent="true"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/header_depilacion"
+                android:layout_below="@id/titulo_catalogo_perfil_salon_fragment">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp"
+                    android:id="@+id/titulo_depilacion"
                     android:fontFamily="@font/josefin_sans"
-                    android:text="Catálogo"
-                    android:textColor="@color/colorPrimaryMuyDark"
-                    android:textSize="25sp" />
+                    android:text="Depilación"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="20dp"/>
 
                 <Button
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/ic_add_imagen" />
-            </LinearLayout>
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/btn_agregar_depilacion_catalogo"
+                    android:background="@drawable/ic_add_imagen"
+                    android:layout_toRightOf="@id/titulo_depilacion"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
 
             <proyectohastafinal.almac.myapplication.ExpandableHeightGridView
-                android:id="@+id/grid_Catalogo_informacion_salon_activity"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fastScrollAlwaysVisible="true"
+                android:layout_height="wrap_content"
+                android:id="@+id/grid_catalogo_depilacion"
+                android:fastScrollAlwaysVisible="false"
                 android:gravity="center"
                 android:numColumns="auto_fit"
                 android:padding="10dp"
                 android:verticalSpacing="2dp"
                 android:horizontalSpacing="1dp"
-                android:layout_below="@id/titulo_catalogo_perfil_salon_fragment"
-                >
-
+                android:layout_below="@id/header_depilacion">
             </proyectohastafinal.almac.myapplication.ExpandableHeightGridView>
 
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/header_maquillaje"
+                android:layout_below="@id/grid_catalogo_depilacion">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titulo_maquillaje"
+                    android:fontFamily="@font/josefin_sans"
+                    android:text="Maquillaje"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="20dp"/>
+
+                <Button
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/btn_agregar_maquillaje_catalogo"
+                    android:background="@drawable/ic_add_imagen"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/titulo_maquillaje"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <proyectohastafinal.almac.myapplication.ExpandableHeightGridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/grid_catalogo_maquillaje"
+                android:fastScrollAlwaysVisible="false"
+                android:gravity="center"
+                android:numColumns="auto_fit"
+                android:padding="10dp"
+                android:verticalSpacing="2dp"
+                android:horizontalSpacing="1dp"
+                android:layout_below="@id/header_maquillaje">
+            </proyectohastafinal.almac.myapplication.ExpandableHeightGridView>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/header_masaje"
+                android:layout_below="@id/grid_catalogo_maquillaje">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titulo_masaje"
+                    android:fontFamily="@font/josefin_sans"
+                    android:text="Masaje"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="20dp"/>
+
+                <Button
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/btn_agregar_masaje_catalogo"
+                    android:background="@drawable/ic_add_imagen"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/titulo_masaje"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <proyectohastafinal.almac.myapplication.ExpandableHeightGridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/grid_catalogo_masaje"
+                android:fastScrollAlwaysVisible="false"
+                android:gravity="center"
+                android:numColumns="auto_fit"
+                android:padding="10dp"
+                android:verticalSpacing="2dp"
+                android:horizontalSpacing="1dp"
+                android:layout_below="@id/header_masaje">
+            </proyectohastafinal.almac.myapplication.ExpandableHeightGridView>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/header_peluqueria"
+                android:layout_below="@id/grid_catalogo_masaje">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titulo_peluqueria"
+                    android:fontFamily="@font/josefin_sans"
+                    android:text="Peluqueria"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="20dp"/>
+
+                <Button
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/btn_agregar_peluqueria_catalogo"
+                    android:background="@drawable/ic_add_imagen"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/titulo_peluqueria"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <proyectohastafinal.almac.myapplication.ExpandableHeightGridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/grid_catalogo_peluqueria"
+                android:fastScrollAlwaysVisible="false"
+                android:gravity="center"
+                android:numColumns="auto_fit"
+                android:padding="10dp"
+                android:verticalSpacing="2dp"
+                android:horizontalSpacing="1dp"
+                android:layout_below="@id/header_peluqueria">
+            </proyectohastafinal.almac.myapplication.ExpandableHeightGridView>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/header_unhas"
+                android:layout_below="@id/grid_catalogo_peluqueria">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titulo_unhas"
+                    android:fontFamily="@font/josefin_sans"
+                    android:text="Uñas"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="20dp"/>
+
+                <Button
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/btn_agregar_unhas_catalogo"
+                    android:background="@drawable/ic_add_imagen"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/titulo_unhas"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <proyectohastafinal.almac.myapplication.ExpandableHeightGridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/grid_catalogo_unhas"
+                android:fastScrollAlwaysVisible="false"
+                android:gravity="center"
+                android:numColumns="auto_fit"
+                android:padding="10dp"
+                android:verticalSpacing="2dp"
+                android:horizontalSpacing="1dp"
+                android:layout_below="@id/header_unhas">
+            </proyectohastafinal.almac.myapplication.ExpandableHeightGridView>
         </RelativeLayout>
     </ScrollView>
-
-
 </RelativeLayout>

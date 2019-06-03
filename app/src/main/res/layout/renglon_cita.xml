@@ -3,19 +3,56 @@
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/renglon_cita"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relative_renglon_cita_header"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/renglon_cita_dia_de_la_semana"
+            android:text="MIÉRCOLES"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlanco"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/renglon_cita_fecha"
+            android:text="30-09-2019"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlanco"
+            android:layout_below="@id/renglon_cita_dia_de_la_semana"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/renglon_cita_dias_restantes"
+            android:text="Hoy"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlanco"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/borde">
+        android:id="@+id/relative_layout_cita_informacion_renglon_cita">
+
 
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:id="@+id/image_cita_estilista"
-            android:background="@color/colorPrimary"
+            android:src="@drawable/ic_perfil_128x128"
             android:layout_marginLeft="5dp"
             android:layout_centerVertical="true"/>
 
@@ -53,10 +90,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="32sp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="200dp"
             android:layout_gravity="center_vertical"
             android:id="@+id/horainicio_renglon_cita"
-            android:layout_toRightOf="@id/layout_informacion_cita"
             android:fontFamily="@font/josefin_sans"
             android:layout_centerVertical="true"/>
 
@@ -68,5 +104,68 @@
             android:layout_alignParentEnd="true"
             android:src="@drawable/ic_menu_100x100"
             android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/opcion_calificacion_renglon_cita">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Califica esta cita"
+            android:textSize="20dp"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/josefin_sans"
+            android:id="@+id/txt_califica_esta_cita"
+            android:textColor="@color/colorPrimaryMuyDark"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@id/txt_califica_esta_cita"
+        android:id="@+id/linea_botones_calificacion_renglon_cita">
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/btn_estrella_calificacion_1"
+            android:background="@drawable/ic_estrella_vacia"/>
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="5dp"
+
+            android:id="@+id/btn_estrella_calificacion_2"
+            android:background="@drawable/ic_estrella_vacia"/>
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/btn_estrella_calificacion_3"
+            android:background="@drawable/ic_estrella_vacia"/>
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/btn_estrella_calificacion_4"
+            android:background="@drawable/ic_estrella_vacia"/>
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/btn_estrella_calificacion_5"
+            android:background="@drawable/ic_estrella_vacia"/>
+    </LinearLayout>
+
     </RelativeLayout>
 </LinearLayout>

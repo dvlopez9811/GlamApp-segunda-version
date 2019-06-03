@@ -1,29 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    android:padding="10dp"
-    android:orientation="horizontal"
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/renglon_mensaje_estilista"
-    android:gravity="center"
-    android:weightSum="4">
+    android:id="@+id/renglon_mensaje"
+    android:orientation="vertical"
+    android:padding="10dp">
 
-
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CrisAlex"
-        android:textSize="32sp"
-        android:layout_weight="3"
-        android:textStyle="bold"
-        android:id="@+id/tv_usuario_mensaje_estilista"/>
+        android:id="@+id/relative_renglon_mensaje_estilista"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/telefono"
-        android:id="@+id/llamar_mensaje_estilista"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/renglon_cita_dia_semana_mensaje_estilista"
+            android:text="MIÉRCOLES"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlanco"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/renglon_cita_fecha_mensaje"
+            android:text="30-09-2019"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlanco"
+            android:layout_below="@id/renglon_cita_dia_semana_mensaje_estilista"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/renglon_cita_dias_restantes_mensaje"
+            android:text="Hoy"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlanco"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/relative_layout_mensaje_estilista">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_informacion_cita_mensaje_estilista"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nombre_usuario_cita_mensaje_estilista"
+                android:text="CrisAlex"
+                android:fontFamily="@font/josefin_sans" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/servicio_renglon_cita_mensaje_estilista"
+                android:fontFamily="@font/josefin_sans"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:layout_marginLeft="200dp"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/horainicio_renglon_cita_mensaje_estilista"
+            android:fontFamily="@font/josefin_sans"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/iv_llamar_renglon_mensaje_estilista"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/telefono"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 
 </LinearLayout>
