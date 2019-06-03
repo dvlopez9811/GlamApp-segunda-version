@@ -172,20 +172,20 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
                 if (calendarioActual.get(Calendar.DAY_OF_MONTH) == Integer.parseInt(fechaCita[2])) {
                     if ( i == 0) {
                         cita.setInformacion("HOY");
-                        cita.setCabecera(cita.getDia().toUpperCase());
+                        cita.setCabecera(cita.getDia());
                     } else if ( !citasCliente.get(i - 1).getInformacion().equals("HOY")) {
                         cita.setInformacion("HOY");
-                        cita.setCabecera(cita.getDia().toUpperCase());
+                        cita.setCabecera(cita.getDia());
                     }
                 } else {
                     long diff = calendarioCita.getTime().getTime() - calendarioActual.getTime().getTime();
                     long diferencia = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
                     if ( i == 0){
                         cita.setInformacion("PRÓXIMO");
-                        cita.setCabecera(cita.getDia().toUpperCase()+" "+diferencia);
+                        cita.setCabecera(cita.getDia()+" "+diferencia);
                     } else if (  Integer.parseInt((citasCliente.get(i - 1).getFecha().split("-"))[2]) != Integer.parseInt((cita.getFecha().split("-"))[2])){
                         cita.setInformacion("PRÓXIMO");
-                        cita.setCabecera(cita.getDia().toUpperCase()+" "+diferencia);
+                        cita.setCabecera(cita.getDia()+" "+diferencia);
                     }
                 }
             }

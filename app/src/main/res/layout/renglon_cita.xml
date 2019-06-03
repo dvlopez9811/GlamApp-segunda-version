@@ -18,9 +18,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/renglon_cita_dia_de_la_semana"
-            android:text="MIÉRCOLES"
+            android:text="Miércoles"
             android:textSize="20sp"
-            android:textColor="@color/colorBlanco"/>
+            android:textColor="@color/colorBlanco"
+            android:fontFamily="@font/josefin_sans"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,6 +30,7 @@
             android:text="30-09-2019"
             android:textSize="20sp"
             android:textColor="@color/colorBlanco"
+            android:fontFamily="@font/josefin_sans"
             android:layout_below="@id/renglon_cita_dia_de_la_semana"/>
 
         <TextView
@@ -38,6 +40,7 @@
             android:text="Hoy"
             android:textSize="20sp"
             android:textColor="@color/colorBlanco"
+            android:fontFamily="@font/josefin_sans"
             android:layout_alignParentEnd="true"/>
 
     </RelativeLayout>
