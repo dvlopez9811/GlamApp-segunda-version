@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:id="@+id/info_layout_renglon_favoritos"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@id/foto_perfil_salon_renglon_favoritos"
             android:layout_centerVertical="true">
@@ -30,6 +31,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="nombre"
                 android:id="@+id/txt_nombre_salon_favoritos"
                 android:fontFamily="@font/josefin_sans"
                 android:textSize="20sp"/>
@@ -37,18 +39,44 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/txt_direccion_salon_favoritos"
+                android:id="@+id/txt_direccion_renglon_favoritos"
                 android:layout_marginTop="5dp"
+                android:text="direccion"
                 android:fontFamily="@font/josefin_sans"
                 android:textSize="15sp" />
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center|right"
+            android:layout_toLeftOf="@id/imagen_flecha_ir"
+            android:layout_marginRight="20dp"
+            android:id="@+id/layout_calificacion_renglon_favoritos">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="5dp"
+
+                android:src="@drawable/ic_estrella_llena"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_calificacion_renglon_favoritos"
+                android:text="4.5"/>
+
+
+        </LinearLayout>
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:padding="1dp"
             android:layout_marginRight="10dp"
+            android:id="@+id/imagen_flecha_ir"
             android:src="@drawable/ic_go_64x64"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"/>

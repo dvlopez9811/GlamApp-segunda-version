@@ -3,8 +3,8 @@
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="10dp"
-    android:background="@color/colorPrimaryClaro">
+    android:padding="20dp"
+    android:background="@drawable/btn_redondeado_blanco">
 
     <ImageButton
         android:layout_width="32dp"
@@ -16,7 +16,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:id="@+id/image_popup_window_agregar"
-        android:background="@drawable/ic_add_image"
+        android:background="@drawable/add_imagen_catalogo"
         android:layout_gravity="center_horizontal"/>
 
     <EditText
@@ -28,9 +28,9 @@
         android:hint="Descripción de la foto*"
         android:fontFamily="@font/josefin_sans"
         android:singleLine="true"
-        android:background="#777"
+        android:background="@drawable/btn_redondeado_normal"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/colorNegro"
+        android:textColor="@color/colorPrimaryMuyDark"
         android:layout_margin="10dp"/>
 
     <EditText
@@ -40,12 +40,12 @@
         android:padding="10dp"
         android:hint="$ Valor"
         android:fontFamily="@font/josefin_sans"
-        android:background="#777"
+        android:background="@drawable/btn_redondeado_normal"
         android:maxLength="9"
         android:singleLine="true"
         android:inputType="number"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/colorNegro"
+        android:textColor="@color/colorPrimaryMuyDark"
         android:layout_marginBottom="20dp"/>
 
     <Button
@@ -56,6 +56,7 @@
         android:text="Subir"
         android:textSize="15sp"
         android:textAllCaps="false"
+        android:fontFamily="@font/josefin_sans"
         android:background="@drawable/btn_circular_principal"
         android:textColor="@color/colorBlanco"/>
 

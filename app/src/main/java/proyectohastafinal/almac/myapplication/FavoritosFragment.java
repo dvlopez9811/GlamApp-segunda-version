@@ -75,7 +75,12 @@ public class FavoritosFragment extends Fragment implements View.OnClickListener,
 
                 listaSalonesFavoritos.setAdapter(adapterFavoritos);
                 adapterFavoritos.showAllFavoritos(salones);
+
             }
+
+
+
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
