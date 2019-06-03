@@ -30,6 +30,7 @@ public class NotificationService extends Service {
     public static final String CHANNEL_NAME = "Glam19-1";
     public static final int CHANNEL_IMPORTANCE = NotificationManager.IMPORTANCE_HIGH;
     private NotificationManager manager;
+
     FirebaseDatabase rtdb;
     FirebaseAuth auth;
 

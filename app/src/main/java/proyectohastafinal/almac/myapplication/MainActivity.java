@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Intent ser = new Intent(this, notificationService.getClass());
         startService(ser);
 
-
         BottomNavigationView navigationView = findViewById(R.id.navigation);
 
         navigationView.setOnNavigationItemSelectedListener(this);
