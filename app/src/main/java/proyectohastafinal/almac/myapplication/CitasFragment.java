@@ -1,12 +1,14 @@
 package proyectohastafinal.almac.myapplication;
 
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -187,7 +190,6 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
             }
         }
 
-
         adapterCitas = new AdapterCitas(getContext(), citasCliente);
         adapterCitas.setListener(CitasFragment.this);
         lista_citas.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -201,6 +203,7 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
         getActivity().registerForContextMenu(v);
         getActivity().openContextMenu(v);
         citaseleccionada = cita;
+        Log.d("Seleccionada", citaseleccionada+"");
     }
 
     @Override
@@ -233,6 +236,64 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
 
                     }
                 });
+
+                break;
+
+            case R.id.cambio_hora_cita:
+                break;
+
+            case R.id.cancelar_cita:
+                AlertDialog.Builder dialogo1 = new AlertDialog.Builder(getActivity());
+                dialogo1.setTitle("Cita");
+                dialogo1.setMessage("¿ Esta seguro de cancelar la cita ?");
+                dialogo1.setCancelable(false);
+                dialogo1.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
+
+                        String idEstilista = citaseleccionada.getIdEstilista();
+                        String idUsuario = citaseleccionada.getIdUsuario();
+                        String idCita = citaseleccionada.getIdcita();
+                        String fecha = citaseleccionada.getFecha();
+                        String inicio = citaseleccionada.getHorainicio()+"";
+                        Log.e("idCIta", idCita +"");
+                        final boolean[] seElimino = {false};
+                        rtdb.getReference().child("Citas").child(idCita).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.e("SIRVE", "elimino " + idCita);
+                            }
+                        });
+                        rtdb.getReference().child("Estilista").child(idEstilista).child("citas").child(idCita).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.e("SIRVE2", "elimino " + idCita);
+                            }
+                        });
+
+                        rtdb.getReference().child("Estilista").child(idEstilista).child("agenda").child(fecha).child("horas").child(inicio).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.e("SIRVE3", "elimino " + idCita);
+                            }
+                        });
+
+                        rtdb.getReference().child("usuario").child(idUsuario).child("citas").child(idCita).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.e("SIRVE4", "elimino " + idCita);
+                            }
+                        });
+
+                        Toast.makeText(getActivity(),"Se cancelo esta cita",Toast.LENGTH_LONG).show();
+                    }
+                });
+                dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
+
+                    }
+                });
+                dialogo1.show();
+
 
                 break;
 

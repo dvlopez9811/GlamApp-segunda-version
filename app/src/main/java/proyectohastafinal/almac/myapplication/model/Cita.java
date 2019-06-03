@@ -22,7 +22,7 @@ public class Cita implements Comparable < Cita >{
     public static final String DEPILACION = "Depilación";
     public static final String MASAJE = "Masaje";
 
-    private String idcita;
+    private String iIdcita;
     private String dia;
     private String fecha;
     private String informacion;
@@ -37,9 +37,9 @@ public class Cita implements Comparable < Cita >{
 
     private String cabecera;
 
-    public Cita(String idcit,String estado,String dia,String fecha,int horafin,int horainicio, String informacion, String nombreSalon,String servicio,
+    public Cita(String idcita,String estado,String dia,String fecha,int horafin,int horainicio, String informacion, String nombreSalon,String servicio,
                 String idEstilista,String idUsuario) {
-        this.idcita = idcita;
+        this.iIdcita = idcita;
         this.dia = dia;
         this.fecha = fecha;
         this.informacion = informacion;
@@ -53,15 +53,14 @@ public class Cita implements Comparable < Cita >{
     }
 
     public Cita() {
-
     }
 
     public String getIdcita() {
-        return idcita;
+        return iIdcita;
     }
 
     public void setIdcita(String idcita) {
-        this.idcita = idcita;
+        this.iIdcita = idcita;
     }
 
     public String getDia() {
