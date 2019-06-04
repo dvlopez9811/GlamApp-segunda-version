@@ -191,7 +191,7 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
             }
         }
 
-        adapterCitas = new AdapterCitas(getContext(), citasCliente);
+        adapterCitas = new AdapterCitas(getContext(), citasCliente, AdapterCitas.USUARIO);
         adapterCitas.setListener(CitasFragment.this);
         lista_citas.setLayoutManager(new LinearLayoutManager(getContext()));
         lista_citas.setAdapter(adapterCitas);

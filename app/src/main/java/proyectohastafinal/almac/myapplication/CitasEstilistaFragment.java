@@ -256,7 +256,7 @@ public class CitasEstilistaFragment extends Fragment implements AdapterCitas.OnI
             }
         }
 
-        adapterCitasEstilista = new AdapterCitas(getContext(), citasAux);
+        adapterCitasEstilista = new AdapterCitas(getContext(), citasAux, AdapterCitas.ESTILISTA);
         adapterCitasEstilista.setListener(CitasEstilistaFragment.this);
         lista_citas_estilista.setLayoutManager(new LinearLayoutManager(getContext()));
         lista_citas_estilista.setAdapter(adapterCitasEstilista);

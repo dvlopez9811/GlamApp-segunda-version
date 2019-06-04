@@ -189,7 +189,7 @@ public class SolicitudesEstilistaFragment extends Fragment implements AdapterCit
             }
         }
 
-        adapterCitasEstilista = new AdapterCitas(getContext(), citasAux);
+        adapterCitasEstilista = new AdapterCitas(getContext(), citasAux, AdapterCitas.ESTILISTA);
         adapterCitasEstilista.setListener(SolicitudesEstilistaFragment.this);
         lista_citas_estilista.setLayoutManager(new LinearLayoutManager(getContext()));
         lista_citas_estilista.setAdapter(adapterCitasEstilista);
