@@ -113,7 +113,6 @@
                 />
 
             <ImageView
-                android:visibility=""
                 android:id="@+id/iv_menu_cita_renglon_cita"
                 android:layout_width="40dp"
                 android:layout_height="30dp"
