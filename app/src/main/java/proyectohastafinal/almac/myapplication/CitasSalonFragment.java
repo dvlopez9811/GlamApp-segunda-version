@@ -17,6 +17,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.GregorianCalendar;
+import java.util.concurrent.TimeUnit;
 
 import proyectohastafinal.almac.myapplication.model.Cita;
 
@@ -60,6 +64,7 @@ public class CitasSalonFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_citas_salon, container, false);
         recyclerView = view.findViewById(R.id.recycler_view_citas_salones);
+        citas = new ArrayList<>();
         rtdb.getReference().child(RAMA_IDENTIFICADORES).child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -75,7 +80,7 @@ public class CitasSalonFragment extends Fragment {
                             if(cita.getNombreSalon().equals(nombreSalon))
                                 citas.add(cita);
                             contador++;
-                            if(numeroCitas == contador) mostrarCitas();
+                            if(numeroCitas == contador) adapter();
                         }
                     }
 
@@ -96,8 +101,37 @@ public class CitasSalonFragment extends Fragment {
         return view;
     }
 
-    public void mostrarCitas(){
-        adapterCitas = new AdapterCitas(getContext(),citas);
+    public void adapter(){
+
+        Collections.sort(citas);
+
+        Calendar calendarioActual = Calendar.getInstance();
+        ArrayList<Cita> citasAux = new ArrayList<>();
+
+        for (int i = 0; i < citas.size(); i++) {
+            Cita cita = citas.get(i);
+            String[] fechaCita = cita.getFecha().split("-");
+            Calendar calendarioCita = new GregorianCalendar(Integer.parseInt(fechaCita[0]), Integer.parseInt(fechaCita[1]) - 1, Integer.parseInt(fechaCita[2]), cita.getHorainicio(), 0, 0);
+            if (calendarioCita.getTimeInMillis() < calendarioActual.getTimeInMillis()) {
+
+            } else {
+                if (calendarioActual.get(Calendar.DAY_OF_MONTH) == Integer.parseInt(fechaCita[2])) {
+                } else {
+                    long diff = calendarioCita.getTime().getTime() - calendarioActual.getTime().getTime();
+                    long diferencia = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+                    if (i == 0) {
+                        cita.setInformacion("PRÓXIMO");
+                        cita.setCabecera(cita.getDia().toUpperCase() + " " + diferencia);
+                    } else if (Integer.parseInt((citas.get(i - 1).getFecha().split("-"))[2]) != Integer.parseInt((cita.getFecha().split("-"))[2])) {
+                        cita.setInformacion("PRÓXIMO");
+                        cita.setCabecera(cita.getDia().toUpperCase() + " " + diferencia);
+                    }
+                    citasAux.add(citas.get(i));
+                }
+            }
+        }
+
+        adapterCitas = new AdapterCitas(getContext(),citasAux, AdapterCitas.SALON);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapterCitas);
         recyclerView.setHasFixedSize(true);
