@@ -219,7 +219,7 @@ public class RegistroEstilista extends AppCompatActivity {
 
         registro_estilista_btn_listo.setOnClickListener(v -> {
 
-            final Estilista estilista = new Estilista(correoEstilista,nombreEstilista,usuarioEstilista,telefonoEstilista,passEstilista);
+            final Estilista estilista = new Estilista(correoEstilista,usuarioEstilista,nombreEstilista,telefonoEstilista,passEstilista);
 
             HashMap<String,Horario> horarios = new HashMap<>();
             Horario horario;
