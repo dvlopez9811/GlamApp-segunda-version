@@ -11,13 +11,11 @@
         android:layout_marginTop="10dp">
 
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/foto_perfil_salon_renglon_favoritos"
-               />
-
-
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/foto_perfil_salon_renglon_favoritos"
+            android:layout_centerVertical="true"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
