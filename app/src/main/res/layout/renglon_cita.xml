@@ -74,6 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/salon_renglon_cita"
+                android:text="Salon"
                 android:textSize="30sp"
                 android:fontFamily="@font/josefin_sans" />
 
@@ -81,34 +82,47 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/nombre_estilista_cita"
-                android:text="CrisAlex"
+                android:text="estilista"
                 android:fontFamily="@font/josefin_sans" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="servicio"
                 android:id="@+id/servicio_renglon_cita"
                 android:fontFamily="@font/josefin_sans"/>
         </LinearLayout>
 
-        <TextView
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="32sp"
-            android:layout_marginLeft="200dp"
-            android:layout_gravity="center_vertical"
-            android:id="@+id/horainicio_renglon_cita"
-            android:fontFamily="@font/josefin_sans"
-/>
+            android:layout_alignParentEnd="true">
 
-        <ImageView
-            android:id="@+id/iv_menu_cita_renglon_cita"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="16dp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_menu_100x100"
-            android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="32sp"
+                android:layout_toLeftOf="@id/iv_menu_cita_renglon_cita"
+                android:layout_marginLeft="200dp"
+                android:text="2:00"
+                android:gravity="right|center"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/horainicio_renglon_cita"
+                android:fontFamily="@font/josefin_sans"
+                />
+
+            <ImageView
+                android:visibility=""
+                android:id="@+id/iv_menu_cita_renglon_cita"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="16dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_menu_100x100"
+                android:layout_centerVertical="true"/>
+        </LinearLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
