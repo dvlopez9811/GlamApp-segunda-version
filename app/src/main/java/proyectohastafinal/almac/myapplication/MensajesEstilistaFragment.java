@@ -134,6 +134,7 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
         Collections.sort(citasEstilista);
 
         Calendar calendarioActual = Calendar.getInstance();
+        ArrayList<Cita> citasAux = new ArrayList<>();
 
         for (int i = 0; i < citasEstilista.size(); i++) {
             Cita cita = citasEstilista.get(i);
@@ -141,7 +142,6 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
             Calendar calendarioCita = new GregorianCalendar(Integer.parseInt(fechaCita[0]), Integer.parseInt(fechaCita[1]) - 1, Integer.parseInt(fechaCita[2]), cita.getHorainicio(), 0, 0);
 
             if (calendarioCita.getTimeInMillis() < calendarioActual.getTimeInMillis()) {
-
             } else {
                 if (calendarioActual.get(Calendar.DAY_OF_MONTH) == Integer.parseInt(fechaCita[2])) {
                     if ( i == 0) {
@@ -151,6 +151,7 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
                         cita.setInformacion("HOY");
                         cita.setCabecera(cita.getDia().toUpperCase());
                     }
+                    citasAux.add(citasEstilista.get(i));
                 } else {
                     long diff = calendarioCita.getTime().getTime() - calendarioActual.getTime().getTime();
                     long diferencia = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
@@ -161,11 +162,13 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
                         cita.setInformacion("PRÓXIMO");
                         cita.setCabecera(cita.getDia().toUpperCase()+" "+diferencia);
                     }
+                    citasAux.add(citasEstilista.get(i));
+
                 }
             }
         }
 
-        adapterMensajesEstilista = new AdapterMensajesEstilista(getContext(), usuarios, citasEstilista);
+        adapterMensajesEstilista = new AdapterMensajesEstilista(getContext(), citasAux);
         adapterMensajesEstilista.setListener(this);
         listamensajesEstilista.setLayoutManager(new LinearLayoutManager(getContext()));
         listamensajesEstilista.setAdapter(adapterMensajesEstilista);
@@ -175,11 +178,13 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
 
 
     @Override
-    public void onItemClick(View v, Cliente usario) {
+    public void onItemClick(View v, String idUsuario, Cliente usuario) {
         Intent i = new Intent(getActivity(),ChatActivity.class);
-        i.putExtra("telUsuario", usario.getTelefono());
+        i.putExtra("telUsuario", usuario.getTelefono());
         i.putExtra("telEstilista",telefonopropio);
         i.putExtra("usEstilista",usuarioEstilista);
+        i.putExtra("esEstilista", true);
+        i.putExtra("idUsuario", idUsuario);
         startActivity(i);
     }
 

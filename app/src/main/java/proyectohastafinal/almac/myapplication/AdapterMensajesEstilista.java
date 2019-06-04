@@ -3,11 +3,9 @@ package proyectohastafinal.almac.myapplication;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,15 +23,9 @@ import proyectohastafinal.almac.myapplication.model.Cliente;
 
 public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensajesEstilista.CustomViewHolder>{
 
-    private ArrayList<Cliente> usuarios;
     ArrayList<Cita> citas;
     FirebaseDatabase rtdb;
     Context context;
-
-    public void agregarusuario(Cliente usuario){
-        usuarios.add(usuario);
-        notifyDataSetChanged();
-    }
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
@@ -58,10 +50,10 @@ public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensaj
         }
     }
 
-    public AdapterMensajesEstilista(Context context, ArrayList<Cliente> clientes, ArrayList<Cita> citas){
+    public AdapterMensajesEstilista(Context context, ArrayList<Cita> citas){
         this.context = context;
-        this.usuarios = clientes;
         this.citas = citas;
+        rtdb = FirebaseDatabase.getInstance();
     }
 
     @Override
@@ -89,7 +81,7 @@ public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensaj
         //ref.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(image.getContext()).load(uri).into(image));
         holder.servicio_renglon_cita_mensaje_estilista.setText(citas.get(position).getServicio());
         holder.horainicio_renglon_cita_mensaje_estilista.setText(horarioinicio);
-        holder.nombre_usuario_cita_mensaje_estilista.setText(usuarios.get(position).getUsuario());
+        holder.nombre_usuario_cita_mensaje_estilista.setText(citas.get(position).getNombreUsuario());
         holder.relative_renglon_mensaje_estilista.setVisibility(View.GONE);
 
         if(citas.get(position).getInformacion().equals("CITAS POR CALIFICAR")) {
@@ -113,27 +105,50 @@ public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensaj
         holder.iv_llamar_renglon_mensaje_estilista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemCall(usuarios.get(position).getTelefono());
+
+                rtdb.getReference().child("usuario").child(citas.get(position).getIdUsuario()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Cliente usuario = dataSnapshot.getValue(Cliente.class);
+                        listener.onItemCall(usuario.getTelefono());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
 
         holder.relative_layout_mensaje_estilista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("PASANDOOOOO", "PASANDO");
-                listener.onItemClick(v,usuarios.get(position));
+                rtdb.getReference().child("usuario").child(citas.get(position).getIdUsuario()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Cliente usuario = dataSnapshot.getValue(Cliente.class);
+                        listener.onItemClick(v, citas.get(position).getIdUsuario(), usuario);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return usuarios.size();
+        return citas.size();
     }
 
     //OBSERVER
     public interface OnItemClickListener{
-        void onItemClick(View v,Cliente usario);
+        void onItemClick(View v,String idUsuario, Cliente usuario);
         void onItemCall(String telefono);
     }
 

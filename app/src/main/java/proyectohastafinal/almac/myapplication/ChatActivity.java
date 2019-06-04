@@ -58,7 +58,8 @@ public class ChatActivity extends AppCompatActivity {
         nombre = getIntent().getExtras().getString("usEstilista");
 
         esEstilista = getIntent().getExtras().getBoolean("esEstilista");
-
+        Log.d("EsEstilista", esEstilista +"");
+        //VIENE DE USUARIO
         if (telefonoUsuario==null) {
             rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -76,7 +77,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 }
             });
-        } else if (telefonoEstilista==null) {
+        } else if (telefonoEstilista==null) { //VIENE DE ESTILISTA
 
             rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -171,6 +172,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 String valor = nombre+": "+mensaje;
                 if(esEstilista){
+                    Log.d("ESTILISTA", idEstilista+"");
                     idUsuario = getIntent().getExtras().getString("idUsuario");
                     rtdb.getReference().child("Alerta").child(idUsuario).push().setValue(valor);}
                 else{
