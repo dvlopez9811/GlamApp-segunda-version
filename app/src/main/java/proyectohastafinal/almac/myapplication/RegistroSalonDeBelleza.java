@@ -226,6 +226,7 @@ public class RegistroSalonDeBelleza extends AppCompatActivity {
                                 rtdb.getReference().child("Buscar servicios salon de belleza").child(serviciosCambinados[i]).child(salonDeBelleza.getNombreSalonDeBelleza()).push().setValue(salonDeBelleza.getNombreSalonDeBelleza());
                             }
 
+
                             Intent i = new Intent(RegistroSalonDeBelleza.this,MainSalonActivity.class);
                             startActivity(i);
                             finish();
