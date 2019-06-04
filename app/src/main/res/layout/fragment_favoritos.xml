@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FavoritosFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginBottom="55dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -29,18 +30,46 @@
         android:fontFamily="@font/josefin_sans"
         android:textColor="@color/colorNegro"
         android:layout_marginTop="30dp"
+        android:layout_below="@id/titulo_fragment_favoritos"
         android:textSize="20sp"
         android:text="Aún no has añadido salones a esta lista."
         android:id="@+id/txt_no_hay_salones_favoritos"
-        android:layout_gravity="center"/>
+        android:layout_centerHorizontal="true"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_marginTop="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listado_salones_favoritos"
-        android:layout_below="@id/layout_filtros"
+        android:layout_below="@id/txt_no_hay_salones_favoritos"
         android:layout_marginLeft="10dp">
     </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_iniciar_sesion_fragment_favoritos"
+        android:text="Inicia sesión para poder ver tus favoritos"
+        android:fontFamily="@font/josefin_sans"
+        android:textSize="25sp"
+        android:gravity="center_horizontal"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_iniciar_sesion_fragment_favoritos"
+        android:padding="10dp"
+        android:background="@drawable/btn_circular_principal"
+        android:textColor="@color/colorBlanco"
+        android:text="Inicia sesión"
+        android:fontFamily="@font/josefin_sans"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:layout_below="@id/txt_iniciar_sesion_fragment_favoritos"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+
+
+</RelativeLayout>

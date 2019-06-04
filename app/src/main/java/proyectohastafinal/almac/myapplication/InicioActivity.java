@@ -1,6 +1,7 @@
 package proyectohastafinal.almac.myapplication;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -65,12 +66,24 @@ public class InicioActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     FirebaseDatabase rtdb;
+    String volverACargar;
 
     private Intent intentMain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
+
+        Bundle extras = getIntent().getExtras();
+        volverACargar = "";
+        if (extras != null ){
+            volverACargar = extras.getString("NoIniciar");
+        }
+
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Verificando usuario");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         // Lo primero que se realiza es solicitar todos los permisos necesarios para ejecutar la aplicación.
         ActivityCompat.requestPermissions(this, new String[]{
@@ -121,9 +134,6 @@ public class InicioActivity extends AppCompatActivity {
 
                 }
             });
-
-            //startActivity(intentMain);
-            //finish();
         }
 
         // Se inicializan los componentes gráficos necesarios de la actividad.
@@ -182,10 +192,14 @@ public class InicioActivity extends AppCompatActivity {
 
         // Listener del botón salir, aquí se manda a la clase principal.
         btn_salir_inicio_activity.setOnClickListener(v -> {
-            startActivity(intentMain);
-            finish();
+            if(volverACargar.equals("")) {
+                startActivity(intentMain);
+                finish();
+            } else
+                onBackPressed();
         });
 
+        progressDialog.dismiss();
     }
 
     private void handleFacebookAccessToken(AccessToken token) {

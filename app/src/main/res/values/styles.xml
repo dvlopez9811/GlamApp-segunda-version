@@ -12,4 +12,7 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
+    <style name="newFont" parent="Widget.Design.BottomNavigationView">
+        <item name="android:fontFamily">@font/josefin_sans</item>
+    </style>
 </resources>

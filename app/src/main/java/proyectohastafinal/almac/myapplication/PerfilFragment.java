@@ -72,78 +72,94 @@ public class PerfilFragment extends Fragment {
         rtdb = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
 
+        Button btn_iniciar_sesion_fragment_favoritos = mView.findViewById(R.id.btn_iniciar_sesion_fragment_perfil);
+        btn_iniciar_sesion_fragment_favoritos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), InicioActivity.class);
+                startActivity(i);
+                getActivity().finish();
+            }
+        });
 
-            if ( auth.getCurrentUser() != null) {
-                rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("correo").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String tuCorreo = dataSnapshot.getValue(String.class);
-                        correo.setText(tuCorreo);
-                    }
+        if (auth.getCurrentUser() == null) {
+            btn_cambiar_contrasenha.setVisibility(View.GONE);
+            btn_cerrar_sesion.setVisibility(View.GONE);
+            correo.setVisibility(View.GONE);
+            nombre.setVisibility(View.GONE);
+            ((ImageView)mView.findViewById(R.id.imagen_boton_cambiar_contrasena_cliente)).setVisibility(View.GONE);
+            ((ImageView)mView.findViewById(R.id.foto_perfil_usuario_fragment_perfil)).setVisibility(View.GONE);
+            ((ImageView)mView.findViewById(R.id.imagen_boton_salir_contrasena_cliente)).setVisibility(View.GONE);
+            return mView;
+        }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-                rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("nombreYApellido").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String tuNombre = dataSnapshot.getValue(String.class);
-                        nombre.setText(tuNombre);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-            // Inflate the layout for this fragment
-            btn_cerrar_sesion.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AuthUI.getInstance()
-                            .signOut(inflater.getContext())
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Intent i = new Intent(PerfilFragment.this.getContext(), InicioActivity.class);
-                                    startActivity(i);
-                                    getActivity().finish();
-                                }
-                            });
-                }
-            });
+        ((TextView) mView.findViewById(R.id.txt_iniciar_sesion_fragment_perfil)).setVisibility(View.GONE);
+        btn_iniciar_sesion_fragment_favoritos.setVisibility(View.GONE);
 
 
-            btn_cambiar_contrasenha.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(getContext(), CambiarContrasenhaActivity.class);
-                    startActivity(i);
-                }
-            });
+        rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("correo").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String tuCorreo = dataSnapshot.getValue(String.class);
+                correo.setText(tuCorreo);
+            }
 
-                for (UserInfo user: auth.getCurrentUser().getProviderData()) {
-                    if (user.getProviderId().equals("google.com")) {
-                        btn_cambiar_contrasenha.setVisibility(View.GONE);
-                        ((ImageView)mView.findViewById(R.id.imagen_boton_cambiar_contrasena_cliente)).setVisibility(View.GONE);
-
-                    }
-                    else if(user.getProviderId().equals("facebook.com")){
-                        btn_cambiar_contrasenha.setVisibility(View.GONE);
-                        ((ImageView)mView.findViewById(R.id.imagen_boton_cambiar_contrasena_cliente)).setVisibility(View.GONE);
-                    }
-                }
-            }else{
-                btn_cambiar_contrasenha.setVisibility(View.GONE);
-                correo.setVisibility(View.GONE);
-                nombre.setVisibility(View.GONE);
-                ((ImageView)mView.findViewById(R.id.imagen_boton_cambiar_contrasena_cliente)).setVisibility(View.GONE);
-                ((ImageView)mView.findViewById(R.id.foto_perfil_usuario_fragment_perfil)).setVisibility(View.GONE);
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+        });
+
+        rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).child("nombreYApellido").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String tuNombre = dataSnapshot.getValue(String.class);
+                nombre.setText(tuNombre);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        // Inflate the layout for this fragment
+        btn_cerrar_sesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AuthUI.getInstance()
+                        .signOut(inflater.getContext())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Intent i = new Intent(PerfilFragment.this.getContext(), InicioActivity.class);
+                                startActivity(i);
+                                getActivity().finish();
+                            }
+                        });
+            }
+        });
+
+
+        btn_cambiar_contrasenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), CambiarContrasenhaActivity.class);
+                startActivity(i);
+            }
+        });
+
+        for (UserInfo user: auth.getCurrentUser().getProviderData()) {
+            if (user.getProviderId().equals("google.com")) {
+                btn_cambiar_contrasenha.setVisibility(View.GONE);
+                ((ImageView)mView.findViewById(R.id.imagen_boton_cambiar_contrasena_cliente)).setVisibility(View.GONE);
+
+            }
+            else if(user.getProviderId().equals("facebook.com")){
+                btn_cambiar_contrasenha.setVisibility(View.GONE);
+                ((ImageView)mView.findViewById(R.id.imagen_boton_cambiar_contrasena_cliente)).setVisibility(View.GONE);
+            }
+        }
+
 
         return mView;
     }
