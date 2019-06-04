@@ -174,10 +174,10 @@ public class ChatActivity extends AppCompatActivity {
                 if(esEstilista){
                     Log.d("ESTILISTA", idEstilista+"");
                     idUsuario = getIntent().getExtras().getString("idUsuario");
-                    rtdb.getReference().child("Alerta").child(idUsuario).push().setValue(valor);}
+                    rtdb.getReference().child("Alerta").child(idUsuario).setValue(valor);}
                 else{
                     idEstilista = getIntent().getExtras().getString("idEstilista");
-                    rtdb.getReference().child("Alerta").child(idEstilista).push().setValue(valor);}
+                    rtdb.getReference().child("Alerta").child(idEstilista).setValue(valor);}
 
             }
         });
