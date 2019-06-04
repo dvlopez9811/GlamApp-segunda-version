@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/layout_border"
+    android:background="@drawable/btn_redondeado_blanco"
     android:layout_gravity="center_horizontal"
     android:orientation="vertical"
+    android:padding="20dp"
     >
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/layout_popup_informacion_primero"
@@ -20,12 +21,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/popup_informacion_cita"
             android:textSize="30sp"
+            android:fontFamily="@font/josefin_sans"
             android:textColor="@color/colorPrimary"
-            android:text="CITA" />
+            android:text="Tu cita" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/layout_popup_informacion_segundo"
         android:orientation="horizontal"
@@ -38,47 +40,67 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center|left">
 
             <TextView
                 android:id="@+id/popup_window_informacion_cita_nombre_salon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Salón de belleza: IcesI"/>
+                android:fontFamily="@font/josefin_sans"
+                android:layout_marginBottom="5dp"
+                android:textSize="20dp"
+                android:text="Salón de belleza:"/>
 
             <TextView
+                android:fontFamily="@font/josefin_sans"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textSize="20dp"
                 android:id="@+id/popup_window_informacion_cita_nombre_estilista"
-                android:text="Estilista: Paty"/>
+                android:text="Estilista:"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textSize="20dp"
+                android:fontFamily="@font/josefin_sans"
                 android:id="@+id/popup_window_informacion_cita_nombre_usuario"
-                android:text="Cliente: Cristian Duque"/>
+                android:text="Cliente:"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/josefin_sans"
+                android:layout_marginBottom="5dp"
+                android:textSize="20dp"
                 android:id="@+id/popup_window_informacion_cita_tipo_servicio"
-                android:text="Servicio: Uñas"/>
+                android:text="Servicio:"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/josefin_sans"
+                android:layout_marginBottom="5dp"
+                android:textSize="20dp"
                 android:id="@+id/popup_window_informacion_cita_fecha"
                 android:text="Fecha: "/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/josefin_sans"
+                android:layout_marginBottom="5dp"
+                android:textSize="20dp"
                 android:id="@+id/popup_window_informacion_cita_hora_inicio"
                 android:text="Hora inicio: "/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:fontFamily="@font/josefin_sans"
                 android:id="@+id/popup_window_informacion_cita_hora_final"
                 android:text="Hora finalización: "/>
 
