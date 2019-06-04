@@ -27,7 +27,7 @@ public class MainEstilistaActivity extends AppCompatActivity implements BottomNa
 
         NotificationService notificationService = new NotificationService();
 
-        Intent ser = new Intent(this, notificationService.getClass());
+        Intent ser = new Intent(this, NotificationService.class);
         startService(ser);
 
         BottomNavigationView navigationView = findViewById(R.id.navigation_estilista);

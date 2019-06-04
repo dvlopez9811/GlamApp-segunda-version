@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
+import proyectohastafinal.almac.myapplication.InicioActivity;
 import proyectohastafinal.almac.myapplication.MainActivity;
 import proyectohastafinal.almac.myapplication.R;
 
@@ -45,10 +46,8 @@ public class NotificationService extends Service {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                        String alerta = dsp.getValue().toString();
-                        crearNotificacion(alerta);
-                    }
+                    String alerta = dataSnapshot.getValue(String.class);
+                    crearNotificacion(alerta);
                 }
 
                 @Override
@@ -67,13 +66,19 @@ public class NotificationService extends Service {
             NotificationChannel canal = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, CHANNEL_IMPORTANCE);
             manager.createNotificationChannel(canal);
         }
+
+        Intent intent = new Intent(this, InicioActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         NotificationCompat.Builder builder = new NotificationCompat
                 .Builder(this, CHANNEL_ID)
                 .setContentTitle("Alerta")
                 .setContentText(mensaje)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setDefaults(Notification.DEFAULT_ALL)
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
 
 
         manager.notify(1, builder.build());

@@ -312,7 +312,7 @@ public class AdapterItemsAgendarCita extends RecyclerView.Adapter<AdapterItemsAg
                     Cliente cliente = dataSnapshot.getValue(Cliente.class);
 
                     String valor = "Cita nueva de "+cliente.getUsuario();
-                            rtdb.getReference().child("Alerta").child(idestilista).push().setValue(valor);
+                            rtdb.getReference().child("Alerta").child(idestilista).setValue(valor);
                 }
 
                 @Override
