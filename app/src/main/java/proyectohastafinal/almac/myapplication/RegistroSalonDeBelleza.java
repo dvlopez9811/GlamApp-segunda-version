@@ -217,7 +217,7 @@ public class RegistroSalonDeBelleza extends AppCompatActivity {
                             subirImagen();
                             rtdb.getReference().child("Salon de belleza").child(nombreSalonBelleza).child("calificacion").setValue("5.0");
                             rtdb.getReference().child("Salon de belleza").child(nombreSalonBelleza).child("numeroCalificaciones").setValue(1);
-                            rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("salón de belleza");
+                            rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue(nombreSalonBelleza);
 
                             Marcador marcador = new Marcador(salonDeBelleza.getLatitud(), salonDeBelleza.getLongitud(), salonDeBelleza.getNombreSalonDeBelleza());
                             rtdb.getReference().child("Marcador").child(salonDeBelleza.getNombreSalonDeBelleza()).setValue(marcador);
@@ -226,6 +226,8 @@ public class RegistroSalonDeBelleza extends AppCompatActivity {
                                 rtdb.getReference().child("Buscar servicios salon de belleza").child(serviciosCambinados[i]).child(salonDeBelleza.getNombreSalonDeBelleza()).push().setValue(salonDeBelleza.getNombreSalonDeBelleza());
                             }
 
+                            Intent i = new Intent(RegistroSalonDeBelleza.this,MainSalonActivity.class);
+                            startActivity(i);
                             finish();
                         }
                     }).addOnCompleteListener(task -> {
