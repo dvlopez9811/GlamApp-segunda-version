@@ -312,6 +312,7 @@ public class SolicitudesEstilistaFragment extends Fragment implements AdapterCit
                         });
 
                         Toast.makeText(getActivity(),"Se cancelo esta cita",Toast.LENGTH_LONG).show();
+                        getFragmentManager().beginTransaction().detach(SolicitudesEstilistaFragment.this).attach(SolicitudesEstilistaFragment.this).commit();
                     }
                 });
                 dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
