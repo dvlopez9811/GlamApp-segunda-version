@@ -44,7 +44,7 @@ import proyectohastafinal.almac.myapplication.model.SalonDeBelleza;
 import proyectohastafinal.almac.myapplication.model.ServiceManager;
 import proyectohastafinal.almac.myapplication.model.Servicio;
 
-public class CitasEstilistaFragment extends Fragment implements AdapterCitasEstilista.OnItemClickListenerHoy{
+public class CitasEstilistaFragment extends Fragment implements AdapterCitas.OnItemClickListener{
 
     private static final String NOMBRE_SALON = "Salón de belleza: ";
     private static final String NOMBRE_ESTILISTA = "Estilista: ";
@@ -56,7 +56,7 @@ public class CitasEstilistaFragment extends Fragment implements AdapterCitasEsti
 
     private static CitasEstilistaFragment instance;
 
-    private AdapterCitasEstilista adapterCitasEstilista;
+    private AdapterCitas adapterCitasEstilista;
     private RecyclerView lista_citas_estilista;
     private ArrayList <Cita> citas;
     private Cita citaseleccionada;
@@ -256,7 +256,7 @@ public class CitasEstilistaFragment extends Fragment implements AdapterCitasEsti
             }
         }
 
-        adapterCitasEstilista = new AdapterCitasEstilista(getContext(), citasAux);
+        adapterCitasEstilista = new AdapterCitas(getContext(), citasAux);
         adapterCitasEstilista.setListener(CitasEstilistaFragment.this);
         lista_citas_estilista.setLayoutManager(new LinearLayoutManager(getContext()));
         lista_citas_estilista.setAdapter(adapterCitasEstilista);
