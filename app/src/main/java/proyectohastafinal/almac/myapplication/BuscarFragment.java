@@ -95,6 +95,12 @@ public class BuscarFragment extends Fragment implements View.OnClickListener, Ad
         String provider = locationManager.getBestProvider(criteria, true);
         location = locationManager.getLastKnownLocation(provider);
 
+        if(location == null){
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if(location==null)
+                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        }
+
         image_filtro_peluqueria_fragment_buscar = mView.findViewById(R.id.image_filtro_peluqueria_fragment_buscar);
         image_filtro_depilacion_fragment_buscar = mView.findViewById(R.id.image_filtro_depilacion_fragment_buscar);
         image_filtro_unas_fragment_buscar = mView.findViewById(R.id.image_filtro_unas_fragment_buscar);

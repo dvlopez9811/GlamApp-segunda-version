@@ -10,10 +10,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -21,8 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
+import proyectohastafinal.almac.myapplication.ChatActivity;
 import proyectohastafinal.almac.myapplication.InicioActivity;
 import proyectohastafinal.almac.myapplication.MainActivity;
+import proyectohastafinal.almac.myapplication.MainEstilistaActivity;
 import proyectohastafinal.almac.myapplication.R;
 
 public class NotificationService extends Service {
@@ -42,12 +46,28 @@ public class NotificationService extends Service {
         auth = FirebaseAuth.getInstance();
         if(auth.getCurrentUser() != null) {
 
-            rtdb.getReference().child("Alerta").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            rtdb.getReference().child("Alerta").addChildEventListener(new ChildEventListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                }
 
-                    String alerta = dataSnapshot.getValue(String.class);
-                    crearNotificacion(alerta);
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    String UID = dataSnapshot.getKey();
+                    if (UID.equals(auth.getCurrentUser().getUid())){
+                        String alerta = dataSnapshot.getValue(String.class);
+                        crearNotificacion(alerta);
+                    }
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
                 }
 
                 @Override
@@ -55,7 +75,6 @@ public class NotificationService extends Service {
 
                 }
             });
-
         }
     }
 
@@ -67,7 +86,29 @@ public class NotificationService extends Service {
             manager.createNotificationChannel(canal);
         }
 
-        Intent intent = new Intent(this, InicioActivity.class);
+
+        NotificationCompat.Builder builder = new NotificationCompat
+                .Builder(this, CHANNEL_ID)
+                .setContentTitle("Alerta")
+                .setContentText(mensaje)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true);
+
+
+        manager.notify(1, builder.build());
+    }
+
+    private void crearNotificacionCita(String mensaje) {
+        manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel canal = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, CHANNEL_IMPORTANCE);
+            manager.createNotificationChannel(canal);
+        }
+
+        Intent intent = new Intent(this, MainEstilistaActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         NotificationCompat.Builder builder = new NotificationCompat
