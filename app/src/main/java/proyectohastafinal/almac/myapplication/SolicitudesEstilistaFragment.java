@@ -179,10 +179,10 @@ public class SolicitudesEstilistaFragment extends Fragment implements AdapterCit
                     long diferencia = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
                     if (i == 0) {
                         cita.setInformacion("PRÓXIMO");
-                        cita.setCabecera(cita.getDia().toUpperCase() + " " + diferencia);
+                        cita.setCabecera(cita.getDia() + " " + diferencia);
                     } else if (Integer.parseInt((citasEstilista.get(i - 1).getFecha().split("-"))[2]) != Integer.parseInt((cita.getFecha().split("-"))[2])) {
                         cita.setInformacion("PRÓXIMO");
-                        cita.setCabecera(cita.getDia().toUpperCase() + " " + diferencia);
+                        cita.setCabecera(cita.getDia() + " " + diferencia);
                     }
                     citasAux.add(citasEstilista.get(i));
                 }

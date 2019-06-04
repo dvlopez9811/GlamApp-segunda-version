@@ -35,37 +35,37 @@
         android:useDefaultMargins="true">
         
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:id="@+id/image_filtro_peluqueria_fragment_buscar"
             android:src="@drawable/image_filtro_peluqueria"
             android:layout_gravity="center_horizontal"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:id="@+id/image_filtro_depilacion_fragment_buscar"
             android:src="@drawable/image_filtro_depilacion"
             android:layout_gravity="center_horizontal"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:id="@+id/image_filtro_unas_fragment_buscar"
             android:src="@drawable/image_filtro_unas"
             android:layout_gravity="center_horizontal"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:id="@+id/image_filtro_maquillaje_fragment_buscar"
             android:src="@drawable/image_filtro_maquillaje"
             android:layout_gravity="center_horizontal"/>
 
         <ImageView
             android:id="@+id/image_filtro_masaje_fragment_buscar"
-            android:layout_width="56dp"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/image_filtro_masaje"
             android:layout_gravity="center_horizontal"/>
 

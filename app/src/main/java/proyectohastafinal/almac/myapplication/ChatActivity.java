@@ -37,7 +37,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private EditText et_mensaje_chat;
     private Button btn_enviar_chat;
-    private TextView txt_mensajes;
+    private TextView txt_mensajes,txt_titulo_chat;
 
 
     @Override
@@ -49,7 +49,7 @@ public class ChatActivity extends AppCompatActivity {
         btn_enviar_chat = findViewById(R.id.btn_enviar_chat);
         txt_mensajes = findViewById(R.id.txt_mensajes);
         txt_mensajes.setMovementMethod(new ScrollingMovementMethod());
-
+        txt_titulo_chat=findViewById(R.id.txt_titulo_chat_activity);
         auth = FirebaseAuth.getInstance();
         rtdb = FirebaseDatabase.getInstance();
 
@@ -58,6 +58,38 @@ public class ChatActivity extends AppCompatActivity {
         nombre = getIntent().getExtras().getString("usEstilista");
 
         esEstilista = getIntent().getExtras().getBoolean("esEstilista");
+
+        idUsuario = getIntent().getExtras().getString("idUsuario");
+        idEstilista = getIntent().getExtras().getString("idEstilista");
+
+
+        if(esEstilista){
+            rtdb.getReference().child("usuario").child(idUsuario).child("usuario").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String id = dataSnapshot.getValue(String.class);
+                    txt_titulo_chat.setText("Chat con "+id);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });}
+        else{
+            rtdb.getReference().child("Estilista").child(idEstilista).child("usuario").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String id = dataSnapshot.getValue(String.class);
+                    txt_titulo_chat.setText("Chat con "+id);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });}
+
         Log.d("EsEstilista", esEstilista +"");
         //VIENE DE USUARIO
         if (telefonoUsuario==null) {
@@ -131,7 +163,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 //Carga todos los hijos de la rama y queda pendiente de los nuevos que se agregan
-                txt_mensajes.append(dataSnapshot.getValue(Mensaje.class).nombre+"\n"+dataSnapshot.getValue(Mensaje.class).contenido+"\n\n");
+                txt_mensajes.append(dataSnapshot.getValue(Mensaje.class).nombre+"\n   "+dataSnapshot.getValue(Mensaje.class).contenido+"\n\n");
             }
 
             @Override
@@ -174,10 +206,10 @@ public class ChatActivity extends AppCompatActivity {
                 if(esEstilista){
                     Log.d("ESTILISTA", idEstilista+"");
                     idUsuario = getIntent().getExtras().getString("idUsuario");
-                    rtdb.getReference().child("Alerta").child(idUsuario).push().setValue(valor);}
+                    rtdb.getReference().child("Alerta").child(idUsuario).setValue(valor);}
                 else{
                     idEstilista = getIntent().getExtras().getString("idEstilista");
-                    rtdb.getReference().child("Alerta").child(idEstilista).push().setValue(valor);}
+                    rtdb.getReference().child("Alerta").child(idEstilista).setValue(valor);}
 
             }
         });

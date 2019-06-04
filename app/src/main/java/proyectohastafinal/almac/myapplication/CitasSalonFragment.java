@@ -121,10 +121,10 @@ public class CitasSalonFragment extends Fragment {
                     long diferencia = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
                     if (i == 0) {
                         cita.setInformacion("PRÓXIMO");
-                        cita.setCabecera(cita.getDia().toUpperCase() + " " + diferencia);
+                        cita.setCabecera(cita.getDia() + " " + diferencia);
                     } else if (Integer.parseInt((citas.get(i - 1).getFecha().split("-"))[2]) != Integer.parseInt((cita.getFecha().split("-"))[2])) {
                         cita.setInformacion("PRÓXIMO");
-                        cita.setCabecera(cita.getDia().toUpperCase() + " " + diferencia);
+                        cita.setCabecera(cita.getDia() + " " + diferencia);
                     }
                     citasAux.add(citas.get(i));
                 }

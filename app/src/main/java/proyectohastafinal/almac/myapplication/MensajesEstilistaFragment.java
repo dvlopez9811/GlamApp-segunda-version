@@ -87,35 +87,36 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
                 Estilista estilista = dataSnapshot.getValue(Estilista.class);
                 ArrayList<String> citas = new ArrayList<>();
 
-                for (Map.Entry<String, String> idcita : estilista.getCitas().entrySet()) {
-                    rtdb.getReference().child("Citas").child(idcita.getValue()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Cita cita = dataSnapshot.getValue(Cita.class);
-                            citasEstilista.add(cita);
-                            rtdb.getReference().child("usuario").child(cita.getIdUsuario()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    Cliente usuario = dataSnapshot.getValue(Cliente.class);
-                                    usuarios.add(usuario);
-                                    //adapterMensajesEstilista.agregarusuario(usuario);
-                                    adapter();
-                                }
+                if(estilista.getCitas()!=null) {
+                    for (Map.Entry<String, String> idcita : estilista.getCitas().entrySet()) {
+                        rtdb.getReference().child("Citas").child(idcita.getValue()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Cita cita = dataSnapshot.getValue(Cita.class);
+                                citasEstilista.add(cita);
+                                rtdb.getReference().child("usuario").child(cita.getIdUsuario()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        Cliente usuario = dataSnapshot.getValue(Cliente.class);
+                                        usuarios.add(usuario);
+                                        //adapterMensajesEstilista.agregarusuario(usuario);
+                                        adapter();
+                                    }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                }
-                            });
-                        }
+                                    }
+                                });
+                            }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
-
                 telefonopropio = estilista.getTelefono();
                 usuarioEstilista = estilista.getUsuario();
 
@@ -146,10 +147,10 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
                 if (calendarioActual.get(Calendar.DAY_OF_MONTH) == Integer.parseInt(fechaCita[2])) {
                     if ( i == 0) {
                         cita.setInformacion("HOY");
-                        cita.setCabecera(cita.getDia().toUpperCase());
+                        cita.setCabecera(cita.getDia());
                     } else if ( !citasEstilista.get(i - 1).getInformacion().equals("HOY")) {
                         cita.setInformacion("HOY");
-                        cita.setCabecera(cita.getDia().toUpperCase());
+                        cita.setCabecera(cita.getDia());
                     }
                     citasAux.add(citasEstilista.get(i));
                 } else {
@@ -157,10 +158,10 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
                     long diferencia = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
                     if ( i == 0){
                         cita.setInformacion("PRÓXIMO");
-                        cita.setCabecera(cita.getDia().toUpperCase()+" "+diferencia);
+                        cita.setCabecera(cita.getDia()+" "+diferencia);
                     } else if (  Integer.parseInt((citasEstilista.get(i - 1).getFecha().split("-"))[2]) != Integer.parseInt((cita.getFecha().split("-"))[2])){
                         cita.setInformacion("PRÓXIMO");
-                        cita.setCabecera(cita.getDia().toUpperCase()+" "+diferencia);
+                        cita.setCabecera(cita.getDia()+" "+diferencia);
                     }
                     citasAux.add(citasEstilista.get(i));
 
