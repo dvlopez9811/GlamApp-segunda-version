@@ -246,10 +246,10 @@ public class CitasEstilistaFragment extends Fragment implements AdapterCitas.OnI
                 if (calendarioActual.get(Calendar.DAY_OF_MONTH) == Integer.parseInt(fechaCita[2])) {
                     if (i == 0) {
                         cita.setInformacion("HOY");
-                        cita.setCabecera(cita.getDia().toUpperCase());
+                        cita.setCabecera(cita.getDia());
                     } else if (!citasEstilista.get(i - 1).getInformacion().equals("HOY")) {
                         cita.setInformacion("HOY");
-                        cita.setCabecera(cita.getDia().toUpperCase());
+                        cita.setCabecera(cita.getDia());
                     }
                     citasAux.add(citasEstilista.get(i));
                 }

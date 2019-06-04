@@ -30,7 +30,7 @@ public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensaj
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
         RelativeLayout relative_layout_mensaje_estilista, relative_renglon_mensaje_estilista;
-        TextView renglon_cita_dia_semana_mensaje_estilista, renglon_cita_fecha_mensaje, renglon_cita_dias_restantes_mensaje,
+        TextView renglon_cita_dia_semana_mensaje_estilista, renglon_cita_fecha_mensaje,
                 nombre_usuario_cita_mensaje_estilista, servicio_renglon_cita_mensaje_estilista, horainicio_renglon_cita_mensaje_estilista;
         ImageView iv_llamar_renglon_mensaje_estilista;
 
@@ -38,13 +38,10 @@ public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensaj
             super(itemView);
             renglon_cita_dia_semana_mensaje_estilista = itemView.findViewById(R.id.renglon_cita_dia_semana_mensaje_estilista);
             renglon_cita_fecha_mensaje = itemView.findViewById(R.id.renglon_cita_fecha_mensaje);
-            renglon_cita_dias_restantes_mensaje = itemView.findViewById(R.id.renglon_cita_dias_restantes_mensaje);
             nombre_usuario_cita_mensaje_estilista = itemView.findViewById(R.id.nombre_usuario_cita_mensaje_estilista);
             servicio_renglon_cita_mensaje_estilista = itemView.findViewById(R.id.servicio_renglon_cita_mensaje_estilista);
             horainicio_renglon_cita_mensaje_estilista = itemView.findViewById(R.id.horainicio_renglon_cita_mensaje_estilista);
-
             iv_llamar_renglon_mensaje_estilista = itemView.findViewById(R.id.iv_llamar_renglon_mensaje_estilista);
-
             relative_layout_mensaje_estilista = itemView.findViewById(R.id.relative_layout_mensaje_estilista);
             relative_renglon_mensaje_estilista = itemView.findViewById(R.id.relative_renglon_mensaje_estilista);
         }
@@ -76,6 +73,7 @@ public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensaj
             horarioinicio=horarioinic+" p.m";
         }
 
+        String fecha[] = citas.get(position).getFecha().split("-");
         //StorageReference ref = storage.getReference().child("estilistas").child(citas.get(position).getIdEstilista());
         //ImageView image =  holder.root.findViewById(R.id.image_cita_estilista);
         //ref.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(image.getContext()).load(uri).into(image));
@@ -87,18 +85,15 @@ public class AdapterMensajesEstilista extends RecyclerView.Adapter<AdapterMensaj
         if(citas.get(position).getInformacion().equals("CITAS POR CALIFICAR")) {
             holder.relative_renglon_mensaje_estilista.setVisibility(View.VISIBLE);
             holder.renglon_cita_fecha_mensaje.setVisibility(TextView.GONE);
-            holder.renglon_cita_dias_restantes_mensaje.setVisibility(TextView.GONE);
             holder.renglon_cita_dia_semana_mensaje_estilista.setText("CITAS POR CALIFICAR");
         } else if(citas.get(position).getInformacion().equals("HOY")) {
             holder.relative_renglon_mensaje_estilista.setVisibility(View.VISIBLE);
-            holder.renglon_cita_fecha_mensaje.setText(citas.get(position).getFecha());
-            holder.renglon_cita_dias_restantes_mensaje.setText("HOY");
+            holder.renglon_cita_fecha_mensaje.setText(fecha[2]+ "/" + fecha[1] + "/" + fecha[0]);
             holder.renglon_cita_dia_semana_mensaje_estilista.setText(citas.get(position).getCabecera());
         }else if(citas.get(position).getInformacion().equals("PRÓXIMO")) {
             String[] datos = citas.get(position).getCabecera().split(" ");
             holder.relative_renglon_mensaje_estilista.setVisibility(View.VISIBLE);
-            holder.renglon_cita_fecha_mensaje.setText(citas.get(position).getFecha());
-            holder.renglon_cita_dias_restantes_mensaje.setText(datos[1] + " dias");
+            holder.renglon_cita_fecha_mensaje.setText(fecha[2]+ "/" + fecha[1] + "/" + fecha[0]);
             holder.renglon_cita_dia_semana_mensaje_estilista.setText(datos[0]);
         }
 
