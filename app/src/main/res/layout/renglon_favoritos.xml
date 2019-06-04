@@ -15,7 +15,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/foto_perfil_salon_renglon_favoritos"
-                android:src="@drawable/ic_marcador_salon_100x100"/>
+               />
 
 
 
@@ -48,10 +48,9 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
             android:gravity="center|right"
             android:layout_toLeftOf="@id/imagen_flecha_ir"
             android:layout_marginRight="20dp"

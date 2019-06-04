@@ -63,10 +63,13 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.Cust
 
         StorageReference ref = storage.getReference().child("salones de belleza").child(busquedaSalonDeBelleza.getNombreSalonDeBelleza()).child("profile");
         if(ref == null){
-        }else
+
+        }else {
+            Glide.with(holder.root.getContext()).load(R.drawable.default_salon_fav).apply(RequestOptions.circleCropTransform())
+                    .into((ImageView) holder.root.findViewById(R.id.foto_perfil_salon_renglon_favoritos));
             ref.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(holder.root.getContext())
                     .load(uri).apply(RequestOptions.circleCropTransform()).into((ImageView) holder.root.findViewById(R.id.foto_perfil_salon_renglon_favoritos)));
-
+        }
 
         holder.root.findViewById(R.id.renglon_favorito).setOnClickListener(v1 -> listener.onItemClick(salones.get(position)));
 
