@@ -42,8 +42,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         navigationView.setOnNavigationItemSelectedListener(this);
 
-        cargarFragmento(BuscarFragment.getInstance());
-        navigationView.setSelectedItemId(R.id.navigation_buscar);
+
+            cargarFragmento(BuscarFragment.getInstance());
+            navigationView.setSelectedItemId(R.id.navigation_buscar);
 
     }
 
