@@ -228,6 +228,7 @@ public class CitasFragment extends Fragment implements AdapterCitas.OnItemClickL
                         //Vamos a abrir la ventana de chat
                         Intent i = new Intent(getActivity(),ChatActivity.class);
                         i.putExtra("telEstilista", estilista.getTelefono());
+                        i.putExtra("idEstilista",citaseleccionada.getIdEstilista());
                         startActivity(i);
 
                     }
