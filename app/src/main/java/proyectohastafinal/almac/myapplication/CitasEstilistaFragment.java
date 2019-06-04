@@ -345,6 +345,8 @@ public class CitasEstilistaFragment extends Fragment implements AdapterCitasEsti
                         Intent i = new Intent(getActivity(),ChatActivity.class);
                         Log.e("USUARIO", cliente.getTelefono()+"");
                         i.putExtra("telUsuario", cliente.getTelefono());
+                        i.putExtra("esEstilista", true);
+                        i.putExtra("idUsuario", citaseleccionada.getIdUsuario());
                         startActivity(i);
 
                     }
