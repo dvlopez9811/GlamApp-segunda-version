@@ -239,6 +239,7 @@ public class InformacionSalonActivity extends AppCompatActivity {
                 dialogo1.setCancelable(false);
                 dialogo1.setPositiveButton("Aceptar", (dialogo11, id) -> {
                     Intent i = new Intent(InformacionSalonActivity.this,InicioActivity.class);
+                    i.putExtra("NoIniciar","NoIniciar");
                     startActivity(i);
                     finish();
                 });

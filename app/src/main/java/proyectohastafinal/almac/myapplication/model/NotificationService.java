@@ -39,23 +39,25 @@ public class NotificationService extends Service {
 
         rtdb = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
-        Log.e(">>>",auth.getCurrentUser().getUid());
-        rtdb.getReference().child("Alerta").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        if(auth.getCurrentUser() != null) {
 
-                for (DataSnapshot dsp: dataSnapshot.getChildren()) {
-                    String alerta = dsp.getValue().toString();
-                    crearNotificacion(alerta);
+            rtdb.getReference().child("Alerta").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                        String alerta = dsp.getValue().toString();
+                        crearNotificacion(alerta);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
 
+        }
     }
 
     private void crearNotificacion(String mensaje) {

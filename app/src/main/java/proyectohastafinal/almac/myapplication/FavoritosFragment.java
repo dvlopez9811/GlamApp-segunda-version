@@ -11,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -54,6 +56,26 @@ public class FavoritosFragment extends Fragment implements View.OnClickListener,
         View mView = inflater.inflate(R.layout.fragment_favoritos, container, false);
         rtdb=FirebaseDatabase.getInstance();
         auth=FirebaseAuth.getInstance();
+
+        TextView txt_no_hay_salones_favoritos = mView.findViewById(R.id.txt_no_hay_salones_favoritos);
+        Button btn_iniciar_sesion_fragment_favoritos = mView.findViewById(R.id.btn_iniciar_sesion_fragment_favoritos);
+        btn_iniciar_sesion_fragment_favoritos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), InicioActivity.class);
+                startActivity(i);
+                getActivity().finish();
+            }
+        });
+
+        if (auth.getCurrentUser() == null) {
+            txt_no_hay_salones_favoritos.setVisibility(TextView.GONE);
+            return mView;
+        }
+
+
+        ((TextView) mView.findViewById(R.id.txt_iniciar_sesion_fragment_favoritos)).setVisibility(View.GONE);
+        btn_iniciar_sesion_fragment_favoritos.setVisibility(View.GONE);
 
         listaSalonesFavoritos = mView.findViewById(R.id.listado_salones_favoritos);
         listaSalonesFavoritos.setLayoutManager(new LinearLayoutManager(mView.getContext()));

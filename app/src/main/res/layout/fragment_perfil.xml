@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PerfilFragment">
+    tools:context=".PerfilFragment"
+    android:layout_marginBottom="55dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -112,6 +113,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="14dp"
                 android:elevation="3dp"
+                android:id="@+id/imagen_boton_salir_contrasena_cliente"
                 android:src="@drawable/ic_logout_64" />
 
             <Button
@@ -130,6 +132,30 @@
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_iniciar_sesion_fragment_perfil"
+        android:text="Inicia sesión para poder configurar tu cuenta"
+        android:fontFamily="@font/josefin_sans"
+        android:textSize="25sp"
+        android:gravity="center_horizontal"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_iniciar_sesion_fragment_perfil"
+        android:padding="10dp"
+        android:background="@drawable/btn_circular_principal"
+        android:textColor="@color/colorBlanco"
+        android:text="Inicia sesión"
+        android:fontFamily="@font/josefin_sans"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:layout_below="@id/txt_iniciar_sesion_fragment_perfil"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
 
 
 

@@ -37,6 +37,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/txt_iniciar_sesion_fragment_citas"
         android:text="Inicia sesión para poder ver tus citas"
+        android:fontFamily="@font/josefin_sans"
         android:textSize="25sp"
         android:gravity="center_horizontal"
         android:layout_centerInParent="true"/>
@@ -49,6 +50,7 @@
         android:background="@drawable/btn_circular_principal"
         android:textColor="@color/colorBlanco"
         android:text="Inicia sesión"
+        android:fontFamily="@font/josefin_sans"
         android:textAllCaps="false"
         android:textSize="20sp"
         android:layout_below="@id/txt_iniciar_sesion_fragment_citas"
