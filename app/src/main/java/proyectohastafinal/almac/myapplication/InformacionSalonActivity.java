@@ -1,5 +1,6 @@
 package proyectohastafinal.almac.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -81,6 +82,11 @@ public class InformacionSalonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informacion_salon);
+
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Actualizando la información");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         btn_anadir_favoritos = findViewById(R.id.btn_anadir_favoritos_informacion_salon_activity);
         btn_volver = findViewById(R.id.btn_atras_informacion_salon_activity);
@@ -399,7 +405,6 @@ public class InformacionSalonActivity extends AppCompatActivity {
                     if (fotos == fotosUhnas.size()) {
                         adapterUnhas(fotosUhnas);
                     }
-                    ;
                 }
             }
 
@@ -407,6 +412,15 @@ public class InformacionSalonActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
+        new Thread( ()->{
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            progressDialog.dismiss();
+        }).start();
 
     }
 
