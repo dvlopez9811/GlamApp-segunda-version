@@ -84,6 +84,7 @@ public class AdapterCatalogoPerfilSalon extends BaseAdapter {
         if (type.equals("User")) {
             btn_editar_descripcion_catalogo.setVisibility(View.INVISIBLE);
             btn_editar_precio_catalogo.setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.iv_eliminar_foto).setVisibility(View.INVISIBLE);
         } else {
             btn_editar_descripcion_catalogo.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -47,13 +47,12 @@ public class InformacionSalonActivity extends AppCompatActivity {
     private RecyclerView listaServicios;
     private AdapterServiciosInformacionSalon adapterServicios;
     private Button btn_agendar_cita,btn_anadir_favoritos,btn_volver,btn_como_llegar;
-    private TextView txt_titulo_salon,txt_descripcion_servicios,txt_informacion_direccion_salon,txt_calificacion,txt_calificadores;
+    private TextView txt_titulo_salon,txt_informacion_direccion_salon,txt_calificacion,txt_calificadores;
     private ImageView imagen_perfil_info_salon_activity,estrella_calificacion1,estrella_calificacion2
             ,estrella_calificacion3,estrella_calificacion4,estrella_calificacion5;
 
     private boolean favoritoMarcado;
-    private ExpandableHeightGridView gridCatalogo;
-    private AdapterCatalogo adapterCatalogo;
+
     // Catálogo de depilación
     private ExpandableHeightGridView gridCatalogoDepilacion;
     private AdapterCatalogoPerfilSalon adapterCatalogoDepilacion;
@@ -89,7 +88,6 @@ public class InformacionSalonActivity extends AppCompatActivity {
         btn_como_llegar = findViewById(R.id.btn_ver_ubicacion_maps_intent);
         txt_titulo_salon = findViewById(R.id.titulo_salon_informacion_salon_activity);
         txt_informacion_direccion_salon = findViewById(R.id.txt_informacion_direccion_salon);
-        //txt_descripcion_servicios = findViewById(R.id.txt_resumen_servicios_info_salon_activity);
         imagen_perfil_info_salon_activity = findViewById(R.id.imagen_perfil_info_salon_activity);
         estrella_calificacion1 = findViewById(R.id.calificacion_1_informacion_salon);
         estrella_calificacion2 = findViewById(R.id.calificacion_2_informacion_salon);
@@ -107,7 +105,7 @@ public class InformacionSalonActivity extends AppCompatActivity {
         listaServicios=findViewById(R.id.listado_servicios_informacion_salon_activity);
         listaServicios.setLayoutManager(new LinearLayoutManager(this));
 
-         String nombreSalon= getIntent().getExtras().get("salon").toString();
+        String nombreSalon= getIntent().getExtras().get("salon").toString();
         txt_titulo_salon.setText(nombreSalon);
 
         //Mostrar foto
@@ -121,36 +119,6 @@ public class InformacionSalonActivity extends AppCompatActivity {
 
         final long[] fotos = new long[1];
         final ArrayList<Uri> uris = new ArrayList<>();
-//        gridCatalogo =  findViewById(R.id.grid_Catalogo_informacion_salon_activity);
-//        adapterCatalogo= new AdapterCatalogo(InformacionSalonActivity.this,uris);
-//        gridCatalogo.setAdapter(adapterCatalogo);
-//        gridCatalogo.setExpanded(true);
-        // Catálogo
-        rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("fotos").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long fotos = (Long) dataSnapshot.getValue();
-                for (int i = 1; i <= fotos; i++){
-                    StorageReference ref2 = storage.getReference().child("salones de belleza").child(nombreSalon).child(i+".png");
-                    ref2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            uris.add(uri);
-                            adapterCatalogo.notifyDataSetChanged();
-                        }
-                    });
-                }
-
-                //Catalogo
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
 
         //FAVORITOS
         if(auth.getCurrentUser()!=null) {
@@ -221,7 +189,7 @@ public class InformacionSalonActivity extends AppCompatActivity {
         rtdb.getReference().child("Salon de belleza").child(nombreSalon).child("direccion").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        txt_informacion_direccion_salon.setText(dataSnapshot.getValue()+"");
+                txt_informacion_direccion_salon.setText(dataSnapshot.getValue()+"");
             }
 
             @Override
