@@ -2,6 +2,7 @@ package proyectohastafinal.almac.myapplication;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -14,12 +15,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
-import proyectohastafinal.almac.myapplication.model.Cita;
+import proyectohastafinal.almac.myapplication.model.NotificationService;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -34,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        NotificationService notificationService = new NotificationService();
+        Intent ser = new Intent(this, notificationService.getClass());
+        startService(ser);
 
         BottomNavigationView navigationView = findViewById(R.id.navigation);
 

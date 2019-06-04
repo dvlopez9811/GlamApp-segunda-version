@@ -27,7 +27,10 @@ public class ChatActivity extends AppCompatActivity {
     private String telefonoEstilista;
     private String telefonoUsuario;
     private String idChat;
+    private String idUsuario;
+    private String idEstilista;
     private String nombre;
+    private boolean esEstilista;
 
     FirebaseAuth auth;
     FirebaseDatabase rtdb;
@@ -54,6 +57,8 @@ public class ChatActivity extends AppCompatActivity {
         telefonoUsuario = getIntent().getExtras().getString("telUsuario");
         nombre = getIntent().getExtras().getString("usEstilista");
 
+        esEstilista = getIntent().getExtras().getBoolean("esEstilista");
+
         if (telefonoUsuario==null) {
             rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -72,6 +77,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
         } else if (telefonoEstilista==null) {
+
             rtdb.getReference().child("Estilista").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -162,6 +168,15 @@ public class ChatActivity extends AppCompatActivity {
                 Mensaje m = new Mensaje(mensaje,nombre);
                 rtdb.getReference().child("mensajes").child(idChat).push().setValue(m);
                 et_mensaje_chat.setText("");
+
+                String valor = nombre+": "+mensaje;
+                if(esEstilista){
+                    idUsuario = getIntent().getExtras().getString("idUsuario");
+                    rtdb.getReference().child("Alerta").child(idUsuario).push().setValue(valor);}
+                else{
+                    idEstilista = getIntent().getExtras().getString("idEstilista");
+                    rtdb.getReference().child("Alerta").child(idEstilista).push().setValue(valor);}
+
             }
         });
     }

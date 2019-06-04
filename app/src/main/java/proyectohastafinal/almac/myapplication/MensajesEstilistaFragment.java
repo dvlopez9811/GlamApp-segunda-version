@@ -1,6 +1,7 @@
 package proyectohastafinal.almac.myapplication;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,7 +10,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +25,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import proyectohastafinal.almac.myapplication.model.Cita;
@@ -39,6 +40,7 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
     FirebaseAuth auth;
 
     private String telefonopropio;
+    private ArrayList<Cliente> usuarios;
     private String usuarioEstilista;
     ArrayList<Cita> citasEstilista;
 
@@ -72,6 +74,8 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
         auth = FirebaseAuth.getInstance();
         rtdb = FirebaseDatabase.getInstance();
 
+        usuarios = new ArrayList<>();
+
         listamensajesEstilista = v.findViewById(R.id.lista_mensajes_estilista);
 
 
@@ -81,44 +85,28 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 Estilista estilista = dataSnapshot.getValue(Estilista.class);
-                Long[] size = new Long[1];
-                size[0] = dataSnapshot.getChildrenCount();
+                ArrayList<String> citas = new ArrayList<>();
 
                 for (Map.Entry<String, String> idcita : estilista.getCitas().entrySet()) {
                     rtdb.getReference().child("Citas").child(idcita.getValue()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             Cita cita = dataSnapshot.getValue(Cita.class);
-                            String[] fechaCita = cita.getFecha().split("-");
-                            Calendar calendarioCita = new GregorianCalendar(Integer.parseInt(fechaCita[0]), Integer.parseInt(fechaCita[1]) - 1, Integer.parseInt(fechaCita[2]), cita.getHorainicio(), 0, 0);
+                            citasEstilista.add(cita);
+                            rtdb.getReference().child("usuario").child(cita.getIdUsuario()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    Cliente usuario = dataSnapshot.getValue(Cliente.class);
+                                    usuarios.add(usuario);
+                                    //adapterMensajesEstilista.agregarusuario(usuario);
+                                    adapter();
+                                }
 
-                            Calendar calendarioDiaAnterior = Calendar.getInstance();
-                            calendarioDiaAnterior.add(Calendar.DATE, -1);
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-
-                            if (calendarioCita.getTimeInMillis() <= calendarioDiaAnterior.getTimeInMillis()) {
-                                //Eliminar la cita
-                                Log.e("CITA", calendarioCita.getTimeInMillis() + "");
-                                Log.e("ANTERIOR", calendarioDiaAnterior.getTimeInMillis() + "");
-                                size[0]--;
-                            } else
-                                citasEstilista.add(cita);
-                            adapter();
-
-//                            rtdb.getReference().child("usuario").child(cita.getIdUsuario()).addListenerForSingleValueEvent(new ValueEventListener() {
-//                                @Override
-//                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                                    Cliente usuario = dataSnapshot.getValue(Cliente.class);
-//                                    usuarios.add(usuario);
-//                                    //adapterMensajesEstilista.agregarusuario(usuario);
-//                                    adapter();
-//                                }
-//
-//                                @Override
-//                                public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                                }
-//                            });
+                                }
+                            });
                         }
 
                         @Override
@@ -177,7 +165,7 @@ public class MensajesEstilistaFragment extends Fragment implements AdapterMensaj
             }
         }
 
-        adapterMensajesEstilista = new AdapterMensajesEstilista(getContext(), citasEstilista);
+        adapterMensajesEstilista = new AdapterMensajesEstilista(getContext(), usuarios, citasEstilista);
         adapterMensajesEstilista.setListener(this);
         listamensajesEstilista.setLayoutManager(new LinearLayoutManager(getContext()));
         listamensajesEstilista.setAdapter(adapterMensajesEstilista);

@@ -1,5 +1,6 @@
 package proyectohastafinal.almac.myapplication;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -7,7 +8,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+
+import proyectohastafinal.almac.myapplication.model.NotificationService;
 
 public class MainEstilistaActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
@@ -20,6 +24,11 @@ public class MainEstilistaActivity extends AppCompatActivity implements BottomNa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estilista);
+
+        NotificationService notificationService = new NotificationService();
+
+        Intent ser = new Intent(this, notificationService.getClass());
+        startService(ser);
 
         BottomNavigationView navigationView = findViewById(R.id.navigation_estilista);
 
