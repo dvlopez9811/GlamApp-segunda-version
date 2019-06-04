@@ -80,11 +80,6 @@ public class InicioActivity extends AppCompatActivity {
             volverACargar = extras.getString("NoIniciar");
         }
 
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Verificando usuario");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-
         // Lo primero que se realiza es solicitar todos los permisos necesarios para ejecutar la aplicación.
         ActivityCompat.requestPermissions(this, new String[]{
                 Manifest.permission.CAMERA,
@@ -106,6 +101,13 @@ public class InicioActivity extends AppCompatActivity {
 
         // Si ya hay una sesión iniciada, esta pantalla no se muestra.
         if (auth.getCurrentUser() != null) {
+
+            ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Verificando usuario");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
+
             // LO NUEVO - se muestra por poco tiempo porque hay que verificar de quien es
             rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -120,13 +122,11 @@ public class InicioActivity extends AppCompatActivity {
                         Intent i = new Intent(InicioActivity.this, MainEstilistaActivity.class);
                         startActivity(i);
                         finish();
-                    }
-                    else{
+                    } else{
                         Intent i = new Intent(InicioActivity.this, MainSalonActivity.class);
                         startActivity(i);
                         finish();
                     }
-
                 }
 
                 @Override
@@ -199,7 +199,6 @@ public class InicioActivity extends AppCompatActivity {
                 onBackPressed();
         });
 
-        progressDialog.dismiss();
     }
 
     private void handleFacebookAccessToken(AccessToken token) {

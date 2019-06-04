@@ -3,20 +3,20 @@
 
     <item
         android:id="@+id/navigation_citas_estilista"
-        android:title="Citas"
+        android:title="Hoy"
         android:icon="@drawable/ic_citas_48x48"
         />
 
     <item
         android:id="@+id/navigation_solicitudes_estilista"
-        android:title="Solicitudes"
-        android:icon="@drawable/ic_inicio_48x48"
+        android:title="Próximas"
+        android:icon="@drawable/ic_citas_48x48"
         />
 
     <item
         android:id="@+id/navigation_mensajes_estilista"
         android:title="Mensajes"
-        android:icon="@drawable/ic_configuracion_48x48"
+        android:icon="@drawable/ic_chat_48x48"
         />
 
     <item
