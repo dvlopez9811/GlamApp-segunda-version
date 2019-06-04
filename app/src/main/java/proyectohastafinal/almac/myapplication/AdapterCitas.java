@@ -77,12 +77,11 @@ public class AdapterCitas extends RecyclerView.Adapter<AdapterCitas.CustomViewHo
             ImageView image =  holder.image_cita_estilista.findViewById(R.id.image_cita_estilista);
             if (ref != null)
                 ref.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(image.getContext()).load(uri).into(image));
-
         } else {
             holder.image_cita_estilista.setVisibility(View.GONE);
+            holder.iv_menu_cita_renglon_cita.setVisibility(View.GONE);
             holder.salon_renglon_cita.setText(citas.get(position).getNombreEstilista());
             holder.nombre_estilista_cita.setText(citas.get(position).getNombreUsuario());
-            holder.iv_menu_cita_renglon_cita.setVisibility(View.GONE);
             holder.iv_menu_cita_renglon_cita.setEnabled(false);
         }
 

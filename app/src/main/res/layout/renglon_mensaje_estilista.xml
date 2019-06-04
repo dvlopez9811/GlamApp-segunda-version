@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/relative_renglon_mensaje_estilista"
         android:background="@color/colorPrimary"
-        android:padding="10dp"
+        android:padding="5dp"
         android:layout_marginBottom="10dp">
 
         <TextView
@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/renglon_cita_dia_semana_mensaje_estilista"
             android:text="MIÉRCOLES"
+            android:fontFamily="@font/josefin_sans"
             android:textSize="20sp"
             android:textColor="@color/colorBlanco"/>
 
@@ -28,15 +29,7 @@
             android:id="@+id/renglon_cita_fecha_mensaje"
             android:text="30-09-2019"
             android:textSize="20sp"
-            android:textColor="@color/colorBlanco"
-            android:layout_below="@id/renglon_cita_dia_semana_mensaje_estilista"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/renglon_cita_dias_restantes_mensaje"
-            android:text="Hoy"
-            android:textSize="20sp"
+            android:fontFamily="@font/josefin_sans"
             android:textColor="@color/colorBlanco"
             android:layout_alignParentEnd="true"/>
 
@@ -60,11 +53,13 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/nombre_usuario_cita_mensaje_estilista"
                 android:text="CrisAlex"
+                android:textSize="25sp"
                 android:fontFamily="@font/josefin_sans" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:id="@+id/servicio_renglon_cita_mensaje_estilista"
                 android:fontFamily="@font/josefin_sans"/>
         </LinearLayout>
@@ -73,7 +68,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="32sp"
-            android:layout_marginLeft="200dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toLeftOf="@id/iv_llamar_renglon_mensaje_estilista"
             android:layout_gravity="center_vertical"
             android:id="@+id/horainicio_renglon_cita_mensaje_estilista"
             android:fontFamily="@font/josefin_sans"
