@@ -351,4 +351,22 @@ public class InicioActivity extends AppCompatActivity {
         rtdb.getReference().child("usuario").child(auth.getCurrentUser().getUid()).setValue(cl);
         rtdb.getReference().child("identificador").child(auth.getCurrentUser().getUid()).setValue("cliente");
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        volverACargar = "";
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        volverACargar = "";
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        volverACargar = "";
+    }
 }
